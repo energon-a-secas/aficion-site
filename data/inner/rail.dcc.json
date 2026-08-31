@@ -1,0 +1,23 @@
+{
+  "of": "rail.dcc",
+  "label": "Digital control",
+  "blurb": "What you can do once every locomotive has an address of its own.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 160, "startAngle": -90 },
+  "nodes": [
+    { "id": "rail.dcc.addressing",  "label": "Addressing",   "class": "node", "tags": ["electronics", "research"],       "blurb": "Giving each locomotive a number the command station calls it by. The step that makes two trains on one track possible at all." },
+    { "id": "rail.dcc.cv",          "label": "CV programming","class": "node", "tags": ["code", "research", "patience"], "blurb": "Configuration variables for momentum, speed curves and lighting. A decoder's whole personality lives in a table of numbers." },
+    { "id": "rail.dcc.consisting",  "label": "Consisting",   "class": "node", "tags": ["research"],                      "blurb": "Two or more locomotives responding as one, with speed matching so they do not fight each other on a grade." },
+    { "id": "rail.dcc.sound",       "label": "Sound decoders","class": "node", "tags": ["audio", "gear"],                "blurb": "A speaker in a space that has no room for one, plus an enclosure, because a bare speaker in a shell sounds like a phone." },
+    { "id": "rail.dcc.detection",   "label": "Block detection","class":"node", "tags": ["electronics", "hands-on"],      "blurb": "The layout knowing where trains are. The prerequisite for signals and for anything automatic." },
+    { "id": "rail.dcc.jmri",        "label": "Computer control","class":"node","tags": ["code", "research"],             "blurb": "Open software driving the railway: rosters, throttles, signalling and dispatch, from a laptop on the fascia." },
+    { "id": "rail.dcc.throttles",   "label": "Throttles",    "class": "node", "tags": ["gear", "social"],                "blurb": "Tethered, radio or a phone. What visiting operators actually touch, and the part they will have opinions about." }
+  ],
+  "edges": [
+    { "from": "rail.dcc.addressing", "to": "rail.dcc.cv",         "kind": "leads-to" },
+    { "from": "rail.dcc.cv",         "to": "rail.dcc.consisting",  "kind": "leads-to" },
+    { "from": "rail.dcc.cv",         "to": "rail.dcc.sound",       "kind": "leads-to" },
+    { "from": "rail.dcc.addressing", "to": "rail.dcc.throttles",   "kind": "kin" },
+    { "from": "rail.dcc.detection",  "to": "rail.dcc.jmri",        "kind": "leads-to" },
+    { "from": "rail.dcc.consisting", "to": "rail.dcc.detection",   "kind": "kin" }
+  ]
+}

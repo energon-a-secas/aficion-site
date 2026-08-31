@@ -1,0 +1,171 @@
+{
+  "id": "starwars",
+  "label": "Star Wars and Props",
+  "blurb": "A story people love enough to build the objects out of it, from a shelf of carded figures to a saber that survives a duel.",
+  "notable": "starwars.props",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [860, 760],
+    "radius": 250,
+    "startAngle": 20,
+    "spread": 210,
+    "order": [
+      "starwars.props", "starwars.pixel-saber", "starwars.saber-config", "starwars.soundfonts",
+      "starwars.blade-build", "starwars.hilt-machining", "starwars.chassis-design", "starwars.dueling",
+      "starwars.costuming", "starwars.conventions", "starwars.canon", "starwars.books",
+      "starwars.vintage-figures", "starwars.model-kits", "starwars.prop-photography"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "starwars.props",
+      "label": "Prop Replicas",
+      "class": "notable",
+      "tags": ["hands-on", "fandom", "patience", "gear"],
+      "blurb": "Building the object rather than buying it. A hilt, a blaster, a helmet, accurate to the frame it appeared in.",
+      "aka": ["prop replica fabrication", "prop making", "replica building"],
+      "accent": "ember",
+      "inner": true
+    },
+    {
+      "id": "starwars.pixel-saber",
+      "label": "Pixel Saber",
+      "class": "node",
+      "tags": ["electronics", "code", "hands-on", "fandom"],
+      "blurb": "An addressable-LED saber with a soundboard inside the hilt. The cheapest board demands the most skill, which is the opposite of what people expect.",
+      "aka": ["neopixel saber", "lightsaber", "custom saber", "proffie saber"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Baselit",    "note": "One high-power LED in the hilt, light piped up an acrylic blade" },
+        { "label": "Neopixel",   "note": "An LED strip in a polycarbonate tube, so the blade lights along its length" },
+        { "label": "Full pixel", "note": "Pixel blade plus a pixel emitter, blade styles written rather than chosen" }
+      ]
+    },
+    {
+      "id": "starwars.saber-config",
+      "label": "Saber Config Files",
+      "class": "node",
+      "tags": ["code", "electronics", "patience"],
+      "blurb": "ProffieOS config editing. C-style syntax, blade styles as expressions, and the real skill gate on the open-source board.",
+      "aka": ["proffieos", "blade styles"]
+    },
+    {
+      "id": "starwars.soundfonts",
+      "label": "Sound Fonts",
+      "class": "node",
+      "tags": ["audio", "fandom", "patience"],
+      "blurb": "Hum, clash, swing and ignition, each a separate file the board picks from. Half of what makes a saber feel real is heard, not seen."
+    },
+    {
+      "id": "starwars.blade-build",
+      "label": "Blade Assembly",
+      "class": "node",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Polycarbonate tube, foam diffuser, tip and epoxy. Wrong-gauge wire on the data line gives you a segment that sticks."
+    },
+    {
+      "id": "starwars.hilt-machining",
+      "label": "Hilt Machining",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Turning aluminium on a lathe, or assembling a CNC hilt kit. The part people actually hold has to feel dense."
+    },
+    {
+      "id": "starwars.chassis-design",
+      "label": "Chassis Design",
+      "class": "node",
+      "tags": ["hands-on", "kits", "code"],
+      "blurb": "The printed skeleton that holds board, battery and speaker still inside a tube that gets hit. Tolerances decide whether it rattles."
+    },
+    {
+      "id": "starwars.dueling",
+      "label": "Saber Choreography",
+      "class": "node",
+      "tags": ["social", "outdoors", "fandom"],
+      "blurb": "Forms, footwork and contact drills. It is also the stress test that finds every solder joint you rushed.",
+      "aka": ["lightsaber combat", "saber dueling"]
+    },
+    {
+      "id": "starwars.costuming",
+      "label": "Costuming",
+      "class": "node",
+      "tags": ["hands-on", "social", "fandom", "patience"],
+      "blurb": "Armour, soft parts and a costume judged against reference photos by a club that will tell you what is wrong with it.",
+      "aka": ["501st", "rebel legion", "trooping"]
+    },
+    {
+      "id": "starwars.conventions",
+      "label": "Conventions",
+      "class": "node",
+      "tags": ["social", "collecting", "fandom"],
+      "blurb": "Where a shelf becomes a conversation. Also where the person who solved your problem three years ago is standing."
+    },
+    {
+      "id": "starwars.canon",
+      "label": "The Films and Series",
+      "class": "node",
+      "tags": ["screen", "fandom", "cheap-start"],
+      "blurb": "Nine films, the animation, the live-action series. The reference library everything else in this cluster is checked against.",
+      "aka": ["star wars movies", "the mandalorian", "clone wars"]
+    },
+    {
+      "id": "starwars.books",
+      "label": "Books and Comics",
+      "class": "node",
+      "tags": ["research", "fandom", "cheap-start"],
+      "blurb": "Novels, comics and the visual dictionaries that name the greeblie you are trying to identify.",
+      "aka": ["expanded universe", "legends"]
+    },
+    {
+      "id": "starwars.vintage-figures",
+      "label": "Vintage Figures",
+      "class": "node",
+      "tags": ["collecting", "research", "fandom"],
+      "blurb": "Kenner 3.75 inch figures from 1977 onward. Provenance, cardback variants and the reproduction accessories that fool people.",
+      "aka": ["kenner", "action figures"],
+      "levels": [
+        { "label": "Loose",  "note": "Played with, complete or not, bought to be looked at" },
+        { "label": "Carded", "note": "Still on the original cardback, and now you care about corners" },
+        { "label": "Graded", "note": "Sealed in an acrylic case with a number on it by somebody else" }
+      ]
+    },
+    {
+      "id": "starwars.model-kits",
+      "label": "Star Wars Model Kits",
+      "class": "node",
+      "tags": ["kits", "hands-on", "paint", "fandom"],
+      "blurb": "Bandai runs this line on the same tooling as its Gundam kits, so the snap-fit habits transfer whole.",
+      "aka": ["bandai star wars", "x-wing model"]
+    },
+    {
+      "id": "starwars.prop-photography",
+      "label": "Prop Photography",
+      "class": "node",
+      "tags": ["hands-on", "patience", "content"],
+      "blurb": "A lit blade in a dark room is a long exposure problem. The glow is the shot, and the shot is what people see."
+    }
+  ],
+  "edges": [
+    { "from": "starwars.props",        "to": "starwars.canon",             "kind": "kin",      "note": "Every accurate prop starts as a paused frame." },
+    { "from": "starwars.canon",        "to": "starwars.books",             "kind": "leads-to" },
+    { "from": "starwars.canon",        "to": "starwars.vintage-figures",   "kind": "leads-to" },
+    { "from": "starwars.canon",        "to": "starwars.costuming",         "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.hilt-machining",    "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.chassis-design",    "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.pixel-saber",       "kind": "leads-to", "note": "The point where a machined tube stops being a tube and starts drawing current." },
+    { "from": "starwars.props",        "to": "starwars.model-kits",        "kind": "kin" },
+    { "from": "starwars.props",        "to": "starwars.prop-photography",  "kind": "leads-to" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.blade-build",       "kind": "leads-to" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.saber-config",      "kind": "leads-to", "note": "Flash and configure before the board goes in the chassis, or a setting change costs a teardown." },
+    { "from": "starwars.pixel-saber",  "to": "starwars.soundfonts",        "kind": "kin" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.dueling",           "kind": "leads-to" },
+    { "from": "starwars.saber-config", "to": "starwars.soundfonts",        "kind": "kin" },
+    { "from": "starwars.blade-build",  "to": "starwars.hilt-machining",    "kind": "shares-gear" },
+    { "from": "starwars.hilt-machining", "to": "starwars.chassis-design",  "kind": "kin" },
+    { "from": "starwars.costuming",    "to": "starwars.conventions",       "kind": "kin" },
+    { "from": "starwars.costuming",    "to": "starwars.dueling",           "kind": "kin" },
+    { "from": "starwars.vintage-figures", "to": "starwars.conventions",    "kind": "kin" },
+    { "from": "starwars.prop-photography", "to": "starwars.vintage-figures", "kind": "kin" },
+    { "from": "starwars.books",        "to": "starwars.props",             "kind": "shares-gear", "note": "The visual dictionaries exist so a builder can name the part." }
+  ]
+}

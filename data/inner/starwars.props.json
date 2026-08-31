@@ -1,0 +1,22 @@
+{
+  "of": "starwars.props",
+  "label": "What people build",
+  "blurb": "Six objects that between them account for most of what gets made, and each one teaches a different skill.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 160, "startAngle": -90 },
+  "nodes": [
+    { "id": "starwars.props.saber",     "label": "Saber hilt",   "class": "notable", "tags": ["hands-on", "gear", "fandom"],    "blurb": "Machined or kit-built aluminium, greeblied, finished and drilled for a chassis. The build the other five steps were for.", "aka": ["lightsaber hilt"] },
+    { "id": "starwars.props.blaster",   "label": "Blaster",      "class": "node",    "tags": ["hands-on", "kits", "fandom"],    "blurb": "A resin or printed shell built on the silhouette of a real firearm somebody dressed in 1976." },
+    { "id": "starwars.props.helmet",    "label": "Helmet",       "class": "node",    "tags": ["hands-on", "paint", "patience"], "blurb": "Vac-formed or printed, then sanded through grits until the print lines are gone. The part a club will judge hardest." },
+    { "id": "starwars.props.armour",    "label": "Armour",       "class": "node",    "tags": ["hands-on", "patience"],          "blurb": "ABS or foam panels trimmed to a body that is not the reference body. Strapping is the half nobody photographs." },
+    { "id": "starwars.props.greeblies", "label": "Greeblies",    "class": "node",    "tags": ["hands-on", "research"],          "blurb": "The found parts glued on for texture. Half of prop accuracy is identifying which calculator the original came from." },
+    { "id": "starwars.props.finishing", "label": "Prop finishing","class": "node",   "tags": ["paint", "patience"],             "blurb": "Anodising, paint, and weathering that matches a screen-used object rather than a factory one." }
+  ],
+  "edges": [
+    { "from": "starwars.props.greeblies", "to": "starwars.props.saber",     "kind": "leads-to" },
+    { "from": "starwars.props.saber",     "to": "starwars.props.finishing", "kind": "leads-to" },
+    { "from": "starwars.props.blaster",   "to": "starwars.props.greeblies", "kind": "kin" },
+    { "from": "starwars.props.blaster",   "to": "starwars.props.finishing", "kind": "leads-to" },
+    { "from": "starwars.props.helmet",    "to": "starwars.props.armour",    "kind": "kin" },
+    { "from": "starwars.props.helmet",    "to": "starwars.props.finishing", "kind": "leads-to" }
+  ]
+}

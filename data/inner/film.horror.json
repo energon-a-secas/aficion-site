@@ -1,0 +1,26 @@
+{
+  "of": "film.horror",
+  "label": "Horror subgenres",
+  "blurb": "You can like several of these and dislike the rest, which is exactly why they are a tree and not a ladder.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "film.horror.slasher",     "label": "Slasher",       "class": "node", "tags": ["screen", "cheap-start"],       "blurb": "A killer, a group and a body count. The most formalised structure in the genre, and the easiest to see broken on purpose." },
+    { "id": "film.horror.giallo",      "label": "Giallo",        "class": "node", "tags": ["screen", "research"],          "blurb": "Italian, gloved, and lit in colours no room has ever been. Style as the point rather than as decoration." },
+    { "id": "film.horror.folk",        "label": "Folk Horror",   "class": "node", "tags": ["screen", "outdoors", "research"],"blurb": "Landscape, old custom and a community that is not going to help you. Daylight is not a comfort here." },
+    { "id": "film.horror.cosmic",      "label": "Cosmic Horror", "class": "node", "tags": ["screen", "research", "patience"],"blurb": "The threat is scale, not intent. Adapts badly and often, which is half of what makes it interesting to follow." },
+    { "id": "film.horror.body",        "label": "Body Horror",   "class": "node", "tags": ["screen", "hands-on"],          "blurb": "Transformation, prosthetics and practical effects doing work no render has matched. The subgenre most tied to a craft." },
+    { "id": "film.horror.found-footage","label": "Found Footage","class": "node", "tags": ["screen", "cheap-start", "content"],"blurb": "A camera inside the story. Cheap enough that anyone can attempt it, which is why the range in quality is enormous." },
+    { "id": "film.horror.creature",    "label": "Creature Feature","class":"node", "tags": ["screen", "fandom"],           "blurb": "Something large and hostile, built in a workshop. The direct ancestor of every suit and every animatronic." },
+    { "id": "film.horror.jhorror",     "label": "J-Horror",      "class": "node", "tags": ["screen", "research", "fandom"],"blurb": "Quiet, domestic, and about the wrong thing being in the room with you. Reshaped the whole genre after 1998." }
+  ],
+  "edges": [
+    { "from": "film.horror.slasher",       "to": "film.horror.giallo",   "kind": "kin",      "note": "The slasher's rules were largely imported from giallo, one film at a time." },
+    { "from": "film.horror.slasher",       "to": "film.horror.creature", "kind": "kin" },
+    { "from": "film.horror.creature",      "to": "film.horror.body",     "kind": "leads-to" },
+    { "from": "film.horror.body",          "to": "film.horror.cosmic",   "kind": "kin" },
+    { "from": "film.horror.folk",          "to": "film.horror.cosmic",   "kind": "kin" },
+    { "from": "film.horror.jhorror",       "to": "film.horror.found-footage", "kind": "kin" },
+    { "from": "film.horror.jhorror",       "to": "film.horror.folk",     "kind": "kin" },
+    { "from": "film.horror.found-footage", "to": "film.horror.slasher",  "kind": "kin" }
+  ]
+}

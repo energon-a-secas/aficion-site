@@ -1,0 +1,64 @@
+{
+  "id": "game",
+  "label": "Video Games",
+  "blurb": "Playing them deliberately: systems worth studying, machines worth building, and the sideways exits into code and hardware.",
+  "notable": "game.arpg",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [735, -1363],
+    "radius": 255,
+    "startAngle": 210,
+    "order": [
+      "game.arpg", "game.build-crafting", "game.roguelike", "game.strategy", "game.speedrunning",
+      "game.preservation", "game.modding", "game.gamedev", "game.co-op", "game.controllers",
+      "game.pc-building", "game.simracing", "game.flightsim", "game.photomode"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "game.arpg",
+      "label": "Action RPGs",
+      "class": "notable",
+      "tags": ["screen", "patience", "research"],
+      "blurb": "Loot, seasons and a passive tree with thousands of nodes. Played by people who enjoy the spreadsheet at least as much as the fighting.",
+      "aka": ["arpg", "path of exile", "diablo"],
+      "accent": "violet"
+    },
+    {
+      "id": "game.build-crafting",
+      "label": "Build Crafting",
+      "class": "node",
+      "tags": ["research", "patience", "code"],
+      "blurb": "Planning a character on a huge skill tree before playing it. The hobby of reading a graph, which is roughly what this whole site is.",
+      "accent": "jade"
+    },
+    { "id": "game.roguelike",  "label": "Roguelikes",      "class": "node", "tags": ["screen", "patience", "cheap-start"],"blurb": "Runs rather than saves. Losing is content, and the knowledge you keep between attempts is the actual progression." },
+    { "id": "game.strategy",   "label": "Strategy Games",  "class": "node", "tags": ["patience", "research", "screen"],  "blurb": "Turn based or grand. Long sessions, deep systems, and a community that writes more documentation than the developer did." },
+    { "id": "game.speedrunning","label": "Speedrunning",   "class": "node", "tags": ["patience", "social", "screen"],    "blurb": "Route planning, frame-level execution and a timer. A performance discipline built on top of somebody else's game." },
+    { "id": "game.preservation","label": "Game Preservation","class":"node", "tags": ["research", "collecting", "code"], "blurb": "Dumping, documenting and keeping playable the things that are no longer sold. An archival hobby with a legal grey area attached." },
+    { "id": "game.modding",    "label": "Game Modding",    "class": "node", "tags": ["code", "content", "patience"],     "blurb": "Editing somebody's game with their tools, or without them. The most common first programming project people actually finish." },
+    { "id": "game.gamedev",    "label": "Game Development","class": "node", "tags": ["code", "content", "patience"],     "blurb": "Making a small one rather than modding a big one. Scope control is the whole skill and almost nobody has it on the first try." },
+    { "id": "game.co-op",      "label": "Playing With Friends","class":"node","tags": ["social", "screen", "cheap-start"],"blurb": "The scheduled evening that keeps a friend group in contact. Often the only hobby on this map with a fixed weekly slot." },
+    { "id": "game.controllers","label": "Controller Modding","class":"node", "tags": ["hands-on", "electronics", "gear"],"blurb": "Hall effect sticks, arcade sticks and custom buttons. A soldering hobby that hides inside a gaming one." },
+    { "id": "game.pc-building","label": "PC Building",     "class": "node", "tags": ["hands-on", "gear", "electronics"], "blurb": "Parts picking, cable routing and thermals. Assembling is the easy half; deciding what to buy is where the research goes." },
+    { "id": "game.simracing",  "label": "Sim Racing",      "class": "node", "tags": ["gear", "screen", "space"],         "blurb": "Wheel, pedals and a rig bolted together. The gear escalation is steep and the physics knowledge transfers to a real track." },
+    { "id": "game.flightsim",  "label": "Flight Simulation","class": "node", "tags": ["gear", "screen", "research"],     "blurb": "Procedures, charts and a cockpit built out of switch panels. Closer to a study hobby than to a game." },
+    { "id": "game.photomode",  "label": "In-Game Photography","class":"node","tags": ["content", "screen", "patience"],  "blurb": "Composition, focal length and light inside a rendered world. Every skill transfers except the walking around." }
+  ],
+  "edges": [
+    { "from": "game.arpg",       "to": "game.build-crafting","kind": "kin",      "note": "The tree is the game for a lot of people. Hours go into planning a character that is never actually played." },
+    { "from": "game.arpg",       "to": "game.speedrunning",  "kind": "leads-to" },
+    { "from": "game.arpg",       "to": "game.roguelike",     "kind": "kin" },
+    { "from": "game.arpg",       "to": "game.co-op",         "kind": "kin" },
+    { "from": "game.arpg",       "to": "game.strategy",      "kind": "kin" },
+    { "from": "game.build-crafting","to": "game.modding",    "kind": "kin" },
+    { "from": "game.modding",    "to": "game.gamedev",       "kind": "leads-to", "note": "Modding gives you the hard parts already solved, which is why more people finish a mod than finish a game." },
+    { "from": "game.gamedev",    "to": "game.preservation",  "kind": "kin" },
+    { "from": "game.speedrunning","to": "game.preservation", "kind": "kin" },
+    { "from": "game.co-op",      "to": "game.controllers",   "kind": "kin" },
+    { "from": "game.controllers","to": "game.pc-building",   "kind": "kin" },
+    { "from": "game.pc-building","to": "game.simracing",     "kind": "kin" },
+    { "from": "game.simracing",  "to": "game.flightsim",     "kind": "kin" },
+    { "from": "game.simracing",  "to": "game.photomode",     "kind": "kin" }
+  ]
+}

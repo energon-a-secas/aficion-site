@@ -1,0 +1,85 @@
+{
+  "id": "rail",
+  "label": "Model Railroading",
+  "blurb": "A powered, motorised railway on a table, built in a fixed order because scenery over unproven track is the mistake nobody recovers from.",
+  "notable": "rail.layout",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-1515, 875],
+    "radius": 265,
+    "startAngle": 200,
+    "spread": 640,
+    "order": [
+      "rail.layout", "rail.scale-choice", "rail.benchwork", "rail.trackwork", "rail.wiring",
+      "rail.dcc", "rail.decoder-install", "rail.locos", "rail.rolling-stock", "rail.structures",
+      "rail.scenery", "rail.weathering", "rail.operations", "rail.prototype", "rail.railfanning",
+      "rail.cab-camera", "rail.clubs"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "rail.layout",
+      "label": "Layout Building",
+      "class": "notable",
+      "tags": ["hands-on", "space", "patience", "gear"],
+      "blurb": "Planning and building the railway itself. The people who finish a small one keep the hobby; the people who plan a huge one sell it on in two years.",
+      "aka": ["model railway", "model trains", "train layout", "electric trains"],
+      "accent": "ember",
+      "inner": true
+    },
+    {
+      "id": "rail.scale-choice",
+      "label": "Scale and Gauge",
+      "class": "node",
+      "tags": ["research", "gear", "space"],
+      "blurb": "N, HO, OO, O, G. The first decision, and in practice the only irreversible one, because every purchase after it assumes the answer.",
+      "aka": ["ho scale", "n scale", "oo gauge"]
+    },
+    { "id": "rail.benchwork",   "label": "Benchwork",        "class": "node", "tags": ["hands-on", "space"],                "blurb": "The physical table the whole hobby sits on. Level, rigid, and reachable at the back, or you will regret all three." },
+    { "id": "rail.trackwork",   "label": "Trackwork",        "class": "node", "tags": ["hands-on", "patience"],             "blurb": "Where reliability is won or lost. Bad joints and tight radii cause more frustration in this hobby than everything else combined." },
+    { "id": "rail.wiring",      "label": "Layout Wiring",    "class": "node", "tags": ["electronics", "hands-on", "patience"], "blurb": "Power bus, feeders and block sections. An intermittent fault does not read as a fault, it reads as a locomotive that stalls for no reason." },
+    {
+      "id": "rail.dcc",
+      "label": "DCC",
+      "class": "node",
+      "tags": ["electronics", "code", "gear"],
+      "blurb": "Digital Command Control. Every locomotive gets an address, so two trains share one track and neither one cares.",
+      "aka": ["digital command control", "dcc-ex"],
+      "accent": "cyan",
+      "inner": true
+    },
+    { "id": "rail.decoder-install", "label": "Decoder Install", "class": "node", "tags": ["electronics", "hands-on", "patience"], "blurb": "Fitting a decoder inside a shell. Surface-mount work in a space the size of a thumbnail, on a model you already paid for." },
+    { "id": "rail.locos",       "label": "Locomotives",      "class": "node", "tags": ["collecting", "gear", "kits"],       "blurb": "The motorised part. Brass, plastic or kit-built, and the one component where the price of running well is obvious." },
+    { "id": "rail.rolling-stock", "label": "Rolling Stock",  "class": "node", "tags": ["kits", "hands-on", "collecting"],   "blurb": "Cars and wagons, bought or kitbashed. Metal wheels and working couplers are the two upgrades everyone eventually makes to all of them." },
+    { "id": "rail.structures",  "label": "Structure Building","class": "node","tags": ["hands-on", "kits", "patience"],     "blurb": "Styrene, laser-cut wood and card. The buildings that tell you what decade and which country the railway is in." },
+    { "id": "rail.scenery",     "label": "Scenery",          "class": "node", "tags": ["hands-on", "paint", "patience"],    "blurb": "Foam, plaster, static grass and poured water. The layer that turns a track plan into a place." },
+    { "id": "rail.weathering",  "label": "Weathering Stock", "class": "node", "tags": ["paint", "patience"],                "blurb": "Rust, brake dust and sun fade. It is the single change that stops a layout photographing like a toy." },
+    { "id": "rail.operations",  "label": "Operating Sessions","class": "node","tags": ["social", "patience", "research"],   "blurb": "Running the railway to a timetable with waybills and a dispatcher, so the trains have somewhere to be rather than just going round." },
+    { "id": "rail.prototype",   "label": "Prototype Research","class": "node","tags": ["research", "outdoors"],             "blurb": "Studying the real railway you are modelling. Archives, track diagrams and a lot of photographs of things nobody else photographs." },
+    { "id": "rail.railfanning", "label": "Railfanning",      "class": "node", "tags": ["outdoors", "research", "content"],  "blurb": "Watching and filming the full-size railway. A different hobby that happens to share a subject, and a lot of people do both.",
+      "aka": ["trainspotting", "railway photography"] },
+    { "id": "rail.cab-camera",  "label": "Onboard Cab Camera","class": "node","tags": ["electronics", "content", "gear"],   "blurb": "A wireless camera small enough to sit inside a locomotive cab. The shot nobody can get any other way." },
+    { "id": "rail.clubs",       "label": "Modular Clubs",    "class": "node", "tags": ["social", "space", "kits"],          "blurb": "A standard module spec so twenty people's sections bolt together at a show. How you get a huge layout without owning a huge room." }
+  ],
+  "edges": [
+    { "from": "rail.layout",     "to": "rail.scale-choice", "kind": "kin" },
+    { "from": "rail.layout",     "to": "rail.benchwork",    "kind": "leads-to" },
+    { "from": "rail.benchwork",  "to": "rail.trackwork",    "kind": "leads-to" },
+    { "from": "rail.trackwork",  "to": "rail.wiring",       "kind": "leads-to" },
+    { "from": "rail.wiring",     "to": "rail.dcc",          "kind": "leads-to" },
+    { "from": "rail.wiring",     "to": "rail.scenery",      "kind": "leads-to", "note": "Wire it and run trains on it before any ballast goes down. Scenery over unproven track is the classic irreversible mistake." },
+    { "from": "rail.dcc",        "to": "rail.decoder-install", "kind": "leads-to" },
+    { "from": "rail.decoder-install", "to": "rail.locos",   "kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.rolling-stock","kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.scale-choice", "kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.cab-camera",   "kind": "shares-gear" },
+    { "from": "rail.rolling-stock", "to": "rail.weathering","kind": "leads-to" },
+    { "from": "rail.scenery",    "to": "rail.structures",   "kind": "kin" },
+    { "from": "rail.scenery",    "to": "rail.weathering",   "kind": "kin" },
+    { "from": "rail.layout",     "to": "rail.operations",   "kind": "leads-to" },
+    { "from": "rail.layout",     "to": "rail.prototype",    "kind": "kin" },
+    { "from": "rail.prototype",  "to": "rail.railfanning",  "kind": "kin" },
+    { "from": "rail.operations", "to": "rail.clubs",        "kind": "kin" },
+    { "from": "rail.trackwork",  "to": "rail.operations",   "kind": "leads-to" }
+  ]
+}

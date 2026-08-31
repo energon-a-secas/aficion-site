@@ -1,0 +1,71 @@
+{
+  "id": "brick",
+  "label": "Brick Building",
+  "blurb": "A system with a fixed parts list and no glue, where the constraint is the point and everything you build can be taken apart again.",
+  "notable": "brick.moc",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [-1125, -1340],
+    "radius": 255,
+    "startAngle": 295,
+    "spread": 195,
+    "order": [
+      "brick.moc", "brick.snot", "brick.stud-io", "brick.instructions", "brick.technic",
+      "brick.powered", "brick.mindstorms", "brick.gbc", "brick.trains", "brick.dioramas",
+      "brick.shows", "brick.sets", "brick.minifigs", "brick.parts", "brick.sorting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "brick.moc",
+      "label": "MOC Building",
+      "class": "notable",
+      "tags": ["hands-on", "kits", "patience", "cheap-start"],
+      "blurb": "My Own Creation. Building something that never came in a box, using only parts that exist, which is a harder constraint than it sounds.",
+      "aka": ["moc", "lego building", "custom lego"],
+      "accent": "cyan"
+    },
+    {
+      "id": "brick.trains",
+      "label": "Lego Trains",
+      "class": "node",
+      "tags": ["kits", "hands-on", "collecting", "space"],
+      "blurb": "Motorised trains on plastic track at roughly L gauge. A layout hobby with a parts bin instead of a paint booth.",
+      "aka": ["lego train", "l gauge", "brick railway"],
+      "accent": "ember"
+    },
+    { "id": "brick.snot",     "label": "SNOT Technique",  "class": "node", "tags": ["hands-on", "research"],           "blurb": "Studs Not On Top. Turning bricks sideways to get surfaces and angles the system was not obviously designed for." },
+    { "id": "brick.stud-io",  "label": "Digital Design",  "class": "node", "tags": ["code", "kits", "patience"],       "blurb": "Building the model in software first, with a parts list that comes out the other end. You find out what it costs before you buy it." },
+    { "id": "brick.instructions","label": "Publishing Instructions","class":"node","tags":["content", "research", "patience"],"blurb": "Turning your own build into steps somebody else can follow. Step order is a genuine design problem and most first attempts fail it." },
+    { "id": "brick.technic",  "label": "Technic",         "class": "node", "tags": ["kits", "mecha", "hands-on"],      "blurb": "Beams, pins, gears and linkages. Where the system stops being a surface and starts being a mechanism." },
+    { "id": "brick.powered",  "label": "Powered Motors",  "class": "node", "tags": ["electronics", "code", "kits"],    "blurb": "Motors, hubs and a bluetooth app, or a third-party controller if you want the model to do something the app will not.",
+      "aka": ["powered up", "power functions"] },
+    { "id": "brick.mindstorms","label": "Robotics Sets",  "class": "node", "tags": ["code", "electronics", "mecha"],   "blurb": "Sensors, motors and a block or text programming environment. Many people's first program made something physical move." },
+    { "id": "brick.gbc",      "label": "Ball Contraptions","class": "node", "tags": ["mecha", "hands-on", "social"],   "blurb": "Modules that pass balls to each other at a fixed rate, built to a shared standard so strangers' machines connect at a show." },
+    { "id": "brick.dioramas", "label": "Brick Dioramas",  "class": "node", "tags": ["hands-on", "space", "patience"],  "blurb": "A scene rather than a model. Landscaping in a medium with no curves, which is exactly the interesting part." },
+    { "id": "brick.shows",    "label": "Fan Shows",       "class": "node", "tags": ["social", "space", "kits"],        "blurb": "Club tables at a convention centre, where the modular standards pay off and everybody's section joins up." },
+    { "id": "brick.sets",     "label": "Set Collecting",  "class": "node", "tags": ["collecting", "gear", "fandom"],   "blurb": "Sealed, built or retired. A collecting hobby with a published catalogue and a secondary market that watches it closely." },
+    { "id": "brick.minifigs", "label": "Minifigure Collecting","class":"node","tags": ["collecting", "fandom", "cheap-start"],"blurb": "The small yellow people, including the licensed ones. Cheap to start, deep to specialise, easy to fake." },
+    { "id": "brick.parts",    "label": "Parts Sourcing",  "class": "node", "tags": ["collecting", "research", "cheap-start"],"blurb": "Buying by element and colour rather than by set. The skill that separates people who build from a bin from people who build a design." },
+    { "id": "brick.sorting",  "label": "Sorting and Storage","class":"node","tags": ["space", "patience"],             "blurb": "By part, by colour, or by neither. The unglamorous decision that decides whether building is a pleasure or a search." }
+  ],
+  "edges": [
+    { "from": "brick.moc",     "to": "brick.sets",       "kind": "kin" },
+    { "from": "brick.moc",     "to": "brick.snot",       "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.stud-io",    "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.parts",      "kind": "kin",      "note": "The moment a design needs a part you do not own, this hobby acquires a spreadsheet." },
+    { "from": "brick.moc",     "to": "brick.dioramas",   "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.trains",     "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.technic",    "kind": "kin" },
+    { "from": "brick.technic", "to": "brick.powered",    "kind": "leads-to" },
+    { "from": "brick.technic", "to": "brick.gbc",        "kind": "kin" },
+    { "from": "brick.powered", "to": "brick.mindstorms", "kind": "kin" },
+    { "from": "brick.powered", "to": "brick.trains",     "kind": "shares-gear" },
+    { "from": "brick.parts",   "to": "brick.sorting",    "kind": "kin" },
+    { "from": "brick.sets",    "to": "brick.minifigs",   "kind": "kin" },
+    { "from": "brick.minifigs","to": "brick.parts",      "kind": "kin" },
+    { "from": "brick.stud-io", "to": "brick.instructions","kind": "leads-to" },
+    { "from": "brick.dioramas","to": "brick.shows",      "kind": "kin" },
+    { "from": "brick.gbc",     "to": "brick.shows",      "kind": "kin" }
+  ]
+}

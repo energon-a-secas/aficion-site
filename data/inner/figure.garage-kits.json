@@ -1,0 +1,28 @@
+{
+  "of": "figure.garage-kits",
+  "label": "Finishing a resin kit",
+  "blurb": "The order is not a preference. Resin punishes a step done out of sequence weeks later, when the paint lifts.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    { "id": "figure.garage-kits.flash",     "label": "Flash removal","class": "node", "tags": ["hands-on", "patience"],  "blurb": "Trimming the casting seams and pour stubs. Resin dust is the part nobody warns a collector about, so wet sand it." },
+    { "id": "figure.garage-kits.pinning",   "label": "Pinning",      "class": "node", "tags": ["hands-on"],              "blurb": "Brass rod and a pin vise through both halves of a joint. Resin is heavy and a butt joint will fail, usually while somebody is holding it." },
+    { "id": "figure.garage-kits.degrease",  "label": "Degreasing",   "class": "notable","tags": ["research", "patience"],"blurb": "An overnight soak, a rinse and an ultrasonic clean to remove mould release. It is invisible, and skipping it lifts the paint weeks later." },
+    { "id": "figure.garage-kits.priming",   "label": "Priming",      "class": "node", "tags": ["paint", "gear"],         "blurb": "A light mist coat, then a heavier one. The first primer layer shows every flaw that bare resin was hiding." },
+    { "id": "figure.garage-kits.pinholes",  "label": "Pinhole repair","class":"node",  "tags": ["hands-on", "patience"], "blurb": "Bubbles that extend below the surface, so filling the top does not fix them. This is where the time actually goes." },
+    { "id": "figure.garage-kits.skin",      "label": "Skin tones",   "class": "node", "tags": ["paint", "patience"],     "blurb": "The base coat that decides how the whole figure reads. Airbrushed in thin layers, warm in the shadows rather than grey." },
+    { "id": "figure.garage-kits.face",      "label": "Face and eyes","class": "node", "tags": ["paint", "patience"],     "blurb": "The single hardest step, and it has to happen before the hair goes on because the hair blocks access permanently." },
+    { "id": "figure.garage-kits.hair",      "label": "Hair assembly","class": "node", "tags": ["hands-on", "paint"],     "blurb": "Puttied seams, then reprimed and repainted locally. Assembly and painting stop being separate stages here." },
+    { "id": "figure.garage-kits.coats",     "label": "Gloss and flat","class":"node",  "tags": ["paint"],                "blurb": "Gloss to carry a wash, flat to finish. Two different jobs that people mistake for one preference." }
+  ],
+  "edges": [
+    { "from": "figure.garage-kits.flash",    "to": "figure.garage-kits.pinning",  "kind": "leads-to" },
+    { "from": "figure.garage-kits.flash",    "to": "figure.garage-kits.degrease", "kind": "leads-to" },
+    { "from": "figure.garage-kits.degrease", "to": "figure.garage-kits.priming",  "kind": "leads-to", "note": "The one absolute prerequisite in the build. Mould release film is invisible and paint over it fails later." },
+    { "from": "figure.garage-kits.priming",  "to": "figure.garage-kits.pinholes", "kind": "leads-to" },
+    { "from": "figure.garage-kits.pinholes", "to": "figure.garage-kits.skin",     "kind": "leads-to" },
+    { "from": "figure.garage-kits.skin",     "to": "figure.garage-kits.face",     "kind": "leads-to" },
+    { "from": "figure.garage-kits.face",     "to": "figure.garage-kits.hair",     "kind": "leads-to", "note": "Paint the face first. Once the hair is on you cannot reach it again." },
+    { "from": "figure.garage-kits.hair",     "to": "figure.garage-kits.coats",    "kind": "leads-to" },
+    { "from": "figure.garage-kits.pinning",  "to": "figure.garage-kits.hair",     "kind": "kin" }
+  ]
+}

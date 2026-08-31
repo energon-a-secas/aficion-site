@@ -1,0 +1,21 @@
+{
+  "of": "radio.antennas",
+  "label": "Antenna types",
+  "blurb": "The cheapest part of a station and the one that decides how far it reaches.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 155, "startAngle": -90 },
+  "nodes": [
+    { "id": "radio.antennas.dipole",   "label": "Dipole",      "class": "node", "tags": ["radio", "cheap-start", "space"], "blurb": "Two legs of wire and a feedpoint. The first antenna most people build and the one that keeps working." },
+    { "id": "radio.antennas.vertical", "label": "Vertical",    "class": "node", "tags": ["radio", "space"],                "blurb": "A quarter wave against a ground plane. Low angle radiation, and a radial field you will never finish laying." },
+    { "id": "radio.antennas.yagi",     "label": "Yagi",        "class": "node", "tags": ["radio", "hands-on", "gear"],     "blurb": "A driven element plus directors and a reflector. Gain in one direction, which means you now need a rotator." },
+    { "id": "radio.antennas.loop",     "label": "Magnetic loop","class": "node","tags": ["radio", "hands-on"],             "blurb": "A tuned loop small enough for a balcony. Narrow bandwidth, high voltage at the capacitor, quiet on receive." },
+    { "id": "radio.antennas.swr",      "label": "SWR and tune", "class": "node","tags": ["radio", "research"],             "blurb": "Measuring how much power is coming back instead of leaving. Trim, measure, trim again, and never guess." },
+    { "id": "radio.antennas.feedline", "label": "Feedline",     "class": "node","tags": ["radio", "hands-on"],             "blurb": "Coax, ladder line, connectors and the loss you accept between the rig and the wire." }
+  ],
+  "edges": [
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.swr",      "kind": "leads-to" },
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.vertical", "kind": "kin" },
+    { "from": "radio.antennas.vertical", "to": "radio.antennas.yagi",     "kind": "leads-to" },
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.loop",     "kind": "kin" },
+    { "from": "radio.antennas.swr",      "to": "radio.antennas.feedline", "kind": "kin" }
+  ]
+}

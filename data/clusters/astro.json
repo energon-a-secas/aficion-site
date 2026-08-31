@@ -1,0 +1,65 @@
+{
+  "id": "astro",
+  "label": "Night Sky",
+  "blurb": "Standing outside in the cold on purpose. The one hobby here where the subject is free and everything else is patience.",
+  "notable": "astro.astrophoto",
+  "layout": {
+    "recipe": "arc",
+    "anchor": [1949, -613],
+    "radius": 265,
+    "startAngle": 200,
+    "spread": 210,
+    "order": [
+      "astro.visual", "astro.telescopes", "astro.scope-building", "astro.star-hopping",
+      "astro.solar", "astro.meteors", "astro.satellite-spot", "astro.astrophoto", "astro.mounts",
+      "astro.guiding", "astro.stacking", "astro.planetary", "astro.deep-sky", "astro.dark-sky"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "astro.astrophoto",
+      "label": "Astrophotography",
+      "class": "notable",
+      "tags": ["patience", "outdoors", "gear", "content"],
+      "blurb": "Hours of exposure on something that moves, then hours of processing. The results people share are the output of a whole night and a whole evening after it.",
+      "aka": ["astro photography", "deep sky imaging"],
+      "accent": "cyan"
+    },
+    {
+      "id": "astro.visual",
+      "label": "Visual Observing",
+      "class": "node",
+      "tags": ["outdoors", "patience", "cheap-start"],
+      "blurb": "Looking through the eyepiece rather than photographing. Cheaper, harder to share, and the version that keeps people out under the sky.",
+      "accent": "jade"
+    },
+    { "id": "astro.telescopes", "label": "Telescopes",      "class": "node", "tags": ["gear", "research", "space"],      "blurb": "Aperture, focal ratio and mount capacity. The scope that gets used is the one you can carry outside without thinking about it." },
+    { "id": "astro.scope-building","label": "Building a Scope","class":"node","tags": ["hands-on", "patience", "gear"],  "blurb": "A Dobsonian from plywood, or grinding a mirror by hand over months. The oldest maker tradition in this cluster." },
+    { "id": "astro.star-hopping","label": "Star Hopping",   "class": "node", "tags": ["research", "outdoors", "cheap-start"],"blurb": "Finding a faint object by navigating from bright stars with a chart. A real navigational skill that survives the battery going flat." },
+    { "id": "astro.solar",      "label": "Solar Observing", "class": "node", "tags": ["outdoors", "gear", "research"],   "blurb": "The one target available in daylight, through a filter that must never fail. Sunspots and flares change hour to hour." },
+    { "id": "astro.meteors",    "label": "Meteor Watching", "class": "node", "tags": ["outdoors", "cheap-start", "patience"],"blurb": "No equipment at all beyond a chair and a blanket. The lowest cost of entry anywhere on this map." },
+    { "id": "astro.satellite-spot","label": "Satellite Spotting","class":"node","tags": ["outdoors", "research", "patience"],"blurb": "Predicting a pass and watching it cross. Same tables, same doppler thinking as the people talking through those satellites." },
+    { "id": "astro.mounts",     "label": "Tracking Mounts", "class": "node", "tags": ["gear", "electronics", "patience"],"blurb": "Equatorial tracking, polar alignment and periodic error. The mount decides what the camera can do, not the telescope." },
+    { "id": "astro.guiding",    "label": "Autoguiding",     "class": "node", "tags": ["code", "electronics", "patience"],"blurb": "A second small camera watching one star and nudging the mount. The step where imaging stops fighting you." },
+    { "id": "astro.stacking",   "label": "Stacking and Processing","class":"node","tags":["code", "patience", "content"],"blurb": "Hundreds of frames averaged into one, then stretched. More of the final image is made here than at the telescope." },
+    { "id": "astro.planetary",  "label": "Planetary Imaging","class": "node", "tags": ["patience", "gear", "content"],   "blurb": "Thousands of video frames, the sharpest few percent kept. Beats the atmosphere by sampling faster than it wobbles." },
+    { "id": "astro.deep-sky",   "label": "Deep Sky",        "class": "node", "tags": ["patience", "outdoors", "research"],"blurb": "Nebulae and galaxies, faint enough that light pollution decides what is possible before the equipment does." },
+    { "id": "astro.dark-sky",   "label": "Dark Sky Sites",  "class": "node", "tags": ["outdoors", "social", "space"],    "blurb": "Driving somewhere with no streetlights, often with other people. Half of astronomy skill is site selection and weather reading." }
+  ],
+  "edges": [
+    { "from": "astro.astrophoto",  "to": "astro.visual",     "kind": "kin" },
+    { "from": "astro.astrophoto",  "to": "astro.mounts",     "kind": "leads-to", "note": "The mount, not the telescope, is what decides whether a long exposure is round stars or short lines." },
+    { "from": "astro.astrophoto",  "to": "astro.stacking",   "kind": "leads-to" },
+    { "from": "astro.astrophoto",  "to": "astro.planetary",  "kind": "kin" },
+    { "from": "astro.astrophoto",  "to": "astro.deep-sky",   "kind": "kin" },
+    { "from": "astro.mounts",      "to": "astro.guiding",    "kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.telescopes", "kind": "kin" },
+    { "from": "astro.visual",      "to": "astro.star-hopping","kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.meteors",    "kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.dark-sky",   "kind": "kin" },
+    { "from": "astro.telescopes",  "to": "astro.scope-building","kind": "kin" },
+    { "from": "astro.telescopes",  "to": "astro.solar",      "kind": "kin" },
+    { "from": "astro.dark-sky",    "to": "astro.deep-sky",   "kind": "kin" },
+    { "from": "astro.meteors",     "to": "astro.satellite-spot","kind": "kin" }
+  ]
+}

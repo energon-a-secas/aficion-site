@@ -1,0 +1,169 @@
+{
+  "id": "radio",
+  "label": "Radio and Mesh",
+  "blurb": "Getting a signal from here to there without paying anyone for the privilege. One half needs a licence, the other half deliberately does not.",
+  "notable": "radio.ham",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [1723, -304],
+    "radius": 250,
+    "startAngle": -100,
+    "order": [
+      "radio.ham", "radio.meshtastic", "radio.node-build", "radio.mesh-admin", "radio.repeater",
+      "radio.antennas", "radio.propagation", "radio.digital-modes", "radio.sdr", "radio.satellites",
+      "radio.hf-station", "radio.pota", "radio.contesting", "radio.qsl", "radio.morse"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "radio.ham",
+      "label": "Ham Radio",
+      "class": "notable",
+      "tags": ["radio", "electronics", "social", "patience"],
+      "blurb": "Licensed amateur radio. An exam, a callsign, and permission to talk to a stranger on another continent with equipment you can fix yourself.",
+      "aka": ["amateur radio", "hamradio", "ham"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Technician", "note": "35 questions. Everything above 30 MHz plus limited HF privileges" },
+        { "label": "General",    "note": "35 more questions. Privileges on all bands, which is the worldwide-contact gate" },
+        { "label": "Extra",      "note": "50 questions. Every privilege the licence structure has" }
+      ]
+    },
+    {
+      "id": "radio.meshtastic",
+      "label": "Meshtastic",
+      "class": "node",
+      "tags": ["radio", "code", "outdoors", "cheap-start"],
+      "blurb": "An off-grid LoRa mesh on licence-free ISM spectrum. One board and one antenna is the whole entry cost, and no exam stands in front of it.",
+      "aka": ["lora mesh", "meshtastic node", "off-grid messaging"],
+      "accent": "jade"
+    },
+    {
+      "id": "radio.node-build",
+      "label": "Node Building",
+      "class": "node",
+      "tags": ["electronics", "hands-on", "code"],
+      "blurb": "Picking a board and getting firmware onto it. ESP32 for the web interface, nRF52 when the node has to run for weeks on a cell.",
+      "aka": ["esp32", "nrf52", "firmware flashing", "heltec"]
+    },
+    {
+      "id": "radio.mesh-admin",
+      "label": "Mesh Configuration",
+      "class": "node",
+      "tags": ["radio", "code", "research"],
+      "blurb": "Region and modem preset have to match across the whole mesh or a node that looks fine talks to nobody. Region is also the legal envelope."
+    },
+    {
+      "id": "radio.repeater",
+      "label": "Solar Repeater",
+      "class": "node",
+      "tags": ["outdoors", "electronics", "radio", "space"],
+      "blurb": "A node on a mast that nobody visits. Solar budget, weatherproofing, mounting and the site access conversation that comes before all three."
+    },
+    {
+      "id": "radio.antennas",
+      "label": "Antennas",
+      "class": "node",
+      "tags": ["hands-on", "radio", "space"],
+      "blurb": "Wire, tube and maths. Never key a transmitter without one attached, because the reflected power goes back into the chip.",
+      "aka": ["dipole", "yagi", "antenna building"],
+      "inner": true
+    },
+    {
+      "id": "radio.propagation",
+      "label": "Propagation",
+      "class": "node",
+      "tags": ["radio", "research", "patience"],
+      "blurb": "Why the same rig reaches Japan at 3am and nothing at noon. Solar flux, the ionosphere, and grey-line timing.",
+      "aka": ["band conditions", "ionosphere"]
+    },
+    {
+      "id": "radio.digital-modes",
+      "label": "Digital Modes",
+      "class": "node",
+      "tags": ["radio", "code", "patience"],
+      "blurb": "FT8, packet and APRS. Contacts made at signal levels a human ear cannot hear, which is where ham thinking and mesh thinking meet.",
+      "aka": ["ft8", "aprs", "packet radio"]
+    },
+    {
+      "id": "radio.sdr",
+      "label": "SDR Listening",
+      "class": "node",
+      "tags": ["radio", "code", "cheap-start"],
+      "blurb": "A dongle the price of a takeaway turns a laptop into a receiver across most of the spectrum. Listening first, transmitting later.",
+      "aka": ["rtl-sdr", "software defined radio", "scanner"]
+    },
+    {
+      "id": "radio.satellites",
+      "label": "Satellite Passes",
+      "class": "node",
+      "tags": ["radio", "outdoors", "patience"],
+      "blurb": "Amateur birds and the ISS repeater pass overhead for about ten minutes. You track, you correct for doppler, and then it is gone."
+    },
+    {
+      "id": "radio.hf-station",
+      "label": "HF Station",
+      "class": "node",
+      "tags": ["radio", "gear", "space"],
+      "blurb": "The step from a handheld to a desk: a transceiver, a tuner, a feedline and enough garden for an antenna that resonates.",
+      "aka": ["shack", "hf rig"]
+    },
+    {
+      "id": "radio.pota",
+      "label": "POTA and SOTA",
+      "class": "node",
+      "tags": ["outdoors", "radio", "social"],
+      "blurb": "Parks and Summits on the Air. Carry a light station somewhere with a view, make contacts from it, then write the activation up.",
+      "aka": ["parks on the air", "summits on the air", "portable operating"]
+    },
+    {
+      "id": "radio.contesting",
+      "label": "Contesting",
+      "class": "node",
+      "tags": ["radio", "social", "patience"],
+      "blurb": "A weekend of making as many contacts as possible under one set of rules. It is the fastest way to find out what your station cannot do."
+    },
+    {
+      "id": "radio.qsl",
+      "label": "QSL Cards",
+      "class": "node",
+      "tags": ["collecting", "radio", "social"],
+      "blurb": "The postcard that confirms a contact happened. A hundred-year-old habit that turned a hobby into a shoebox worth keeping."
+    },
+    {
+      "id": "radio.morse",
+      "label": "Morse Code",
+      "class": "node",
+      "tags": ["radio", "patience", "cheap-start"],
+      "blurb": "Not required for any current licence class, and still the mode that gets through when voice cannot. Learned by ear, not by table.",
+      "aka": ["cw", "continuous wave"]
+    }
+  ],
+  "edges": [
+    { "from": "radio.ham",           "to": "radio.meshtastic",     "kind": "kin",        "note": "Licence-free mesh on one side, an exam on the other. Same antenna instincts, same drawer of connectors." },
+    { "from": "radio.ham",           "to": "radio.antennas",       "kind": "kin" },
+    { "from": "radio.ham",           "to": "radio.hf-station",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.digital-modes",  "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.contesting",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.satellites",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.pota",           "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.morse",          "kind": "kin" },
+    { "from": "radio.ham",           "to": "radio.qsl",            "kind": "kin" },
+    { "from": "radio.meshtastic",    "to": "radio.node-build",     "kind": "leads-to",   "note": "Nothing happens until firmware is on the board and the serial driver is installed." },
+    { "from": "radio.meshtastic",    "to": "radio.mesh-admin",     "kind": "leads-to" },
+    { "from": "radio.meshtastic",    "to": "radio.repeater",       "kind": "leads-to",   "note": "The step from a node in your pocket to a node on a hill you have to get permission for." },
+    { "from": "radio.node-build",    "to": "radio.repeater",       "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.hf-station",     "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.repeater",       "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.satellites",     "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.pota",           "kind": "shares-gear" },
+    { "from": "radio.hf-station",    "to": "radio.propagation",    "kind": "leads-to" },
+    { "from": "radio.digital-modes", "to": "radio.propagation",    "kind": "kin" },
+    { "from": "radio.sdr",           "to": "radio.propagation",    "kind": "kin",        "note": "The cheapest way to see whether a band is open is to listen to it." },
+    { "from": "radio.sdr",           "to": "radio.ham",            "kind": "leads-to",   "note": "Most licences start with somebody hearing something they were not meant to understand." },
+    { "from": "radio.sdr",           "to": "radio.meshtastic",     "kind": "kin" },
+    { "from": "radio.contesting",    "to": "radio.qsl",            "kind": "kin" },
+    { "from": "radio.morse",         "to": "radio.contesting",     "kind": "kin" },
+    { "from": "radio.mesh-admin",    "to": "radio.propagation",    "kind": "kin" }
+  ]
+}

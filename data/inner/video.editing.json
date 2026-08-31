@@ -1,0 +1,23 @@
+{
+  "of": "video.editing",
+  "label": "Inside the edit",
+  "blurb": "Seven separate skills that all happen in one application, which is why the application looks so intimidating.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 165, "startAngle": -90 },
+  "nodes": [
+    { "id": "video.editing.assembly",  "label": "Assembly cut", "class": "notable", "tags": ["content", "patience"], "blurb": "Everything usable in order, far too long. You cannot judge structure until the whole thing exists badly." },
+    { "id": "video.editing.pacing",    "label": "Pacing",       "class": "node",   "tags": ["content", "patience"],  "blurb": "Cutting the parts you enjoyed making. The single largest difference between a build log and a video." },
+    { "id": "video.editing.b-roll",    "label": "B-roll",       "class": "node",   "tags": ["content", "gear"],      "blurb": "Cutaways that cover a jump and show the detail. Shot after the edit exists, once you know what is missing." },
+    { "id": "video.editing.sound-mix", "label": "Sound mix",    "class": "node",   "tags": ["audio"],                "blurb": "Levels, music under voice, and room tone under silence. Viewers forgive a soft picture and leave over bad sound." },
+    { "id": "video.editing.titles",    "label": "Titles",       "class": "node",   "tags": ["content", "screen"],    "blurb": "Names, labels and the number that tells somebody which part they are on. Small, and usually the last thing done." },
+    { "id": "video.editing.captions",  "label": "Captions",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Burned in or as a track. Half of all viewing is muted, and captions are also the only accessible route into a video." },
+    { "id": "video.editing.proxies",   "label": "Proxies",      "class": "node",   "tags": ["code", "gear"],         "blurb": "Editing against small copies so the timeline scrubs, then relinking to the originals to export. A workflow, not a setting." }
+  ],
+  "edges": [
+    { "from": "video.editing.proxies",  "to": "video.editing.assembly",  "kind": "leads-to" },
+    { "from": "video.editing.assembly", "to": "video.editing.pacing",    "kind": "leads-to" },
+    { "from": "video.editing.pacing",   "to": "video.editing.b-roll",    "kind": "leads-to", "note": "You only know which cutaway you need once the cut is tight enough to show the gap." },
+    { "from": "video.editing.pacing",   "to": "video.editing.sound-mix", "kind": "leads-to" },
+    { "from": "video.editing.sound-mix","to": "video.editing.captions",  "kind": "kin" },
+    { "from": "video.editing.b-roll",   "to": "video.editing.titles",    "kind": "kin" }
+  ]
+}

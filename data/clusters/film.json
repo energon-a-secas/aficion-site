@@ -1,0 +1,71 @@
+{
+  "id": "film",
+  "label": "Film and Screen",
+  "blurb": "Movies, taken seriously enough to have a shelf, a list and an opinion about which cut is the right one.",
+  "notable": "film.horror",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [1125, -1340],
+    "radius": 255,
+    "startAngle": 250,
+    "spread": 200,
+    "order": [
+      "film.horror", "film.scifi", "film.kaiju", "film.animation", "film.noir",
+      "film.docs", "film.cinephilia", "film.letterboxd", "film.criticism", "film.festivals",
+      "film.physical-media", "film.soundtracks", "film.home-cinema", "film.projection", "film.practical-fx"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "film.horror",
+      "label": "Horror",
+      "class": "notable",
+      "tags": ["screen", "fandom", "research", "cheap-start"],
+      "blurb": "The genre with the deepest subgenre map and the most committed people arguing about it. You can like several of them and dislike the rest.",
+      "aka": ["horror movies", "horror films"],
+      "accent": "violet",
+      "inner": true
+    },
+    {
+      "id": "film.physical-media",
+      "label": "Physical Media",
+      "class": "node",
+      "tags": ["collecting", "screen", "gear"],
+      "blurb": "Boutique labels, restorations and the transfer that finally looks the way it did in a cinema. Owning it because streaming keeps removing it.",
+      "aka": ["blu-ray", "4k uhd", "criterion", "arrow video"],
+      "accent": "ember"
+    },
+    { "id": "film.scifi",      "label": "Science Fiction",  "class": "node", "tags": ["screen", "fandom", "research"], "blurb": "From the model-and-motion-control era to whatever is rendered now. The genre most likely to send a viewer to a workbench." },
+    { "id": "film.kaiju",      "label": "Kaiju and Tokusatsu","class":"node", "tags": ["screen", "mecha", "fandom"],   "blurb": "Suit actors, miniature cities and pyrotechnics. Practical effects taken to their most committed conclusion.",
+      "aka": ["godzilla", "ultraman", "tokusatsu"] },
+    { "id": "film.animation",  "label": "Animation",        "class": "node", "tags": ["screen", "fandom"],             "blurb": "Cel, stop motion and everything after. A medium the rest of the shelf keeps mistaking for a genre." },
+    { "id": "film.noir",       "label": "Noir and Crime",   "class": "node", "tags": ["screen", "research", "patience"],"blurb": "Low key lighting, worse people, and a run of films short enough that you can actually see most of it." },
+    { "id": "film.docs",       "label": "Documentary",      "class": "node", "tags": ["screen", "research"],           "blurb": "The genre that most often turns a viewer into a participant, because somebody on screen is doing something you could do." },
+    { "id": "film.cinephilia", "label": "Film History",     "class": "node", "tags": ["screen", "research", "patience"],"blurb": "Watching by director, movement or decade instead of by whatever is on. The point where a habit becomes a subject." },
+    { "id": "film.letterboxd", "label": "Logging and Lists","class": "node", "tags": ["screen", "content", "social"],  "blurb": "Recording what you watched and what you thought. A hobby's memory, and the reason you can tell what a year actually looked like." },
+    { "id": "film.criticism",  "label": "Writing About Film","class": "node","tags": ["content", "research", "patience"],"blurb": "Four hundred words that make somebody watch a film they had dismissed. Harder than it looks, and cheap to try." },
+    { "id": "film.festivals",  "label": "Festivals",        "class": "node", "tags": ["social", "screen"],             "blurb": "Watching four in a day with people who chose the same four. Where the recommendations for the next year come from." },
+    { "id": "film.soundtracks","label": "Soundtracks",      "class": "node", "tags": ["audio", "collecting", "screen"],"blurb": "Scores on vinyl and the composers people follow across films. A second collection that grows out of the first." },
+    { "id": "film.home-cinema","label": "Home Cinema",      "class": "node", "tags": ["gear", "space", "screen"],      "blurb": "Projector, screen, speakers and a room you can make properly dark. The gear rabbit hole attached to the watching." },
+    { "id": "film.projection", "label": "Film Projection",  "class": "node", "tags": ["gear", "hands-on", "patience"], "blurb": "Running actual 16mm or 35mm at home. A mechanical repair hobby wearing a film hobby's coat." },
+    { "id": "film.practical-fx","label": "Practical Effects","class": "node","tags": ["hands-on", "screen", "research"],"blurb": "Miniatures, animatronics, latex and squibs. Studying how the shot was faked is one short step from building props yourself." }
+  ],
+  "edges": [
+    { "from": "film.horror",        "to": "film.scifi",         "kind": "kin" },
+    { "from": "film.horror",        "to": "film.cinephilia",    "kind": "kin" },
+    { "from": "film.horror",        "to": "film.kaiju",         "kind": "kin" },
+    { "from": "film.horror",        "to": "film.practical-fx",  "kind": "leads-to", "note": "Nobody asks how a shot was done more often than a horror viewer looking at a creature." },
+    { "from": "film.cinephilia",    "to": "film.noir",          "kind": "leads-to" },
+    { "from": "film.cinephilia",    "to": "film.docs",          "kind": "leads-to" },
+    { "from": "film.cinephilia",    "to": "film.letterboxd",    "kind": "kin" },
+    { "from": "film.cinephilia",    "to": "film.festivals",     "kind": "leads-to" },
+    { "from": "film.cinephilia",    "to": "film.criticism",     "kind": "leads-to" },
+    { "from": "film.physical-media","to": "film.cinephilia",    "kind": "kin" },
+    { "from": "film.physical-media","to": "film.home-cinema",   "kind": "leads-to" },
+    { "from": "film.physical-media","to": "film.soundtracks",   "kind": "kin" },
+    { "from": "film.home-cinema",   "to": "film.projection",    "kind": "kin" },
+    { "from": "film.kaiju",         "to": "film.animation",     "kind": "kin" },
+    { "from": "film.letterboxd",    "to": "film.criticism",     "kind": "kin" },
+    { "from": "film.scifi",         "to": "film.practical-fx",  "kind": "kin" }
+  ]
+}

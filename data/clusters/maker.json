@@ -1,0 +1,79 @@
+{
+  "id": "maker",
+  "label": "Electronics and Making",
+  "blurb": "The shelf everything else quietly borrows from. A dev board, an iron and a printer, and half the map opens up.",
+  "notable": "maker.arduino",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [975, -262],
+    "radius": 285,
+    "startAngle": -90,
+    "order": [
+      "maker.arduino", "maker.esp32", "maker.sensors", "maker.addressable-led", "maker.power",
+      "maker.soldering-bench", "maker.test-gear", "maker.pcb-design", "maker.repair", "maker.robotics",
+      "maker.wearables", "maker.home-automation", "maker.cad", "maker.printer-tuning",
+      "maker.enclosures", "maker.laser-cnc"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "maker.arduino",
+      "label": "Arduino",
+      "class": "notable",
+      "tags": ["electronics", "code", "hands-on", "cheap-start"],
+      "blurb": "A cheap board, a C-ish dialect and a library for almost everything. The place most people's electronics actually starts, and the toolchain a surprising number of hobbies quietly use.",
+      "aka": ["arduino ide", "microcontroller", "atmega"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Blink",     "note": "Somebody else's sketch, somebody else's library, a light that turns on" },
+        { "label": "Sensors",   "note": "Inputs you read and act on, and the first time timing matters" },
+        { "label": "Own board", "note": "Your own schematic on your own hardware, flashed over a programmer" }
+      ]
+    },
+    {
+      "id": "maker.addressable-led",
+      "label": "Addressable LEDs",
+      "class": "node",
+      "tags": ["electronics", "hands-on", "code"],
+      "blurb": "One data line, hundreds of individually coloured pixels. Wrong-gauge wire on that line gives you a segment that sticks, and counterfeit strips are common enough to check for.",
+      "aka": ["neopixel", "ws2812", "led strip"],
+      "accent": "violet"
+    },
+    { "id": "maker.esp32",        "label": "ESP32 and RP2040",  "class": "node", "tags": ["electronics", "code", "cheap-start"], "blurb": "Boards with wifi, bluetooth or two cores for the price of a sandwich. Where a project stops being a circuit and starts being a device.",
+      "aka": ["esp8266", "raspberry pi pico", "nrf52"] },
+    { "id": "maker.sensors",      "label": "Sensors",           "class": "node", "tags": ["electronics", "code", "research"],    "blurb": "Temperature, distance, current, orientation. Reading the world is easy; trusting the number you get back is the actual skill." },
+    { "id": "maker.power",        "label": "Batteries and Power","class": "node","tags": ["electronics", "research", "gear"],    "blurb": "Cells, protection circuits and buck converters. A protected 18650 ships near its low-voltage cutoff, which reads to a beginner as a dead board." },
+    { "id": "maker.soldering-bench","label": "Soldering Bench", "class": "node", "tags": ["hands-on", "electronics", "gear"],    "blurb": "Temperature-controlled iron, flux, braid, hot air and light you can actually see by. The bench is most of the difference between joints that hold and joints that look like they hold." },
+    { "id": "maker.test-gear",    "label": "Test Gear",         "class": "node", "tags": ["electronics", "gear", "research"],    "blurb": "Multimeter, bench supply, logic analyser, scope. Debugging without them is guessing with extra steps." },
+    { "id": "maker.pcb-design",   "label": "PCB Design",        "class": "node", "tags": ["electronics", "code", "patience"],    "blurb": "Schematic capture, layout, gerbers, and a fab that ships you five boards for the price of a pizza." },
+    { "id": "maker.repair",       "label": "Repair and Teardown","class": "node","tags": ["hands-on", "electronics", "cheap-start"], "blurb": "Recapping, reflowing and reading a board you have no schematic for. The cheapest way to get good at soldering is fixing things nobody wants." },
+    { "id": "maker.robotics",     "label": "Robotics",          "class": "node", "tags": ["electronics", "code", "mecha"],       "blurb": "Motors, drivers and a control loop. The first project where the software being wrong makes a noise." },
+    { "id": "maker.wearables",    "label": "Wearable Electronics","class":"node","tags": ["electronics", "hands-on"],            "blurb": "Circuits that have to survive being worn: flexible wire, connectors that unplug, and a battery somebody can reach." },
+    { "id": "maker.home-automation","label": "Home Automation", "class": "node", "tags": ["code", "electronics", "space"],       "blurb": "Local sensors and local control, without a subscription and without a cloud that can be switched off." },
+    { "id": "maker.cad",          "label": "CAD Modelling",     "class": "node", "tags": ["code", "hands-on", "patience"],       "blurb": "Parametric sketching, and the discipline of designing a part around the tolerance of the machine that will make it." },
+    { "id": "maker.printer-tuning","label": "Printer Tuning",   "class": "node", "tags": ["hands-on", "gear", "patience"],       "blurb": "Flow, temperature towers, retraction and a first layer you can trust. A tuned cheap printer beats an untuned expensive one." },
+    { "id": "maker.enclosures",   "label": "Enclosure Design",  "class": "node", "tags": ["hands-on", "kits"],                   "blurb": "The box. Heat inserts, screw bosses, cable strain relief, and the lid that comes off again when you need it to." },
+    { "id": "maker.laser-cnc",    "label": "Laser and CNC",     "class": "node", "tags": ["hands-on", "gear", "space"],          "blurb": "Subtractive machines. Flat stock, a toolpath, extraction, and the smell that tells your neighbours what you are doing." }
+  ],
+  "edges": [
+    { "from": "maker.arduino",  "to": "maker.esp32",          "kind": "kin" },
+    { "from": "maker.arduino",  "to": "maker.sensors",        "kind": "leads-to" },
+    { "from": "maker.arduino",  "to": "maker.addressable-led","kind": "leads-to", "note": "The first project that looks like something to a person who does not care about electronics." },
+    { "from": "maker.arduino",  "to": "maker.robotics",       "kind": "leads-to" },
+    { "from": "maker.arduino",  "to": "maker.soldering-bench","kind": "kin" },
+    { "from": "maker.arduino",  "to": "maker.power",          "kind": "kin" },
+    { "from": "maker.soldering-bench", "to": "maker.test-gear","kind": "kin" },
+    { "from": "maker.soldering-bench", "to": "maker.pcb-design","kind": "leads-to" },
+    { "from": "maker.soldering-bench", "to": "maker.repair",  "kind": "kin",      "note": "Practise on something already broken. It cannot get worse and it teaches the same joint." },
+    { "from": "maker.test-gear","to": "maker.repair",         "kind": "shares-gear" },
+    { "from": "maker.esp32",    "to": "maker.home-automation","kind": "leads-to" },
+    { "from": "maker.sensors",  "to": "maker.home-automation","kind": "kin" },
+    { "from": "maker.addressable-led", "to": "maker.wearables","kind": "leads-to" },
+    { "from": "maker.robotics", "to": "maker.cad",            "kind": "kin" },
+    { "from": "maker.cad",      "to": "maker.printer-tuning", "kind": "kin" },
+    { "from": "maker.cad",      "to": "maker.enclosures",     "kind": "leads-to" },
+    { "from": "maker.cad",      "to": "maker.laser-cnc",      "kind": "leads-to" },
+    { "from": "maker.enclosures","to": "maker.printer-tuning","kind": "shares-gear" },
+    { "from": "maker.power",    "to": "maker.addressable-led","kind": "kin",      "note": "A metre of strip at full white is a current draw people size a cell for only once." }
+  ]
+}

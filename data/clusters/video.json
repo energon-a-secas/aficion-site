@@ -1,0 +1,74 @@
+{
+  "id": "video",
+  "label": "Video Craft",
+  "blurb": "Filming a thing you made and cutting it into something a stranger will watch to the end. A whole second hobby stacked on top of the first.",
+  "notable": "video.youtube",
+  "layout": {
+    "recipe": "arc",
+    "anchor": [261, -975],
+    "radius": 290,
+    "startAngle": 195,
+    "spread": 210,
+    "order": [
+      "video.scripting", "video.videography", "video.lighting", "video.macro", "video.timelapse",
+      "video.audio-capture", "video.voiceover", "video.youtube", "video.editing", "video.colour",
+      "video.motion-graphics", "video.thumbnails", "video.shorts", "video.streaming", "video.podcasting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "video.youtube",
+      "label": "YouTube Channel",
+      "class": "notable",
+      "tags": ["content", "social", "patience", "screen"],
+      "blurb": "Cadence, retention and a title somebody clicks. The craft that decides whether anyone sees the other ten things you learned.",
+      "aka": ["content creation", "youtuber", "channel craft", "vlogging"],
+      "accent": "ember"
+    },
+    {
+      "id": "video.editing",
+      "label": "Video Editing",
+      "class": "node",
+      "tags": ["content", "patience", "screen"],
+      "blurb": "Cut, pace, structure. Where a boring twenty minutes becomes an interesting six, and where every mistake made while filming becomes permanent.",
+      "aka": ["editing", "post production", "davinci resolve", "premiere"],
+      "accent": "cyan",
+      "inner": true
+    },
+    { "id": "video.videography",  "label": "Videography",     "class": "node", "tags": ["content", "gear", "hands-on"], "blurb": "Camera, tripod, slider and the decision about where to put all four. Coverage you did not shoot cannot be edited in later.",
+      "aka": ["filming", "cinematography", "camera work"] },
+    { "id": "video.lighting",     "label": "Lighting a Scene","class": "node", "tags": ["gear", "hands-on", "patience"], "blurb": "Key, fill and something behind the subject. Miniatures in particular need far more light than your eyes suggest they do." },
+    { "id": "video.audio-capture","label": "Audio Capture",   "class": "node", "tags": ["audio", "gear"],               "blurb": "Microphone placement and a room that is not helping. No edit recovers a bad recording, which is why this sits before the edit and not after it." },
+    { "id": "video.voiceover",    "label": "Voiceover",       "class": "node", "tags": ["audio", "content"],            "blurb": "Reading your own script without sounding like you are reading your own script. Recorded after the cut, so it fits the pictures." },
+    { "id": "video.scripting",    "label": "Scripting",       "class": "node", "tags": ["content", "research"],         "blurb": "Deciding what the video is about before the camera is out. The cheapest place to fix a video is the page." },
+    { "id": "video.thumbnails",   "label": "Thumbnails and Titles","class":"node","tags": ["content", "screen"],        "blurb": "One frame and six words. Unfair, unavoidable, and the part most makers refuse to take seriously until they do." },
+    { "id": "video.colour",       "label": "Colour Grading",  "class": "node", "tags": ["content", "patience", "screen"], "blurb": "Matching shots to each other first, and only then giving the whole thing a look. In that order, always." },
+    { "id": "video.motion-graphics","label": "Motion Graphics","class":"node", "tags": ["content", "code", "screen"],   "blurb": "Titles, diagrams and callouts that move. The difference between showing a wiring diagram and explaining one." },
+    { "id": "video.macro",        "label": "Macro and Stacking","class":"node", "tags": ["patience", "gear", "hands-on"],"blurb": "At model scale, depth of field is the whole problem. Focus stacking is how a 1/87 scene ends up sharp front to back.",
+      "aka": ["focus stacking", "macro video"] },
+    { "id": "video.timelapse",    "label": "Timelapse",       "class": "node", "tags": ["patience", "content", "gear"], "blurb": "The build compressed to forty seconds. Cheap to shoot, unforgiving about a camera that moved on day three." },
+    { "id": "video.streaming",    "label": "Live Streaming",  "class": "node", "tags": ["content", "social", "screen"], "blurb": "No edit, no retake, and a chat that asks the question you were about to answer. A different nerve from recorded video." },
+    { "id": "video.shorts",       "label": "Short Form",      "class": "node", "tags": ["content", "screen", "cheap-start"], "blurb": "Under a minute, vertical, and it has to work with the sound off. Reaches people who would never open a twenty minute build log." },
+    { "id": "video.podcasting",   "label": "Podcasting",      "class": "node", "tags": ["audio", "social", "content"],  "blurb": "Two people, two microphones and a subject deep enough to last an hour. The lowest gear cost of anything in this cluster." }
+  ],
+  "edges": [
+    { "from": "video.youtube",     "to": "video.videography",   "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.scripting",     "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.thumbnails",    "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.shorts",        "kind": "leads-to" },
+    { "from": "video.youtube",     "to": "video.streaming",     "kind": "leads-to" },
+    { "from": "video.youtube",     "to": "video.podcasting",    "kind": "leads-to" },
+    { "from": "video.videography", "to": "video.editing",       "kind": "leads-to" },
+    { "from": "video.videography", "to": "video.lighting",      "kind": "kin" },
+    { "from": "video.videography", "to": "video.macro",         "kind": "kin" },
+    { "from": "video.videography", "to": "video.audio-capture", "kind": "kin" },
+    { "from": "video.videography", "to": "video.timelapse",     "kind": "leads-to" },
+    { "from": "video.audio-capture","to": "video.editing",      "kind": "leads-to", "note": "Recorded before the edit because no edit rescues a bad room. This is the one true prerequisite in the cluster." },
+    { "from": "video.audio-capture","to": "video.voiceover",    "kind": "kin" },
+    { "from": "video.editing",     "to": "video.colour",        "kind": "leads-to" },
+    { "from": "video.editing",     "to": "video.motion-graphics","kind": "leads-to" },
+    { "from": "video.podcasting",  "to": "video.voiceover",     "kind": "kin" },
+    { "from": "video.macro",       "to": "video.lighting",      "kind": "shares-gear" },
+    { "from": "video.scripting",   "to": "video.thumbnails",    "kind": "kin" }
+  ]
+}

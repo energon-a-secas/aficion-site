@@ -1,0 +1,618 @@
+{
+  "generated_by": "atlas/scan.py",
+  "root": "aficion-site",
+  "commit": "5fff004766c1e71521f31f94bfeb2206c15b12d2",
+  "commit_short": "5fff004",
+  "dirty": true,
+  "areas": [
+    "css",
+    "js",
+    "js/atlas",
+    "root",
+    "tools"
+  ],
+  "areas_from": "directory tree",
+  "nodes": [
+    {
+      "id": "404.html",
+      "kind": "page",
+      "area": "root",
+      "loc": 45
+    },
+    {
+      "id": "css/neorgon-beacon.css",
+      "kind": "style",
+      "area": "css",
+      "loc": 112
+    },
+    {
+      "id": "css/neorgon-footer.css",
+      "kind": "style",
+      "area": "css",
+      "loc": 542
+    },
+    {
+      "id": "css/neorgon-header.css",
+      "kind": "style",
+      "area": "css",
+      "loc": 926
+    },
+    {
+      "id": "css/neorgon-themes.css",
+      "kind": "style",
+      "area": "css",
+      "loc": 360
+    },
+    {
+      "id": "css/style.css",
+      "kind": "style",
+      "area": "css",
+      "loc": 614
+    },
+    {
+      "id": "index.html",
+      "kind": "entry",
+      "area": "root",
+      "loc": 307
+    },
+    {
+      "id": "js/actions.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 240
+    },
+    {
+      "id": "js/alloc.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 196
+    },
+    {
+      "id": "js/app.js",
+      "kind": "entry",
+      "area": "js",
+      "loc": 41
+    },
+    {
+      "id": "js/atlas/camera.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 151
+    },
+    {
+      "id": "js/atlas/draw-edges.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 161
+    },
+    {
+      "id": "js/atlas/draw-labels.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 125
+    },
+    {
+      "id": "js/atlas/draw-nodes.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 221
+    },
+    {
+      "id": "js/atlas/draw.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 113
+    },
+    {
+      "id": "js/atlas/layout.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 167
+    },
+    {
+      "id": "js/atlas/load.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 280
+    },
+    {
+      "id": "js/atlas/pick.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 85
+    },
+    {
+      "id": "js/atlas/theme.js",
+      "kind": "module",
+      "area": "js/atlas",
+      "loc": 129
+    },
+    {
+      "id": "js/builds.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 69
+    },
+    {
+      "id": "js/compare.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 112
+    },
+    {
+      "id": "js/discover.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 127
+    },
+    {
+      "id": "js/events.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 337
+    },
+    {
+      "id": "js/inner.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 57
+    },
+    {
+      "id": "js/modal.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 65
+    },
+    {
+      "id": "js/neorgon-beacon.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 263
+    },
+    {
+      "id": "js/neorgon-dom.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 157
+    },
+    {
+      "id": "js/neorgon-footer.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 421
+    },
+    {
+      "id": "js/neorgon-header.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 826
+    },
+    {
+      "id": "js/neorgon-persist.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 152
+    },
+    {
+      "id": "js/panels.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 203
+    },
+    {
+      "id": "js/profile.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 168
+    },
+    {
+      "id": "js/render.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 349
+    },
+    {
+      "id": "js/state.js",
+      "kind": "store",
+      "area": "js",
+      "loc": 108
+    },
+    {
+      "id": "js/utils.js",
+      "kind": "module",
+      "area": "js",
+      "loc": 44
+    },
+    {
+      "id": "tools/validate-corpus.mjs",
+      "kind": "module",
+      "area": "tools",
+      "loc": 725
+    }
+  ],
+  "edges": [
+    {
+      "from": "index.html",
+      "to": "css/neorgon-beacon.css",
+      "at": "index.html:57"
+    },
+    {
+      "from": "index.html",
+      "to": "css/neorgon-footer.css",
+      "at": "index.html:49"
+    },
+    {
+      "from": "index.html",
+      "to": "css/neorgon-header.css",
+      "at": "index.html:42"
+    },
+    {
+      "from": "index.html",
+      "to": "css/neorgon-themes.css",
+      "at": "index.html:43"
+    },
+    {
+      "from": "index.html",
+      "to": "css/style.css",
+      "at": "index.html:39"
+    },
+    {
+      "from": "index.html",
+      "to": "js/app.js",
+      "at": "index.html:304"
+    },
+    {
+      "from": "index.html",
+      "to": "js/neorgon-beacon.js",
+      "at": "index.html:58"
+    },
+    {
+      "from": "index.html",
+      "to": "js/neorgon-footer.js",
+      "at": "index.html:50"
+    },
+    {
+      "from": "index.html",
+      "to": "js/neorgon-header.js",
+      "at": "index.html:45"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/alloc.js",
+      "at": "js/actions.js:12"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/atlas/layout.js",
+      "at": "js/actions.js:13"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/atlas/load.js",
+      "at": "js/actions.js:14"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/builds.js",
+      "at": "js/actions.js:18"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/compare.js",
+      "at": "js/actions.js:17"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/inner.js",
+      "at": "js/actions.js:15"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/modal.js",
+      "at": "js/actions.js:21"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/panels.js",
+      "at": "js/actions.js:20"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/profile.js",
+      "at": "js/actions.js:16"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/render.js",
+      "at": "js/actions.js:19"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/state.js",
+      "at": "js/actions.js:11"
+    },
+    {
+      "from": "js/actions.js",
+      "to": "js/utils.js",
+      "at": "js/actions.js:10"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/alloc.js",
+      "at": "js/app.js:11"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/atlas/camera.js",
+      "at": "js/app.js:8"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/atlas/draw.js",
+      "at": "js/app.js:10"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/atlas/layout.js",
+      "at": "js/app.js:7"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/atlas/load.js",
+      "at": "js/app.js:6"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/atlas/pick.js",
+      "at": "js/app.js:9"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/events.js",
+      "at": "js/app.js:14"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/profile.js",
+      "at": "js/app.js:12"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/render.js",
+      "at": "js/app.js:13"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/state.js",
+      "at": "js/app.js:5"
+    },
+    {
+      "from": "js/app.js",
+      "to": "js/utils.js",
+      "at": "js/app.js:4"
+    },
+    {
+      "from": "js/atlas/camera.js",
+      "to": "js/utils.js",
+      "at": "js/atlas/camera.js:9"
+    },
+    {
+      "from": "js/atlas/draw-edges.js",
+      "to": "js/atlas/theme.js",
+      "at": "js/atlas/draw-edges.js:9"
+    },
+    {
+      "from": "js/atlas/draw-labels.js",
+      "to": "js/atlas/pick.js",
+      "at": "js/atlas/draw-labels.js:13"
+    },
+    {
+      "from": "js/atlas/draw-labels.js",
+      "to": "js/atlas/theme.js",
+      "at": "js/atlas/draw-labels.js:12"
+    },
+    {
+      "from": "js/atlas/draw-nodes.js",
+      "to": "js/atlas/pick.js",
+      "at": "js/atlas/draw-nodes.js:7"
+    },
+    {
+      "from": "js/atlas/draw-nodes.js",
+      "to": "js/atlas/theme.js",
+      "at": "js/atlas/draw-nodes.js:6"
+    },
+    {
+      "from": "js/atlas/draw.js",
+      "to": "js/atlas/draw-edges.js",
+      "at": "js/atlas/draw.js:14"
+    },
+    {
+      "from": "js/atlas/draw.js",
+      "to": "js/atlas/draw-labels.js",
+      "at": "js/atlas/draw.js:16"
+    },
+    {
+      "from": "js/atlas/draw.js",
+      "to": "js/atlas/draw-nodes.js",
+      "at": "js/atlas/draw.js:15"
+    },
+    {
+      "from": "js/atlas/draw.js",
+      "to": "js/atlas/theme.js",
+      "at": "js/atlas/draw.js:13"
+    },
+    {
+      "from": "js/atlas/layout.js",
+      "to": "js/utils.js",
+      "at": "js/atlas/layout.js:7"
+    },
+    {
+      "from": "js/builds.js",
+      "to": "js/alloc.js",
+      "at": "js/builds.js:7"
+    },
+    {
+      "from": "js/builds.js",
+      "to": "js/atlas/load.js",
+      "at": "js/builds.js:6"
+    },
+    {
+      "from": "js/compare.js",
+      "to": "js/alloc.js",
+      "at": "js/compare.js:10"
+    },
+    {
+      "from": "js/discover.js",
+      "to": "js/utils.js",
+      "at": "js/discover.js:7"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/actions.js",
+      "at": "js/events.js:14"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/atlas/pick.js",
+      "at": "js/events.js:10"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/modal.js",
+      "at": "js/events.js:11"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/panels.js",
+      "at": "js/events.js:12"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/render.js",
+      "at": "js/events.js:13"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/state.js",
+      "at": "js/events.js:9"
+    },
+    {
+      "from": "js/events.js",
+      "to": "js/utils.js",
+      "at": "js/events.js:8"
+    },
+    {
+      "from": "js/inner.js",
+      "to": "js/atlas/layout.js",
+      "at": "js/inner.js:11"
+    },
+    {
+      "from": "js/inner.js",
+      "to": "js/atlas/load.js",
+      "at": "js/inner.js:10"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/builds.js",
+      "at": "js/panels.js:10"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/compare.js",
+      "at": "js/panels.js:9"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/inner.js",
+      "at": "js/panels.js:11"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/profile.js",
+      "at": "js/panels.js:8"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/render.js",
+      "at": "js/panels.js:7"
+    },
+    {
+      "from": "js/panels.js",
+      "to": "js/utils.js",
+      "at": "js/panels.js:6"
+    },
+    {
+      "from": "js/profile.js",
+      "to": "js/neorgon-persist.js",
+      "at": "js/profile.js:18"
+    },
+    {
+      "from": "js/render.js",
+      "to": "js/alloc.js",
+      "at": "js/render.js:14"
+    },
+    {
+      "from": "js/render.js",
+      "to": "js/atlas/load.js",
+      "at": "js/render.js:15"
+    },
+    {
+      "from": "js/render.js",
+      "to": "js/discover.js",
+      "at": "js/render.js:13"
+    },
+    {
+      "from": "js/render.js",
+      "to": "js/state.js",
+      "at": "js/render.js:12"
+    },
+    {
+      "from": "js/render.js",
+      "to": "js/utils.js",
+      "at": "js/render.js:11"
+    },
+    {
+      "from": "js/state.js",
+      "to": "js/neorgon-persist.js",
+      "at": "js/state.js:9"
+    },
+    {
+      "from": "js/state.js",
+      "to": "js/profile.js",
+      "at": "js/state.js:10"
+    },
+    {
+      "from": "js/utils.js",
+      "to": "js/neorgon-dom.js",
+      "at": "js/utils.js:8"
+    }
+  ],
+  "externals": [
+    {
+      "id": "cdn.neorgon.org",
+      "importers": [
+        "404.html:14",
+        "index.html:38",
+        "index.html:44"
+      ]
+    },
+    {
+      "id": "node:fs",
+      "importers": [
+        "tools/validate-corpus.mjs:40"
+      ]
+    },
+    {
+      "id": "node:path",
+      "importers": [
+        "tools/validate-corpus.mjs:41"
+      ]
+    },
+    {
+      "id": "node:url",
+      "importers": [
+        "tools/validate-corpus.mjs:42"
+      ]
+    }
+  ]
+}

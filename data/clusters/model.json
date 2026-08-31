@@ -1,0 +1,57 @@
+{
+  "id": "model",
+  "label": "Scale Models",
+  "blurb": "Things that arrive as sprues in a box and leave as an object on a shelf.",
+  "notable": "model.gunpla",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-980, 260],
+    "radius": 210,
+    "startAngle": -20,
+    "spread": 300,
+    "order": ["model.gunpla", "model.scale-armour", "model.aircraft", "model.dioramas", "model.airbrush-rig", "model.decals"]
+  },
+  "nodes": [
+    {
+      "id": "model.gunpla",
+      "label": "Gunpla",
+      "class": "notable",
+      "tags": ["kits", "mecha", "hands-on", "patience"],
+      "blurb": "Bandai's snap-fit Gundam kits. No glue needed to start, no ceiling if you keep going.",
+      "aka": ["gundam models", "gunpura"],
+      "accent": "ember",
+      "inner": true,
+      "levels": [
+        { "label": "HG", "note": "High Grade, 1/144. Snap together in an evening, no paint required." },
+        { "label": "RG", "note": "Real Grade, 1/144. Pre-coloured inner frame, decals, small parts." },
+        { "label": "MG", "note": "Master Grade, 1/100. Full inner frame, a weekend, real part count." },
+        { "label": "PG", "note": "Perfect Grade, 1/60. Lighting kits, hundreds of parts, a shelf of its own." }
+      ]
+    },
+    {
+      "id": "model.scale-armour",
+      "label": "Scale Armour",
+      "class": "node",
+      "tags": ["kits", "hands-on", "paint", "patience"],
+      "blurb": "Tanks at 1/35. Glue, putty and reference photos, where gunpla gives you none of the three.",
+      "levels": [
+        { "label": "Out of box", "note": "Build it as the instructions say and paint it one colour" },
+        { "label": "Detailed",   "note": "Aftermarket tracks, photo-etch, stowage" },
+        { "label": "Scratch",    "note": "You make parts the kit does not contain" }
+      ]
+    },
+    { "id": "model.aircraft",     "label": "Aircraft Kits", "class": "node", "tags": ["kits", "hands-on", "paint"],       "blurb": "Canopies, camouflage masks and the long argument about panel line scale." },
+    { "id": "model.dioramas",     "label": "Dioramas",      "class": "node", "tags": ["hands-on", "paint", "patience"],   "blurb": "A base, a scene and a reason the model is standing where it is." },
+    { "id": "model.airbrush-rig", "label": "Airbrush Rig",  "class": "node", "tags": ["paint", "hands-on"],               "blurb": "Compressor, moisture trap, spray booth. The purchase that changes what finishes are possible." },
+    { "id": "model.decals",       "label": "Decals",        "class": "node", "tags": ["hands-on", "patience"],            "blurb": "Waterslides, setting solution and the silvering that gives away a rushed job." }
+  ],
+  "edges": [
+    { "from": "model.gunpla",        "to": "model.scale-armour", "kind": "leads-to", "note": "The first kit where nothing snaps and everything is glued." },
+    { "from": "model.scale-armour",  "to": "model.aircraft",     "kind": "kin" },
+    { "from": "model.scale-armour",  "to": "model.dioramas",     "kind": "leads-to" },
+    { "from": "model.airbrush-rig",  "to": "model.scale-armour", "kind": "shares-gear" },
+    { "from": "model.airbrush-rig",  "to": "model.aircraft",     "kind": "shares-gear" },
+    { "from": "model.decals",        "to": "model.gunpla",       "kind": "kin" },
+    { "from": "model.decals",        "to": "model.aircraft",     "kind": "kin" }
+  ]
+}

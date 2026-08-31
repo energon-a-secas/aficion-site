@@ -1,0 +1,71 @@
+{
+  "id": "tabletop",
+  "label": "Tabletop Games",
+  "blurb": "Games played on a table with objects you own, and usually painted yourself, in front of people who are in the room.",
+  "notable": "tabletop.warhammer",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [-1723, -304],
+    "radius": 265,
+    "startAngle": 30,
+    "order": [
+      "tabletop.warhammer", "tabletop.kill-team", "tabletop.terrain", "tabletop.wargames",
+      "tabletop.list-building", "tabletop.tournaments", "tabletop.lore", "tabletop.ttrpg",
+      "tabletop.gm", "tabletop.game-design", "tabletop.print-play", "tabletop.dice",
+      "tabletop.card-games", "tabletop.boardgames", "tabletop.solo"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "tabletop.warhammer",
+      "label": "Warhammer",
+      "class": "notable",
+      "tags": ["paint", "kits", "social", "hands-on"],
+      "blurb": "Assemble it, paint it, then lose with it. Two thirds of the hobby happens at a desk on your own before anything happens on a table.",
+      "aka": ["40k", "warhammer 40000", "age of sigmar", "games workshop"],
+      "accent": "ember"
+    },
+    {
+      "id": "tabletop.ttrpg",
+      "label": "Tabletop RPGs",
+      "class": "node",
+      "tags": ["social", "patience", "research"],
+      "blurb": "Four people, some dice and a shared story that only exists while everyone is at the table. The cheapest entry on this whole map.",
+      "aka": ["dnd", "d&d", "roleplaying games", "rpg"],
+      "accent": "violet"
+    },
+    { "id": "tabletop.kill-team",  "label": "Skirmish Games",  "class": "node", "tags": ["social", "kits", "cheap-start"], "blurb": "Ten models instead of a hundred. The format that lets someone finish a force, which is the format most people should start with." },
+    { "id": "tabletop.terrain",    "label": "Terrain Building","class": "node", "tags": ["hands-on", "paint", "space"],   "blurb": "Foam, card and sprue offcuts turned into ruins to fight over. A table of painted armies on bare board still looks unfinished." },
+    { "id": "tabletop.wargames",   "label": "Historical Wargaming","class":"node","tags":["research", "social", "patience"],"blurb": "Real battles at scale, with rules arguing about frontage and morale. Where the research is half the pleasure." },
+    { "id": "tabletop.list-building","label": "List Building", "class": "node", "tags": ["research", "patience"],         "blurb": "Building a force inside a points budget. A puzzle you can play for an hour without opening a box." },
+    { "id": "tabletop.tournaments","label": "Tournaments",     "class": "node", "tags": ["social", "patience"],           "blurb": "Five games in a weekend against strangers. The deadline that finally gets an army painted." },
+    { "id": "tabletop.lore",       "label": "Setting and Lore","class": "node", "tags": ["research", "fandom", "screen"], "blurb": "The novels, the codices and forty years of accumulated background. Plenty of people are only here for this." },
+    { "id": "tabletop.gm",         "label": "Running a Game",  "class": "node", "tags": ["social", "content", "research"],"blurb": "Preparation, pacing and improvising when the players do the thing you did not write. A performance skill wearing a hobby's coat." },
+    { "id": "tabletop.game-design","label": "Game Design",     "class": "node", "tags": ["content", "research", "patience"],"blurb": "Writing rules that survive contact with people trying to win. Playtesting is where the design actually happens." },
+    { "id": "tabletop.print-play", "label": "Print and Play",  "class": "node", "tags": ["cheap-start", "hands-on"],      "blurb": "A PDF, a printer and an evening with a craft knife. How most designs get tested before anyone spends money." },
+    { "id": "tabletop.dice",       "label": "Dice and Accessories","class":"node","tags": ["collecting", "cheap-start"],  "blurb": "Sets, trays, towers and the sharp-edged resin ones. A small collecting hobby attached to every game in this cluster." },
+    { "id": "tabletop.card-games", "label": "Card Games",      "class": "node", "tags": ["collecting", "social", "gear"], "blurb": "Constructed decks, draft nights and a secondary market that behaves like a small stock exchange." },
+    { "id": "tabletop.boardgames", "label": "Board Games",     "class": "node", "tags": ["social", "cheap-start", "screen"],"blurb": "Everything from forty minutes to a full Saturday. The gateway most of this cluster arrives through." },
+    { "id": "tabletop.solo",       "label": "Solo Play",       "class": "node", "tags": ["patience", "cheap-start"],      "blurb": "Games designed for one, and campaigns played against a deck instead of an opponent. What the hobby does when nobody is free." }
+  ],
+  "edges": [
+    { "from": "tabletop.warhammer",  "to": "tabletop.kill-team",   "kind": "kin",      "note": "Ten models, one box, finished. The version of this hobby people actually complete." },
+    { "from": "tabletop.warhammer",  "to": "tabletop.terrain",     "kind": "leads-to" },
+    { "from": "tabletop.warhammer",  "to": "tabletop.list-building","kind": "leads-to" },
+    { "from": "tabletop.warhammer",  "to": "tabletop.tournaments", "kind": "leads-to" },
+    { "from": "tabletop.warhammer",  "to": "tabletop.lore",        "kind": "kin" },
+    { "from": "tabletop.warhammer",  "to": "tabletop.wargames",    "kind": "kin" },
+    { "from": "tabletop.kill-team",  "to": "tabletop.solo",        "kind": "kin" },
+    { "from": "tabletop.terrain",    "to": "tabletop.wargames",    "kind": "kin" },
+    { "from": "tabletop.lore",       "to": "tabletop.ttrpg",       "kind": "leads-to" },
+    { "from": "tabletop.ttrpg",      "to": "tabletop.gm",          "kind": "leads-to" },
+    { "from": "tabletop.ttrpg",      "to": "tabletop.dice",        "kind": "kin" },
+    { "from": "tabletop.ttrpg",      "to": "tabletop.boardgames",  "kind": "kin" },
+    { "from": "tabletop.gm",         "to": "tabletop.game-design", "kind": "kin" },
+    { "from": "tabletop.game-design","to": "tabletop.print-play",  "kind": "leads-to" },
+    { "from": "tabletop.boardgames", "to": "tabletop.card-games",  "kind": "kin" },
+    { "from": "tabletop.boardgames", "to": "tabletop.solo",        "kind": "leads-to" },
+    { "from": "tabletop.card-games", "to": "tabletop.dice",        "kind": "kin" },
+    { "from": "tabletop.tournaments","to": "tabletop.card-games",  "kind": "kin" }
+  ]
+}

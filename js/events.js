@@ -1,0 +1,336 @@
+// ── Event handlers ───────────────────────────────────────────
+// Every listener on the page, and nothing else: what a listener does is
+// actions.js. No inline onclick anywhere. The sidebar and the dialogs render
+// markup carrying data-act, and one delegated handler reads it, so a panel that
+// is re-rendered never leaves a dead listener or a stale node reference behind.
+// Nothing is exposed on window.
+
+import { $, showToast, copyText, debounce } from './utils.js';
+import { savePrefs, rememberCamera, persistProfile } from './state.js';
+import { nodeAt, nodeToward } from './atlas/pick.js';
+import { openModal, closeModal, openModalEl, onModalKeydown } from './modal.js';
+import { renderShare, renderBuildPanel } from './panels.js';
+import { renderSearch, renderHint, paint, updateCanvasLabel } from './render.js';
+import {
+  select,
+  toggleNode,
+  applyLevel,
+  trace,
+  clearMine,
+  fitMine,
+  drillInto,
+  leaveInner,
+  stopCompare,
+  runCompare,
+  openBuild,
+  closeBuild,
+  stackBuild,
+  openBuilds,
+  applyHash,
+} from './actions.js';
+
+export { applyHash };
+
+// ── Canvas: pointer ──────────────────────────────────────────
+function bindCanvas(s) {
+  const canvas = $('atlasCanvas');
+  if (!canvas) return;
+  let dragging = false;
+  let moved = 0;
+  let lastX = 0;
+  let lastY = 0;
+  const pointers = new Map();
+  let pinch = 0;
+
+  const local = (e) => {
+    const r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  };
+
+  canvas.addEventListener('pointerdown', (e) => {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, local(e));
+    if (!s.prefs.seenIntro) {
+      s.prefs.seenIntro = true;
+      savePrefs();
+      renderHint(s);
+    }
+    if (pointers.size === 1) {
+      dragging = true;
+      moved = 0;
+      const p = local(e);
+      lastX = p.x;
+      lastY = p.y;
+    }
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    const p = local(e);
+    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, p);
+
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinch) s.camera.zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, dist / pinch);
+      pinch = dist;
+      return;
+    }
+    if (dragging) {
+      moved += Math.abs(p.x - lastX) + Math.abs(p.y - lastY);
+      s.camera.panBy(p.x - lastX, p.y - lastY);
+      lastX = p.x;
+      lastY = p.y;
+      s.camera.clampTo(s.atlas.meta.world);
+      return;
+    }
+    const hit = nodeAt(s.index, s.camera, p.x, p.y);
+    canvas.style.cursor = hit ? 'pointer' : '';
+    if (hit !== s.hover) {
+      s.hover = hit;
+      paint(s);
+    }
+  });
+
+  // A drag that moved more than a few pixels is a pan, not a click.
+  canvas.addEventListener('pointerup', (e) => {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = 0;
+    if (!dragging) return;
+    dragging = false;
+    if (moved > 6) {
+      rememberCamera(s.camera);
+      return;
+    }
+    const p = local(e);
+    const hit = nodeAt(s.index, s.camera, p.x, p.y);
+    if (hit && e.shiftKey) toggleNode(s, hit);
+    else select(s, hit);
+  });
+
+  canvas.addEventListener('pointercancel', (e) => {
+    pointers.delete(e.pointerId);
+    dragging = false;
+  });
+
+  canvas.addEventListener('dblclick', (e) => {
+    const p = local(e);
+    const hit = nodeAt(s.index, s.camera, p.x, p.y);
+    if (hit) toggleNode(s, hit);
+  });
+
+  canvas.addEventListener(
+    'wheel',
+    (e) => {
+      e.preventDefault();
+      const p = local(e);
+      s.camera.zoomAt(p.x, p.y, Math.exp(-e.deltaY * 0.0016));
+      s.camera.clampTo(s.atlas.meta.world);
+      rememberCamera(s.camera);
+    },
+    { passive: false },
+  );
+}
+
+// ── Canvas: keyboard ─────────────────────────────────────────
+// A canvas has no tab order, so arrow keys walk the graph geometrically and
+// render.js announces the landing node through the live region. This is the
+// route across the map for anyone not using a pointer.
+const ARROWS = {
+  ArrowUp: [0, -1],
+  ArrowDown: [0, 1],
+  ArrowLeft: [-1, 0],
+  ArrowRight: [1, 0],
+};
+
+function onCanvasKey(s, e) {
+  const dir = ARROWS[e.key];
+  if (dir) {
+    e.preventDefault();
+    if (e.shiftKey) {
+      s.camera.panBy(-dir[0] * 90, -dir[1] * 90);
+      s.camera.clampTo(s.atlas.meta.world);
+      return;
+    }
+    const next = s.selected ? nodeToward(s.index, s.selected, dir[0], dir[1]) : s.atlas.hubId;
+    if (next) select(s, next, { centre: true });
+    return;
+  }
+  if ((e.key === 'Enter' || e.key === ' ') && s.selected) {
+    e.preventDefault();
+    toggleNode(s, s.selected);
+    return;
+  }
+  if (e.key === 'Escape') {
+    if (s.inner) leaveInner(s);
+    else if (s.focusRing.size) {
+      s.focusRing = new Set();
+      paint(s);
+    } else select(s, null);
+    return;
+  }
+  const key = e.key.toLowerCase();
+  if (key === 'f') s.camera.flyTo(s.layout.bounds);
+  else if (key === 'm') fitMine(s);
+  else if (key === 'i' && s.selected) drillInto(s, s.selected);
+  else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.25);
+  else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.8);
+}
+
+// ── One delegated handler for every rendered control ─────────
+const ACTIONS = {
+  select: (s, el) => select(s, el.dataset.node, { centre: true }),
+  centre: (s, el) => select(s, el.dataset.node, { centre: true }),
+  toggle: (s, el) => toggleNode(s, el.dataset.node),
+  level: (s, el) => applyLevel(s, el.dataset.node, Number(el.dataset.level)),
+  inner: (s, el) => drillInto(s, el.dataset.node),
+  trace: (s, el) => trace(s, el.dataset.path.split(',')),
+  'fit-mine': (s) => fitMine(s),
+  'clear-mine': (s) => clearMine(s),
+  'compare-clear': (s) => stopCompare(s),
+  'build-open': (s, el) => openBuild(s, el.dataset.build),
+  'build-close': (s) => closeBuild(s),
+  'build-apply': (s) => stackBuild(s),
+  'build-step': (s, el) => {
+    s.buildCursor = Number(el.dataset.index);
+    select(s, el.dataset.node, { centre: true });
+    renderBuildPanel(s);
+  },
+};
+
+function onDelegatedClick(s, e) {
+  const modal = e.target.closest('.modal');
+  if (modal && !modal.hasAttribute('hidden') && e.target.closest('[data-modal-close]')) closeModal(modal.id);
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const fn = ACTIONS[el.dataset.act];
+  if (!fn) return;
+  e.preventDefault();
+  fn(s, el);
+}
+
+function bindTools(s) {
+  $('zoomIn')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.3));
+  $('zoomOut')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.77));
+  $('fitBtn')?.addEventListener('click', () => s.camera.flyTo(s.layout.bounds));
+  $('fitMineBtn')?.addEventListener('click', () => fitMine(s));
+
+  $('drawsOnBtn')?.addEventListener('click', (e) => {
+    s.prefs.showDrawsOn = !s.prefs.showDrawsOn;
+    e.currentTarget.setAttribute('aria-pressed', String(s.prefs.showDrawsOn));
+    savePrefs();
+    paint(s);
+  });
+  $('labelBtn')?.addEventListener('click', (e) => {
+    const order = ['auto', 'all', 'none'];
+    s.prefs.labelMode = order[(order.indexOf(s.prefs.labelMode) + 1) % order.length];
+    e.currentTarget.textContent = `Labels: ${s.prefs.labelMode}`;
+    savePrefs();
+    paint(s);
+  });
+  $('panelToggle')?.addEventListener('click', (e) => {
+    const open = document.body.classList.toggle('side-open');
+    e.currentTarget.setAttribute('aria-expanded', String(open));
+    if (open) $('side')?.focus();
+  });
+  $('sideClose')?.addEventListener('click', () => {
+    document.body.classList.remove('side-open');
+    const toggle = $('panelToggle');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.focus();
+  });
+}
+
+function bindDialogs(s) {
+  $('btnShare')?.addEventListener('click', () => {
+    openModal('shareModal');
+    renderShare(s);
+  });
+  $('shareName')?.addEventListener(
+    'input',
+    debounce(() => {
+      s.profile = { ...s.profile, t: $('shareName').value.trim().slice(0, 24) || null };
+      persistProfile();
+      renderShare(s);
+    }, 260),
+  );
+  $('shareCopy')?.addEventListener('click', async () => {
+    const ok = await copyText($('shareUrl').value);
+    showToast(ok ? 'Link copied.' : 'Copy did not work. Select the text and copy it.');
+  });
+
+  $('btnCompare')?.addEventListener('click', () => openModal('compareModal'));
+  $('compareGo')?.addEventListener('click', () => runCompare(s));
+  $('compareClear')?.addEventListener('click', () => {
+    $('compareInput').value = '';
+    $('compareError').hidden = true;
+    stopCompare(s);
+  });
+
+  $('btnBuilds')?.addEventListener('click', () => openBuilds(s));
+  $('btnHelp')?.addEventListener('click', () => openModal('helpModal'));
+  $('innerClose')?.addEventListener('click', () => leaveInner(s));
+
+  // Escape has to listen where the focus actually is. Opening the drill-in
+  // moves focus to its close button (actions.js), and the only other Escape on
+  // this route is onCanvasKey, bound to the canvas, which by then is not
+  // focused. Bound on the overlay so it works from the close button and from
+  // any row in the list.
+  $('innerOverlay')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    leaveInner(s);
+  });
+}
+
+function bindSearch(s) {
+  const search = $('searchInput');
+  if (!search) return;
+  search.addEventListener(
+    'input',
+    debounce(() => {
+      s.search = search.value;
+      renderSearch(s);
+    }, 140),
+  );
+  search.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    search.value = '';
+    s.search = '';
+    renderSearch(s);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || openModalEl()) return;
+    const tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    e.preventDefault();
+    search.focus();
+  });
+}
+
+export function bindEvents(s) {
+  document.addEventListener('keydown', onModalKeydown);
+  document.addEventListener('click', (e) => onDelegatedClick(s, e));
+
+  bindCanvas(s);
+  $('atlasCanvas')?.addEventListener('keydown', (e) => onCanvasKey(s, e));
+
+  s.camera.onChange(() => s.renderer.requestFrame());
+  window.addEventListener(
+    'resize',
+    debounce(() => {
+      s.camera.resize();
+      s.renderer.requestFrame();
+    }, 120),
+  );
+
+  bindTools(s);
+  bindDialogs(s);
+  bindSearch(s);
+
+  window.addEventListener('hashchange', () => {
+    const parsed = /^#(pj?)=([A-Za-z0-9_-]+)$/.exec(location.hash);
+    if (parsed) applyHash(s, { key: parsed[1], payload: parsed[2] });
+  });
+
+  updateCanvasLabel(s);
+}

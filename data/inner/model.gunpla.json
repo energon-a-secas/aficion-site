@@ -1,0 +1,25 @@
+{
+  "of": "model.gunpla",
+  "label": "Gunpla techniques",
+  "blurb": "What separates a snap-fit kit from a finished model.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 150, "startAngle": -90 },
+  "nodes": [
+    { "id": "model.gunpla.panel-lining", "label": "Panel lining", "class": "node", "tags": ["paint", "hands-on"], "blurb": "A wash into the recesses. The cheapest step with the largest visible return." },
+    { "id": "model.gunpla.topcoat",      "label": "Top coat",     "class": "node", "tags": ["paint"],            "blurb": "Matt or gloss over the whole kit. Kills the toy shine and seals decals." },
+    { "id": "model.gunpla.weathering",   "label": "Weathering",   "class": "node", "tags": ["paint", "patience"],"blurb": "Chipping, staining, exhaust soot. Deliberate damage that reads as history." },
+    { "id": "model.gunpla.scribing",     "label": "Scribing",     "class": "node", "tags": ["hands-on", "patience"], "blurb": "Cutting your own panel lines. The first irreversible thing you do to a kit." },
+    { "id": "model.gunpla.nub-removal",  "label": "Nub removal",  "class": "node", "tags": ["hands-on", "cheap-start"], "blurb": "Cut proud of the part, then shave the stub. Cutting flush whitens the plastic and the mark never comes out." },
+    { "id": "model.gunpla.seam-lines",   "label": "Seam removal", "class": "node", "tags": ["hands-on", "patience"], "blurb": "Cement, cure, sand. Erasing the fact that the arm arrived as two halves." },
+    { "id": "model.gunpla.pla-plate",    "label": "Pla-plate work","class": "node","tags": ["hands-on", "kits"],  "blurb": "Styrene sheet and rod added to a kit until the silhouette is yours rather than the box art's." },
+    { "id": "model.gunpla.led-install",  "label": "LED install",  "class": "node", "tags": ["electronics", "hands-on"], "blurb": "Drilling a head to light the eyes. The point where a plastic kit acquires a power switch." }
+  ],
+  "edges": [
+    { "from": "model.gunpla.nub-removal",  "to": "model.gunpla.seam-lines",   "kind": "leads-to" },
+    { "from": "model.gunpla.seam-lines",   "to": "model.gunpla.panel-lining", "kind": "leads-to" },
+    { "from": "model.gunpla.panel-lining", "to": "model.gunpla.topcoat",      "kind": "leads-to" },
+    { "from": "model.gunpla.topcoat",      "to": "model.gunpla.weathering",   "kind": "leads-to" },
+    { "from": "model.gunpla.scribing",     "to": "model.gunpla.panel-lining", "kind": "leads-to" },
+    { "from": "model.gunpla.scribing",     "to": "model.gunpla.pla-plate",    "kind": "kin" },
+    { "from": "model.gunpla.pla-plate",    "to": "model.gunpla.led-install",  "kind": "kin" }
+  ]
+}

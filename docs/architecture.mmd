@@ -1,0 +1,63 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#0f172a"
+    primaryTextColor: "#e2e8f0"
+    primaryBorderColor: "#fbbf24"
+    lineColor: "#fcd34d"
+    secondaryColor: "#1e293b"
+    tertiaryColor: "#1e293b"
+    clusterBkg: "#fffbeb"
+    clusterBorder: "#fcd34d"
+    edgeLabelBackground: "#fef3c7"
+    mainBkg: "#0f172a"
+    nodeBorder: "#fbbf24"
+    titleColor: "#451a03"
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif"
+    fontSize: "13px"
+---
+flowchart TB
+    User([Visitor]) --> HTML["index.html\nCanvas stage + side panel + dialogs"]
+
+    subgraph App["ES Modules (zero build)"]
+        HTML --> app["app.js\nEntry point, under 50 lines"]
+        app --> state["state.js\nprofile, selection, focus, compare"]
+        app --> events["events.js\npointer, wheel, keyboard, touch"]
+        events --> actions["actions.js\nmark, trace, fly, drill in"]
+        actions --> render["render.js\nbuilds the ViewModel"]
+        render --> panels["panels.js\ndetail, mine, suggestions, compare, builds"]
+        panels --> modal["modal.js\nnative dialog + focus restore"]
+        render --> utils["utils.js\nescHtml, live region"]
+    end
+
+    subgraph Engine["Graph engine"]
+        render --> draw["atlas/draw.js\nframe orchestration"]
+        draw --> edges["atlas/draw-edges.js"]
+        draw --> nodes["atlas/draw-nodes.js\nmine / suggested / traced / compare"]
+        draw --> labels["atlas/draw-labels.js\ncollision rejection"]
+        draw --> theme["atlas/theme.js\ncolours from CSS custom properties"]
+        events --> camera["atlas/camera.js\npan, zoom at cursor, flyTo"]
+        events --> pick["atlas/pick.js\n12px screen-space floor"]
+        camera --> draw
+        layout["atlas/layout.js\nfive layout recipes"] --> draw
+    end
+
+    subgraph Domain["Domain rules"]
+        render --> alloc["alloc.js\ngold route, components, bridges, buckets"]
+        render --> discover["discover.js\nsuggestions + the sentence that justifies each"]
+        render --> compare["compare.js\nfour sets, one tally, no score"]
+        actions --> builds["builds.js\ncurated builds"]
+        actions --> inner["inner.js\ninner-tree overlay"]
+    end
+
+    load["atlas/load.js\nfetch + index, memoised inner trees"] --> layout
+    load --> alloc
+    Corpus[("data/\natlas · edges · builds\n18 clusters · 10 inner trees")] --> load
+    Validator["tools/validate-corpus.mjs\n33 checks, make validate"] -.checks.-> Corpus
+
+    state <-->|"aficion:profile:v1"| Storage[("localStorage")]
+    state <-->|"#p= gzip + base64url"| Hash[("URL fragment\nnever sent to a server")]
+
+    HTML --> Kits["Neorgon Header / Footer / Beacon kits\nvendored, never edited here"]
+    HTML --> CDN[("cdn.neorgon.org\nbase.css design tokens")]

@@ -1,0 +1,65 @@
+{
+  "id": "music",
+  "label": "Music and Sound",
+  "blurb": "Making sound, capturing it, or owning the machines that do either. The cluster with the shortest path to a soldering iron.",
+  "notable": "music.synths",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-2077, 375],
+    "radius": 250,
+    "startAngle": 250,
+    "spread": 600,
+    "order": [
+      "music.synths", "music.modular", "music.pedals", "music.guitar", "music.theory",
+      "music.live", "music.recording", "music.mixing", "music.sampling", "music.field-recording",
+      "music.chiptune", "music.dj", "music.vinyl", "music.hifi"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "music.synths",
+      "label": "Synthesizers",
+      "class": "notable",
+      "tags": ["audio", "electronics", "gear", "patience"],
+      "blurb": "Oscillators, filters and envelopes. An instrument you learn by understanding the signal path rather than by practising scales.",
+      "aka": ["synth", "synthesiser", "analog synth"],
+      "accent": "cyan"
+    },
+    {
+      "id": "music.vinyl",
+      "label": "Vinyl Collecting",
+      "class": "node",
+      "tags": ["collecting", "audio", "research"],
+      "blurb": "Pressings, matrix numbers and the shop you go to on a Saturday. A research hobby that happens to make noise.",
+      "accent": "ember"
+    },
+    { "id": "music.modular",  "label": "Eurorack",        "class": "node", "tags": ["audio", "electronics", "gear", "space"],"blurb": "A synthesiser you assemble from modules and patch by hand. Deep, expensive, and it never reaches a state you would call finished." },
+    { "id": "music.pedals",   "label": "DIY Guitar Pedals","class": "node", "tags": ["electronics", "hands-on", "audio", "cheap-start"],"blurb": "A through-hole kit in an enclosure you drill yourself. The classic first electronics build with an audible reward at the end." },
+    { "id": "music.guitar",   "label": "Guitar",          "class": "node", "tags": ["audio", "patience", "cheap-start"], "blurb": "The instrument most people already have in a cupboard. Everything downstream in this cluster tends to plug into it." },
+    { "id": "music.theory",   "label": "Music Theory",    "class": "node", "tags": ["research", "patience", "cheap-start"],"blurb": "Names for what your ear already noticed. Not required to play, and it makes everything faster once you have it." },
+    { "id": "music.live",     "label": "Playing Live",    "class": "node", "tags": ["social", "audio", "gear"],          "blurb": "A room, a set and equipment that has to work first time. The fastest way to find out which parts you actually know." },
+    { "id": "music.recording","label": "Home Recording",  "class": "node", "tags": ["audio", "gear", "code"],            "blurb": "Interface, microphones and a DAW. The room is the instrument nobody budgeted for, and it decides more than the microphone does." },
+    { "id": "music.mixing",   "label": "Mixing",          "class": "node", "tags": ["audio", "patience", "code"],        "blurb": "Balance, then space, then tone. Mostly a listening skill trained by comparing your work against records you know." },
+    { "id": "music.sampling", "label": "Sampling",        "class": "node", "tags": ["audio", "code", "research"],        "blurb": "Taking a fragment and making it yours. Chopping, pitching, and the clearance question nobody wants to answer." },
+    { "id": "music.field-recording","label": "Field Recording","class":"node","tags": ["audio", "outdoors", "patience"], "blurb": "A recorder, a windshield and somewhere interesting. Trains, machinery, weather and rooms, captured because nobody else did." },
+    { "id": "music.chiptune", "label": "Chiptune",        "class": "node", "tags": ["audio", "code", "cheap-start"],     "blurb": "Music written for sound chips with three or four voices. Real constraints, and often written on the original hardware." },
+    { "id": "music.dj",       "label": "DJing",           "class": "node", "tags": ["audio", "social", "gear"],          "blurb": "Selection first, mixing second. Reading a room is the part no equipment upgrade helps with." },
+    { "id": "music.hifi",     "label": "Hi-Fi",           "class": "node", "tags": ["gear", "audio", "space"],           "blurb": "Amplifiers, speakers and room treatment, plus a lively argument about which of the three actually matters." }
+  ],
+  "edges": [
+    { "from": "music.synths",   "to": "music.modular",  "kind": "kin" },
+    { "from": "music.synths",   "to": "music.sampling", "kind": "leads-to" },
+    { "from": "music.synths",   "to": "music.recording","kind": "kin" },
+    { "from": "music.synths",   "to": "music.chiptune", "kind": "kin" },
+    { "from": "music.synths",   "to": "music.theory",   "kind": "kin" },
+    { "from": "music.modular",  "to": "music.pedals",   "kind": "kin",      "note": "Both are audio circuits in a box. One of them is a five pound kit and teaches most of the same lesson." },
+    { "from": "music.pedals",   "to": "music.guitar",   "kind": "kin" },
+    { "from": "music.theory",   "to": "music.guitar",   "kind": "leads-to" },
+    { "from": "music.guitar",   "to": "music.live",     "kind": "leads-to" },
+    { "from": "music.recording","to": "music.mixing",   "kind": "leads-to" },
+    { "from": "music.recording","to": "music.field-recording","kind": "kin" },
+    { "from": "music.mixing",   "to": "music.dj",       "kind": "kin" },
+    { "from": "music.dj",       "to": "music.vinyl",    "kind": "kin" },
+    { "from": "music.vinyl",    "to": "music.hifi",     "kind": "kin" }
+  ]
+}

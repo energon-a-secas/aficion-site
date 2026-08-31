@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "builds": [
+    {
+      "id": "build.pixel-saber",
+      "name": "Pixel Saber",
+      "summary": "An addressable-LED lightsaber that survives a duel. The clearest example on the map of two unrelated shelves turning into one object.",
+      "tags": ["electronics", "hands-on", "fandom", "code"],
+      "steps": [
+        { "node": "starwars.canon",          "level": null, "why": "The reference comes first. You cannot build to a frame you have not paused." },
+        { "node": "core.soldering",          "level": 3,    "why": "Soundboard pads are small and close together. Everything downstream is a joint that either holds or does not." },
+        { "node": "core.electronics",        "level": 2,    "why": "A blade is a long current draw. You size the cell before you buy the strip." },
+        { "node": "maker.arduino",           "level": 2,    "why": "The board is flashed from the Arduino IDE. If you have done this for anything else, you have already done half of step eleven." },
+        { "node": "starwars.hilt-machining", "level": null, "why": "The hilt is the part people hold, and it is a prop before it is a circuit." },
+        { "node": "starwars.props.saber",    "level": null, "why": "Greeblies, emitter and pommel, assembled dry, before anything is glued or wired." },
+        { "node": "model.airbrush-rig",      "level": null, "why": "Finish the hilt while it is still empty. The compressor you would have bought for a tank does this job." },
+        { "node": "core.3d-printing",        "level": 3,    "why": "Chassis, emitter insert and the tolerances that keep the blade from rattling." },
+        { "node": "starwars.chassis-design", "level": null, "why": "Board, battery and speaker have to be held still inside a tube that gets hit." },
+        { "node": "core.programming",        "level": null, "why": "Ignition, flicker and clash are three loops on a microcontroller." },
+        { "node": "starwars.saber-config",   "level": null, "why": "Flash and configure on the bench. A setting changed after install costs a full teardown." },
+        { "node": "starwars.pixel-saber",    "level": 2,    "why": "The build the other eleven steps were for." }
+      ]
+    },
+    {
+      "id": "build.train-channel",
+      "name": "Model Train Channel",
+      "summary": "The stack behind a model railway channel: a modelling hobby and a video hobby that share almost nothing except patience, and have to be learned in a fixed order.",
+      "tags": ["hands-on", "content", "space", "patience"],
+      "steps": [
+        { "node": "rail.scale-choice", "level": null, "why": "Every purchase after this assumes the answer, which makes it the one decision here that is irreversible in practice." },
+        { "node": "rail.layout",       "level": null, "why": "Small and finished. People who get a train running reliably on a small layout stay; people who plan a huge one sell it." },
+        { "node": "rail.trackwork",    "level": null, "why": "Reliability is won or lost here, and poor trackwork causes more frustration in this hobby than anything else." },
+        { "node": "rail.wiring",       "level": null, "why": "Bus, feeders and blocks, tested by actually running trains before a single scenic decision is made." },
+        { "node": "rail.dcc",          "level": null, "why": "An address per locomotive, so a session has two trains in it and something to film." },
+        { "node": "rail.scenery",      "level": null, "why": "Only now, and only over track you have proved. Ballast over unproven track is the classic irreversible mistake." },
+        { "node": "rail.weathering",   "level": null, "why": "The single change that stops a layout photographing like a toy." },
+        { "node": "core.photography",  "level": 3,    "why": "Miniatures need far more light than your eyes suggest, and at this scale depth of field is the whole problem." },
+        { "node": "video.videography", "level": null, "why": "Tripod, slider, and the onboard cab camera that gets a shot no other hobby can." },
+        { "node": "core.audio",        "level": null, "why": "Recorded in the room, not repaired in the edit. No edit recovers a bad voiceover." },
+        { "node": "video.editing",     "level": null, "why": "Cut the parts you enjoyed making. That is most of the difference between a build log and a video." },
+        { "node": "video.youtube",     "level": null, "why": "Thumbnail, title and cadence, which decide whether the other eleven steps were seen by anyone." }
+      ]
+    },
+    {
+      "id": "build.gunpla-contest",
+      "name": "Gunpla Contest Piece",
+      "summary": "A kit taken from snap-fit to cabinet-judged. Almost every step is a technique that transfers directly to armour, aircraft, miniatures and props.",
+      "tags": ["kits", "paint", "mecha", "patience"],
+      "steps": [
+        { "node": "model.gunpla",              "level": 2, "why": "Grade literacy first. A Master Grade before your nub technique is reliable puts a permanent flaw on an expensive kit." },
+        { "node": "model.gunpla.nub-removal",  "level": null, "why": "Cut proud of the part and shave the stub. Cutting flush whitens the plastic and that mark never comes out." },
+        { "node": "model.gunpla.seam-lines",   "level": null, "why": "Cement, cure, sand. Erasing the fact the arm arrived as two halves, before anything is painted." },
+        { "node": "core.painting",             "level": null, "why": "Priming is where every flaw you sanded past becomes visible, which is the point of doing it." },
+        { "node": "model.airbrush-rig",        "level": null, "why": "The cost and skill gate on gradients, modulation and any finish that has to be even." },
+        { "node": "model.decals",              "level": null, "why": "Waterslides over gloss, then sealed. Silvering around a decal is what gives a rushed job away." },
+        { "node": "model.gunpla.weathering",   "level": null, "why": "Chipping and soot applied on purpose, so the machine reads as one that has been used." },
+        { "node": "figure.mini-painting",      "level": 3, "why": "Faces, eyes and small details are brush work. The airbrush cannot do this part and never will." },
+        { "node": "model.dioramas",            "level": null, "why": "Context, and in a contest roughly half of what the judge is actually looking at." },
+        { "node": "core.photography",          "level": 2, "why": "Online, the photograph is the entry. Nobody judging from a phone ever holds the model." },
+        { "node": "figure.competition",        "level": null, "why": "Cabinet judging against a standard nobody writes down. The fastest and least gentle feedback available." }
+      ]
+    },
+    {
+      "id": "build.mesh-node",
+      "name": "Solar Mesh Node",
+      "summary": "An off-grid LoRa node that ends up on a mast running on sunlight. No licence required, and the lowest entry cost of any build here.",
+      "tags": ["radio", "electronics", "outdoors", "code"],
+      "steps": [
+        { "node": "maker.esp32",       "level": null, "why": "ESP32 for the web interface, nRF52 if the node has to survive weeks on one cell. The choice decides everything after it." },
+        { "node": "core.soldering",    "level": 1,    "why": "Headers, an antenna pigtail and a battery lead. Through hole is genuinely enough for this build." },
+        { "node": "radio.antennas",    "level": null, "why": "Attach the antenna before the radio is ever powered. Keying into open air damages the chip, and this is the one hard safety rule here." },
+        { "node": "radio.node-build",  "level": null, "why": "A real data cable, the serial driver and firmware. A charge-only cable is where most first attempts quietly stop." },
+        { "node": "radio.mesh-admin",  "level": null, "why": "Region and modem preset must match the whole mesh, and region is the legal envelope, not a preference." },
+        { "node": "radio.meshtastic",  "level": null, "why": "A working node in your pocket that finds other people's nodes. Everything above this was setup." },
+        { "node": "core.electronics",  "level": 2,    "why": "Solar input, charge control and a battery sized for a week of cloud rather than a sunny afternoon." },
+        { "node": "maker.power",       "level": null, "why": "Protected cells ship near their cutoff, which reads to a first-timer as a dead board rather than a flat one." },
+        { "node": "core.3d-printing",  "level": 2,    "why": "An enclosure that survives weather and can still be opened a year later without breaking." },
+        { "node": "radio.repeater",    "level": null, "why": "On a mast, on a site somebody gave you permission for. That last part is the step people forget to plan." }
+      ]
+    },
+    {
+      "id": "build.hf-station",
+      "name": "First HF Station",
+      "summary": "From listening on a dongle to talking to another continent. The licence is one of the very few genuinely hard prerequisites anywhere on this map.",
+      "tags": ["radio", "electronics", "social", "research"],
+      "steps": [
+        { "node": "radio.sdr",           "level": null, "why": "Listen first. A cheap dongle tells you whether the bands are alive where you live before you spend anything." },
+        { "node": "radio.ham",           "level": 2,    "why": "Technician, then General. General is the gate on the bands that reach other continents, and transmitting without it is not lawful." },
+        { "node": "core.soldering",      "level": 1,    "why": "Connectors and feedline. A badly soldered plug is the most common fault in a new station and the hardest to see." },
+        { "node": "radio.antennas",      "level": null, "why": "A wire dipole in the garden beats an expensive vertical with no radials under it, every time." },
+        { "node": "maker.test-gear",     "level": null, "why": "An SWR meter and a multimeter turn a guess about the antenna into a measurement you can act on." },
+        { "node": "radio.hf-station",    "level": null, "why": "Transceiver, tuner, feedline and a desk. The first point at which the hobby needs a room rather than a pocket." },
+        { "node": "radio.propagation",   "level": null, "why": "Why the same station reaches Japan at three in the morning and nothing at noon. Timing beats power." },
+        { "node": "radio.digital-modes", "level": null, "why": "FT8 gets a contact out of a signal no human ear can hear, which is what a modest antenna needs." },
+        { "node": "radio.pota",          "level": null, "why": "Carry a light station somewhere with a view. Portable operating is where this stops being a room and becomes a day out." }
+      ]
+    },
+    {
+      "id": "build.garage-kit",
+      "name": "Garage Kit Finish",
+      "summary": "The ladder from collecting finished figures to finishing an unpainted resin one yourself. A collector expects an assembly job and finds a refinishing job.",
+      "tags": ["kits", "paint", "fandom", "patience"],
+      "steps": [
+        { "node": "anime.series",                 "level": null, "why": "The character comes first. Almost nobody finishes one of these for a show they were not already attached to." },
+        { "node": "figure.collecting",            "level": null, "why": "Scale literacy, brand literacy, and knowing a recast when it arrives in the post." },
+        { "node": "figure.garage-kits",           "level": null, "why": "Unpainted resin in a limited run. The point where the hobby changes from buying well to doing work." },
+        { "node": "figure.garage-kits.flash",     "level": null, "why": "Trim the casting seams and pour stubs, wet, because resin dust is the hazard nobody warns a collector about." },
+        { "node": "figure.garage-kits.pinning",   "level": null, "why": "Brass rod through both halves of every joint. Resin is heavy and a butt joint fails while somebody is holding it." },
+        { "node": "figure.garage-kits.degrease",  "level": null, "why": "An overnight soak and an ultrasonic clean. Mould release film is invisible and paint over it lifts weeks later." },
+        { "node": "core.painting",                "level": null, "why": "Prime in a light mist coat then a heavier one. The first primer layer exposes flaws bare resin was hiding." },
+        { "node": "figure.garage-kits.pinholes",  "level": null, "why": "Bubbles that extend below the surface, so filling the top does not fix them. This is where the time actually goes." },
+        { "node": "figure.garage-kits.face",      "level": null, "why": "The hardest step, and it happens before the hair is fitted because the hair blocks access permanently." },
+        { "node": "core.photography",             "level": 2,    "why": "Macro, eye level and a plain backdrop. Shot from above, a finished figure looks like a toy on a desk." },
+        { "node": "figure.figure-photo",          "level": null, "why": "The photograph is how everyone except your household will ever see six weeks of work." }
+      ]
+    }
+  ]
+}

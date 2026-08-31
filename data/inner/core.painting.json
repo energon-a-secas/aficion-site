@@ -1,0 +1,30 @@
+{
+  "of": "core.painting",
+  "label": "Painting techniques",
+  "blurb": "The order matters more than the brand. Most painting failures are a step done before the one under it.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    { "id": "core.painting.brush-control", "label": "Brush control",  "class": "node", "tags": ["paint", "cheap-start"], "blurb": "Thin your paint, load the tip, and pull the stroke. Every other technique is this one repeated with intent." },
+    { "id": "core.painting.priming",       "label": "Priming",        "class": "node", "tags": ["paint", "hands-on"],    "blurb": "Adhesion, and a single flat colour that reveals every flaw the bare surface was hiding." },
+    { "id": "core.painting.airbrush",      "label": "Airbrushing",    "class": "node", "tags": ["paint", "gear"],        "blurb": "Compressor, needle, air pressure. The gate on gradients, on modulation and on any finish that has to be even." },
+    { "id": "core.painting.masking",       "label": "Masking",        "class": "node", "tags": ["paint", "patience"],    "blurb": "Tape, putty and film. A hard edge is not painted, it is lifted off afterwards." },
+    { "id": "core.painting.washes",        "label": "Washes",         "class": "node", "tags": ["paint"],                "blurb": "Thinned dark paint pulled into the recesses over a gloss coat, then wiped back off the flats." },
+    { "id": "core.painting.highlighting",  "label": "Highlighting",   "class": "node", "tags": ["paint", "patience"],    "blurb": "Edge highlights, layering and blending. Painting where the light would have been rather than where the colour is." },
+    { "id": "core.painting.weathering",    "label": "Weathering",     "class": "node", "tags": ["paint", "patience"],    "blurb": "Chipping, streaking, pigments and soot. Damage applied on purpose so the object reads as used." },
+    { "id": "core.painting.metallics",     "label": "Metallics",      "class": "node", "tags": ["paint", "hands-on"],    "blurb": "Metal paints, and the harder trick of painting non-metallic metal so a flat surface reads as polished steel." },
+    { "id": "core.painting.safety",        "label": "Spray safety",   "class": "node", "tags": ["gear", "space"],        "blurb": "Booth, extraction and a respirator with the right cartridge. Not optional the moment solvents are in the air." },
+    { "id": "core.painting.colour-theory", "label": "Colour theory",  "class": "node", "tags": ["research", "paint"],    "blurb": "Why a repaint looks better than the box art. Value first, then temperature, then saturation." }
+  ],
+  "edges": [
+    { "from": "core.painting.brush-control", "to": "core.painting.priming",      "kind": "leads-to" },
+    { "from": "core.painting.priming",       "to": "core.painting.washes",       "kind": "leads-to" },
+    { "from": "core.painting.priming",       "to": "core.painting.airbrush",     "kind": "leads-to" },
+    { "from": "core.painting.airbrush",      "to": "core.painting.masking",      "kind": "leads-to" },
+    { "from": "core.painting.airbrush",      "to": "core.painting.safety",       "kind": "kin",      "note": "The compressor and the respirator are bought in the same order, or the second one is bought late." },
+    { "from": "core.painting.washes",        "to": "core.painting.weathering",   "kind": "leads-to" },
+    { "from": "core.painting.brush-control", "to": "core.painting.highlighting", "kind": "leads-to" },
+    { "from": "core.painting.highlighting",  "to": "core.painting.metallics",    "kind": "kin" },
+    { "from": "core.painting.colour-theory", "to": "core.painting.highlighting", "kind": "leads-to" },
+    { "from": "core.painting.colour-theory", "to": "core.painting.weathering",   "kind": "kin" }
+  ]
+}

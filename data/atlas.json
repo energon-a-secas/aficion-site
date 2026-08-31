@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "generated": "2026-08-31",
+  "world": { "minX": -2500, "minY": -1900, "maxX": 2500, "maxY": 1700 },
+
+  "classes": ["hub", "core", "notable", "node"],
+
+  "edgeKinds": {
+    "kin":         { "label": "sits beside", "directed": false, "weight": 1 },
+    "leads-to":    { "label": "leads to",    "directed": true,  "weight": 1 },
+    "draws-on":    { "label": "draws on",    "directed": true,  "weight": 2 },
+    "shares-gear": { "label": "shares gear", "directed": false, "weight": 2 }
+  },
+
+  "accents": ["ember", "cyan", "violet", "jade"],
+
+  "tags": {
+    "hands-on":    "Hands on",
+    "electronics": "Electronics",
+    "paint":       "Painting",
+    "mecha":       "Mecha",
+    "collecting":  "Collecting",
+    "screen":      "Watching",
+    "outdoors":    "Outdoors",
+    "radio":       "Radio",
+    "code":        "Code",
+    "kits":        "Kits",
+    "patience":    "Long sessions",
+    "cheap-start": "Cheap to start",
+    "audio":       "Sound",
+    "content":     "Making and publishing",
+    "social":      "With other people",
+    "gear":        "Gear heavy",
+    "space":       "Needs the room",
+    "fandom":      "Fandom",
+    "research":    "Reading up"
+  },
+
+  "hub": {
+    "id": "hub",
+    "label": "Aficion",
+    "class": "hub",
+    "tags": [],
+    "blurb": "Every cluster on the map connects back through here."
+  },
+
+  "coreLayout": { "recipe": "arc", "anchor": [0, 1400], "radius": 600, "startAngle": 200, "spread": 140 },
+
+  "core": [
+    {
+      "id": "core.electronics",
+      "label": "Electronics",
+      "class": "core",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Reading a schematic, driving a microcontroller, not letting the smoke out.",
+      "levels": [
+        { "label": "Breadboard", "note": "Jumper wires, a dev board, someone else's library" },
+        { "label": "Perfboard",  "note": "Your own layout, your own power budget" },
+        { "label": "PCB",        "note": "You send gerbers to a fab and they come back working" }
+      ]
+    },
+    {
+      "id": "core.soldering",
+      "label": "Soldering",
+      "class": "core",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Through-hole, then surface mount, then the fine pitch that ruins your evening.",
+      "levels": [
+        { "label": "Through hole", "note": "Kits, headers, speaker wire. A big iron and a wet sponge" },
+        { "label": "SMD",          "note": "Flux, tweezers, a hot air station and better light" },
+        { "label": "Fine pitch",   "note": "Decoder pads and saber boards, under magnification" }
+      ]
+    },
+    {
+      "id": "core.painting",
+      "label": "Painting",
+      "class": "core",
+      "tags": ["hands-on", "paint"],
+      "blurb": "Brush, rattle can, airbrush. The skill that decides whether a model reads as finished.",
+      "inner": true
+    },
+    {
+      "id": "core.photography",
+      "label": "Photography",
+      "class": "core",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Light, exposure, and the patience to shoot the same thing twenty times.",
+      "levels": [
+        { "label": "Auto",   "note": "A phone, a window and a sheet of white card" },
+        { "label": "Manual", "note": "You choose the aperture, and you know why" },
+        { "label": "Lit",    "note": "Two lights, a diffuser, and a shot you can repeat" }
+      ]
+    },
+    {
+      "id": "core.programming",
+      "label": "Programming",
+      "class": "core",
+      "tags": ["code"],
+      "blurb": "Enough code to make a thing you built do something you wanted."
+    },
+    {
+      "id": "core.3d-printing",
+      "label": "3D Printing",
+      "class": "core",
+      "tags": ["hands-on", "kits"],
+      "blurb": "Modelling, slicing, and the long argument with adhesion.",
+      "levels": [
+        { "label": "Print it",  "note": "Somebody else's file, default profile, fingers crossed" },
+        { "label": "Tune it",   "note": "Your own profile, supports placed on purpose" },
+        { "label": "Design it", "note": "CAD, tolerances, a part that fits the one beside it" }
+      ]
+    },
+    {
+      "id": "core.hand-tools",
+      "label": "Hand Tools",
+      "class": "core",
+      "tags": ["hands-on", "cheap-start"],
+      "blurb": "Cutting, filing, drilling and gluing, plus the jig that makes the second one match the first.",
+      "inner": true
+    },
+    {
+      "id": "core.audio",
+      "label": "Audio",
+      "class": "core",
+      "tags": ["audio", "hands-on"],
+      "blurb": "Capturing sound in a room that fights you, then cleaning it up afterwards. No edit rescues a bad recording."
+    },
+    {
+      "id": "core.writing",
+      "label": "Writing",
+      "class": "core",
+      "tags": ["content", "patience"],
+      "blurb": "The build log, the script and the caption. What turns a thing you made into a thing somebody else can follow."
+    }
+  ],
+
+  "clusters": [
+    "model", "rail", "brick", "figure", "tabletop", "anime",
+    "film", "video", "starwars", "radio", "maker", "drone",
+    "astro", "music", "retro", "game", "cosplay", "coffee"
+  ],
+
+  "retired": []
+}

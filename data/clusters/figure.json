@@ -1,0 +1,82 @@
+{
+  "id": "figure",
+  "label": "Figures and Miniatures",
+  "blurb": "Small people and smaller faces. One half is bought and displayed, the other half arrives as unpainted resin and has to be earned.",
+  "notable": "figure.mini-painting",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-714, -714],
+    "radius": 255,
+    "startAngle": 150,
+    "spread": 620,
+    "order": [
+      "figure.mini-painting", "figure.printed-minis", "figure.basing", "figure.army-painting",
+      "figure.busts", "figure.competition", "figure.repaints", "figure.garage-kits",
+      "figure.sculpting", "figure.casting", "figure.figure-photo", "figure.collecting",
+      "figure.scale-figures", "figure.articulated", "figure.bootlegs", "figure.display"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "figure.mini-painting",
+      "label": "Miniature Painting",
+      "class": "notable",
+      "tags": ["paint", "patience", "hands-on", "cheap-start"],
+      "blurb": "Painting something 32mm tall so it reads correctly from two feet away. The most transferable painting skill on the map.",
+      "aka": ["painting miniatures", "warhammer painting", "mini painting"],
+      "accent": "violet",
+      "levels": [
+        { "label": "Tabletop",  "note": "Base, wash, drybrush. Finished, on the table, and it looks fine from a chair" },
+        { "label": "Display",   "note": "Layered, edge highlighted, and it survives being picked up and looked at" },
+        { "label": "Show", "note": "Blending, freehand and a base that is its own model. Judged in a cabinet" }
+      ]
+    },
+    {
+      "id": "figure.garage-kits",
+      "label": "Garage Kits",
+      "class": "node",
+      "tags": ["kits", "paint", "patience", "hands-on"],
+      "blurb": "Unpainted resin, usually a limited run, usually of an anime character. A collector expects an assembly job and discovers a refinishing job.",
+      "aka": ["resin kits", "resin figures"],
+      "accent": "jade",
+      "inner": true
+    },
+    { "id": "figure.printed-minis","label": "Printed Minis",  "class": "node", "tags": ["kits", "hands-on", "cheap-start"], "blurb": "Resin printing your own. The supply problem disappears and a support-removal problem arrives in its place." },
+    { "id": "figure.basing",       "label": "Bases and Plinths","class": "node","tags": ["hands-on", "paint"],              "blurb": "The ground the figure stands on, and half of what a judge is actually looking at. A good base can carry an average figure." },
+    { "id": "figure.army-painting","label": "Batch Painting",  "class": "node", "tags": ["paint", "patience"],              "blurb": "Sixty models to one standard, in an order that never puts the brush down twice. A different skill from painting one well." },
+    { "id": "figure.busts",        "label": "Display Busts",   "class": "node", "tags": ["paint", "patience", "collecting"],"blurb": "Head and shoulders at a scale where every brushstroke is visible. Where painters go to work on skin and eyes." },
+    { "id": "figure.competition",  "label": "Painting Contests","class": "node","tags": ["social", "paint"],                "blurb": "Cabinet judging against a standard nobody writes down. The fastest feedback in the hobby and the least gentle." },
+    { "id": "figure.repaints",     "label": "Custom Repaints", "class": "node", "tags": ["paint", "hands-on", "fandom"],    "blurb": "Stripping a factory paint job off a mass-produced figure and doing it properly. Cheap practice on a good sculpt." },
+    { "id": "figure.sculpting",    "label": "Sculpting",       "class": "node", "tags": ["hands-on", "patience"],           "blurb": "Epoxy putty over an armature, or digital sculpting for print. The step from finishing someone's design to having one." },
+    { "id": "figure.casting",      "label": "Moulding and Casting","class":"node","tags":["hands-on", "gear", "space"],     "blurb": "Silicone, resin and a pressure pot. Becoming the garage in garage kit, along with a real ventilation problem." },
+    { "id": "figure.figure-photo", "label": "Figure Photography","class": "node","tags": ["content", "patience"],           "blurb": "Macro, a backdrop and an eye-level camera. Shooting a figure from above makes it look like a toy on a desk, which it is." },
+    { "id": "figure.collecting",   "label": "Figure Collecting","class": "node", "tags": ["collecting", "fandom", "research"], "blurb": "Scale literacy, brands, release cycles and the shelf that ran out two years ago.",
+      "aka": ["figure collector", "anime figures", "pvc figures"] },
+    { "id": "figure.scale-figures","label": "Scale Figures",   "class": "node", "tags": ["collecting", "fandom", "gear"],   "blurb": "Prepainted PVC at 1/7 and 1/8, sold on preorder eighteen months before it exists. The mainstream of the hobby." },
+    { "id": "figure.articulated",  "label": "Articulated Figures","class":"node","tags": ["collecting", "mecha", "fandom"], "blurb": "Poseable lines with swappable hands and faces. Bought to be posed and photographed rather than left in the box.",
+      "aka": ["figma", "figuarts", "action figures"] },
+    { "id": "figure.bootlegs",     "label": "Bootleg Literacy", "class": "node", "tags": ["research", "collecting"],        "blurb": "Recasts and counterfeits are a real market, and telling one apart is a learned skill involving box print, paint slop and seam lines." },
+    { "id": "figure.display",      "label": "Display and Lighting","class":"node","tags": ["collecting", "space", "gear"],  "blurb": "Cabinets, UV, dust and LED strips. The point where a collection stops being storage and becomes a presentation." }
+  ],
+  "edges": [
+    { "from": "figure.mini-painting", "to": "figure.basing",        "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.army-painting", "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.competition",   "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.printed-minis", "kind": "kin" },
+    { "from": "figure.mini-painting", "to": "figure.busts",         "kind": "leads-to", "note": "Twice the size, ten times the scrutiny. Busts are where painters go to learn skin." },
+    { "from": "figure.mini-painting", "to": "figure.repaints",      "kind": "kin" },
+    { "from": "figure.mini-painting", "to": "figure.garage-kits",   "kind": "leads-to" },
+    { "from": "figure.garage-kits",   "to": "figure.sculpting",     "kind": "leads-to" },
+    { "from": "figure.sculpting",     "to": "figure.casting",       "kind": "leads-to" },
+    { "from": "figure.garage-kits",   "to": "figure.figure-photo",  "kind": "kin" },
+    { "from": "figure.garage-kits",   "to": "figure.collecting",    "kind": "kin",      "note": "Almost nobody builds one of these who was not first a collector of the finished version." },
+    { "from": "figure.collecting",    "to": "figure.scale-figures", "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.articulated",   "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.bootlegs",      "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.display",       "kind": "leads-to" },
+    { "from": "figure.display",       "to": "figure.figure-photo",  "kind": "kin" },
+    { "from": "figure.repaints",      "to": "figure.articulated",   "kind": "kin" },
+    { "from": "figure.busts",         "to": "figure.competition",   "kind": "kin" },
+    { "from": "figure.printed-minis", "to": "figure.basing",        "kind": "kin" }
+  ]
+}

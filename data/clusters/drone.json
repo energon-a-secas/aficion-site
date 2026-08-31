@@ -1,0 +1,66 @@
+{
+  "id": "drone",
+  "label": "Drones and Aerial",
+  "blurb": "Flying a camera. Half electronics bench, half standing in a field in the cold waiting for the wind to drop.",
+  "notable": "drone.fpv",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [1515, 875],
+    "radius": 255,
+    "startAngle": 120,
+    "order": [
+      "drone.fpv", "drone.simulator", "drone.freestyle", "drone.racing", "drone.micro",
+      "drone.build", "drone.betaflight", "drone.lipo", "drone.repair", "drone.video-link",
+      "drone.regulations", "drone.cinematic", "drone.aerial-photo", "drone.mapping"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "drone.fpv",
+      "label": "FPV Flying",
+      "class": "notable",
+      "tags": ["outdoors", "electronics", "gear", "patience"],
+      "blurb": "Goggles on, flying from the aircraft's point of view. Closer to a motor skill than a gadget, and it takes real hours before it stops being terrifying.",
+      "aka": ["fpv", "first person view", "quadcopter", "drones"],
+      "accent": "cyan"
+    },
+    {
+      "id": "drone.cinematic",
+      "label": "Cinematic Drone",
+      "class": "node",
+      "tags": ["content", "outdoors", "gear"],
+      "blurb": "Smooth, slow and planned, for footage that goes in an edit rather than on a highlight reel. A different aircraft and a different discipline from racing.",
+      "accent": "ember"
+    },
+    { "id": "drone.simulator",  "label": "Simulator Practice","class": "node", "tags": ["cheap-start", "code", "screen"],  "blurb": "Crashing for free. The one piece of consensus advice in this hobby is to spend hours here before spending money on props." },
+    { "id": "drone.freestyle",  "label": "Freestyle",        "class": "node", "tags": ["outdoors", "patience"],           "blurb": "Flowing lines through gaps and around structures. Judged by feel, and the reason most people bought the goggles." },
+    { "id": "drone.racing",     "label": "Drone Racing",     "class": "node", "tags": ["social", "outdoors", "patience"], "blurb": "Gates, a timer and other people. Repair skill matters as much as flying skill because everybody crashes." },
+    { "id": "drone.micro",      "label": "Tiny Whoops",      "class": "node", "tags": ["cheap-start", "hands-on", "space"],"blurb": "Ducted micro quads light enough to fly indoors. Cheap, survivable, and the fastest way to accumulate flight hours." },
+    { "id": "drone.build",      "label": "Building a Quad",  "class": "node", "tags": ["hands-on", "electronics", "kits"],"blurb": "Frame, motors, stack, camera and a lot of small solder joints that vibrate for a living." },
+    { "id": "drone.betaflight", "label": "Flight Controller Tuning","class":"node","tags":["code", "electronics", "patience"],"blurb": "PID rates, filters and firmware flags. The software half, where a build that flies becomes a build that flies well.",
+      "aka": ["betaflight", "pid tuning"] },
+    { "id": "drone.lipo",       "label": "LiPo Safety",      "class": "node", "tags": ["research", "gear"],               "blurb": "Charge rates, storage voltage, a bag, and never a swollen pack. The one part of this hobby that can set fire to a house." },
+    { "id": "drone.repair",     "label": "Field Repair",     "class": "node", "tags": ["hands-on", "electronics", "outdoors"],"blurb": "A soldering iron in a car boot. Everybody crashes, so the flying session lasts as long as your ability to fix things does." },
+    { "id": "drone.video-link", "label": "Video Link and Antennas","class":"node","tags":["radio", "electronics", "gear"],"blurb": "Analogue or digital, 5.8 GHz, and antennas whose polarisation actually matters. Radio work by another name.",
+      "aka": ["vtx", "5.8ghz", "fpv antenna"] },
+    { "id": "drone.regulations","label": "Rules and Licensing","class":"node", "tags": ["research", "outdoors", "social"],"blurb": "Registration, categories, altitude limits and where you may not fly. Ignorance of this is what closes flying sites for everybody else." },
+    { "id": "drone.aerial-photo","label": "Aerial Photography","class":"node", "tags": ["content", "outdoors", "patience"],"blurb": "Stills from an angle nobody used to be able to afford. Light and weather decide the day more than the aircraft does." },
+    { "id": "drone.mapping",    "label": "Mapping and Survey","class": "node", "tags": ["research", "code", "outdoors"],  "blurb": "Flying a grid and turning the overlap into an orthomosaic or a model. The point where a hobby turns into a service somebody pays for." }
+  ],
+  "edges": [
+    { "from": "drone.fpv",       "to": "drone.simulator",  "kind": "kin",      "note": "Hours here are free and hours in the field are not. Almost nobody regrets the simulator time." },
+    { "from": "drone.fpv",       "to": "drone.freestyle",  "kind": "leads-to" },
+    { "from": "drone.fpv",       "to": "drone.racing",     "kind": "leads-to" },
+    { "from": "drone.fpv",       "to": "drone.build",      "kind": "kin" },
+    { "from": "drone.fpv",       "to": "drone.micro",      "kind": "kin" },
+    { "from": "drone.fpv",       "to": "drone.regulations","kind": "kin" },
+    { "from": "drone.fpv",       "to": "drone.video-link", "kind": "kin" },
+    { "from": "drone.fpv",       "to": "drone.cinematic",  "kind": "kin" },
+    { "from": "drone.build",     "to": "drone.betaflight", "kind": "leads-to" },
+    { "from": "drone.build",     "to": "drone.lipo",       "kind": "kin" },
+    { "from": "drone.build",     "to": "drone.repair",     "kind": "kin" },
+    { "from": "drone.racing",    "to": "drone.micro",      "kind": "kin" },
+    { "from": "drone.cinematic", "to": "drone.aerial-photo","kind": "leads-to" },
+    { "from": "drone.aerial-photo","to": "drone.mapping",  "kind": "leads-to" }
+  ]
+}

@@ -1,0 +1,239 @@
+// ── State transitions ────────────────────────────────────────
+// Every change to the profile, the selection, the compare and the build passes
+// through here. Split out of events.js when that file grew past its budget:
+// events.js binds listeners, this file says what a listener does. Both halves
+// stay short enough to read in one sitting, which is the point of the rule.
+//
+// Nothing here touches the DOM directly except to move focus. Rendering is
+// render.js and panels.js; drawing is the renderer.
+
+import { $, showToast, plural } from './utils.js';
+import { persistProfile, setNotice } from './state.js';
+import { toggle, setLevel, computeRoutes } from './alloc.js';
+import { boundsOfIds } from './atlas/layout.js';
+import { hasInner, ensureNodes } from './atlas/load.js';
+import { openInner, closeInner } from './inner.js';
+import { decode, reconcile, readPasted, PROFILE_VERSION } from './profile.js';
+import { compare } from './compare.js';
+import { ensureBuilds, listBuilds, applyBuild, buildProgress } from './builds.js';
+import { render, renderDetail, renderNotice, paint, announce } from './render.js';
+import { renderCompare, renderBuildsList, renderBuildPanel, renderInner } from './panels.js';
+import { openModal, closeModal } from './modal.js';
+
+/**
+ * Bring a sidebar panel into view when something opens it.
+ *
+ * The sidebar is a scrolling column and a build or a compare result renders
+ * below the fold, so without this the visitor clicks Compare, the dialog
+ * closes, and nothing appears to have happened. On a narrow screen the sidebar
+ * is a sheet, so it has to be opened first, and the toggle's state has to move
+ * with it or the button lies about what it does.
+ */
+function revealPanel(id) {
+  const toggle = $('panelToggle');
+  if (toggle && getComputedStyle(toggle).display !== 'none') {
+    document.body.classList.add('side-open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  $(id)?.scrollIntoView({ block: 'nearest' });
+}
+
+/**
+ * The one path a profile change takes. Routes are recomputed here rather than
+ * by each caller so the gold thread can never lag a node behind the map.
+ *
+ * A payload from a newer version is read but never written back: a stale tab
+ * must not be able to downgrade somebody's saved map by opening their link.
+ */
+export function commit(s, message) {
+  s.routes = computeRoutes(s.atlas, new Set(s.profile.n));
+  if (s.profile.v <= PROFILE_VERSION) persistProfile();
+  render(s);
+  renderBuildPanel(s);
+  renderCompare(s);
+  renderInner(s);
+  if (message) announce(message);
+}
+
+export function select(s, id, { centre = false } = {}) {
+  s.selected = id;
+  if (centre && id) {
+    const p = s.layout.pos.get(id);
+    if (p) s.camera.flyTo({ x: p.x, y: p.y, zoom: Math.max(s.camera.zoom, 1.1) });
+  }
+  renderDetail(s);
+  paint(s);
+  const node = id ? s.atlas.nodes.get(id) : null;
+  if (node) announce(`${node.label}. ${node.blurb}`);
+}
+
+export function toggleNode(s, id) {
+  const node = s.atlas.nodes.get(id);
+  // The hub is the centre everything connects back through, not something a
+  // person practises. render.js offers no button for it; this closes the
+  // keyboard and double-click paths to the same place.
+  if (!node || node.class === 'hub') return;
+  const had = s.profile.n.includes(id);
+  s.profile = toggle(s.profile, id);
+  commit(s, `${node.label} ${had ? 'removed from' : 'added to'} your map.`);
+}
+
+export function applyLevel(s, id, level) {
+  const node = s.atlas.nodes.get(id);
+  if (!node || !node.levels) return;
+  const next = s.profile.l[id] === level ? null : level;
+  s.profile = setLevel(s.profile, id, next);
+  commit(s, next ? `${node.label} set to ${node.levels[next - 1].label}.` : `${node.label} depth cleared.`);
+}
+
+/** Light the walk between two of the visitor's islands and fly along it. */
+export function trace(s, path) {
+  s.focusRing = new Set(path);
+  s.camera.flyTo(boundsOfIds(s.layout, path, 140));
+  paint(s);
+  announce(`Tracing ${path.length} nodes.`);
+}
+
+export function clearMine(s) {
+  s.profile = { ...s.profile, n: [], l: {} };
+  s.focusRing = new Set();
+  commit(s, 'Your map is empty again.');
+}
+
+export function fitMine(s) {
+  const ids = s.profile.n.filter((id) => s.layout.pos.has(id));
+  if (!ids.length) {
+    showToast('Nothing marked yet, so there is nothing to fit to.');
+    return;
+  }
+  s.camera.flyTo(boundsOfIds(s.layout, ids, 160));
+}
+
+export async function drillInto(s, id) {
+  if (!hasInner(s.atlas, id)) return;
+  try {
+    s.inner = await openInner(s.atlas, id);
+    renderInner(s);
+    $('innerClose')?.focus();
+  } catch (err) {
+    showToast(`That drill-in did not load: ${err.detail || err.message}`);
+  }
+}
+
+export function leaveInner(s) {
+  closeInner();
+  s.inner = null;
+  renderInner(s);
+  $('atlasCanvas')?.focus();
+}
+
+// ── Compare ──────────────────────────────────────────────────
+export function stopCompare(s) {
+  s.theirs = null;
+  s.theirName = null;
+  s.comparison = null;
+  renderCompare(s);
+  paint(s);
+}
+
+/** Their map is held in memory only: never saved, never merged into yours. */
+export async function runCompare(s) {
+  const input = $('compareInput');
+  const err = $('compareError');
+  err.hidden = true;
+  const parsed = readPasted(input.value);
+  if (!parsed) {
+    err.hidden = false;
+    err.textContent = 'That does not look like an Aficion link. Paste the whole address.';
+    return;
+  }
+  try {
+    const theirs = await decode(parsed.key, parsed.payload);
+    await ensureNodes(s.atlas, theirs.n);
+    const { profile } = reconcile(s.atlas, theirs);
+    s.theirs = profile;
+    s.theirName = profile.t || null;
+    s.comparison = compare(s.atlas, s.profile, profile);
+    renderCompare(s);
+    paint(s);
+    closeModal('compareModal');
+    revealPanel('comparePanel');
+    announce(`Comparing with ${profile.t || 'their map'}.`);
+  } catch (error) {
+    err.hidden = false;
+    err.textContent = error.message;
+  }
+}
+
+// ── Builds ───────────────────────────────────────────────────
+export function openBuild(s, id) {
+  const build = listBuilds(s.atlas).find((b) => b.id === id);
+  if (!build) return;
+  s.build = build;
+  s.buildCursor = buildProgress(build, new Set(s.profile.n)).nextIndex;
+  closeModal('buildsModal');
+  renderBuildPanel(s);
+  revealPanel('buildPanel');
+  s.camera.flyTo(boundsOfIds(s.layout, build.steps.map((x) => x.node), 160));
+  paint(s);
+}
+
+export function closeBuild(s) {
+  s.build = null;
+  renderBuildPanel(s);
+  paint(s);
+}
+
+export function stackBuild(s) {
+  if (!s.build) return;
+  s.profile = applyBuild(s.profile, s.build, s.build.steps.length);
+  commit(s, `${s.build.name} added to your map.`);
+}
+
+export async function openBuilds(s) {
+  try {
+    await ensureBuilds(s.atlas);
+  } catch (err) {
+    showToast(`Builds did not load: ${err.detail || err.message}`);
+    return;
+  }
+  renderBuildsList(s);
+  openModal('buildsModal');
+}
+
+/**
+ * A profile arriving in the address bar, on load or on a later hash change.
+ *
+ * A link with thirty nodes and one id the corpus no longer has opens with
+ * twenty-nine and says so once, in the panel. It never fails whole, and it
+ * never silently falls back to the visitor's own saved map, because that looks
+ * exactly like the link having worked.
+ */
+export async function applyHash(s, parsed) {
+  try {
+    const incoming = await decode(parsed.key, parsed.payload);
+    await ensureNodes(s.atlas, incoming.n);
+    const { profile, unknown, retired, clamped } = reconcile(s.atlas, incoming);
+    s.profile = profile;
+    const notes = [];
+    if (retired.length) {
+      notes.push(`${retired.length} ${plural(retired.length, 'was on the map once and has', 'were on the map once and have')} been retired since`);
+    }
+    if (unknown.length) {
+      notes.push(`${unknown.length} ${plural(unknown.length, 'is not a node here', 'are not nodes here')}`);
+    }
+    if (clamped.length) notes.push(`${clamped.length} had a depth this atlas no longer goes to`);
+    if (incoming.v > PROFILE_VERSION) {
+      setNotice('This link was made with a newer version of Aficion. Reload the page to see all of it.');
+    } else if (notes.length) {
+      setNotice(`Opened ${profile.n.length} of ${incoming.n.length} nodes: ${notes.join(', ')}.`);
+    } else {
+      setNotice(null);
+    }
+    commit(s, `Opened a shared map of ${profile.n.length} nodes.`);
+    if (profile.n.length) fitMine(s);
+  } catch (err) {
+    setNotice(err.message);
+    renderNotice(s);
+  }
+}

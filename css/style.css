@@ -1,0 +1,613 @@
+/* ── Reset & base ──────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/*
+ * ── Design tokens ─────────────────────────────────────────────
+ *
+ * Canonical tokens (colors, font, type scale, spacing, radii) come from the CDN:
+ *   https://cdn.neorgon.org/v1.0.0/styles/base.css   (linked in index.html)
+ * Do NOT redeclare them here: a local copy is how the fleet drifted. The block
+ * below holds only what base.css does not define, plus the per-site accent.
+ *
+ * Motion: base.css still ships --ease-snap (bounce) for legacy sites, but it is
+ * deprecated for new work (impeccable law: ease-out exponential, no bounce).
+ * Use --ease-out below.
+ */
+
+:root {
+  /* Per-site identity: this site's hub card accent (PROJECTS.md section 4) */
+  --accent: #fbbf24;
+  --accent-bright: #fcd34d;
+
+  /*
+   * Atlas palette. A 2D canvas cannot read a CSS custom property, so
+   * js/atlas/theme.js resolves colour through a probe element and every draw
+   * pass takes its strings from there. base.css defines none of the five
+   * below, and everything else the canvas paints is derived in theme.js from
+   * the canonical tokens rather than named again here. The four accent names
+   * are the closed list data/atlas.json declares: colour is design, so the
+   * corpus carries the name and this file carries the value.
+   */
+  --atlas-core: #6fd6c8;
+  --atlas-accent-ember: #ff8a5b;
+  --atlas-accent-cyan: #57d9f2;
+  --atlas-accent-violet: #b98cff;
+  --atlas-accent-jade: #6fe0a8;
+
+  /* Site extras base.css does not define */
+  --surface-toast: #1a1730;
+  --danger: #e11d48;
+  --danger-hover: #f43f5e;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --control-height: 44px;
+  --control-height-sm: 36px;
+  --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.5);
+  --shadow-modal: 0 24px 48px rgba(2, 6, 23, 0.58);
+  --z-sticky-header: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --side-w: 360px;
+}
+
+/* Author display values would otherwise defeat the hidden attribute, so
+   restore its authority once, globally. */
+[hidden] { display: none !important; }
+
+html { height: 100%; }
+
+/* The page does not scroll: the stage owns the viewport and the map pans
+   inside it. The Footer Kit takes data-stick="off" for exactly this. */
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+body.modal-open { overflow: hidden; }
+
+/* The Beacon Kit's control is fixed at bottom-left 20px, which assumes a page
+   that scrolls so the footer is not there. This one does not scroll and the
+   footer is pinned to the viewport floor, so at the default offset the icon
+   lands on the footer copy. --beacon-offset is the kit's documented per-site
+   knob (packages/neorgon-ui/beacon/README.md); it has to be set here rather
+   than in :root because neorgon-beacon.css loads after this file and would
+   win a tie. */
+body { --beacon-offset: 62px; }
+/* The footer's meta bar drops onto its own row below 700px, so the copy that
+   the beacon has to clear gets taller. Measured, not guessed. */
+@media (max-width: 700px) { body { --beacon-offset: 88px; } }
+
+main#main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* ── Atlas shell ───────────────────────────────────────────── */
+.atlas {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--side-w);
+}
+
+.stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+#atlasCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+#atlasCanvas:active { cursor: grabbing; }
+#atlasCanvas:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -3px; }
+
+.stage__tools {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-1);
+}
+.tool {
+  min-height: var(--control-height-sm);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(4, 7, 20, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+.tool:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
+.tool[aria-pressed="false"] { color: var(--text-muted); }
+.tool--panel { display: none; }
+.side__close { display: none; }
+
+.stage__hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  transform: translateX(-50%);
+  z-index: 2;
+  max-width: min(560px, calc(100% - var(--space-8)));
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(4, 7, 20, 0.76);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.stage__error {
+  position: absolute;
+  inset: auto var(--space-6) var(--space-6);
+  top: var(--space-6);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+}
+.stage__error-title { font-size: var(--text-lg); font-weight: 600; }
+.stage__error-detail { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6; }
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+.side {
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-left: 1px solid var(--border);
+  background: var(--surface-1);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.side__search { position: relative; display: flex; flex-direction: column; gap: var(--space-2); }
+.side__results {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-height: 260px;
+  overflow-y: auto;
+}
+.side__results li { display: flex; align-items: center; gap: var(--space-2); }
+.side__empty { color: var(--text-muted); font-size: var(--text-sm); }
+.side__notice {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+}
+.side__meta { color: var(--text-muted); font-size: var(--text-xs); line-height: 1.5; }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+.panel:first-of-type { border-top: 0; padding-top: 0; }
+.panel__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.panel__where { font-size: var(--text-xs); color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.panel__blurb { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6; }
+.panel__lead { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.6; }
+.pill {
+  min-width: 22px;
+  padding: 1px var(--space-2);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.field-block { display: flex; flex-direction: column; gap: var(--space-2); }
+.field-label { font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.field {
+  width: 100%;
+  min-height: var(--control-height-sm);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+}
+.field--mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: var(--text-xs); resize: vertical; word-break: break-all; }
+.form-error { color: var(--danger-hover); font-size: var(--text-sm); }
+
+/* ── Node chips ────────────────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.chipnode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+.chipnode:hover { background: var(--surface-2); color: var(--text-primary); border-color: var(--border-strong); }
+.chipnode.is-mine { border-color: var(--accent); color: var(--accent-bright); }
+.chipnode--both { border-color: var(--atlas-accent-jade); color: var(--atlas-accent-jade); }
+.chipnode--theirs, .chipnode--near { border-color: var(--atlas-accent-violet); color: var(--atlas-accent-violet); }
+.chipnode--mine { border-color: var(--accent); color: var(--accent-bright); }
+.chipnode__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
+.chipnode__dot[data-class="core"] { background: var(--atlas-core); }
+.chipnode__dot[data-class="notable"] { width: 9px; height: 9px; background: var(--text-primary); }
+.chipnode__dot[data-class="hub"] { background: var(--accent-bright); }
+.chipnode__lv { margin-left: 4px; padding: 0 5px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); font-size: 0.68rem; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+.depths { display: flex; flex-wrap: wrap; gap: 4px; }
+.depth {
+  padding: 5px var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+.depth:hover { color: var(--text-primary); border-color: var(--border-strong); }
+.depth.is-on { background: var(--accent); border-color: var(--accent); color: #1a1204; }
+
+.linklist, .bridges, .suglist, .steps, .inner__list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+.linklist li { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); }
+.rel { font-size: 0.7rem; color: var(--text-muted); text-transform: lowercase; }
+.bridges li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.bridge__text { flex: 1 1 200px; font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.55; }
+.minegroup { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.sug { display: flex; flex-direction: column; gap: var(--space-2); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+/* The same hue the canvas rings this node with, so the panel and the map name the same thing. */
+.sug__head .chipnode { border-color: var(--atlas-accent-ember); color: var(--atlas-accent-ember); }
+.sug:last-child { border-bottom: 0; padding-bottom: 0; }
+.sug__why { font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.55; }
+
+.steps { counter-reset: step; }
+.step { display: flex; flex-direction: column; gap: 4px; padding-left: var(--space-4); border-left: 2px solid var(--border); }
+.step.is-done { border-left-color: var(--accent); }
+.step.is-cursor { border-left-color: var(--atlas-accent-cyan); }
+
+.tally { width: 100%; border-collapse: collapse; font-size: var(--text-xs); }
+.tally th, .tally td { padding: 4px 6px; text-align: right; border-bottom: 1px solid var(--border-subtle); }
+.tally th[scope="row"] { text-align: left; color: var(--text-secondary); font-weight: 600; }
+.tally thead th { color: var(--text-muted); font-weight: 600; }
+
+.keys { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); font-size: var(--text-sm); }
+.keys dt { font-weight: 600; color: var(--text-primary); }
+.keys dd { color: var(--text-muted); }
+
+/* ── Inner-tree drill-in ───────────────────────────────────── */
+.inner {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(4, 7, 20, 0.82);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.inner__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: min(100%, 720px);
+  max-height: 100%;
+  overflow: auto;
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-modal);
+}
+.inner__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.inner__title { font-size: var(--text-lg); font-weight: 600; }
+.inner__blurb { margin-top: 4px; font-size: var(--text-xs); color: var(--text-muted); line-height: 1.55; }
+.inner__body { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+.inner__svg { width: 200px; height: 200px; overflow: visible; }
+.inner__edge { stroke: var(--border-strong); stroke-width: 0.7; }
+.inner__edge.is-lit { stroke: var(--accent); stroke-width: 1.2; }
+.inner__dot { fill: var(--text-muted); }
+.inner__dot.is-mine { fill: var(--accent); }
+.inner__row { border-left: 2px solid var(--border); padding-left: var(--space-3); }
+.inner__row.is-mine { border-left-color: var(--accent); }
+.inner__pick {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease-out);
+}
+.inner__pick:hover { background: var(--surface-2); }
+.inner__pick-name { font-size: var(--text-sm); font-weight: 600; }
+.inner__pick-blurb { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.5; }
+
+/* ── Buttons (canonical) ─────────────────────────────────────
+ * Use .btn + a variant.
+ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-primary);
+  transition:
+    background-color var(--dur),
+    color var(--dur),
+    border-color var(--dur),
+    box-shadow var(--dur),
+    transform var(--dur-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:disabled,
+.btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.btn--sm { min-height: var(--control-height-sm); padding: 0 var(--space-3); font-size: var(--text-xs); }
+.btn--block { width: 100%; }
+.btn--icon { min-width: var(--control-height); padding: 0; }
+.btn--primary { background: var(--accent); color: #1a1204; border-color: transparent; }
+.btn--primary:hover { background: var(--accent-bright); }
+.btn--secondary { background: var(--surface-2); color: var(--text-primary); border-color: var(--border-strong); }
+.btn--secondary:hover { background: rgba(255, 255, 255, 0.1); }
+.btn--ghost { background: transparent; color: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.18); }
+.btn--ghost:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.btn--danger { background: var(--danger); color: #fff; border-color: transparent; }
+.btn--danger:hover { background: var(--danger-hover); }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.stack { display: flex; flex-direction: column; gap: var(--space-6); }
+.stack--tight { gap: var(--space-3); }
+
+/* ── Header ────────────────────────────────────────────────────
+ * Owned by the Neorgon Header Kit (css/neorgon-header.css, canonical
+ * source: packages/neorgon-ui/header/). Do NOT style .header-bar,
+ * .header-logo*, .header-title-link, .header-subtitle, .header-right,
+ * .header-actions, or .header-home here.
+ */
+
+/* ── Footer ────────────────────────────────────────────────────
+   Owned by the Neorgon Footer Kit (css/neorgon-footer.css).
+   Don't add .neo-footer rules here. Edit packages/neorgon-ui/footer/
+   and re-run sync-footer.sh. */
+
+/* ── Modal (blocking overlay) ──────────────────────────────── */
+.modal[hidden] { display: none !important; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 4, 12, 0.85);
+  -webkit-backdrop-filter: blur(10px); /* Safari still needs the prefix */
+  backdrop-filter: blur(10px);
+}
+.modal__dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 520px);
+  max-height: min(90vh, 680px);
+  overflow: hidden;
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+}
+.modal__dialog--wide { width: min(100%, 760px); }
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.modal__header h2 { font-size: var(--text-lg); font-weight: 600; color: var(--text-primary); }
+.modal__body {
+  padding: var(--space-6);
+  overflow: auto;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color var(--dur), box-shadow var(--dur);
+}
+.card--flat:hover { box-shadow: none; }
+
+/* ── Button press feedback ─────────────────────────────────── */
+button:active, .btn:active, .tool:active, .chipnode:active, .depth:active {
+  transform: scale(0.98);
+  transition-duration: var(--dur-fast);
+}
+
+/* ── Toast ─────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  max-width: min(360px, calc(100vw - var(--space-8)));
+  background: var(--surface-toast);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  pointer-events: none;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+.toast.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Focus styles ──────────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
+
+/* ── Skip link ─────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 1000;
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent-bright);
+  color: #000;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  text-decoration: none;
+  transition: top var(--dur);
+}
+.skip-link:focus { top: 0; }
+
+/* ── Reduced motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Responsive ────────────────────────────────────────────────
+   Below 940px the sidebar stops being a column and becomes a sheet over the
+   right of the stage, so the map keeps the whole width and the panel is one
+   tap away. The bottom-left corner stays clear at every width: the Beacon
+   Kit's control lives there and a full-viewport canvas is exactly what would
+   swallow its clicks. */
+@media (max-width: 940px) {
+  .atlas { grid-template-columns: minmax(0, 1fr); }
+  .tool--panel { display: block; }
+  .side {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(92vw, var(--side-w));
+    z-index: 5;
+    background: var(--bg);
+    transform: translateX(101%);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  body.side-open .side { transform: none; }
+  /* The sheet covers the stage controls that opened it, so it carries its own
+     way out. Without this the panel opens on a phone and cannot be closed. */
+  .side__close { display: block; align-self: flex-end; }
+  .inner__body { grid-template-columns: minmax(0, 1fr); }
+  .inner__svg { width: 100%; height: 180px; }
+}
+
+@media (max-width: 600px) {
+  .stage__hint { font-size: 0.7rem; bottom: 68px; }
+  .toast { left: var(--space-4); right: var(--space-4); max-width: none; }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "anime",
+  "label": "Anime and Manga",
+  "blurb": "The series people watch, and the enormous economy of objects, art books and plastic that grows out of watching them.",
+  "notable": "anime.mecha",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, -1520],
+    "radius": 270,
+    "startAngle": -90,
+    "order": [
+      "anime.mecha", "anime.series", "anime.films", "anime.retro-anime", "anime.industry",
+      "anime.subs-dubs", "anime.japanese", "anime.manga", "anime.artbooks", "anime.cels",
+      "anime.drawing", "anime.doujin", "anime.conventions", "anime.merch", "anime.jpop"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "anime.mecha",
+      "label": "Mecha Anime",
+      "class": "notable",
+      "tags": ["screen", "mecha", "fandom", "research"],
+      "blurb": "Giant robots, forty years of them, and the design lineage that explains why the kit on your shelf looks the way it does.",
+      "aka": ["gundam", "mecha", "robot anime"],
+      "accent": "ember"
+    },
+    {
+      "id": "anime.manga",
+      "label": "Manga",
+      "class": "node",
+      "tags": ["research", "fandom", "collecting", "patience"],
+      "blurb": "The source most series are adapted from, usually longer, usually different, and usually still running.",
+      "accent": "jade"
+    },
+    { "id": "anime.series",     "label": "Seasonal Watching","class": "node", "tags": ["screen", "fandom", "social"],   "blurb": "Following a cour as it airs, one episode a week, with everybody else watching the same episode that day." },
+    { "id": "anime.films",      "label": "Anime Films",      "class": "node", "tags": ["screen", "fandom"],             "blurb": "Two hours, one budget, and the format most likely to convince somebody who says they do not watch anime." },
+    { "id": "anime.retro-anime","label": "Pre-2000 Anime",   "class": "node", "tags": ["screen", "research", "collecting"], "blurb": "Cel-era work, hand-painted and shot on film. Looks nothing like what came after, and increasingly hard to see properly." },
+    { "id": "anime.industry",   "label": "Studios and Staff","class": "node", "tags": ["research", "screen"],           "blurb": "Following key animators, directors and studios rather than titles. Turns a watch list into something with a shape." },
+    { "id": "anime.subs-dubs",  "label": "Subs and Dubs",    "class": "node", "tags": ["screen", "research"],           "blurb": "Translation, localisation and the twenty-year argument. Comparing two scripts of the same scene teaches more than either one alone." },
+    { "id": "anime.japanese",   "label": "Learning Japanese","class": "node", "tags": ["research", "patience"],         "blurb": "The point where a viewer stops waiting for a translation. A years-long commitment that a hobby talked somebody into." },
+    { "id": "anime.artbooks",   "label": "Art Books",        "class": "node", "tags": ["collecting", "research"],       "blurb": "Settei sheets, colour scripts and mechanical designs. Reference material for anybody building or drawing the thing." },
+    { "id": "anime.cels",       "label": "Production Cels",  "class": "node", "tags": ["collecting", "research", "gear"], "blurb": "Hand-painted acetate from the pre-digital era. A real archival hobby, with real forgeries and real conservation problems." },
+    { "id": "anime.drawing",    "label": "Drawing in the Style","class":"node","tags": ["hands-on", "patience", "content"], "blurb": "Studying construction, expression sheets and how a face is built. Copying badly for a long time is the documented method." },
+    { "id": "anime.doujin",     "label": "Doujinshi and Fanwork","class":"node","tags": ["content", "fandom", "social"],"blurb": "Self-published fan work, printed in small runs and sold at events. An entire parallel publishing culture." },
+    { "id": "anime.conventions","label": "Conventions",      "class": "node", "tags": ["social", "fandom", "collecting"],"blurb": "Panels, dealer halls and the queue. Where the online half of this hobby turns into people standing in a room." },
+    { "id": "anime.merch",      "label": "Merchandise",      "class": "node", "tags": ["collecting", "fandom", "gear"], "blurb": "Standees, keychains, tapestries and the endless small goods. Cheap individually, ruinous cumulatively." },
+    { "id": "anime.jpop",       "label": "Anime Music",      "class": "node", "tags": ["audio", "fandom", "collecting"],"blurb": "Openings, endings and the composers who score whole seasons. Often the first thing somebody keeps after dropping a show." }
+  ],
+  "edges": [
+    { "from": "anime.mecha",     "to": "anime.series",      "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.films",       "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.merch",       "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.retro-anime", "kind": "leads-to", "note": "Follow a mecha designer backwards and you land in the cel era very quickly." },
+    { "from": "anime.series",    "to": "anime.subs-dubs",   "kind": "kin" },
+    { "from": "anime.series",    "to": "anime.manga",       "kind": "leads-to" },
+    { "from": "anime.series",    "to": "anime.industry",    "kind": "kin" },
+    { "from": "anime.manga",     "to": "anime.artbooks",    "kind": "kin" },
+    { "from": "anime.manga",     "to": "anime.drawing",     "kind": "leads-to" },
+    { "from": "anime.manga",     "to": "anime.doujin",      "kind": "kin" },
+    { "from": "anime.merch",     "to": "anime.conventions", "kind": "leads-to" },
+    { "from": "anime.conventions","to": "anime.doujin",     "kind": "kin" },
+    { "from": "anime.films",     "to": "anime.jpop",        "kind": "kin" },
+    { "from": "anime.retro-anime","to": "anime.cels",       "kind": "kin" },
+    { "from": "anime.artbooks",  "to": "anime.cels",        "kind": "kin" },
+    { "from": "anime.subs-dubs", "to": "anime.japanese",    "kind": "leads-to", "note": "Comparing two translations of one line is how a lot of people talk themselves into a language course." }
+  ]
+}

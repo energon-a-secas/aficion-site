@@ -1,0 +1,26 @@
+{
+  "of": "core.hand-tools",
+  "label": "Bench skills",
+  "blurb": "The unglamorous half of every making hobby on the map, and the half that transfers furthest.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "core.hand-tools.abrasives", "label": "Grit progression","class": "notable","tags": ["hands-on", "patience"],  "blurb": "Never skip a grit. One stray coarse grain leaves a scratch the next four grades cannot reach, whether you are sanding a seam or grinding a mirror." },
+    { "id": "core.hand-tools.cutting",   "label": "Cutting",         "class": "node",   "tags": ["hands-on", "cheap-start"],"blurb": "Knife, saw, nippers and shears. A sharp tool cuts where you aimed; a blunt one goes wherever the material prefers." },
+    { "id": "core.hand-tools.drilling",  "label": "Drilling",        "class": "node",   "tags": ["hands-on"],               "blurb": "Centre punch, pilot hole, then size. Skipping the punch is how a bit walks across a part you had finished." },
+    { "id": "core.hand-tools.adhesives", "label": "Adhesives",       "class": "node",   "tags": ["hands-on", "research"],   "blurb": "Solvent, cyanoacrylate, epoxy and contact cement, each with a material it works on and several it ruins." },
+    { "id": "core.hand-tools.filling",   "label": "Filling",         "class": "node",   "tags": ["hands-on", "patience"],   "blurb": "Putty, sand, inspect, repeat. Almost always more cycles than you planned, and the primer decides when you are done." },
+    { "id": "core.hand-tools.measuring", "label": "Measuring",       "class": "node",   "tags": ["research", "patience"],   "blurb": "Calipers, squares and a datum you keep returning to. Measuring from the last cut accumulates every error you made." },
+    { "id": "core.hand-tools.jigs",      "label": "Jigs and clamps", "class": "node",   "tags": ["hands-on"],               "blurb": "The fixture that makes the second one match the first. Building the jig is usually faster than fixing the mismatch." },
+    { "id": "core.hand-tools.safety",    "label": "Dust and PPE",    "class": "node",   "tags": ["research", "gear"],       "blurb": "Extraction, eye protection and the right cartridge. Resin and MDF dust are the two most commonly skipped gates on this map." }
+  ],
+  "edges": [
+    { "from": "core.hand-tools.cutting",   "to": "core.hand-tools.abrasives", "kind": "leads-to" },
+    { "from": "core.hand-tools.abrasives", "to": "core.hand-tools.filling",   "kind": "kin",      "note": "Fill, sand, prime, find the next flaw. The loop that consumes most of the time in any finishing job." },
+    { "from": "core.hand-tools.abrasives", "to": "core.hand-tools.safety",    "kind": "kin" },
+    { "from": "core.hand-tools.cutting",   "to": "core.hand-tools.measuring", "kind": "kin" },
+    { "from": "core.hand-tools.measuring", "to": "core.hand-tools.drilling",  "kind": "leads-to" },
+    { "from": "core.hand-tools.drilling",  "to": "core.hand-tools.jigs",      "kind": "kin" },
+    { "from": "core.hand-tools.adhesives", "to": "core.hand-tools.filling",   "kind": "kin" },
+    { "from": "core.hand-tools.jigs",      "to": "core.hand-tools.adhesives", "kind": "kin" }
+  ]
+}

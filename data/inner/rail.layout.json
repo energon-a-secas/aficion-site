@@ -1,0 +1,26 @@
+{
+  "of": "rail.layout",
+  "label": "Layout design",
+  "blurb": "The decisions made on paper that the next three years of building cannot undo.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "rail.layout.track-plan", "label": "Track plan",    "class": "notable", "tags": ["research", "patience"],   "blurb": "What the railway is for, drawn as track. A plan with a purpose survives contact with a room; a plan that is only a shape does not." },
+    { "id": "rail.layout.radius",     "label": "Minimum radius","class": "node",   "tags": ["research", "space"],       "blurb": "The tightest curve on the layout decides what will ever run on it. Long stock on a tight curve derails and keeps derailing." },
+    { "id": "rail.layout.staging",    "label": "Staging",       "class": "node",   "tags": ["space", "research"],       "blurb": "Hidden tracks where trains come from and go to. Without it the railway is a loop; with it, it is part of a network." },
+    { "id": "rail.layout.helix",      "label": "Helix",         "class": "node",   "tags": ["hands-on", "space", "patience"],"blurb": "A spiral to get between levels. Eats an enormous amount of space and run length to gain one deck." },
+    { "id": "rail.layout.grades",     "label": "Grades",        "class": "node",   "tags": ["research", "patience"],    "blurb": "How steeply track can climb before a locomotive stalls with a realistic train behind it. Two percent is already a lot." },
+    { "id": "rail.layout.aisle",      "label": "Aisle width",   "class": "node",   "tags": ["space"],                   "blurb": "Where the people stand. Designed last by beginners and first by anybody who has run an operating session." },
+    { "id": "rail.layout.backdrop",   "label": "Backdrop",      "class": "node",   "tags": ["paint", "hands-on"],       "blurb": "The painted sky behind the scenery. Removes the corner of the room from every photograph you will ever take." },
+    { "id": "rail.layout.lighting",   "label": "Layout lighting","class": "node",  "tags": ["electronics", "gear"],     "blurb": "Even, colour-correct light over the whole layout. Changes how the scenery reads more than another month of scenery would." }
+  ],
+  "edges": [
+    { "from": "rail.layout.track-plan", "to": "rail.layout.radius",   "kind": "leads-to" },
+    { "from": "rail.layout.track-plan", "to": "rail.layout.staging",  "kind": "leads-to" },
+    { "from": "rail.layout.track-plan", "to": "rail.layout.aisle",    "kind": "leads-to" },
+    { "from": "rail.layout.radius",     "to": "rail.layout.helix",    "kind": "kin" },
+    { "from": "rail.layout.radius",     "to": "rail.layout.grades",   "kind": "kin" },
+    { "from": "rail.layout.helix",      "to": "rail.layout.grades",   "kind": "kin" },
+    { "from": "rail.layout.backdrop",   "to": "rail.layout.lighting", "kind": "kin" },
+    { "from": "rail.layout.staging",    "to": "rail.layout.backdrop", "kind": "kin" }
+  ]
+}

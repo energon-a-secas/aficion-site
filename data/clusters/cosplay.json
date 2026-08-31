@@ -1,0 +1,64 @@
+{
+  "id": "cosplay",
+  "label": "Cosplay",
+  "blurb": "Making a costume you can walk around in for eight hours. Every prop skill on the map applies, plus one nothing else demands: it has to be wearable.",
+  "notable": "cosplay.armour",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [-1949, -613],
+    "radius": 250,
+    "startAngle": -60,
+    "order": [
+      "cosplay.armour", "cosplay.foam", "cosplay.worbla", "cosplay.3d-printed", "cosplay.molding",
+      "cosplay.patterning", "cosplay.sewing", "cosplay.wigs", "cosplay.makeup", "cosplay.weathering",
+      "cosplay.lighting", "cosplay.comfort", "cosplay.competition", "cosplay.photoshoot"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "cosplay.armour",
+      "label": "Armour Building",
+      "class": "notable",
+      "tags": ["hands-on", "patience", "fandom", "space"],
+      "blurb": "Plate that fits a real body rather than the drawing's body. The pattern is the hard part, the material is a preference.",
+      "aka": ["costume armour", "cosplay armor"],
+      "accent": "violet"
+    },
+    {
+      "id": "cosplay.foam",
+      "label": "EVA Foam",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start"],
+      "blurb": "Floor mats, a sharp knife and contact cement. The cheapest route into armour and still the one most people use for anything large.",
+      "accent": "jade"
+    },
+    { "id": "cosplay.worbla",     "label": "Thermoplastics",  "class": "node", "tags": ["hands-on", "gear"],            "blurb": "Sheet that goes soft with heat and holds a shape when it cools. Expensive per sheet, forgiving in a way foam is not." },
+    { "id": "cosplay.3d-printed", "label": "Printed Props",   "class": "node", "tags": ["kits", "hands-on", "patience"],"blurb": "Printed in sections, glued, then sanded through grits until nobody can tell. The sanding is most of the work and none of the fun." },
+    { "id": "cosplay.molding",    "label": "Casting for Costume","class":"node","tags": ["hands-on", "gear", "space"],  "blurb": "Silicone moulds and resin or foam casts. What you do when you need six of a thing, or a lighter version of a heavy one." },
+    { "id": "cosplay.patterning", "label": "Patterning",      "class": "node", "tags": ["research", "hands-on", "patience"],"blurb": "Getting a flat shape that becomes the right curved shape on a specific person. Paper mock-ups first, always, and twice if it is a helmet." },
+    { "id": "cosplay.sewing",     "label": "Sewing",          "class": "node", "tags": ["hands-on", "patience"],        "blurb": "Machine and hand. The soft parts nobody photographs and everybody notices when they are wrong." },
+    { "id": "cosplay.wigs",       "label": "Wig Styling",     "class": "node", "tags": ["hands-on", "patience"],        "blurb": "Cutting, thinning, heat setting and enough product to hold a silhouette all day. A separate craft with its own tools." },
+    { "id": "cosplay.makeup",     "label": "Makeup and Prosthetics","class":"node","tags": ["hands-on", "paint"],       "blurb": "Contouring, body paint and appliances. Painting on a surface that sweats, moves and has to be able to blink." },
+    { "id": "cosplay.weathering", "label": "Costume Weathering","class":"node","tags": ["paint", "patience"],           "blurb": "Scuffs, grime and burn marks so a costume looks lived in rather than bought. The same technique a model gets, at ten times the scale." },
+    { "id": "cosplay.lighting",   "label": "Costume Lighting","class": "node", "tags": ["electronics", "hands-on"],     "blurb": "LEDs, a battery you can reach and wiring that survives being sat down in. The first electronics project many costumers ever do." },
+    { "id": "cosplay.comfort",    "label": "Wearability",     "class": "node", "tags": ["research", "patience"],        "blurb": "Strapping, ventilation, vision and how you get to a toilet. The thing that decides whether a finished costume is ever worn twice." },
+    { "id": "cosplay.competition","label": "Cosplay Competition","class":"node","tags": ["social", "patience", "fandom"],"blurb": "Craftsmanship judging and a stage presentation. Judges look at the inside of the costume, which is a shock the first time." },
+    { "id": "cosplay.photoshoot", "label": "Cosplay Photography","class":"node","tags": ["content", "social", "outdoors"],"blurb": "A location, a photographer and a character. Most of what the internet sees of this hobby is this step, not the eight weeks before it." }
+  ],
+  "edges": [
+    { "from": "cosplay.armour",     "to": "cosplay.foam",       "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.worbla",     "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.3d-printed", "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.patterning", "kind": "kin",      "note": "The pattern is the build. Material choice is a preference argued about far more often than it matters." },
+    { "from": "cosplay.armour",     "to": "cosplay.weathering", "kind": "leads-to" },
+    { "from": "cosplay.armour",     "to": "cosplay.comfort",    "kind": "leads-to", "note": "A costume you cannot sit down in, see out of or get out of is a sculpture with a person trapped inside it." },
+    { "from": "cosplay.armour",     "to": "cosplay.competition","kind": "leads-to" },
+    { "from": "cosplay.patterning", "to": "cosplay.sewing",     "kind": "leads-to" },
+    { "from": "cosplay.sewing",     "to": "cosplay.wigs",       "kind": "kin" },
+    { "from": "cosplay.wigs",       "to": "cosplay.makeup",     "kind": "kin" },
+    { "from": "cosplay.makeup",     "to": "cosplay.weathering", "kind": "kin" },
+    { "from": "cosplay.3d-printed", "to": "cosplay.molding",    "kind": "leads-to" },
+    { "from": "cosplay.foam",       "to": "cosplay.lighting",   "kind": "kin" },
+    { "from": "cosplay.competition","to": "cosplay.photoshoot", "kind": "kin" }
+  ]
+}

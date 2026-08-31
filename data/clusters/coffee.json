@@ -1,0 +1,64 @@
+{
+  "id": "coffee",
+  "label": "Coffee",
+  "blurb": "A daily habit that turns into a measurement problem. The only hobby here you are already doing twice a day.",
+  "notable": "coffee.espresso",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [2077, 375],
+    "radius": 245,
+    "startAngle": -90,
+    "order": [
+      "coffee.espresso", "coffee.grinder", "coffee.brew-ratios", "coffee.water", "coffee.milk",
+      "coffee.latte-art", "coffee.machine-mods", "coffee.maintenance", "coffee.pourover",
+      "coffee.cold-brew", "coffee.roasting", "coffee.green-beans", "coffee.cupping", "coffee.cafes"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "coffee.espresso",
+      "label": "Espresso",
+      "class": "notable",
+      "tags": ["gear", "patience", "hands-on", "research"],
+      "blurb": "Nine bars, twenty-five seconds and a dozen variables that all interact. The most equipment-dependent way to make a small drink.",
+      "aka": ["espresso machine", "home barista"],
+      "accent": "ember"
+    },
+    {
+      "id": "coffee.roasting",
+      "label": "Home Roasting",
+      "class": "node",
+      "tags": ["hands-on", "patience", "gear"],
+      "blurb": "Green beans, heat and a curve you log. The step where the hobby stops being about buying well and starts being about doing something.",
+      "accent": "jade"
+    },
+    { "id": "coffee.grinder",    "label": "The Grinder",     "class": "node", "tags": ["gear", "research"],              "blurb": "The upgrade that changes the cup more than the machine does, which is the single most repeated piece of advice in this hobby." },
+    { "id": "coffee.brew-ratios","label": "Dialling In",     "class": "node", "tags": ["research", "patience"],          "blurb": "Dose, yield and time, changed one at a time. Scales and a timer turn guessing into something you can repeat tomorrow." },
+    { "id": "coffee.water",      "label": "Water Chemistry", "class": "node", "tags": ["research", "patience"],          "blurb": "Hardness, alkalinity and what your tap actually contains. The invisible ingredient that is most of the drink by mass." },
+    { "id": "coffee.milk",       "label": "Milk Texturing",  "class": "node", "tags": ["hands-on", "patience"],          "blurb": "Air first, then roll. Texture is decided in the first two seconds, and everything after that is only heating." },
+    { "id": "coffee.latte-art",  "label": "Latte Art",       "class": "node", "tags": ["hands-on", "patience"],          "blurb": "A visible test of whether the milk was right. Not decoration so much as a scoreboard for the previous step." },
+    { "id": "coffee.machine-mods","label": "Machine Modding","class": "node", "tags": ["electronics", "hands-on", "gear"],"blurb": "PID temperature control, pressure profiling and a flow gauge. An electronics project hiding inside a kitchen appliance." },
+    { "id": "coffee.maintenance","label": "Descaling and Repair","class":"node","tags": ["hands-on", "patience"],        "blurb": "Gaskets, screens, scale and a spare parts diagram. These machines are repairable, which is why old ones stay in use." },
+    { "id": "coffee.pourover",   "label": "Pour Over",       "class": "node", "tags": ["cheap-start", "patience", "research"],"blurb": "A dripper, a filter and a kettle. Almost no equipment cost and almost all of the same variables to learn." },
+    { "id": "coffee.cold-brew",  "label": "Cold Brew",       "class": "node", "tags": ["cheap-start", "patience"],       "blurb": "Twelve hours and a jar. The method with the widest margin for error and the lowest attention cost." },
+    { "id": "coffee.green-beans","label": "Green Bean Sourcing","class":"node","tags": ["research", "collecting"],       "blurb": "Origin, process, varietal and harvest year. A research habit that arrives about a week after the roaster does." },
+    { "id": "coffee.cupping",    "label": "Cupping and Tasting","class":"node","tags": ["research", "social", "patience"],"blurb": "A standard method for tasting several coffees side by side, and the vocabulary to say what the difference actually was." },
+    { "id": "coffee.cafes",      "label": "Cafe Hunting",    "class": "node", "tags": ["social", "outdoors", "research"],"blurb": "Drinking other people's work on purpose. The cheapest calibration available for everything you do at home." }
+  ],
+  "edges": [
+    { "from": "coffee.espresso",  "to": "coffee.grinder",     "kind": "kin",      "note": "Spend on the grinder before the machine. Everybody says it, most people learn it the expensive way." },
+    { "from": "coffee.espresso",  "to": "coffee.brew-ratios", "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.milk",        "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.machine-mods","kind": "kin" },
+    { "from": "coffee.espresso",  "to": "coffee.maintenance", "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.pourover",    "kind": "kin" },
+    { "from": "coffee.milk",      "to": "coffee.latte-art",   "kind": "leads-to" },
+    { "from": "coffee.brew-ratios","to": "coffee.water",      "kind": "kin" },
+    { "from": "coffee.water",     "to": "coffee.maintenance", "kind": "kin",      "note": "The water that makes a flat cup is the same water that fills a boiler with scale." },
+    { "from": "coffee.grinder",   "to": "coffee.roasting",    "kind": "kin" },
+    { "from": "coffee.roasting",  "to": "coffee.green-beans", "kind": "kin" },
+    { "from": "coffee.roasting",  "to": "coffee.cupping",     "kind": "kin" },
+    { "from": "coffee.pourover",  "to": "coffee.cold-brew",   "kind": "kin" },
+    { "from": "coffee.cupping",   "to": "coffee.cafes",       "kind": "kin" }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "generated_by": "atlas/scan.py",
   "root": "aficion-site",
-  "commit": "5fff004766c1e71521f31f94bfeb2206c15b12d2",
-  "commit_short": "5fff004",
-  "dirty": true,
+  "commit": "1e61f93029f8e5136c893796a2853e078bbe29c2",
+  "commit_short": "1e61f93",
+  "dirty": false,
   "areas": [
     "css",
     "js",

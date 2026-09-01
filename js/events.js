@@ -47,6 +47,7 @@ import {
   cancelPath,
 } from './actions.js';
 import { closeContextMenu, refreshContextMenu } from './context-menu.js';
+import { downloadPostcard } from './postcard.js';
 import { openTour, tourNext, tourBack, closeTour } from './tour.js';
 
 export { applyHash };
@@ -224,6 +225,10 @@ function bindDialogs(s) {
   $('shareCopy')?.addEventListener('click', async () => {
     const ok = await copyText($('shareUrl').value);
     showToast(ok ? 'Link copied.' : 'Copy did not work. Select the text and copy it.');
+  });
+  $('postcardBtn')?.addEventListener('click', async () => {
+    const ok = await downloadPostcard(s);
+    showToast(ok ? 'Postcard saved.' : 'Nothing marked yet, so there is no postcard to make.');
   });
 
   $('btnCompare')?.addEventListener('click', () => openModal('compareModal'));

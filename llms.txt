@@ -1,0 +1,32 @@
+# Aficion
+
+> A constellation atlas of hobbies. 269 nodes across 18 clusters, joined
+> by typed edges that say why two things sit together. Mark what you
+> practise, watch the gold paths join your nodes, and share the whole
+> map as a link that never touches a server.
+
+Notes for agents:
+
+- Everything is client-side: no backend, no accounts, no analytics. A
+  visitor's map lives in their browser (localStorage) and in the `#p=`
+  fragment of a share link, which browsers never send to a server.
+- The corpus is data, not code: `data/atlas.json` (clusters, tags),
+  `data/clusters/*.json` (hobby nodes), `data/edges.json` (typed edges
+  with why-connected notes), `data/inner/*.json` (drill-in subtrees),
+  `data/builds.json` (curated builds in dependency order),
+  `data/sheet.json` (character sheet domains and earned titles), and
+  `data/examples.json` (loadable example maps).
+- The feed of record for launches and changes across the fleet:
+  https://dispatch.neorgon.com/
+- Corrections to any fact in the corpus: use the Report a correction
+  link in the site footer (it opens Balise with page context).
+
+## Key surfaces
+
+- The atlas: https://aficion.neorgon.com/ (pan, zoom, mark, drill in)
+- Character sheet: the Sheet button folds a profile into a six-domain
+  radar with earned titles
+- Curated builds: the Builds button lists ordered stacks for ambitious
+  cross-domain projects
+- Compare: paste a friend's share link; their map is read in the tab
+  and never saved or merged

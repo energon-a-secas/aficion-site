@@ -17,6 +17,7 @@ const DEFAULT_PREFS = {
   showDrawsOn: true,
   labelMode: 'auto',
   layers: 'full', // 'full' | 'main': the default is the whole network, by request
+  lang: 'en', // 'en' | 'es': which corpus directory the atlas loads from
   seenIntro: false,
   seenTour: false,
 };
@@ -59,6 +60,13 @@ export const state = {
 export function loadPrefs() {
   const raw = safeGetJSON(PREFS_KEY, null);
   state.prefs = raw && typeof raw === 'object' ? { ...DEFAULT_PREFS, ...raw } : { ...DEFAULT_PREFS };
+  // ?lang= overrides and persists: a shared Spanish link opens in Spanish
+  // and the choice sticks until the visitor toggles it back.
+  const urlLang = /[?&]lang=(es|en)\b/.exec(location.search);
+  if (urlLang && urlLang[1] !== state.prefs.lang) {
+    state.prefs.lang = urlLang[1];
+    savePrefs();
+  }
   return state.prefs;
 }
 

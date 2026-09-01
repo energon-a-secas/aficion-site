@@ -1,0 +1,144 @@
+{
+  "id": "book",
+  "label": "Lectura y libros",
+  "blurb": "Una silla, una lámpara y algo impreso. El hobby profundo más barato del mapa, justo hasta que empieza el coleccionismo.",
+  "notable": "book.fiction",
+  "accent": "violet",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [-860, 760],
+    "radius": 250,
+    "startAngle": -90,
+    "order": [
+      "book.fiction", "book.scifi", "book.comics", "book.zines", "book.libraries",
+      "book.nonfiction", "book.translation", "book.collecting", "book.bookbinding",
+      "book.marginalia", "book.poetry", "book.rereading", "book.clubs", "book.audiobooks"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "book.fiction",
+      "label": "Ficción",
+      "class": "notable",
+      "tags": ["patience", "cheap-start", "research"],
+      "blurb": "Novelas, y la pila de ellas junto a la cama. La pila de pendientes crece más rápido que la de leídos, y aquí todos fingen que eso está bien.",
+      "aka": ["novels", "reading", "literature", "tbr pile"],
+      "accent": "violet",
+      "inner": true
+    },
+    {
+      "id": "book.nonfiction",
+      "label": "No ficción",
+      "class": "node",
+      "tags": ["research", "patience", "cheap-start"],
+      "blurb": "Historia, memorias, ciencia y una que otra biografía ladrillo. La sección donde un buen libro te asigna otros cuatro sin avisar."
+    },
+    {
+      "id": "book.scifi",
+      "label": "Ciencia ficción y fantasía",
+      "class": "node",
+      "tags": ["fandom", "research", "patience"],
+      "blurb": "Sagas que llegan a diez tomos y mundos con apéndices. La repisa de género con más chances de traer un mapa adentro de la tapa.",
+      "aka": ["sff", "science fiction", "fantasy novels"]
+    },
+    {
+      "id": "book.comics",
+      "label": "Cómics y novelas gráficas",
+      "class": "node",
+      "tags": ["collecting", "fandom", "cheap-start"],
+      "blurb": "Números sueltos, tomos recopilatorios y las cajas largas que vienen después. Leerlos es barato; mantenerlos en orden es el hobby de verdad.",
+      "aka": ["graphic novels", "comic books"]
+    },
+    {
+      "id": "book.poetry",
+      "label": "Poesía",
+      "class": "node",
+      "tags": ["patience", "cheap-start"],
+      "blurb": "Corta de leer y lenta de terminar. La única repisa donde leer una página cuatro veces es el método, no un fracaso."
+    },
+    {
+      "id": "book.collecting",
+      "label": "Coleccionismo de libros",
+      "class": "node",
+      "tags": ["collecting", "research", "space"],
+      "blurb": "Primeras ediciones, sobrecubiertas y la diferencia que hace una línea de imprenta. La obsesión por el estado llega en silencio y no se va nunca.",
+      "aka": ["first editions", "rare books", "used books"]
+    },
+    {
+      "id": "book.bookbinding",
+      "label": "Encuadernación",
+      "class": "node",
+      "tags": ["hands-on", "patience", "cheap-start"],
+      "blurb": "Plegar cuadernillos, coserlos y encajar el bloque en cartón y tela. Empieza reparando un libro querido y termina con una plegadera sobre la que tienes opiniones.",
+      "aka": ["book repair", "binding"]
+    },
+    {
+      "id": "book.marginalia",
+      "label": "Anotación y marginalia",
+      "class": "node",
+      "tags": ["patience", "cheap-start", "research"],
+      "blurb": "Lápiz en los márgenes, pestañas en los bordes y un índice propio al final. Una conversación privada con el autor, guardada en el objeto.",
+      "aka": ["annotating books", "book tabs", "marginalia"]
+    },
+    {
+      "id": "book.clubs",
+      "label": "Clubes de lectura",
+      "class": "node",
+      "tags": ["social", "patience"],
+      "blurb": "Un libro, un mes y varias personas que lo leyeron distinto. La mitad del valor es que te obliguen a terminar; la otra mitad es la discusión."
+    },
+    {
+      "id": "book.audiobooks",
+      "label": "Audiolibros",
+      "class": "node",
+      "tags": ["audio", "cheap-start", "patience"],
+      "blurb": "Libros que te leen mientras tus manos hacen otra cosa. Un narrador puede rescatar un libro o hundirlo, algo por lo que el papel nunca responde."
+    },
+    {
+      "id": "book.zines",
+      "label": "Fanzines",
+      "class": "node",
+      "tags": ["content", "hands-on", "cheap-start", "social"],
+      "blurb": "Fotocopiados, doblados, engrapados e intercambiados. Publicar sin porteros y con las grapas a la vista.",
+      "aka": ["zine making", "small press"]
+    },
+    {
+      "id": "book.libraries",
+      "label": "Bibliotecas y archivos",
+      "class": "node",
+      "tags": ["research", "cheap-start", "social"],
+      "blurb": "El único lugar donde todo este grupo es gratis. Los habituales se aprenden el catálogo, la repisa de saldos y el nombre de cada bibliotecaria."
+    },
+    {
+      "id": "book.rereading",
+      "label": "Relectura",
+      "class": "node",
+      "tags": ["patience", "research"],
+      "blurb": "Volver a propósito, a veces cada año. El libro no cambió, que es exactamente cómo notas que tú sí."
+    },
+    {
+      "id": "book.translation",
+      "label": "Leer en traducción",
+      "class": "node",
+      "tags": ["research", "patience"],
+      "blurb": "El mismo libro existe dos veces, y el traductor decidió cuál te tocó. Comparar ediciones es la seña del entusiasta."
+    }
+  ],
+  "edges": [
+    { "from": "book.fiction", "to": "book.scifi", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.nonfiction", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.audiobooks", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.clubs", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.marginalia", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.rereading", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.translation", "kind": "kin" },
+    { "from": "book.scifi", "to": "book.comics", "kind": "kin" },
+    { "from": "book.comics", "to": "book.zines", "kind": "kin" },
+    { "from": "book.zines", "to": "book.libraries", "kind": "kin", "note": "Las bibliotecas de fanzines existen, con catálogos de verdad. La cultura impresa menos comercial recibe el archivo más cuidadoso." },
+    { "from": "book.nonfiction", "to": "book.libraries", "kind": "kin" },
+    { "from": "book.libraries", "to": "book.collecting", "kind": "kin" },
+    { "from": "book.collecting", "to": "book.bookbinding", "kind": "leads-to", "note": "Una repisa de libros viejos tarde o temprano incluye uno que vale reparar, y reparando se empieza a encuadernar." },
+    { "from": "book.marginalia", "to": "book.rereading", "kind": "kin" },
+    { "from": "book.marginalia", "to": "book.poetry", "kind": "kin" }
+  ]
+}

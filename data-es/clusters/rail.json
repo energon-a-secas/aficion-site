@@ -1,0 +1,86 @@
+{
+  "id": "rail",
+  "label": "Ferromodelismo",
+  "blurb": "Un ferrocarril motorizado sobre una mesa, armado en orden fijo, porque escenografía sobre vía no probada es el error del que nadie se recupera.",
+  "notable": "rail.layout",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-1515, 875],
+    "radius": 265,
+    "startAngle": 200,
+    "spread": 640,
+    "order": [
+      "rail.layout", "rail.scale-choice", "rail.benchwork", "rail.trackwork", "rail.wiring",
+      "rail.dcc", "rail.decoder-install", "rail.locos", "rail.rolling-stock", "rail.structures",
+      "rail.scenery", "rail.weathering", "rail.operations", "rail.prototype", "rail.railfanning",
+      "rail.cab-camera", "rail.clubs"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "rail.layout",
+      "label": "Construir la maqueta",
+      "class": "notable",
+      "tags": ["hands-on", "space", "patience", "gear"],
+      "blurb": "Planear y construir el ferrocarril en sí. Quien termina uno chico se queda en el hobby; quien planea uno enorme lo vende en dos años.",
+      "aka": ["model railway", "model trains", "train layout", "electric trains"],
+      "accent": "ember",
+      "inner": true
+    },
+    {
+      "id": "rail.scale-choice",
+      "label": "Escala y trocha",
+      "class": "node",
+      "tags": ["research", "gear", "space"],
+      "blurb": "N, HO, OO, O, G. La primera decisión y, en la práctica, la única irreversible, porque cada compra posterior asume la respuesta.",
+      "aka": ["ho scale", "n scale", "oo gauge"]
+    },
+    { "id": "rail.benchwork",   "label": "Bancada",        "class": "node", "tags": ["hands-on", "space"],                "blurb": "La mesa física sobre la que vive todo el hobby. Nivelada, rígida y alcanzable al fondo, o lamentarás las tres." },
+    { "id": "rail.trackwork",   "label": "Tendido de vía",        "class": "node", "tags": ["hands-on", "patience"],             "blurb": "Donde se gana o se pierde la confiabilidad. Malas uniones y radios apretados frustran más en este hobby que todo lo demás junto." },
+    { "id": "rail.wiring",      "label": "Cableado",    "class": "node", "tags": ["electronics", "hands-on", "patience"], "blurb": "Bus de poder, alimentadores y secciones. Una falla intermitente no se lee como falla: se lee como una locomotora que se detiene sin razón." },
+    {
+      "id": "rail.dcc",
+      "label": "DCC",
+      "class": "node",
+      "tags": ["electronics", "code", "gear"],
+      "blurb": "Control digital de comando. Cada locomotora recibe una dirección, así dos trenes comparten una vía y a ninguno le importa.",
+      "aka": ["digital command control", "dcc-ex"],
+      "accent": "cyan",
+      "inner": true
+    },
+    { "id": "rail.decoder-install", "label": "Instalar decoders", "class": "node", "tags": ["electronics", "hands-on", "patience"], "blurb": "Meter un decoder dentro de la carcasa. Montaje superficial en un espacio del tamaño de una uña, sobre un modelo que ya pagaste." },
+    { "id": "rail.locos",       "label": "Locomotoras",      "class": "node", "tags": ["collecting", "gear", "kits"],       "blurb": "La parte motorizada. De latón, plástico o kit, y el único componente donde el precio de andar bien es evidente." },
+    { "id": "rail.rolling-stock", "label": "Material rodante",  "class": "node", "tags": ["kits", "hands-on", "collecting"],   "blurb": "Coches y vagones, comprados o kitbasheados. Ruedas de metal y enganches funcionales son las dos mejoras que todos terminan haciéndoles a todos." },
+    { "id": "rail.structures",  "label": "Construcción de edificios","class": "node","tags": ["hands-on", "kits", "patience"],     "blurb": "Estireno, madera cortada a láser y cartón. Los edificios que te dicen en qué década y en qué país está el ferrocarril." },
+    { "id": "rail.scenery",     "label": "Escenografía",          "class": "node", "tags": ["hands-on", "paint", "patience"],    "blurb": "Espuma, yeso, pasto estático y agua vertida. La capa que convierte un plano de vías en un lugar." },
+    { "id": "rail.weathering",  "label": "Envejecido", "class": "node", "tags": ["paint", "patience"],                "blurb": "Óxido, polvo de frenos y desteñido por sol. El único cambio que evita que la maqueta se fotografíe como juguete." },
+    { "id": "rail.operations",  "label": "Sesiones de operación","class": "node","tags": ["social", "patience", "research"],   "blurb": "Operar el ferrocarril con horario, guías de carga y despachador, para que los trenes tengan a dónde ir en vez de solo dar vueltas." },
+    { "id": "rail.prototype",   "label": "Investigar el prototipo","class": "node","tags": ["research", "outdoors"],             "blurb": "Estudiar el ferrocarril real que estás modelando. Archivos, diagramas de vía y muchas fotos de cosas que nadie más fotografía." },
+    { "id": "rail.railfanning", "label": "Railfanning",      "class": "node", "tags": ["outdoors", "research", "content"],  "blurb": "Ver y filmar el ferrocarril de tamaño real. Otro hobby que casualmente comparte tema, y mucha gente hace ambos.",
+      "aka": ["trainspotting", "railway photography"] },
+    { "id": "rail.cab-camera",  "label": "Cámara a bordo","class": "node","tags": ["electronics", "content", "gear"],   "blurb": "Una cámara inalámbrica tan chica que cabe en la cabina de una locomotora. La toma que nadie consigue de otra forma." },
+    { "id": "rail.clubs",       "label": "Clubes modulares",    "class": "node", "tags": ["social", "space", "kits"],          "blurb": "Una spec de módulo estándar para que las secciones de veinte personas se atornillen en una expo. Una maqueta enorme sin tener un cuarto enorme." }
+  ],
+  "edges": [
+    { "from": "rail.layout",     "to": "rail.scale-choice", "kind": "kin" },
+    { "from": "rail.layout",     "to": "rail.benchwork",    "kind": "leads-to" },
+    { "from": "rail.benchwork",  "to": "rail.trackwork",    "kind": "leads-to" },
+    { "from": "rail.trackwork",  "to": "rail.wiring",       "kind": "leads-to" },
+    { "from": "rail.wiring",     "to": "rail.dcc",          "kind": "leads-to" },
+    { "from": "rail.wiring",     "to": "rail.scenery",      "kind": "leads-to", "note": "Cablea y corre trenes antes de poner balasto. Escenografía sobre vía no probada es el clásico error irreversible." },
+    { "from": "rail.dcc",        "to": "rail.decoder-install", "kind": "leads-to" },
+    { "from": "rail.decoder-install", "to": "rail.locos",   "kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.rolling-stock","kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.scale-choice", "kind": "kin" },
+    { "from": "rail.locos",      "to": "rail.cab-camera",   "kind": "shares-gear" },
+    { "from": "rail.rolling-stock", "to": "rail.weathering","kind": "leads-to" },
+    { "from": "rail.scenery",    "to": "rail.structures",   "kind": "kin" },
+    { "from": "rail.scenery",    "to": "rail.weathering",   "kind": "kin" },
+    { "from": "rail.layout",     "to": "rail.operations",   "kind": "leads-to" },
+    { "from": "rail.layout",     "to": "rail.prototype",    "kind": "kin" },
+    { "from": "rail.prototype",  "to": "rail.railfanning",  "kind": "kin" },
+    { "from": "rail.operations", "to": "rail.clubs",        "kind": "kin" },
+    { "from": "rail.trackwork",  "to": "rail.operations",   "kind": "leads-to" }
+  ]
+}

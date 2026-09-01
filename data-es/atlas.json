@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "generated": "2026-08-31",
+  "world": { "minX": -2500, "minY": -1900, "maxX": 2500, "maxY": 1700 },
+
+  "classes": ["hub", "core", "notable", "node"],
+
+  "edgeKinds": {
+    "kin":         { "label": "convive con", "directed": false, "weight": 1 },
+    "leads-to":    { "label": "lleva a",    "directed": true,  "weight": 1 },
+    "draws-on":    { "label": "se apoya en", "directed": true,  "weight": 2 },
+    "shares-gear": { "label": "comparte equipo", "directed": false, "weight": 2 }
+  },
+
+  "accents": ["ember", "cyan", "violet", "jade"],
+
+  "dedication": [
+    { "label": "Baja",     "note": "Pasa cuando pasa. Una repisa, no una agenda." },
+    { "label": "Media",    "note": "Un rato fijo casi cada semana, y equipo elegido a propósito." },
+    { "label": "Alta",     "note": "Casi todas tus noches libres terminan aquí, y planificas alrededor." },
+    { "label": "Hardcore", "note": "Lo demás se organiza en torno a esto. La gente ya te conoce por eso." }
+  ],
+
+  "tags": {
+    "hands-on":    "Con las manos",
+    "electronics": "Electrónica",
+    "paint":       "Pintura",
+    "mecha":       "Mecha",
+    "collecting":  "Coleccionismo",
+    "screen":      "Pantalla",
+    "outdoors":    "Aire libre",
+    "radio":       "Radio",
+    "code":        "Código",
+    "kits":        "Kits",
+    "patience":    "Sesiones largas",
+    "cheap-start": "Barato para empezar",
+    "audio":       "Sonido",
+    "content":     "Crear y publicar",
+    "social":      "Con otra gente",
+    "gear":        "Mucho equipo",
+    "space":       "Necesita espacio",
+    "fandom":      "Fandom",
+    "research":    "Documentarse"
+  },
+
+  "hub": {
+    "id": "hub",
+    "label": "Aficion",
+    "class": "hub",
+    "tags": [],
+    "blurb": "Cada grupo del mapa se conecta de vuelta por aquí."
+  },
+
+  "coreLayout": { "recipe": "orbit", "anchor": [0, 0], "radius": 420, "startAngle": 262 },
+
+  "core": [
+    {
+      "id": "core.electronics",
+      "label": "Electrónica",
+      "class": "core",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Leer un esquemático, controlar un microcontrolador y no dejar escapar el humo.",
+      "levels": [
+        { "label": "Protoboard", "note": "Cables jumper, una placa de desarrollo y la librería de alguien más" },
+        { "label": "Perfboard",  "note": "Tu propio layout, tu propio presupuesto de consumo" },
+        { "label": "PCB",        "note": "Mandas los gerbers a fabricar y vuelven funcionando" }
+      ]
+    },
+    {
+      "id": "core.soldering",
+      "label": "Soldadura",
+      "class": "core",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Primero through-hole, luego montaje superficial, luego el fine pitch que te arruina la noche.",
+      "levels": [
+        { "label": "Through hole", "note": "Kits, headers, cable de parlante. Un cautín grande y una esponja húmeda" },
+        { "label": "SMD",          "note": "Flux, pinzas, una estación de aire caliente y mejor luz" },
+        { "label": "Fine pitch",   "note": "Pads de decoders y placas de sables, bajo lupa" }
+      ]
+    },
+    {
+      "id": "core.painting",
+      "label": "Pintura",
+      "class": "core",
+      "tags": ["hands-on", "paint"],
+      "blurb": "Pincel, aerosol, aerógrafo. La habilidad que decide si un modelo se ve terminado.",
+      "inner": true
+    },
+    {
+      "id": "core.photography",
+      "label": "Fotografía",
+      "class": "core",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Luz, exposición y la paciencia de fotografiar lo mismo veinte veces.",
+      "levels": [
+        { "label": "Auto",   "note": "Un teléfono, una ventana y una cartulina blanca" },
+        { "label": "Manual", "note": "Tú eliges la apertura, y sabes por qué" },
+        { "label": "Con luces", "note": "Dos luces, un difusor y una toma que puedes repetir" }
+      ]
+    },
+    {
+      "id": "core.programming",
+      "label": "Programación",
+      "class": "core",
+      "tags": ["code"],
+      "blurb": "El código justo para que algo que construiste haga lo que querías.",
+      "inner": true,
+      "levels": [
+        { "label": "Scripts", "note": "Pegamento y automatización. Copiado, ajustado, y funciona, casi siempre" },
+        { "label": "Proyectos", "note": "Cosas con repo y README que otra persona podría correr" },
+        { "label": "Sistemas", "note": "Diseñados antes de teclear, mantenidos después de entregar" }
+      ]
+    },
+    {
+      "id": "core.3d-printing",
+      "label": "Impresión 3D",
+      "class": "core",
+      "tags": ["hands-on", "kits"],
+      "blurb": "Modelar, laminar y la larga discusión con la adhesión.",
+      "levels": [
+        { "label": "Imprimir",  "note": "El archivo de alguien más, perfil por defecto, dedos cruzados" },
+        { "label": "Calibrar",  "note": "Tu propio perfil, soportes puestos a propósito" },
+        { "label": "Diseñar",   "note": "CAD, tolerancias y una pieza que encaja con la de al lado" }
+      ]
+    },
+    {
+      "id": "core.hand-tools",
+      "label": "Herramientas manuales",
+      "class": "core",
+      "tags": ["hands-on", "cheap-start"],
+      "blurb": "Cortar, limar, taladrar y pegar, más la plantilla que hace que la segunda pieza salga igual a la primera.",
+      "inner": true
+    },
+    {
+      "id": "core.audio",
+      "label": "Audio",
+      "class": "core",
+      "tags": ["audio", "hands-on"],
+      "blurb": "Capturar sonido en un cuarto que te sabotea y limpiarlo después. Ninguna edición rescata una mala grabación."
+    },
+    {
+      "id": "core.writing",
+      "label": "Escritura",
+      "class": "core",
+      "tags": ["content", "patience"],
+      "blurb": "La bitácora, el guion y el pie de foto. Lo que convierte algo que hiciste en algo que otro puede seguir."
+    }
+  ],
+
+  "clusters": [
+    "model", "rail", "brick", "figure", "tabletop", "anime",
+    "film", "video", "starwars", "radio", "maker", "drone",
+    "astro", "music", "retro", "game", "cosplay", "coffee",
+    "book", "garden", "kitchen", "outdoor"
+  ],
+
+  "retired": []
+}

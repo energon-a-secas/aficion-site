@@ -1,0 +1,41 @@
+{
+  "of": "core.programming",
+  "label": "Para qué es el código",
+  "blurb": "El oficio se divide por propósito. La mayoría entra por una de estas puertas y nunca necesita las otras, y está bien.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    {
+      "id": "core.programming.scripts",
+      "label": "Scripts de automatización",
+      "class": "node",
+      "tags": ["code", "cheap-start"],
+      "blurb": "Renombrar quinientos archivos, scrapear una página, conectar dos herramientas. La puerta por la que entran casi todos los hobbies."
+    },
+    {
+      "id": "core.programming.web",
+      "label": "Diseño web",
+      "class": "node",
+      "tags": ["code", "content"],
+      "blurb": "HTML, CSS y moderación. Una página que carga rápido y dice bien una sola cosa le gana a un framework contra el que peleas."
+    },
+    {
+      "id": "core.programming.embedded",
+      "label": "Código de microcontrolador",
+      "class": "node",
+      "tags": ["code", "electronics"],
+      "blurb": "Código con pines conectados. Presupuestos de tiempo, memoria y energía en los que el escritorio nunca te hizo pensar."
+    },
+    {
+      "id": "core.programming.chatbots",
+      "label": "Chatbots y agentes",
+      "class": "node",
+      "tags": ["code", "research"],
+      "blurb": "Prompts, cableado y barandas alrededor de un modelo que entrenó otro. La puerta más nueva, y la más fácil de sobreestimar."
+    }
+  ],
+  "edges": [
+    { "from": "core.programming.scripts", "to": "core.programming.web", "kind": "leads-to" },
+    { "from": "core.programming.scripts", "to": "core.programming.embedded", "kind": "leads-to" },
+    { "from": "core.programming.web", "to": "core.programming.chatbots", "kind": "leads-to" }
+  ]
+}

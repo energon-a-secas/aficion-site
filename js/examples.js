@@ -5,10 +5,10 @@
 
 let cache = null;
 
-export async function ensureExamples() {
+export async function ensureExamples(basePath = 'data/') {
   if (cache) return cache;
-  const res = await fetch('data/examples.json');
-  if (!res.ok) throw new Error(`data/examples.json answered ${res.status}`);
+  const res = await fetch(`${basePath}examples.json`);
+  if (!res.ok) throw new Error(`${basePath}examples.json answered ${res.status}`);
   const raw = await res.json();
   if (!raw || !Array.isArray(raw.examples) || !raw.examples.length) {
     throw new Error('data/examples.json declares no examples');

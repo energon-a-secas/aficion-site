@@ -1,0 +1,28 @@
+{
+  "of": "figure.garage-kits",
+  "label": "Terminar un kit de resina",
+  "blurb": "El orden no es una preferencia. La resina castiga un paso fuera de secuencia semanas después, cuando la pintura se levanta.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    { "id": "figure.garage-kits.flash",     "label": "Quitar rebabas","class": "node", "tags": ["hands-on", "patience"],  "blurb": "Recortar las líneas de colada y los restos de vaciado. Del polvo de resina nadie le avisa al coleccionista, así que lija en húmedo." },
+    { "id": "figure.garage-kits.pinning",   "label": "Pineado",      "class": "node", "tags": ["hands-on"],              "blurb": "Varilla de latón y un portabrocas manual a través de ambas mitades de la unión. La resina pesa y una unión a tope va a fallar, casi siempre en manos de alguien." },
+    { "id": "figure.garage-kits.degrease",  "label": "Desengrasado",   "class": "notable","tags": ["research", "patience"],"blurb": "Un remojo nocturno, un enjuague y una limpieza ultrasónica para quitar el desmoldante. Es invisible, y saltárselo levanta la pintura semanas después." },
+    { "id": "figure.garage-kits.priming",   "label": "Imprimación",      "class": "node", "tags": ["paint", "gear"],         "blurb": "Una capa ligera de niebla, luego una más cargada. La primera capa de primer muestra cada falla que la resina desnuda escondía." },
+    { "id": "figure.garage-kits.pinholes",  "label": "Reparar poros","class":"node",  "tags": ["hands-on", "patience"], "blurb": "Burbujas que siguen bajo la superficie, así que rellenar arriba no las arregla. Aquí es donde se va el tiempo de verdad." },
+    { "id": "figure.garage-kits.skin",      "label": "Tonos de piel",   "class": "node", "tags": ["paint", "patience"],     "blurb": "La base que decide cómo se lee toda la figura. Aerografiada en capas finas, cálida en las sombras en vez de gris." },
+    { "id": "figure.garage-kits.face",      "label": "Cara y ojos","class": "node", "tags": ["paint", "patience"],     "blurb": "El paso más difícil de todos, y tiene que ocurrir antes de montar el pelo, porque el pelo bloquea el acceso para siempre." },
+    { "id": "figure.garage-kits.hair",      "label": "Montaje del pelo",      "class": "node", "tags": ["hands-on", "paint"],     "blurb": "Uniones masilladas, luego reimprimadas y repintadas en la zona. Aquí el montaje y la pintura dejan de ser etapas separadas." },
+    { "id": "figure.garage-kits.coats",     "label": "Brillo y mate","class":"node",  "tags": ["paint"],                "blurb": "Brillo para llevar el lavado, mate para terminar. Dos trabajos distintos que la gente confunde con una preferencia." }
+  ],
+  "edges": [
+    { "from": "figure.garage-kits.flash",    "to": "figure.garage-kits.pinning",  "kind": "leads-to" },
+    { "from": "figure.garage-kits.flash",    "to": "figure.garage-kits.degrease", "kind": "leads-to" },
+    { "from": "figure.garage-kits.degrease", "to": "figure.garage-kits.priming",  "kind": "leads-to", "note": "El único prerrequisito absoluto del proyecto. La película de desmoldante es invisible y la pintura encima falla después." },
+    { "from": "figure.garage-kits.priming",  "to": "figure.garage-kits.pinholes", "kind": "leads-to" },
+    { "from": "figure.garage-kits.pinholes", "to": "figure.garage-kits.skin",     "kind": "leads-to" },
+    { "from": "figure.garage-kits.skin",     "to": "figure.garage-kits.face",     "kind": "leads-to" },
+    { "from": "figure.garage-kits.face",     "to": "figure.garage-kits.hair",     "kind": "leads-to", "note": "Pinta la cara primero. Con el pelo puesto, no vuelves a alcanzarla." },
+    { "from": "figure.garage-kits.hair",     "to": "figure.garage-kits.coats",    "kind": "leads-to" },
+    { "from": "figure.garage-kits.pinning",  "to": "figure.garage-kits.hair",     "kind": "kin" }
+  ]
+}

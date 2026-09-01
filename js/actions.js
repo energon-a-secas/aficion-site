@@ -302,7 +302,7 @@ export function leaveInner(s) {
 export async function openSheet(s) {
   let data;
   try {
-    data = await ensureSheet();
+    data = await ensureSheet(s.atlas.basePath);
   } catch (err) {
     showToast(`The sheet did not load: ${err.detail || err.message}`);
     return;
@@ -328,7 +328,7 @@ export async function openSheet(s) {
  */
 export async function seedStarter(s) {
   try {
-    const doc = await ensureExamples();
+    const doc = await ensureExamples(s.atlas.basePath);
     const ex = doc.examples[0];
     await ensureNodes(s.atlas, ex.profile.n);
     const { profile } = reconcile(s.atlas, ex.profile);
@@ -345,7 +345,7 @@ export async function seedStarter(s) {
 export async function openExample(s, id = null) {
   let doc;
   try {
-    doc = await ensureExamples();
+    doc = await ensureExamples(s.atlas.basePath);
   } catch (err) {
     showToast(`Examples did not load: ${err.detail || err.message}`);
     return;

@@ -1,0 +1,66 @@
+{
+  "id": "astro",
+  "label": "Cielo nocturno",
+  "blurb": "Pararte afuera en el frío a propósito. El único hobby de aquí donde el sujeto es gratis y todo lo demás es paciencia.",
+  "notable": "astro.astrophoto",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "arc",
+    "anchor": [1949, -613],
+    "radius": 265,
+    "startAngle": 200,
+    "spread": 210,
+    "order": [
+      "astro.visual", "astro.telescopes", "astro.scope-building", "astro.star-hopping",
+      "astro.solar", "astro.meteors", "astro.satellite-spot", "astro.astrophoto", "astro.mounts",
+      "astro.guiding", "astro.stacking", "astro.planetary", "astro.deep-sky", "astro.dark-sky"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "astro.astrophoto",
+      "label": "Astrofotografía",
+      "class": "notable",
+      "tags": ["patience", "outdoors", "gear", "content"],
+      "blurb": "Horas de exposición sobre algo que se mueve, y luego horas de procesado. Lo que la gente comparte es el fruto de una noche entera más la velada siguiente.",
+      "aka": ["astro photography", "deep sky imaging"],
+      "accent": "cyan"
+    },
+    {
+      "id": "astro.visual",
+      "label": "Observación visual",
+      "class": "node",
+      "tags": ["outdoors", "patience", "cheap-start"],
+      "blurb": "Mirar por el ocular en vez de fotografiar. Más barato, más difícil de compartir, y la versión que mantiene a la gente afuera bajo el cielo.",
+      "accent": "jade"
+    },
+    { "id": "astro.telescopes", "label": "Telescopios",      "class": "node", "tags": ["gear", "research", "space"],      "blurb": "Apertura, relación focal y capacidad de la montura. El telescopio que se usa es el que puedes sacar afuera sin pensarlo dos veces." },
+    { "id": "astro.scope-building","label": "Construir un telescopio","class":"node","tags": ["hands-on", "patience", "gear"],  "blurb": "Un dobsoniano de contrachapado, o pulir un espejo a mano durante meses. La tradición maker más vieja de este grupo." },
+    { "id": "astro.star-hopping","label": "Star hopping",   "class": "node", "tags": ["research", "outdoors", "cheap-start"],"blurb": "Encontrar un objeto tenue navegando desde estrellas brillantes con una carta. Una habilidad de navegación real que sobrevive a la batería muerta." },
+    { "id": "astro.solar",      "label": "Observación solar", "class": "node", "tags": ["outdoors", "gear", "research"],   "blurb": "El único objetivo disponible de día, a través de un filtro que jamás puede fallar. Manchas y fulguraciones cambian hora a hora." },
+    { "id": "astro.meteors",    "label": "Ver meteoros", "class": "node", "tags": ["outdoors", "cheap-start", "patience"],"blurb": "Cero equipo más allá de una silla y una manta. El costo de entrada más bajo de todo este mapa." },
+    { "id": "astro.satellite-spot","label": "Cazar satélites","class":"node","tags": ["outdoors", "research", "patience"],"blurb": "Predecir un pase y verlo cruzar. Las mismas tablas y el mismo doppler que usa la gente que habla a través de esos satélites." },
+    { "id": "astro.mounts",     "label": "Monturas de seguimiento", "class": "node", "tags": ["gear", "electronics", "patience"],"blurb": "Seguimiento ecuatorial, alineación polar y error periódico. La montura decide qué puede hacer la cámara, no el telescopio." },
+    { "id": "astro.guiding",    "label": "Autoguiado",     "class": "node", "tags": ["code", "electronics", "patience"],"blurb": "Una segunda camarita vigilando una estrella y corrigiendo la montura. El paso donde la astrofoto deja de pelearte." },
+    { "id": "astro.stacking",   "label": "Apilado y procesado","class":"node","tags":["code", "patience", "content"],"blurb": "Cientos de tomas promediadas en una, y luego estiradas. Aquí se hace más de la imagen final que en el telescopio." },
+    { "id": "astro.planetary",  "label": "Imagen planetaria","class": "node", "tags": ["patience", "gear", "content"],   "blurb": "Miles de cuadros de video, guardando solo el porcentaje más nítido. Le gana a la atmósfera muestreando más rápido de lo que tiembla." },
+    { "id": "astro.deep-sky",   "label": "Cielo profundo",        "class": "node", "tags": ["patience", "outdoors", "research"],"blurb": "Nebulosas y galaxias, tan tenues que la contaminación lumínica decide qué es posible antes que el equipo." },
+    { "id": "astro.dark-sky",   "label": "Cielos oscuros",  "class": "node", "tags": ["outdoors", "social", "space"],    "blurb": "Manejar a un sitio sin alumbrado, muchas veces con otra gente. La mitad de la astronomía es elegir el lugar y leer el clima." }
+  ],
+  "edges": [
+    { "from": "astro.astrophoto",  "to": "astro.visual",     "kind": "kin" },
+    { "from": "astro.astrophoto",  "to": "astro.mounts",     "kind": "leads-to", "note": "La montura, no el telescopio, decide si una exposición larga da estrellas redondas o rayitas cortas." },
+    { "from": "astro.astrophoto",  "to": "astro.stacking",   "kind": "leads-to" },
+    { "from": "astro.astrophoto",  "to": "astro.planetary",  "kind": "kin" },
+    { "from": "astro.astrophoto",  "to": "astro.deep-sky",   "kind": "kin" },
+    { "from": "astro.mounts",      "to": "astro.guiding",    "kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.telescopes", "kind": "kin" },
+    { "from": "astro.visual",      "to": "astro.star-hopping","kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.meteors",    "kind": "leads-to" },
+    { "from": "astro.visual",      "to": "astro.dark-sky",   "kind": "kin" },
+    { "from": "astro.telescopes",  "to": "astro.scope-building","kind": "kin" },
+    { "from": "astro.telescopes",  "to": "astro.solar",      "kind": "kin" },
+    { "from": "astro.dark-sky",    "to": "astro.deep-sky",   "kind": "kin" },
+    { "from": "astro.meteors",     "to": "astro.satellite-spot","kind": "kin" }
+  ]
+}

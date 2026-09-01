@@ -1,0 +1,58 @@
+{
+  "id": "model",
+  "label": "Modelismo a escala",
+  "blurb": "Cosas que llegan como sprues en una caja y salen como un objeto en la repisa.",
+  "notable": "model.gunpla",
+  "accent": "violet",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-980, 260],
+    "radius": 210,
+    "startAngle": -20,
+    "spread": 300,
+    "order": ["model.gunpla", "model.scale-armour", "model.aircraft", "model.dioramas", "model.airbrush-rig", "model.decals"]
+  },
+  "nodes": [
+    {
+      "id": "model.gunpla",
+      "label": "Gunpla",
+      "class": "notable",
+      "tags": ["kits", "mecha", "hands-on", "patience"],
+      "blurb": "Los kits Gundam de Bandai, a presión. Sin pegamento para empezar, sin techo si sigues.",
+      "aka": ["gundam models", "gunpura"],
+      "accent": "ember",
+      "inner": true,
+      "levels": [
+        { "label": "HG", "note": "High Grade, 1/144. Se arma a presión en una tarde, sin pintura." },
+        { "label": "RG", "note": "Real Grade, 1/144. Marco interno precoloreado, calcas, piezas chicas." },
+        { "label": "MG", "note": "Master Grade, 1/100. Marco interno completo, un fin de semana, piezas en serio." },
+        { "label": "PG", "note": "Perfect Grade, 1/60. Kits de luces, cientos de piezas, una repisa propia." }
+      ]
+    },
+    {
+      "id": "model.scale-armour",
+      "label": "Blindados a escala",
+      "class": "node",
+      "tags": ["kits", "hands-on", "paint", "patience"],
+      "blurb": "Tanques a 1/35. Pegamento, masilla y fotos de referencia, donde el Gunpla no te da ninguna de las tres.",
+      "levels": [
+        { "label": "De caja", "note": "Ármalo como dice el instructivo y píntalo de un color" },
+        { "label": "Detallado",   "note": "Orugas aftermarket, fotograbado, carga" },
+        { "label": "Scratch",    "note": "Fabricas piezas que el kit no trae" }
+      ]
+    },
+    { "id": "model.aircraft",     "label": "Kits de aviones", "class": "node", "tags": ["kits", "hands-on", "paint"],       "blurb": "Cabinas, máscaras de camuflaje y la eterna discusión sobre la escala de las líneas de panel." },
+    { "id": "model.dioramas",     "label": "Dioramas",      "class": "node", "tags": ["hands-on", "paint", "patience"],   "blurb": "Una base, una escena y una razón por la que el modelo está parado donde está." },
+    { "id": "model.airbrush-rig", "label": "Equipo de aerógrafo",  "class": "node", "tags": ["paint", "hands-on"],               "blurb": "Compresor, trampa de humedad, cabina de pintado. La compra que cambia qué acabados son posibles." },
+    { "id": "model.decals",       "label": "Calcas",        "class": "node", "tags": ["hands-on", "patience"],            "blurb": "Calcas al agua, líquido fijador y el plateado que delata un trabajo apurado." }
+  ],
+  "edges": [
+    { "from": "model.gunpla",        "to": "model.scale-armour", "kind": "leads-to", "note": "El primer kit donde nada encaja a presión y todo va pegado." },
+    { "from": "model.scale-armour",  "to": "model.aircraft",     "kind": "kin" },
+    { "from": "model.scale-armour",  "to": "model.dioramas",     "kind": "leads-to" },
+    { "from": "model.airbrush-rig",  "to": "model.scale-armour", "kind": "shares-gear" },
+    { "from": "model.airbrush-rig",  "to": "model.aircraft",     "kind": "shares-gear" },
+    { "from": "model.decals",        "to": "model.gunpla",       "kind": "kin" },
+    { "from": "model.decals",        "to": "model.aircraft",     "kind": "kin" }
+  ]
+}

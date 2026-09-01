@@ -1,0 +1,172 @@
+{
+  "id": "starwars",
+  "label": "Star Wars y props",
+  "blurb": "Una historia que la gente ama tanto como para construir sus objetos, desde una repisa de figuras en blíster hasta un sable que sobrevive un duelo.",
+  "notable": "starwars.props",
+  "accent": "violet",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [860, 760],
+    "radius": 250,
+    "startAngle": 20,
+    "spread": 210,
+    "order": [
+      "starwars.props", "starwars.pixel-saber", "starwars.saber-config", "starwars.soundfonts",
+      "starwars.blade-build", "starwars.hilt-machining", "starwars.chassis-design", "starwars.dueling",
+      "starwars.costuming", "starwars.conventions", "starwars.canon", "starwars.books",
+      "starwars.vintage-figures", "starwars.model-kits", "starwars.prop-photography"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "starwars.props",
+      "label": "Réplicas de props",
+      "class": "notable",
+      "tags": ["hands-on", "fandom", "patience", "gear"],
+      "blurb": "Construir el objeto en vez de comprarlo. Una empuñadura, un bláster, un casco, fieles al fotograma donde aparecieron.",
+      "aka": ["prop replica fabrication", "prop making", "replica building"],
+      "accent": "ember",
+      "inner": true
+    },
+    {
+      "id": "starwars.pixel-saber",
+      "label": "Sable pixel",
+      "class": "node",
+      "tags": ["electronics", "code", "hands-on", "fandom"],
+      "blurb": "Un sable de LEDs direccionables con placa de sonido en la empuñadura. La placa más barata exige más habilidad, justo lo contrario de lo que la gente espera.",
+      "aka": ["neopixel saber", "lightsaber", "custom saber", "proffie saber"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Baselit",    "note": "Un LED de potencia en la empuñadura, luz guiada por una hoja acrílica" },
+        { "label": "Neopixel",   "note": "Una tira LED en tubo de policarbonato: la hoja se ilumina a lo largo" },
+        { "label": "Full pixel", "note": "Hoja pixel más emisor pixel, estilos de hoja escritos en vez de elegidos" }
+      ]
+    },
+    {
+      "id": "starwars.saber-config",
+      "label": "Configs del sable",
+      "class": "node",
+      "tags": ["code", "electronics", "patience"],
+      "blurb": "Editar configs de ProffieOS. Sintaxis estilo C, estilos de hoja como expresiones, y el verdadero filtro de la placa open source.",
+      "aka": ["proffieos", "blade styles"]
+    },
+    {
+      "id": "starwars.soundfonts",
+      "label": "Sound fonts",
+      "class": "node",
+      "tags": ["audio", "fandom", "patience"],
+      "blurb": "Zumbido, choque, swing e ignición, cada uno un archivo que la placa elige. La mitad de lo que hace real un sable se oye, no se ve."
+    },
+    {
+      "id": "starwars.blade-build",
+      "label": "Armado de la hoja",
+      "class": "node",
+      "tags": ["hands-on", "electronics"],
+      "blurb": "Tubo de policarbonato, difusor de espuma, punta y epoxi. Cable de calibre errado en la línea de datos da un segmento que se traba."
+    },
+    {
+      "id": "starwars.hilt-machining",
+      "label": "Maquinar empuñaduras",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Tornear aluminio, o armar un kit de empuñadura CNC. La parte que la gente de verdad sostiene tiene que sentirse densa."
+    },
+    {
+      "id": "starwars.chassis-design",
+      "label": "Diseño de chasis",
+      "class": "node",
+      "tags": ["hands-on", "kits", "code"],
+      "blurb": "El esqueleto impreso que fija placa, batería y parlante dentro de un tubo que recibe golpes. Las tolerancias deciden si suena flojo."
+    },
+    {
+      "id": "starwars.dueling",
+      "label": "Coreografía de sables",
+      "class": "node",
+      "tags": ["social", "outdoors", "fandom"],
+      "blurb": "Formas, juego de pies y ejercicios de contacto. También es la prueba de estrés que encuentra cada soldadura que apuraste.",
+      "aka": ["lightsaber combat", "saber dueling"]
+    },
+    {
+      "id": "starwars.costuming",
+      "label": "Costuming",
+      "class": "node",
+      "tags": ["hands-on", "social", "fandom", "patience"],
+      "blurb": "Armadura, partes blandas y un traje juzgado contra fotos de referencia por un club que te dirá qué tiene mal.",
+      "aka": ["501st", "rebel legion", "trooping"]
+    },
+    {
+      "id": "starwars.conventions",
+      "label": "Convenciones",
+      "class": "node",
+      "tags": ["social", "collecting", "fandom"],
+      "blurb": "Donde una repisa se vuelve conversación. También donde está parada la persona que resolvió tu problema hace tres años."
+    },
+    {
+      "id": "starwars.canon",
+      "label": "Películas y series",
+      "class": "node",
+      "tags": ["screen", "fandom", "cheap-start"],
+      "blurb": "Nueve películas, la animación, las series live-action. La biblioteca de referencia contra la que se revisa todo lo demás del clúster.",
+      "aka": ["star wars movies", "the mandalorian", "clone wars"]
+    },
+    {
+      "id": "starwars.books",
+      "label": "Libros y cómics",
+      "class": "node",
+      "tags": ["research", "fandom", "cheap-start"],
+      "blurb": "Novelas, cómics y los diccionarios visuales que le ponen nombre al greeblie que intentas identificar.",
+      "aka": ["expanded universe", "legends"]
+    },
+    {
+      "id": "starwars.vintage-figures",
+      "label": "Figuras vintage",
+      "class": "node",
+      "tags": ["collecting", "research", "fandom"],
+      "blurb": "Figuras Kenner de 3.75 pulgadas desde 1977. Procedencia, variantes de cardback y los accesorios repro que engañan a la gente.",
+      "aka": ["kenner", "action figures"],
+      "levels": [
+        { "label": "Suelta",  "note": "Jugada, completa o no, comprada para mirarse" },
+        { "label": "En blíster", "note": "Aún en su cardback original, y ahora te importan las esquinas" },
+        { "label": "Gradeada", "note": "Sellada en acrílico con un número que le puso alguien más" }
+      ]
+    },
+    {
+      "id": "starwars.model-kits",
+      "label": "Kits de Star Wars",
+      "class": "node",
+      "tags": ["kits", "hands-on", "paint", "fandom"],
+      "blurb": "Bandai fabrica esta línea con el mismo tooling que sus kits Gundam, así que los hábitos de armado a presión se transfieren enteros.",
+      "aka": ["bandai star wars", "x-wing model"]
+    },
+    {
+      "id": "starwars.prop-photography",
+      "label": "Fotografía de props",
+      "class": "node",
+      "tags": ["hands-on", "patience", "content"],
+      "blurb": "Una hoja encendida en un cuarto oscuro es un problema de exposición larga. El brillo es la toma, y la toma es lo que la gente ve."
+    }
+  ],
+  "edges": [
+    { "from": "starwars.props",        "to": "starwars.canon",             "kind": "kin",      "note": "Todo prop fiel empieza como un fotograma en pausa." },
+    { "from": "starwars.canon",        "to": "starwars.books",             "kind": "leads-to" },
+    { "from": "starwars.canon",        "to": "starwars.vintage-figures",   "kind": "leads-to" },
+    { "from": "starwars.canon",        "to": "starwars.costuming",         "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.hilt-machining",    "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.chassis-design",    "kind": "leads-to" },
+    { "from": "starwars.props",        "to": "starwars.pixel-saber",       "kind": "leads-to", "note": "El punto donde un tubo maquinado deja de ser tubo y empieza a consumir corriente." },
+    { "from": "starwars.props",        "to": "starwars.model-kits",        "kind": "kin" },
+    { "from": "starwars.props",        "to": "starwars.prop-photography",  "kind": "leads-to" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.blade-build",       "kind": "leads-to" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.saber-config",      "kind": "leads-to", "note": "Flashea y configura antes de meter la placa al chasis, o cambiar un ajuste cuesta un desarme." },
+    { "from": "starwars.pixel-saber",  "to": "starwars.soundfonts",        "kind": "kin" },
+    { "from": "starwars.pixel-saber",  "to": "starwars.dueling",           "kind": "leads-to" },
+    { "from": "starwars.saber-config", "to": "starwars.soundfonts",        "kind": "kin" },
+    { "from": "starwars.blade-build",  "to": "starwars.hilt-machining",    "kind": "shares-gear" },
+    { "from": "starwars.hilt-machining", "to": "starwars.chassis-design",  "kind": "kin" },
+    { "from": "starwars.costuming",    "to": "starwars.conventions",       "kind": "kin" },
+    { "from": "starwars.costuming",    "to": "starwars.dueling",           "kind": "kin" },
+    { "from": "starwars.vintage-figures", "to": "starwars.conventions",    "kind": "kin" },
+    { "from": "starwars.prop-photography", "to": "starwars.vintage-figures", "kind": "kin" },
+    { "from": "starwars.books",        "to": "starwars.props",             "kind": "shares-gear", "note": "Los diccionarios visuales existen para que el constructor pueda nombrar la pieza." }
+  ]
+}

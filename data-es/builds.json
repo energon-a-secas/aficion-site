@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "builds": [
+    {
+      "id": "build.pixel-saber",
+      "name": "Sable de Píxeles",
+      "summary": "Un sable de luz con LED direccionables que sobrevive un duelo. El ejemplo más claro del mapa de dos estantes sin relación que terminan siendo un solo objeto.",
+      "tags": ["electronics", "hands-on", "fandom", "code"],
+      "steps": [
+        { "node": "starwars.canon",          "level": null, "why": "La referencia va primero. No puedes construir fiel a un fotograma que nunca pausaste." },
+        { "node": "core.soldering",          "level": 3,    "why": "Los pads de la placa de sonido son chicos y están juntos. Todo lo que sigue es una soldadura que aguanta o no aguanta." },
+        { "node": "core.electronics",        "level": 2,    "why": "La hoja es un consumo largo de corriente. Dimensionas la batería antes de comprar la tira." },
+        { "node": "maker.arduino",           "level": 2,    "why": "La placa se flashea desde el IDE de Arduino. Si ya lo hiciste para cualquier otra cosa, ya tienes medio paso once resuelto." },
+        { "node": "starwars.hilt-machining", "level": null, "why": "La empuñadura es lo que la gente sostiene, y es un prop antes que un circuito." },
+        { "node": "starwars.props.saber",    "level": null, "why": "Greeblies, emisor y pomo, ensamblados en seco, antes de pegar o cablear nada." },
+        { "node": "model.airbrush-rig",      "level": null, "why": "Termina la empuñadura mientras sigue vacía. El compresor que habrías comprado para un tanque hace este trabajo." },
+        { "node": "core.3d-printing",        "level": 3,    "why": "Chasis, inserto del emisor y las tolerancias que evitan que la hoja vibre." },
+        { "node": "starwars.chassis-design", "level": null, "why": "Placa, batería y parlante deben quedar firmes dentro de un tubo que recibe golpes." },
+        { "node": "core.programming",        "level": null, "why": "Encendido, parpadeo y choque son tres loops en un microcontrolador." },
+        { "node": "starwars.saber-config",   "level": null, "why": "Flashea y configura en el banco. Un ajuste cambiado tras la instalación cuesta un desarme completo." },
+        { "node": "starwars.pixel-saber",    "level": 2,    "why": "El build que justificaba los otros once pasos." }
+      ]
+    },
+    {
+      "id": "build.train-channel",
+      "name": "Canal de Trenes a Escala",
+      "summary": "Todo lo que hay detrás de un canal de trenes a escala: un hobby de modelismo y uno de video que no comparten casi nada salvo paciencia, y se aprenden en orden fijo.",
+      "tags": ["hands-on", "content", "space", "patience"],
+      "steps": [
+        { "node": "rail.scale-choice", "level": null, "why": "Cada compra posterior asume la respuesta, lo que la vuelve la única decisión aquí irreversible en la práctica." },
+        { "node": "rail.layout",       "level": null, "why": "Pequeña y terminada. Quien logra un tren corriendo confiable en una maqueta chica se queda; quien planea una enorme la termina vendiendo." },
+        { "node": "rail.trackwork",    "level": null, "why": "La confiabilidad se gana o se pierde aquí, y una vía mal tendida causa más frustración en este hobby que cualquier otra cosa." },
+        { "node": "rail.wiring",       "level": null, "why": "Bus, alimentadores y bloques, probados corriendo trenes de verdad antes de tomar una sola decisión de escenografía." },
+        { "node": "rail.dcc",          "level": null, "why": "Una dirección por locomotora, para que una sesión tenga dos trenes y algo que filmar." },
+        { "node": "rail.scenery",      "level": null, "why": "Recién ahora, y solo sobre vía comprobada. Balasto sobre vía sin probar es el clásico error irreversible." },
+        { "node": "rail.weathering",   "level": null, "why": "El único cambio que hace que la maqueta deje de salir como juguete en las fotos." },
+        { "node": "core.photography",  "level": 3,    "why": "Las miniaturas piden mucha más luz de la que sugieren tus ojos, y a esta escala la profundidad de campo es todo el problema." },
+        { "node": "video.videography", "level": null, "why": "Trípode, slider, y la cámara a bordo de la cabina que logra una toma que ningún otro hobby puede." },
+        { "node": "core.audio",        "level": null, "why": "Se graba bien en la sala, no se repara en la edición. Ninguna edición rescata una mala voz en off." },
+        { "node": "video.editing",     "level": null, "why": "Corta las partes que disfrutaste haciendo. Esa es casi toda la diferencia entre una bitácora de obra y un video." },
+        { "node": "video.youtube",     "level": null, "why": "Miniatura, título y cadencia, que deciden si alguien llegó a ver los otros once pasos." }
+      ]
+    },
+    {
+      "id": "build.gunpla-contest",
+      "name": "Gunpla de Concurso",
+      "summary": "Un kit llevado del snap-fit a la vitrina con jurado. Casi cada paso es una técnica que se transfiere directo a blindados, aviones, miniaturas y props.",
+      "tags": ["kits", "paint", "mecha", "patience"],
+      "steps": [
+        { "node": "model.gunpla",              "level": 2, "why": "Primero entender los grados. Un Master Grade antes de dominar los nubs deja un defecto permanente en un kit caro." },
+        { "node": "model.gunpla.nub-removal",  "level": null, "why": "Corta lejos de la pieza y rebaja el resto. El corte al ras blanquea el plástico y esa marca no sale nunca." },
+        { "node": "model.gunpla.seam-lines",   "level": null, "why": "Cemento, curado, lijado. Borrar el hecho de que el brazo llegó en dos mitades, antes de pintar nada." },
+        { "node": "core.painting",             "level": null, "why": "La imprimación revela cada defecto que pasaste por alto al lijar, y justamente para eso sirve." },
+        { "node": "model.airbrush-rig",        "level": null, "why": "La barrera de costo y técnica para degradados, modulación y cualquier acabado que deba quedar parejo." },
+        { "node": "model.decals",              "level": null, "why": "Calcas al agua sobre brillo, luego selladas. El plateado alrededor de una calca delata el trabajo apurado." },
+        { "node": "model.gunpla.weathering",   "level": null, "why": "Chipping y hollín aplicados a propósito, para que la máquina se lea como una que de verdad se usó." },
+        { "node": "figure.mini-painting",      "level": 3, "why": "Caras, ojos y detalles pequeños son trabajo de pincel. El aerógrafo no puede con esta parte y nunca podrá." },
+        { "node": "model.dioramas",            "level": null, "why": "Contexto, y en un concurso más o menos la mitad de lo que el juez realmente mira." },
+        { "node": "core.photography",          "level": 2, "why": "En línea, la fotografía es la inscripción. Nadie que juzga desde un teléfono llega a sostener el modelo." },
+        { "node": "figure.competition",        "level": null, "why": "Juicio en vitrina contra un estándar que nadie escribe. El feedback más rápido y menos amable que existe." }
+      ]
+    },
+    {
+      "id": "build.mesh-node",
+      "name": "Nodo Mesh Solar",
+      "summary": "Un nodo LoRa fuera de la red que termina en un mástil funcionando a puro sol. No requiere licencia, y tiene el costo de entrada más bajo de todos los builds de aquí.",
+      "tags": ["radio", "electronics", "outdoors", "code"],
+      "steps": [
+        { "node": "maker.esp32",       "level": null, "why": "ESP32 para la interfaz web, nRF52 si el nodo debe sobrevivir semanas con una celda. La elección decide todo lo que viene después." },
+        { "node": "core.soldering",    "level": 1,    "why": "Headers, un pigtail de antena y un cable de batería. El through hole alcanza de sobra para este build." },
+        { "node": "radio.antennas",    "level": null, "why": "Conecta la antena antes de darle energía a la radio. Transmitir al aire daña el chip, y esa es la única regla dura de seguridad aquí." },
+        { "node": "radio.node-build",  "level": null, "why": "Un cable de datos de verdad, el driver serial y el firmware. Un cable de solo carga es donde la mayoría de los primeros intentos muere en silencio." },
+        { "node": "radio.mesh-admin",  "level": null, "why": "Región y preset del módem deben coincidir con toda la malla, y la región es el marco legal, no una preferencia." },
+        { "node": "radio.meshtastic",  "level": null, "why": "Un nodo funcionando en tu bolsillo que encuentra los nodos de otros. Todo lo anterior era preparación." },
+        { "node": "core.electronics",  "level": 2,    "why": "Entrada solar, control de carga y una batería dimensionada para una semana nublada, no para una tarde de sol." },
+        { "node": "maker.power",       "level": null, "why": "Las celdas protegidas llegan cerca de su corte, lo que un novato lee como placa muerta y no como batería descargada." },
+        { "node": "core.3d-printing",  "level": 2,    "why": "Una carcasa que sobrevive la intemperie y aún se puede abrir un año después sin romperse." },
+        { "node": "radio.repeater",    "level": null, "why": "En un mástil, en un sitio donde alguien te dio permiso. Esa última parte es el paso que la gente olvida planear." }
+      ]
+    },
+    {
+      "id": "build.hf-station",
+      "name": "Primera Estación HF",
+      "summary": "De escuchar con un dongle a hablar con otro continente. La licencia es uno de los poquísimos prerrequisitos genuinamente duros en todo este mapa.",
+      "tags": ["radio", "electronics", "social", "research"],
+      "steps": [
+        { "node": "radio.sdr",           "level": null, "why": "Primero escucha. Un dongle barato te dice si las bandas están vivas donde vives antes de gastar nada." },
+        { "node": "radio.ham",           "level": 2,    "why": "Technician, luego General. General es la puerta a las bandas que alcanzan otros continentes, y transmitir sin ella no es legal." },
+        { "node": "core.soldering",      "level": 1,    "why": "Conectores y línea de alimentación. Un conector mal soldado es la falla más común en una estación nueva y la más difícil de ver." },
+        { "node": "radio.antennas",      "level": null, "why": "Un dipolo de alambre en el jardín le gana a una vertical cara sin radiales debajo, todas las veces." },
+        { "node": "maker.test-gear",     "level": null, "why": "Un medidor de SWR y un multímetro convierten una sospecha sobre la antena en una medición sobre la que puedes actuar." },
+        { "node": "radio.hf-station",    "level": null, "why": "Transceptor, sintonizador, línea y un escritorio. El primer punto donde el hobby necesita una habitación y no un bolsillo." },
+        { "node": "radio.propagation",   "level": null, "why": "Por qué la misma estación llega a Japón a las tres de la mañana y a nada al mediodía. El momento le gana a la potencia." },
+        { "node": "radio.digital-modes", "level": null, "why": "FT8 saca un contacto de una señal que ningún oído humano escucha, que es justo lo que una antena modesta necesita." },
+        { "node": "radio.pota",          "level": null, "why": "Lleva una estación liviana a algún lugar con vista. Operar en portable es donde esto deja de ser una habitación y se vuelve un paseo." }
+      ]
+    },
+    {
+      "id": "build.garage-kit",
+      "name": "Acabado de Garage Kit",
+      "summary": "La escalera que va de coleccionar figuras terminadas a terminar tú mismo una de resina sin pintar. El coleccionista espera un ensamblaje y se encuentra un trabajo de acabado completo.",
+      "tags": ["kits", "paint", "fandom", "patience"],
+      "steps": [
+        { "node": "anime.series",                 "level": null, "why": "El personaje va primero. Casi nadie termina uno de estos por una serie a la que no estaba ya apegado." },
+        { "node": "figure.collecting",            "level": null, "why": "Saber de escalas, saber de marcas, y reconocer un recast cuando llega por correo." },
+        { "node": "figure.garage-kits",           "level": null, "why": "Resina sin pintar en tirada limitada. El punto donde el hobby pasa de comprar bien a trabajar." },
+        { "node": "figure.garage-kits.flash",     "level": null, "why": "Recorta las líneas de colada y los sobrantes, en húmedo, porque el polvo de resina es el peligro del que nadie avisa al coleccionista." },
+        { "node": "figure.garage-kits.pinning",   "level": null, "why": "Varilla de latón atravesando cada unión. La resina pesa y una unión a tope falla mientras alguien la sostiene." },
+        { "node": "figure.garage-kits.degrease",  "level": null, "why": "Remojo de una noche y limpieza ultrasónica. El desmoldante es invisible y la pintura encima se levanta semanas después." },
+        { "node": "core.painting",                "level": null, "why": "Aplica una neblina ligera de primer y luego una capa más pesada. La primera capa expone los defectos que la resina desnuda escondía." },
+        { "node": "figure.garage-kits.pinholes",  "level": null, "why": "Burbujas que siguen bajo la superficie, así que rellenar arriba no las arregla. Aquí es donde de verdad se va el tiempo." },
+        { "node": "figure.garage-kits.face",      "level": null, "why": "El paso más difícil, y ocurre antes de montar el pelo porque el pelo bloquea el acceso para siempre." },
+        { "node": "core.photography",             "level": 2,    "why": "Macro, a la altura de los ojos y fondo liso. Fotografiada desde arriba, una figura terminada parece un juguete sobre un escritorio." },
+        { "node": "figure.figure-photo",          "level": null, "why": "La fotografía es la única forma en que alguien fuera de tu casa verá seis semanas de trabajo." }
+      ]
+    },
+    {
+      "id": "build.lit-cabinet",
+      "name": "Vitrina Mecha Iluminada",
+      "summary": "Seis kits terminados tras el vidrio con las luces adentro. Un proyecto de electrónica escondido en un hobby de exhibición, y cada cable se tiende mientras el kit sigue en piezas.",
+      "tags": ["kits", "electronics", "mecha", "gear"],
+      "steps": [
+        { "node": "anime.mecha",              "level": null, "why": "La repisa es un argumento sobre qué máquinas importan, y ese gusto se forma viendo, no comprando." },
+        { "node": "model.gunpla",             "level": 3,    "why": "Los marcos internos de un Master Grade tienen lugar para cables. Una espinilla de HG no tiene espacio que valga la pena iluminar." },
+        { "node": "core.soldering",           "level": 3,    "why": "Alambre esmaltado sobre LED 0603 dentro de una cabeza. La soldadura es más chica que la punta del cautín que la hace." },
+        { "node": "core.electronics",         "level": 2,    "why": "Veinte LED por kit, seis kits, una fuente. El presupuesto de corriente se suma en papel antes de comprar nada." },
+        { "node": "model.gunpla.led-install", "level": null, "why": "Canales limados en el marco antes del armado. Cablear un kit terminado significa desarmar un kit terminado." },
+        { "node": "maker.addressable-led",    "level": null, "why": "Tiras WS2812 iluminan las repisas. El primer píxel es donde una línea de datos de 3.3V a una tira de 5V falla en silencio." },
+        { "node": "maker.arduino",            "level": 2,    "why": "Una placa corre las animaciones y un switch de puerta, así la vitrina despierta cuando se abre y no antes." },
+        { "node": "maker.power",              "level": null, "why": "La fuente se dimensiona para blanco total en cada tira, más o menos el triple de lo que consume el loop de demostración." },
+        { "node": "core.3d-printing",         "level": 2,    "why": "Canales para tiras, difusores y soportes en PETG blanco. Las ondas de una impresora sin calibrar se leen a través del difusor." },
+        { "node": "figure.display",           "level": null, "why": "Vitrina de vidrio, sellos antipolvo y film UV, instalados antes de que la primera calca se destiña, no después." },
+        { "node": "core.photography",         "level": 3,    "why": "Fotografiar a través del vidrio duplica cada fuente de luz. Los kits salen, el fondo entra, los LED quedan encendidos." },
+        { "node": "figure.figure-photo",      "level": null, "why": "Las vitrinas se mudan mal. Las fotos iluminadas son el registro que sobrevive a la propia repisa." }
+      ]
+    },
+    {
+      "id": "build.army-to-table",
+      "name": "Ejército a la Mesa",
+      "summary": "Una fuerza de escaramuza llevada del plástico desnudo a un fin de semana de torneo. Pintar en lote es una línea de producción vestida de hobby, y el juego al final es lo que mantiene la línea andando.",
+      "tags": ["paint", "hands-on", "social", "patience"],
+      "steps": [
+        { "node": "tabletop.warhammer",     "level": null, "why": "La facción fija la cantidad de modelos, y esa cantidad es el proyecto. Una lista de horda triplica cada paso debajo de este." },
+        { "node": "figure.mini-painting",   "level": 1,    "why": "Una miniatura a estándar de mesa, pintura diluida y un lavado. La línea de lote repite lo que sea que este paso enseñe." },
+        { "node": "core.painting",          "level": null, "why": "Imprimar es trabajo de clima. Un aerosol en aire frío y húmedo escarcha una escuadra entera en una pasada." },
+        { "node": "model.airbrush-rig",     "level": null, "why": "Imprimación y capas base bajo techo, todo el año. El compresor ya se pagó solo para la segunda escuadra." },
+        { "node": "figure.army-painting",   "level": null, "why": "Pinta por color a lo ancho de la escuadra, nunca por modelo. Veinte hombreras, luego veinte cascos, o no se acaba nunca." },
+        { "node": "figure.basing",          "level": null, "why": "Textura, matas y borde pintado. El paso más barato de aquí, y el que hace que un lote se lea como ejército." },
+        { "node": "tabletop.kill-team",     "level": null, "why": "Reglas aprendidas con doce modelos mientras la cola principal se seca. Perder partidas chicas cuesta menos y enseña lo mismo." },
+        { "node": "tabletop.list-building", "level": null, "why": "Matemática de puntos contra el meta local. La lista nombra qué unidades existen, así que desde aquí dirige la cola de pintado." },
+        { "node": "tabletop.terrain",       "level": null, "why": "Una mesa con bloqueos de línea de visión. Una mesa plana enseña la lección equivocada sobre cada unidad encima." },
+        { "node": "tabletop.wargames",      "level": null, "why": "Partidas completas en el club. Los puntos débiles de una lista afloran en tres turnos contra un desconocido." },
+        { "node": "tabletop.tournaments",   "level": null, "why": "La mayoría de los eventos exige todo pintado y con base, así que la inscripción es la fecha límite que termina la última escuadra." }
+      ]
+    },
+    {
+      "id": "build.retro-stream",
+      "name": "Stream de Consola Recapeada",
+      "summary": "Una consola muerta revivida desde la placa y puesta al aire. La restauración y la transmisión comparten una máquina, y el mod que salva el stream se instala con el cautín, meses antes de abrir OBS.",
+      "tags": ["electronics", "screen", "content", "hands-on"],
+      "steps": [
+        { "node": "retro.consoles",   "level": null, "why": "Elige una máquina con fallas documentadas y repuestos disponibles. Lo oscuro es encantador hasta que muere un chip custom." },
+        { "node": "core.electronics", "level": 2,    "why": "Manual de servicio primero: rieles, fusibles, polaridad. La mitad de las consolas muertas son una falla de energía, no de placa." },
+        { "node": "maker.test-gear",  "level": null, "why": "Un multímetro y un medidor ESR convierten muerta en una falla con nombre antes de que el cautín caliente." },
+        { "node": "core.soldering",   "level": 2,    "why": "Recapear es sobre todo desoldar. Malla, flux y paciencia, y los pads se levantan apenas se acaba cualquiera de los tres." },
+        { "node": "retro.recapping",  "level": null, "why": "Todos los electrolíticos se van y la placa se lava. El electrolito derramado sigue comiéndose pistas bajo la máscara." },
+        { "node": "maker.repair",     "level": null, "why": "Puentes de alambre sobre las pistas que el electrolito ya se comió. El bip de continuidad decide qué está arreglado, no la vista." },
+        { "node": "retro.modding",    "level": null, "why": "Salida RGB o HDMI, instalada ya que la placa está abierta de todos modos. El compuesto en una capturadora se deshace a bitrates de stream." },
+        { "node": "retro.crt",        "level": null, "why": "El tubo es para jugar, el mod es para capturar. Divide el video en la consola o la latencia arruina uno de los dos." },
+        { "node": "core.audio",       "level": null, "why": "Línea de la consola y un micrófono, mezclados antes de que OBS los vea. La gente perdona video blando y se va por mal audio." },
+        { "node": "video.lighting",   "level": null, "why": "Un CRT en cuadro parpadea hasta que el obturador iguala su refresco, y la luz de la sala debe ganarle al brillo del tubo." },
+        { "node": "video.streaming",  "level": null, "why": "Escenas de OBS, la cadena de captura y una grabación de prueba vista completa. La primera hora en vivo es mal lugar para depurar." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "of": "kitchen.baking",
+  "label": "Hornear, cuando sale la báscula",
+  "blurb": "Así empieza: con una tanda buena. Después sale la báscula, el horno gana un termómetro y las recetas se vuelven proporciones.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "kitchen.baking.cookies", "kitchen.baking.cakes", "kitchen.baking.enriched-doughs",
+      "kitchen.baking.lamination", "kitchen.baking.pie-crust", "kitchen.baking.bakers-math",
+      "kitchen.baking.starter-keeping", "kitchen.baking.whole-grain", "kitchen.baking.scoring",
+      "kitchen.baking.oven-steam"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "kitchen.baking.cookies",
+      "label": "Galletas",
+      "class": "notable",
+      "tags": ["cheap-start", "hands-on", "social"],
+      "blurb": "De cucharada, de rodaja y las infinitas variantes con chispas de chocolate. Lo de menor riesgo en el horno, y por eso todos corren aquí sus experimentos más serios."
+    },
+    {
+      "id": "kitchen.baking.cakes",
+      "label": "Tortas y bizcochos",
+      "class": "node",
+      "tags": ["hands-on", "social", "research"],
+      "blurb": "Genovesa, chiffon y la torta de capas con su capa atrapamigas. El primer horneado con público, porque nadie hace una torta para nadie."
+    },
+    {
+      "id": "kitchen.baking.enriched-doughs",
+      "label": "Masas enriquecidas",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Brioche, babka y rollos de canela: masas con mantequilla y huevos en la nómina. Las que más tardan en leudar aquí, y las que más rápido desaparecen."
+    },
+    {
+      "id": "kitchen.baking.lamination",
+      "label": "Masa laminada",
+      "class": "node",
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Croissants y hojaldre: mantequilla plegada en la masa hasta que las capas llegan a cientos. Una cocina dos grados más cálida deshace una hora de trabajo."
+    },
+    {
+      "id": "kitchen.baking.pie-crust",
+      "label": "Masa de pie y tarta",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "patience"],
+      "blurb": "Masa quebrada, horneado a ciegas y el repulgue que identifica al panadero. Los fondos húmedos se discuten con una seriedad que a los de afuera alarma."
+    },
+    {
+      "id": "kitchen.baking.bakers-math",
+      "label": "Porcentaje panadero",
+      "class": "node",
+      "tags": ["research", "cheap-start"],
+      "blurb": "Cada ingrediente escrito como porcentaje de la harina. Un cambio de notación que convierte, sin ruido, las recetas en cosas sobre las que puedes razonar."
+    },
+    {
+      "id": "kitchen.baking.starter-keeping",
+      "label": "Cuidar la masa madre",
+      "class": "node",
+      "tags": ["patience", "hands-on", "cheap-start"],
+      "blurb": "Harina, agua y un horario de alimentación llevado como turno de guardia. Las vacaciones ahora se planean según quién cuida el frasco."
+    },
+    {
+      "id": "kitchen.baking.whole-grain",
+      "label": "Centeno e integrales",
+      "class": "node",
+      "tags": ["research", "hands-on", "patience"],
+      "blurb": "Harinas densas, masas sedientas y sabores que la harina blanca nunca menciona. La miga se aprieta y las opiniones se endurecen."
+    },
+    {
+      "id": "kitchen.baking.scoring",
+      "label": "Greñado del pan",
+      "class": "node",
+      "tags": ["hands-on", "content", "cheap-start"],
+      "blurb": "Una navaja, una muñeca firme y un trazo decidido antes del horno. Espigas y espirales, dibujadas sobre una superficie que no se queda quieta."
+    },
+    {
+      "id": "kitchen.baking.oven-steam",
+      "label": "Trucos de vapor",
+      "class": "node",
+      "tags": ["gear", "research", "cheap-start"],
+      "blurb": "Ollas de hierro, piedras volcánicas y una bandeja de agua hirviendo abajo. Los hornos caseros expulsan el vapor a propósito, así que los panaderos pasan años contrabandeándolo de vuelta."
+    }
+  ],
+  "edges": [
+    { "from": "kitchen.baking.cookies", "to": "kitchen.baking.cakes", "kind": "leads-to" },
+    { "from": "kitchen.baking.cookies", "to": "kitchen.baking.pie-crust", "kind": "leads-to" },
+    { "from": "kitchen.baking.cakes", "to": "kitchen.baking.enriched-doughs", "kind": "leads-to", "note": "El brioche es donde la gente de tortas y la de pan se encuentra a mitad de camino." },
+    { "from": "kitchen.baking.enriched-doughs", "to": "kitchen.baking.lamination", "kind": "leads-to" },
+    { "from": "kitchen.baking.pie-crust", "to": "kitchen.baking.lamination", "kind": "shares-gear", "note": "El mismo rodillo, la misma rasqueta y la misma disciplina de refri. Mantener fría la mantequilla es todo el juego en ambas." },
+    { "from": "kitchen.baking.cakes", "to": "kitchen.baking.bakers-math", "kind": "leads-to", "note": "Escalar una receta a un molde más grande es por donde se cuelan los porcentajes." },
+    { "from": "kitchen.baking.bakers-math", "to": "kitchen.baking.starter-keeping", "kind": "kin", "note": "Las proporciones de alimentación son porcentajes con delantal." },
+    { "from": "kitchen.baking.starter-keeping", "to": "kitchen.baking.whole-grain", "kind": "leads-to", "note": "El centeno es donde la mayoría de las masas madre hace su mejor trabajo." },
+    { "from": "kitchen.baking.starter-keeping", "to": "kitchen.baking.scoring", "kind": "leads-to" },
+    { "from": "kitchen.baking.scoring", "to": "kitchen.baking.oven-steam", "kind": "kin", "note": "El corte y el vapor trabajan juntos; el impulso del horno abre lo que la navaja dibujó." }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "id": "anime",
+  "label": "Anime y manga",
+  "blurb": "Las series que la gente ve, y la enorme economía de objetos, artbooks y plástico que crece a partir de verlas.",
+  "notable": "anime.mecha",
+  "accent": "violet",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, -1520],
+    "radius": 270,
+    "startAngle": -90,
+    "order": [
+      "anime.mecha", "anime.series", "anime.films", "anime.retro-anime", "anime.industry",
+      "anime.subs-dubs", "anime.japanese", "anime.manga", "anime.artbooks", "anime.cels",
+      "anime.drawing", "anime.doujin", "anime.conventions", "anime.merch", "anime.jpop"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "anime.mecha",
+      "label": "Anime mecha",
+      "class": "notable",
+      "tags": ["screen", "mecha", "fandom", "research"],
+      "blurb": "Robots gigantes, cuarenta años de ellos, y el linaje de diseño que explica por qué el kit de tu repisa se ve como se ve.",
+      "aka": ["gundam", "mecha", "robot anime"],
+      "accent": "ember"
+    },
+    {
+      "id": "anime.manga",
+      "label": "Manga",
+      "class": "node",
+      "tags": ["research", "fandom", "collecting", "patience"],
+      "blurb": "La fuente de la que se adaptan casi todas las series: suele ser más largo, suele ser distinto y suele seguir en publicación.",
+      "accent": "jade"
+    },
+    {
+      "id": "anime.series",
+      "label": "Ver por temporadas",
+      "class": "node",
+      "tags": ["screen", "fandom", "social"],
+      "blurb": "Seguir un cour mientras se emite, un episodio por semana, con todos los demás viendo el mismo episodio ese día.",
+      "levels": [
+        { "label": "Algunas", "note": "Sigues lo que te recomiendan tus amigos y terminas casi todo" },
+        { "label": "Cada cour", "note": "Lees el chart de la temporada antes del estreno y dropeas series a tiempo" },
+        { "label": "Nicho", "note": "Los nombres del staff te dicen algo y ves una serie floja por un solo animador clave" }
+      ]
+    },
+    { "id": "anime.films",      "label": "Películas de anime",      "class": "node", "tags": ["screen", "fandom"],             "blurb": "Dos horas, un solo presupuesto, y el formato con más chances de convencer a alguien que dice que no ve anime." },
+    { "id": "anime.retro-anime","label": "Anime pre-2000",   "class": "node", "tags": ["screen", "research", "collecting"], "blurb": "La era del cel, pintado a mano y filmado en película. No se parece en nada a lo que vino después, y cada vez cuesta más verlo bien." },
+    { "id": "anime.industry",   "label": "Estudios y staff","class": "node", "tags": ["research", "screen"],           "blurb": "Seguir animadores clave, directores y estudios en vez de títulos. Convierte una lista de pendientes en algo con forma." },
+    { "id": "anime.subs-dubs",  "label": "Subs y doblajes",    "class": "node", "tags": ["screen", "research"],           "blurb": "Traducción, localización y la pelea de veinte años. Comparar dos guiones de la misma escena enseña más que cualquiera por separado." },
+    { "id": "anime.japanese",   "label": "Aprender japonés","class": "node", "tags": ["research", "patience"],         "blurb": "El punto donde un espectador deja de esperar la traducción. Un compromiso de años al que te convenció un hobby." },
+    { "id": "anime.artbooks",   "label": "Artbooks",        "class": "node", "tags": ["collecting", "research"],       "blurb": "Hojas settei, guiones de color y diseños mecánicos. Material de referencia para cualquiera que construya o dibuje la cosa." },
+    { "id": "anime.cels",       "label": "Cels de producción",  "class": "node", "tags": ["collecting", "research", "gear"], "blurb": "Acetato pintado a mano de la era predigital. Un hobby de archivo en serio, con falsificaciones reales y problemas reales de conservación." },
+    { "id": "anime.drawing",    "label": "Dibujar al estilo","class":"node","tags": ["hands-on", "patience", "content"], "blurb": "Estudiar construcción, hojas de expresiones y cómo se arma una cara. Copiar mal durante mucho tiempo es el método documentado." },
+    { "id": "anime.doujin",     "label": "Doujinshi y fanworks","class":"node","tags": ["content", "fandom", "social"],"blurb": "Obra de fans autopublicada, impresa en tirajes cortos y vendida en eventos. Toda una cultura editorial paralela." },
+    { "id": "anime.conventions","label": "Convenciones",      "class": "node", "tags": ["social", "fandom", "collecting"],"blurb": "Paneles, salas de vendedores y la fila. Donde la mitad online de este hobby se convierte en gente parada en un salón." },
+    { "id": "anime.merch",      "label": "Merch",      "class": "node", "tags": ["collecting", "fandom", "gear"], "blurb": "Standees, llaveros, tapices y el sinfín de cositas. Barato por unidad, ruinoso en acumulado." },
+    { "id": "anime.jpop",       "label": "Música de anime",      "class": "node", "tags": ["audio", "fandom", "collecting"],"blurb": "Openings, endings y los compositores que musicalizan temporadas enteras. A menudo lo primero que alguien conserva tras dropear una serie." }
+  ],
+  "edges": [
+    { "from": "anime.mecha",     "to": "anime.series",      "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.films",       "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.merch",       "kind": "kin" },
+    { "from": "anime.mecha",     "to": "anime.retro-anime", "kind": "leads-to", "note": "Sigue a un diseñador de mechas hacia atrás y aterrizas en la era del cel muy rápido." },
+    { "from": "anime.series",    "to": "anime.subs-dubs",   "kind": "kin" },
+    { "from": "anime.series",    "to": "anime.manga",       "kind": "leads-to" },
+    { "from": "anime.series",    "to": "anime.industry",    "kind": "kin" },
+    { "from": "anime.manga",     "to": "anime.artbooks",    "kind": "kin" },
+    { "from": "anime.manga",     "to": "anime.drawing",     "kind": "leads-to" },
+    { "from": "anime.manga",     "to": "anime.doujin",      "kind": "kin" },
+    { "from": "anime.merch",     "to": "anime.conventions", "kind": "leads-to" },
+    { "from": "anime.conventions","to": "anime.doujin",     "kind": "kin" },
+    { "from": "anime.films",     "to": "anime.jpop",        "kind": "kin" },
+    { "from": "anime.retro-anime","to": "anime.cels",       "kind": "kin" },
+    { "from": "anime.artbooks",  "to": "anime.cels",        "kind": "kin" },
+    { "from": "anime.subs-dubs", "to": "anime.japanese",    "kind": "leads-to", "note": "Comparar dos traducciones de una misma línea es como mucha gente se autoconvence de tomar un curso de idioma." }
+  ]
+}

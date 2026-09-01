@@ -1,0 +1,151 @@
+{
+  "id": "outdoor",
+  "label": "Aire libre",
+  "blurb": "Salir de casa como el punto entero. Listas de equipo, leer el clima y el gusto callado de estar algo incómodo en un lugar con vista.",
+  "notable": "outdoor.hiking",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [-2000, 1100],
+    "radius": 255,
+    "startAngle": -90,
+    "spread": 300,
+    "order": [
+      "outdoor.hiking", "outdoor.camping", "outdoor.kayaking", "outdoor.fishing",
+      "outdoor.backpacking", "outdoor.weather", "outdoor.navigation", "outdoor.geocaching",
+      "outdoor.trail-running", "outdoor.cycling", "outdoor.bouldering", "outdoor.birdwatching",
+      "outdoor.sketching", "outdoor.foraging"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "outdoor.hiking",
+      "label": "Senderismo",
+      "class": "notable",
+      "tags": ["outdoors", "cheap-start", "social"],
+      "blurb": "Botas, una ruta y una cumbre o un circuito. La puerta de entrada a todo lo demás aquí afuera, y la que menos explicación necesita.",
+      "aka": ["hillwalking", "trekking", "day hikes"],
+      "accent": "cyan",
+      "inner": true
+    },
+    {
+      "id": "outdoor.camping",
+      "label": "Camping",
+      "class": "node",
+      "tags": ["outdoors", "gear", "social"],
+      "blurb": "Una carpa, una cocinilla y un sitio elegido en el mapa. Dormir afuera a propósito, con discusiones de equipo para llenar el invierno."
+    },
+    {
+      "id": "outdoor.backpacking",
+      "label": "Backpacking",
+      "class": "node",
+      "tags": ["outdoors", "gear", "patience"],
+      "blurb": "Rutas de varios días con todo en la espalda. El hobby donde cortarle el mango al cepillo de dientes cuenta como progreso.",
+      "aka": ["thru hiking", "wild camping", "ultralight"]
+    },
+    {
+      "id": "outdoor.bouldering",
+      "label": "Boulder",
+      "class": "node",
+      "tags": ["outdoors", "social", "cheap-start"],
+      "blurb": "Rutas cortas, colchonetas grandes y nada de cuerda. Un puzzle que resuelves con todo el cuerpo, a cuatro metros del suelo.",
+      "aka": ["climbing", "climbing gym"]
+    },
+    {
+      "id": "outdoor.cycling",
+      "label": "Ciclismo",
+      "class": "node",
+      "tags": ["outdoors", "gear", "research"],
+      "blurb": "Ruta, gravel o montaña, más el soporte de mantención en el pasillo. La regla sobre cuántas bicis necesitas no es chiste para nadie aquí.",
+      "aka": ["road cycling", "gravel", "mountain biking"]
+    },
+    {
+      "id": "outdoor.birdwatching",
+      "label": "Observación de aves",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research", "collecting"],
+      "blurb": "Binoculares, una guía de campo y una lista de vida. Empieza con un zorzal en el comedero y termina manejando de madrugada por una gaviota rara.",
+      "aka": ["birding", "twitching"]
+    },
+    {
+      "id": "outdoor.fishing",
+      "label": "Pesca",
+      "class": "node",
+      "tags": ["outdoors", "patience", "gear"],
+      "blurb": "Nudos, lanzamientos y leer el agua. Largos ratos de nada, puntuados por la única parte que alguien fotografía.",
+      "aka": ["angling", "fly fishing"]
+    },
+    {
+      "id": "outdoor.foraging",
+      "label": "Recolección silvestre",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Hongos, bayas y hierbas de borde de camino, identificados dos veces antes de comerse una. La guía de campo no es opcional.",
+      "aka": ["mushroom hunting", "wild food"]
+    },
+    {
+      "id": "outdoor.geocaching",
+      "label": "Geocaching",
+      "class": "node",
+      "tags": ["outdoors", "social", "cheap-start"],
+      "blurb": "Coordenadas GPS, una caja escondida y una bitácora que firmar. Una búsqueda del tesoro mundial, oculta a plena vista en cada parque."
+    },
+    {
+      "id": "outdoor.kayaking",
+      "label": "Kayak",
+      "class": "node",
+      "tags": ["outdoors", "gear", "space"],
+      "blurb": "Paladas, puntos de entrada al agua y leer un río. El bote en el techo del auto anuncia el hobby antes que tú.",
+      "aka": ["canoeing", "paddling", "sea kayaking"]
+    },
+    {
+      "id": "outdoor.trail-running",
+      "label": "Trail running",
+      "class": "node",
+      "tags": ["outdoors", "cheap-start", "patience"],
+      "blurb": "Correr donde el suelo te discute. Tobillos, geles y perfiles de elevación estudiados como partituras.",
+      "aka": ["fell running", "ultrarunning"]
+    },
+    {
+      "id": "outdoor.sketching",
+      "label": "Dibujo de campo",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "patience"],
+      "blurb": "Acuarelas de bolsillo y un banquito plegable. Dibujar el paisaje lo fija en la memoria como la foto del teléfono nunca ha podido.",
+      "aka": ["nature journaling", "urban sketching", "plein air"]
+    },
+    {
+      "id": "outdoor.weather",
+      "label": "Observar el clima",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Atlas de nubes, tendencias de presión y una estación casera en el poste del cerco. El pronóstico deja de ser algo que recibes.",
+      "aka": ["weather station", "storm watching"]
+    },
+    {
+      "id": "outdoor.navigation",
+      "label": "Mapas y navegación",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Curvas de nivel, un rumbo de brújula y ninguna batería de por medio. La habilidad que convierte un mal pronóstico en anécdota y no en rescate.",
+      "aka": ["orienteering", "map and compass"]
+    }
+  ],
+  "edges": [
+    { "from": "outdoor.hiking", "to": "outdoor.camping", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.backpacking", "kind": "leads-to" },
+    { "from": "outdoor.hiking", "to": "outdoor.trail-running", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.geocaching", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.navigation", "kind": "leads-to" },
+    { "from": "outdoor.hiking", "to": "outdoor.birdwatching", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.foraging", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.bouldering", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.kayaking", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.fishing", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.backpacking", "kind": "shares-gear", "note": "La misma carpa, cocinilla y saco de dormir. Uno los lleva desde el auto; el otro le guarda rencor a cada gramo." },
+    { "from": "outdoor.backpacking", "to": "outdoor.weather", "kind": "kin", "note": "El pronóstico decide la ruta. Las salidas de varios días convierten leer el clima de curiosidad en planificación." },
+    { "from": "outdoor.birdwatching", "to": "outdoor.sketching", "kind": "kin", "note": "En este hobby la libreta de campo es anterior a la cámara, y algunos nunca se cambiaron." },
+    { "from": "outdoor.trail-running", "to": "outdoor.cycling", "kind": "kin" },
+    { "from": "outdoor.navigation", "to": "outdoor.geocaching", "kind": "kin" }
+  ]
+}

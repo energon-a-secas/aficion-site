@@ -42,7 +42,9 @@ import { dirname, resolve, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const DATA = resolve(HERE, '..', 'data');
+// An optional argv picks the corpus dir, so `node tools/validate-corpus.mjs
+// data-es` validates the Spanish mirror with the same 33 checks.
+const DATA = resolve(HERE, '..', process.argv[2] || 'data');
 
 const ID_RE = /^[a-z0-9][a-z0-9-]*(\.[a-z0-9][a-z0-9-]*)*$/;
 const BUILD_ID_RE = /^build\.[a-z0-9][a-z0-9-]*$/;

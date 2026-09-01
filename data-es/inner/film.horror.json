@@ -1,0 +1,26 @@
+{
+  "of": "film.horror",
+  "label": "Subgéneros del terror",
+  "blurb": "Puedes amar varios y detestar el resto, que es exactamente por qué son un árbol y no una escalera.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "film.horror.slasher",     "label": "Slasher",       "class": "node", "tags": ["screen", "cheap-start"],       "blurb": "Un asesino, un grupo y un conteo de víctimas. La estructura más formalizada del género, y la más fácil de ver rota a propósito." },
+    { "id": "film.horror.giallo",      "label": "Giallo",        "class": "node", "tags": ["screen", "research"],          "blurb": "Italiano, con guantes, e iluminado en colores que ningún cuarto ha tenido jamás. El estilo como el punto, no como decoración." },
+    { "id": "film.horror.folk",        "label": "Terror folk",   "class": "node", "tags": ["screen", "outdoors", "research"],"blurb": "Paisaje, costumbres viejas y una comunidad que no te va a ayudar. Aquí la luz del día no consuela." },
+    { "id": "film.horror.cosmic",      "label": "Terror cósmico", "class": "node", "tags": ["screen", "research", "patience"],"blurb": "La amenaza es la escala, no la intención. Se adapta mal y seguido, que es la mitad de lo que lo hace interesante de seguir." },
+    { "id": "film.horror.body",        "label": "Terror corporal",   "class": "node", "tags": ["screen", "hands-on"],          "blurb": "Transformación, prótesis y efectos prácticos haciendo un trabajo que ningún render ha igualado. El subgénero más atado a un oficio." },
+    { "id": "film.horror.found-footage","label": "Metraje encontrado","class": "node", "tags": ["screen", "cheap-start", "content"],"blurb": "Una cámara dentro de la historia. Tan barato que cualquiera puede intentarlo, y por eso el rango de calidad es enorme." },
+    { "id": "film.horror.creature",    "label": "Cine de criaturas","class":"node", "tags": ["screen", "fandom"],           "blurb": "Algo grande y hostil, construido en un taller. El ancestro directo de cada traje y cada animatrónico." },
+    { "id": "film.horror.jhorror",     "label": "J-Horror",      "class": "node", "tags": ["screen", "research", "fandom"],"blurb": "Silencioso, doméstico, y sobre la cosa equivocada compartiendo el cuarto contigo. Redefinió el género entero después de 1998." }
+  ],
+  "edges": [
+    { "from": "film.horror.slasher",       "to": "film.horror.giallo",   "kind": "kin",      "note": "Las reglas del slasher se importaron en gran parte del giallo, película por película." },
+    { "from": "film.horror.slasher",       "to": "film.horror.creature", "kind": "kin" },
+    { "from": "film.horror.creature",      "to": "film.horror.body",     "kind": "leads-to" },
+    { "from": "film.horror.body",          "to": "film.horror.cosmic",   "kind": "kin" },
+    { "from": "film.horror.folk",          "to": "film.horror.cosmic",   "kind": "kin" },
+    { "from": "film.horror.jhorror",       "to": "film.horror.found-footage", "kind": "kin" },
+    { "from": "film.horror.jhorror",       "to": "film.horror.folk",     "kind": "kin" },
+    { "from": "film.horror.found-footage", "to": "film.horror.slasher",  "kind": "kin" }
+  ]
+}

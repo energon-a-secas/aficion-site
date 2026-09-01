@@ -1,0 +1,42 @@
+{
+  "of": "outdoor.hiking",
+  "label": "Senderismo, pasada la cumbre",
+  "blurb": "Una caminata deja de ser simple en cuanto la planeas. Estas son las direcciones que toma esa planificación, y casi todas ocurren bajo techo.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "outdoor.hiking.day-hikes", "outdoor.hiking.snacks", "outdoor.hiking.footwear",
+      "outdoor.hiking.night-hikes", "outdoor.hiking.thru-routes", "outdoor.hiking.leave-no-trace",
+      "outdoor.hiking.map-compass", "outdoor.hiking.gpx", "outdoor.hiking.logs",
+      "outdoor.hiking.peak-bagging"
+    ]
+  },
+  "nodes": [
+    { "id": "outdoor.hiking.day-hikes",      "label": "Caminatas de día",                 "class": "notable", "tags": ["outdoors", "cheap-start", "social"], "blurb": "Arriba en la mañana, de vuelta para la cena, una cumbre o un circuito. El formato que todo lo demás en este mapa complica en silencio." },
+    { "id": "outdoor.hiking.thru-routes",    "label": "Rutas con noche y travesías", "class": "node", "tags": ["outdoors", "gear", "patience"],         "blurb": "La caminata sigue después del anochecer, así que la casa viene contigo. En algún punto tras la segunda noche deja de ser caminata y se vuelve un trayecto con vistas." },
+    { "id": "outdoor.hiking.map-compass",    "label": "Mapa y brújula",           "class": "node", "tags": ["outdoors", "research", "cheap-start"],  "blurb": "Curvas de nivel, rumbos y una base de plástico que nunca necesita carga. Se practica en días despejados para que funcione el día en que baja la nube." },
+    { "id": "outdoor.hiking.gpx",            "label": "Planificación GPX",              "class": "node", "tags": ["outdoors", "research"],                 "blurb": "Rutas dibujadas en el escritorio la semana anterior, con perfil de elevación y todo. Algunas de las mejores horas de una caminata pasan frente a la computadora, y nadie lo admite." },
+    { "id": "outdoor.hiking.snacks",         "label": "Snacks de ruta y agua",    "class": "node", "tags": ["outdoors", "cheap-start", "research"],  "blurb": "Calorías por gramo, litros por hora y una postura firme sobre las gomitas. El menú se planea con más rigor que la mayoría de las cenas con invitados." },
+    { "id": "outdoor.hiking.footwear",       "label": "Calzado y arte antiampollas","class": "node", "tags": ["outdoors", "gear", "research"],         "blurb": "Botas o zapatillas de trail, patrones de amarre y cinta aplicada antes del punto caliente, no después. Los pies son el único equipo que no puedes cambiar a mitad de camino." },
+    { "id": "outdoor.hiking.peak-bagging",   "label": "Coleccionar cumbres",              "class": "node", "tags": ["outdoors", "collecting", "patience"],   "blurb": "Una lista publicada de cumbres y una marca junto a cada una. El cerro siempre estuvo ahí; la planilla es lo que te saca en noviembre." },
+    { "id": "outdoor.hiking.night-hikes",    "label": "Caminatas nocturnas",               "class": "node", "tags": ["outdoors", "gear", "patience"],         "blurb": "El mismo sendero de noche, al haz de una linterna frontal. Los caminos conocidos dejan de serlo, y eso es el atractivo o la advertencia." },
+    { "id": "outdoor.hiking.leave-no-trace", "label": "No dejar rastro",            "class": "node", "tags": ["outdoors", "research"],                 "blurb": "Llévate tu basura, no salgas del sendero, no dejes nada que encontrar. La única disciplina aquí que es invisible cuando se hace bien, lo que la vuelve difícil de presumir." },
+    { "id": "outdoor.hiking.logs",           "label": "Bitácoras de ruta",               "class": "node", "tags": ["content", "research", "patience"],      "blurb": "Fechas, rutas, clima y quién fue contigo, guardado por años. Parece burocracia hasta el día en que necesitas saber en qué año se llevó el puente la crecida." }
+  ],
+  "edges": [
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.thru-routes",    "kind": "leads-to",    "note": "Con una noche planificada afuera, el caminante de día descubre cuánto pesa su mochila en serio." },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.peak-bagging",   "kind": "leads-to" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.night-hikes",    "kind": "kin" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.snacks",         "kind": "kin" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.footwear",       "kind": "leads-to",    "note": "La primera bajada larga enseña más sobre amarres que cualquier prueba en tienda." },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.map-compass",    "kind": "leads-to",    "note": "Las rutas de varios días convierten la navegación de una app en una habilidad." },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.leave-no-trace", "kind": "kin" },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.night-hikes",    "kind": "shares-gear", "note": "La misma frontal y pilas de repuesto. Uno la empaca para las tareas del campamento, el otro arma toda la caminata alrededor de ella." },
+    { "from": "outdoor.hiking.map-compass",  "to": "outdoor.hiking.gpx",            "kind": "kin",         "note": "La misma ruta planeada dos veces: una en papel que no puede morir, otra en una pantalla que sí." },
+    { "from": "outdoor.hiking.gpx",          "to": "outdoor.hiking.logs",           "kind": "kin" },
+    { "from": "outdoor.hiking.peak-bagging", "to": "outdoor.hiking.logs",           "kind": "leads-to",    "note": "Una lista de cumbres ya es una bitácora; solo le crecen columnas." }
+  ]
+}

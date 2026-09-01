@@ -239,6 +239,19 @@ function bindDialogs(s) {
     stopCompare(s);
   });
 
+  // The language button names the language it switches TO; a reload rebuilds
+  // the atlas from the other corpus directory. Ids are shared between the
+  // two, so saved maps and share links survive the switch untouched.
+  const langBtn = $('langBtn');
+  if (langBtn) {
+    langBtn.textContent = s.prefs.lang === 'es' ? 'EN' : 'ES';
+    langBtn.addEventListener('click', () => {
+      s.prefs.lang = s.prefs.lang === 'es' ? 'en' : 'es';
+      savePrefs();
+      location.reload();
+    });
+  }
+
   $('btnBuilds')?.addEventListener('click', () => openBuilds(s));
   $('btnHelp')?.addEventListener('click', () => openModal('helpModal'));
   $('btnSheet')?.addEventListener('click', () => openSheet(s));

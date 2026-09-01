@@ -1,0 +1,23 @@
+{
+  "of": "video.editing",
+  "label": "Dentro de la edición",
+  "blurb": "Siete habilidades distintas que ocurren todas en una sola aplicación, y por eso la aplicación se ve tan intimidante.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 165, "startAngle": -90 },
+  "nodes": [
+    { "id": "video.editing.assembly",  "label": "Corte de ensamblaje", "class": "notable", "tags": ["content", "patience"], "blurb": "Todo lo usable en orden, larguísimo. No puedes juzgar la estructura hasta que el todo existe mal." },
+    { "id": "video.editing.pacing",    "label": "Ritmo",       "class": "node",   "tags": ["content", "patience"],  "blurb": "Cortar las partes que disfrutaste hacer. La diferencia más grande entre una bitácora de construcción y un video." },
+    { "id": "video.editing.b-roll",    "label": "B-roll",       "class": "node",   "tags": ["content", "gear"],      "blurb": "Tomas de apoyo que cubren un salto y muestran el detalle. Se graban después de que el corte existe, cuando ya sabes qué falta." },
+    { "id": "video.editing.sound-mix", "label": "Mezcla de sonido",    "class": "node",   "tags": ["audio"],                "blurb": "Niveles, música bajo la voz y tono de sala bajo el silencio. El público perdona una imagen blanda y se va por un mal sonido." },
+    { "id": "video.editing.titles",    "label": "Títulos",       "class": "node",   "tags": ["content", "screen"],    "blurb": "Nombres, rótulos y el número que le dice a alguien en qué parte va. Pequeño, y casi siempre lo último que se hace." },
+    { "id": "video.editing.captions",  "label": "Subtítulos",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Quemados o como pista aparte. La mitad de las vistas es en silencio, y además son la única ruta accesible hacia un video." },
+    { "id": "video.editing.proxies",   "label": "Proxies",      "class": "node",   "tags": ["code", "gear"],         "blurb": "Editar contra copias pequeñas para que el timeline responda, y reenlazar a los originales al exportar. Un flujo de trabajo, no un ajuste." }
+  ],
+  "edges": [
+    { "from": "video.editing.proxies",  "to": "video.editing.assembly",  "kind": "leads-to" },
+    { "from": "video.editing.assembly", "to": "video.editing.pacing",    "kind": "leads-to" },
+    { "from": "video.editing.pacing",   "to": "video.editing.b-roll",    "kind": "leads-to", "note": "Solo sabes qué toma de apoyo necesitas cuando el corte está tan ajustado que muestra el hueco." },
+    { "from": "video.editing.pacing",   "to": "video.editing.sound-mix", "kind": "leads-to" },
+    { "from": "video.editing.sound-mix","to": "video.editing.captions",  "kind": "kin" },
+    { "from": "video.editing.b-roll",   "to": "video.editing.titles",    "kind": "kin" }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "cosplay",
+  "label": "Cosplay",
+  "blurb": "Hacer un traje con el que puedas caminar ocho horas. Aplica cada habilidad de props del mapa, más una que nada más exige: tiene que ser usable.",
+  "notable": "cosplay.armour",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [-1949, -613],
+    "radius": 250,
+    "startAngle": -60,
+    "order": [
+      "cosplay.armour", "cosplay.foam", "cosplay.worbla", "cosplay.3d-printed", "cosplay.molding",
+      "cosplay.patterning", "cosplay.sewing", "cosplay.wigs", "cosplay.makeup", "cosplay.weathering",
+      "cosplay.lighting", "cosplay.comfort", "cosplay.competition", "cosplay.photoshoot"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "cosplay.armour",
+      "label": "Construir armaduras",
+      "class": "notable",
+      "tags": ["hands-on", "patience", "fandom", "space"],
+      "blurb": "Placas que calzan en un cuerpo real y no en el del dibujo. El patrón es la parte difícil, el material es una preferencia.",
+      "aka": ["costume armour", "cosplay armor"],
+      "accent": "violet"
+    },
+    {
+      "id": "cosplay.foam",
+      "label": "Goma EVA",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start"],
+      "blurb": "Pisos de goma, un cúter afilado y cemento de contacto. La ruta más barata a una armadura y la que casi todos siguen usando para lo grande.",
+      "accent": "jade"
+    },
+    { "id": "cosplay.worbla",     "label": "Termoplásticos",  "class": "node", "tags": ["hands-on", "gear"],            "blurb": "Láminas que se ablandan con calor y conservan la forma al enfriarse. Caras por hoja, y perdonan errores como el foam no perdona." },
+    { "id": "cosplay.3d-printed", "label": "Props impresos",   "class": "node", "tags": ["kits", "hands-on", "patience"],"blurb": "Impreso por secciones, pegado y lijado grano a grano hasta que nadie lo note. Lijar es casi todo el trabajo y nada de la diversión." },
+    { "id": "cosplay.molding",    "label": "Moldes para vestuario","class":"node","tags": ["hands-on", "gear", "space"],  "blurb": "Moldes de silicona y vaciados en resina o espuma. Lo que haces cuando necesitas seis de algo, o una versión ligera de algo pesado." },
+    { "id": "cosplay.patterning", "label": "Patronaje",      "class": "node", "tags": ["research", "hands-on", "patience"],"blurb": "Lograr una forma plana que se vuelva la curva correcta sobre una persona específica. Maquetas de papel primero, siempre, y dos veces si es un casco." },
+    { "id": "cosplay.sewing",     "label": "Costura",          "class": "node", "tags": ["hands-on", "patience"],        "blurb": "A máquina y a mano. Las partes blandas que nadie fotografía y todos notan cuando están mal." },
+    { "id": "cosplay.wigs",       "label": "Peinar pelucas",     "class": "node", "tags": ["hands-on", "patience"],        "blurb": "Cortar, entresacar, fijar con calor y suficiente producto para sostener la silueta todo el día. Un oficio aparte con sus propias herramientas." },
+    { "id": "cosplay.makeup",     "label": "Maquillaje y prostéticos","class":"node","tags": ["hands-on", "paint"],       "blurb": "Contorno, body paint y prótesis. Pintar sobre una superficie que suda, se mueve y tiene que poder parpadear." },
+    { "id": "cosplay.weathering", "label": "Desgaste de vestuario","class":"node","tags": ["paint", "patience"],           "blurb": "Raspones, mugre y quemaduras para que el traje se vea vivido y no comprado. La misma técnica que recibe una maqueta, a diez veces la escala." },
+    { "id": "cosplay.lighting",   "label": "Iluminación del traje","class": "node", "tags": ["electronics", "hands-on"],     "blurb": "LEDs, una batería que puedas alcanzar y cableado que sobreviva a sentarte. El primer proyecto de electrónica de muchos cosplayers." },
+    { "id": "cosplay.comfort",    "label": "Comodidad",     "class": "node", "tags": ["research", "patience"],        "blurb": "Correas, ventilación, visión y cómo llegas al baño. Lo que decide si un traje terminado se usa una segunda vez." },
+    { "id": "cosplay.competition","label": "Competencia de cosplay","class":"node","tags": ["social", "patience", "fandom"],"blurb": "Jueceo de manufactura y presentación en escenario. Los jueces miran el interior del traje, un shock la primera vez." },
+    { "id": "cosplay.photoshoot", "label": "Fotografía de cosplay","class":"node","tags": ["content", "social", "outdoors"],"blurb": "Una locación, un fotógrafo y un personaje. Casi todo lo que internet ve de este hobby es este paso, no las ocho semanas anteriores." }
+  ],
+  "edges": [
+    { "from": "cosplay.armour",     "to": "cosplay.foam",       "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.worbla",     "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.3d-printed", "kind": "kin" },
+    { "from": "cosplay.armour",     "to": "cosplay.patterning", "kind": "kin",      "note": "El patrón es la construcción. El material es una preferencia que se discute mucho más de lo que importa." },
+    { "from": "cosplay.armour",     "to": "cosplay.weathering", "kind": "leads-to" },
+    { "from": "cosplay.armour",     "to": "cosplay.comfort",    "kind": "leads-to", "note": "Un traje en el que no puedes sentarte, ver ni salir es una escultura con una persona atrapada adentro." },
+    { "from": "cosplay.armour",     "to": "cosplay.competition","kind": "leads-to" },
+    { "from": "cosplay.patterning", "to": "cosplay.sewing",     "kind": "leads-to" },
+    { "from": "cosplay.sewing",     "to": "cosplay.wigs",       "kind": "kin" },
+    { "from": "cosplay.wigs",       "to": "cosplay.makeup",     "kind": "kin" },
+    { "from": "cosplay.makeup",     "to": "cosplay.weathering", "kind": "kin" },
+    { "from": "cosplay.3d-printed", "to": "cosplay.molding",    "kind": "leads-to" },
+    { "from": "cosplay.foam",       "to": "cosplay.lighting",   "kind": "kin" },
+    { "from": "cosplay.competition","to": "cosplay.photoshoot", "kind": "kin" }
+  ]
+}

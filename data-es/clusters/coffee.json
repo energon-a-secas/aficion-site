@@ -1,0 +1,65 @@
+{
+  "id": "coffee",
+  "label": "Café",
+  "blurb": "Un hábito diario que se convierte en un problema de medición. El único hobby de aquí que ya practicas dos veces al día.",
+  "notable": "coffee.espresso",
+  "accent": "jade",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [2077, 375],
+    "radius": 245,
+    "startAngle": -90,
+    "order": [
+      "coffee.espresso", "coffee.grinder", "coffee.brew-ratios", "coffee.water", "coffee.milk",
+      "coffee.latte-art", "coffee.machine-mods", "coffee.maintenance", "coffee.pourover",
+      "coffee.cold-brew", "coffee.roasting", "coffee.green-beans", "coffee.cupping", "coffee.cafes"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "coffee.espresso",
+      "label": "Espresso",
+      "class": "notable",
+      "tags": ["gear", "patience", "hands-on", "research"],
+      "blurb": "Nueve bares, veinticinco segundos y una docena de variables que interactúan entre sí. La forma más dependiente del equipo de hacer una bebida chica.",
+      "aka": ["espresso machine", "home barista"],
+      "accent": "ember"
+    },
+    {
+      "id": "coffee.roasting",
+      "label": "Tueste en casa",
+      "class": "node",
+      "tags": ["hands-on", "patience", "gear"],
+      "blurb": "Grano verde, calor y una curva que registras. El paso donde el hobby deja de tratarse de comprar bien y empieza a tratarse de hacer algo.",
+      "accent": "jade"
+    },
+    { "id": "coffee.grinder",    "label": "El molino",     "class": "node", "tags": ["gear", "research"],              "blurb": "La mejora que cambia la taza más que la máquina, que es el consejo más repetido de todo este hobby." },
+    { "id": "coffee.brew-ratios","label": "Afinar la receta",     "class": "node", "tags": ["research", "patience"],          "blurb": "Dosis, rendimiento y tiempo, cambiados de a uno. Báscula y timer convierten la adivinanza en algo que puedes repetir mañana." },
+    { "id": "coffee.water",      "label": "Química del agua", "class": "node", "tags": ["research", "patience"],          "blurb": "Dureza, alcalinidad y lo que tu llave realmente trae. El ingrediente invisible que es casi toda la bebida por masa." },
+    { "id": "coffee.milk",       "label": "Texturizar leche",  "class": "node", "tags": ["hands-on", "patience"],          "blurb": "Primero aire, después remolino. La textura se decide en los primeros dos segundos, y todo lo que sigue es solo calentar." },
+    { "id": "coffee.latte-art",  "label": "Latte art",       "class": "node", "tags": ["hands-on", "patience"],          "blurb": "Una prueba visible de si la leche quedó bien. No tanto decoración como un marcador del paso anterior." },
+    { "id": "coffee.machine-mods","label": "Modificar la máquina","class": "node", "tags": ["electronics", "hands-on", "gear"],"blurb": "Control PID de temperatura, perfiles de presión y un medidor de flujo. Un proyecto de electrónica escondido dentro de un electrodoméstico." },
+    { "id": "coffee.maintenance","label": "Descalcificar y reparar","class":"node","tags": ["hands-on", "patience"],        "blurb": "Empaques, filtros, sarro y un diagrama de repuestos. Estas máquinas se pueden reparar, y por eso las viejas siguen en uso." },
+    { "id": "coffee.pourover",   "label": "Pour over",       "class": "node", "tags": ["cheap-start", "patience", "research"],"blurb": "Un dripper, un filtro y una tetera. Casi cero costo de equipo y casi todas las mismas variables por aprender." },
+    { "id": "coffee.cold-brew",  "label": "Cold brew",       "class": "node", "tags": ["cheap-start", "patience"],       "blurb": "Doce horas y un frasco. El método con el margen de error más amplio y el menor costo de atención." },
+    { "id": "coffee.green-beans","label": "Comprar grano verde","class":"node","tags": ["research", "collecting"],       "blurb": "Origen, proceso, varietal y año de cosecha. Un hábito de investigación que llega más o menos una semana después que el tostador." },
+    { "id": "coffee.cupping",    "label": "Catación","class":"node","tags": ["research", "social", "patience"],"blurb": "Un método estándar para probar varios cafés lado a lado, y el vocabulario para decir cuál fue la diferencia en realidad." },
+    { "id": "coffee.cafes",      "label": "Cazar cafeterías",    "class": "node", "tags": ["social", "outdoors", "research"],"blurb": "Beber el trabajo de otros a propósito. La calibración más barata disponible para todo lo que haces en casa." }
+  ],
+  "edges": [
+    { "from": "coffee.espresso",  "to": "coffee.grinder",     "kind": "kin",      "note": "Gasta en el molino antes que en la máquina. Todos lo dicen, la mayoría lo aprende por la vía cara." },
+    { "from": "coffee.espresso",  "to": "coffee.brew-ratios", "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.milk",        "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.machine-mods","kind": "kin" },
+    { "from": "coffee.espresso",  "to": "coffee.maintenance", "kind": "leads-to" },
+    { "from": "coffee.espresso",  "to": "coffee.pourover",    "kind": "kin" },
+    { "from": "coffee.milk",      "to": "coffee.latte-art",   "kind": "leads-to" },
+    { "from": "coffee.brew-ratios","to": "coffee.water",      "kind": "kin" },
+    { "from": "coffee.water",     "to": "coffee.maintenance", "kind": "kin",      "note": "El agua que hace una taza plana es la misma que llena la caldera de sarro." },
+    { "from": "coffee.grinder",   "to": "coffee.roasting",    "kind": "kin" },
+    { "from": "coffee.roasting",  "to": "coffee.green-beans", "kind": "kin" },
+    { "from": "coffee.roasting",  "to": "coffee.cupping",     "kind": "kin" },
+    { "from": "coffee.pourover",  "to": "coffee.cold-brew",   "kind": "kin" },
+    { "from": "coffee.cupping",   "to": "coffee.cafes",       "kind": "kin" }
+  ]
+}

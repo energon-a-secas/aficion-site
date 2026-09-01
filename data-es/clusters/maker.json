@@ -1,0 +1,84 @@
+{
+  "id": "maker",
+  "label": "Electrónica y mundo maker",
+  "blurb": "El estante del que todo lo demás toma prestado sin decirlo. Una placa, un cautín y una impresora, y medio mapa se abre.",
+  "notable": "maker.arduino",
+  "accent": "jade",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [975, -262],
+    "radius": 285,
+    "startAngle": -90,
+    "order": [
+      "maker.arduino", "maker.esp32", "maker.sensors", "maker.addressable-led", "maker.power",
+      "maker.soldering-bench", "maker.test-gear", "maker.pcb-design", "maker.keyboards", "maker.repair",
+      "maker.robotics", "maker.wearables", "maker.home-automation", "maker.cad", "maker.printer-tuning",
+      "maker.enclosures", "maker.laser-cnc"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "maker.arduino",
+      "label": "Arduino",
+      "class": "notable",
+      "tags": ["electronics", "code", "hands-on", "cheap-start"],
+      "blurb": "Una placa barata, un dialecto tipo C y una librería para casi todo. Donde de verdad empieza la electrónica de la mayoría, y el toolchain que muchos hobbies usan sin decirlo.",
+      "aka": ["arduino ide", "microcontroller", "atmega"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Blink",     "note": "Sketch ajeno, librería ajena, una luz que se enciende" },
+        { "label": "Sensores",   "note": "Entradas que lees y usas, y la primera vez que el timing importa" },
+        { "label": "Placa propia", "note": "Tu propio esquemático en tu propio hardware, flasheado con un programador" }
+      ]
+    },
+    {
+      "id": "maker.addressable-led",
+      "label": "LEDs direccionables",
+      "class": "node",
+      "tags": ["electronics", "hands-on", "code"],
+      "blurb": "Una línea de datos, cientos de píxeles con color propio. Cable de calibre errado en esa línea da un segmento que se traba, y las tiras falsas abundan lo bastante para revisarlas.",
+      "aka": ["neopixel", "ws2812", "led strip"],
+      "accent": "violet"
+    },
+    { "id": "maker.esp32",        "label": "ESP32 y RP2040",  "class": "node", "tags": ["electronics", "code", "cheap-start"], "blurb": "Placas con wifi, bluetooth o dos núcleos por el precio de un sándwich. Donde un proyecto deja de ser circuito y pasa a ser dispositivo.",
+      "aka": ["esp8266", "raspberry pi pico", "nrf52"] },
+    { "id": "maker.sensors",      "label": "Sensores",           "class": "node", "tags": ["electronics", "code", "research"],    "blurb": "Temperatura, distancia, corriente, orientación. Leer el mundo es fácil; confiar en el número que te devuelve es la habilidad real." },
+    { "id": "maker.power",        "label": "Baterías y energía","class": "node","tags": ["electronics", "research", "gear"],    "blurb": "Celdas, circuitos de protección y convertidores buck. Una 18650 protegida llega cerca de su corte de bajo voltaje, y el novato lo lee como placa muerta." },
+    { "id": "maker.soldering-bench","label": "Banco de soldadura", "class": "node", "tags": ["hands-on", "electronics", "gear"],    "blurb": "Cautín con control de temperatura, flux, malla, aire caliente y luz de verdad. El banco es casi toda la diferencia entre juntas que aguantan y juntas que parecen aguantar." },
+    { "id": "maker.test-gear",    "label": "Equipo de medición",         "class": "node", "tags": ["electronics", "gear", "research"],    "blurb": "Multímetro, fuente de banco, analizador lógico, osciloscopio. Depurar sin ellos es adivinar con pasos extra." },
+    { "id": "maker.pcb-design",   "label": "Diseño de PCB",        "class": "node", "tags": ["electronics", "code", "patience"],    "blurb": "Esquemático, layout, gerbers, y una fábrica que te manda cinco placas por el precio de una pizza." },
+    { "id": "maker.repair",       "label": "Reparación y desarme","class": "node","tags": ["hands-on", "electronics", "cheap-start"], "blurb": "Recapear, hacer reflow y leer una placa sin esquemático. La forma más barata de soldar bien es arreglar cosas que nadie quiere." },
+    { "id": "maker.robotics",     "label": "Robótica",          "class": "node", "tags": ["electronics", "code", "mecha"],       "blurb": "Motores, drivers y un lazo de control. El primer proyecto donde el software mal escrito hace ruido." },
+    { "id": "maker.wearables",    "label": "Electrónica wearable","class":"node","tags": ["electronics", "hands-on"],            "blurb": "Circuitos que deben sobrevivir puestos: cable flexible, conectores que se desconectan y una batería al alcance de alguien." },
+    { "id": "maker.home-automation","label": "Domótica", "class": "node", "tags": ["code", "electronics", "space"],       "blurb": "Sensores locales y control local, sin suscripción y sin una nube que alguien pueda apagar." },
+    { "id": "maker.cad",          "label": "Modelado CAD",     "class": "node", "tags": ["code", "hands-on", "patience"],       "blurb": "Croquis paramétrico, y la disciplina de diseñar una pieza según la tolerancia de la máquina que la va a fabricar." },
+    { "id": "maker.printer-tuning","label": "Calibrar la impresora",   "class": "node", "tags": ["hands-on", "gear", "patience"],       "blurb": "Flujo, torres de temperatura, retracción y una primera capa confiable. Una impresora barata calibrada le gana a una cara sin calibrar." },
+    { "id": "maker.enclosures",   "label": "Diseño de cajas",  "class": "node", "tags": ["hands-on", "kits"],                   "blurb": "La caja. Insertos térmicos, torres de tornillo, alivio de tensión en cables, y una tapa que vuelve a salir cuando la necesitas." },
+    { "id": "maker.laser-cnc",    "label": "Láser y CNC",     "class": "node", "tags": ["hands-on", "gear", "space"],          "blurb": "Máquinas sustractivas. Material plano, una trayectoria, extracción, y el olor que le cuenta a tus vecinos qué estás haciendo." },
+    { "id": "maker.keyboards",    "label": "Teclados custom",  "class": "node", "tags": ["hands-on", "gear", "electronics"],    "blurb": "Switches, keycaps, lubricante y firmware. Un periférico reconstruido como hobby, donde el sonido de cada tecla es una spec que afinas a propósito.",
+      "aka": ["mechanical keyboard", "keycaps", "qmk"] }
+  ],
+  "edges": [
+    { "from": "maker.arduino",  "to": "maker.esp32",          "kind": "kin" },
+    { "from": "maker.arduino",  "to": "maker.sensors",        "kind": "leads-to" },
+    { "from": "maker.arduino",  "to": "maker.addressable-led","kind": "leads-to", "note": "El primer proyecto que parece algo para alguien a quien la electrónica no le importa." },
+    { "from": "maker.arduino",  "to": "maker.robotics",       "kind": "leads-to" },
+    { "from": "maker.arduino",  "to": "maker.soldering-bench","kind": "kin" },
+    { "from": "maker.arduino",  "to": "maker.power",          "kind": "kin" },
+    { "from": "maker.soldering-bench", "to": "maker.test-gear","kind": "kin" },
+    { "from": "maker.soldering-bench", "to": "maker.pcb-design","kind": "leads-to" },
+    { "from": "maker.soldering-bench", "to": "maker.repair",  "kind": "kin",      "note": "Practica en algo ya roto. No puede empeorar y enseña la misma junta." },
+    { "from": "maker.test-gear","to": "maker.repair",         "kind": "shares-gear" },
+    { "from": "maker.esp32",    "to": "maker.home-automation","kind": "leads-to" },
+    { "from": "maker.sensors",  "to": "maker.home-automation","kind": "kin" },
+    { "from": "maker.addressable-led", "to": "maker.wearables","kind": "leads-to" },
+    { "from": "maker.robotics", "to": "maker.cad",            "kind": "kin" },
+    { "from": "maker.cad",      "to": "maker.printer-tuning", "kind": "kin" },
+    { "from": "maker.cad",      "to": "maker.enclosures",     "kind": "leads-to" },
+    { "from": "maker.cad",      "to": "maker.laser-cnc",      "kind": "leads-to" },
+    { "from": "maker.enclosures","to": "maker.printer-tuning","kind": "shares-gear" },
+    { "from": "maker.power",    "to": "maker.addressable-led","kind": "kin",      "note": "Un metro de tira en blanco pleno consume tanto que la celda se dimensiona mal solo una vez." },
+    { "from": "maker.keyboards","to": "maker.soldering-bench","kind": "shares-gear", "note": "Los sockets hot-swap postergan el cautín, no para siempre. Un socket muerto o un kit solo soldable trae la placa a este banco." },
+    { "from": "maker.keyboards","to": "maker.pcb-design",     "kind": "kin" }
+  ]
+}

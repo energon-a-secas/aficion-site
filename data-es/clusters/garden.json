@@ -1,0 +1,144 @@
+{
+  "id": "garden",
+  "label": "Jardinería",
+  "blurb": "Mantener cosas vivas a propósito, adentro y afuera. El progreso se mide en estaciones, algo que nada más en este mapa se atreve a intentar.",
+  "notable": "garden.houseplants",
+  "accent": "jade",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 1400],
+    "radius": 255,
+    "startAngle": -90,
+    "order": [
+      "garden.houseplants", "garden.succulents", "garden.orchids", "garden.propagation",
+      "garden.bonsai", "garden.seed-saving", "garden.vegetables", "garden.herbs",
+      "garden.composting", "garden.design", "garden.wildlife", "garden.terrariums",
+      "garden.aquascaping", "garden.hydroponics"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.houseplants",
+      "label": "Plantas de interior",
+      "class": "notable",
+      "tags": ["patience", "cheap-start", "collecting"],
+      "blurb": "Un potus, luego una monstera, luego humidificador y luces de cultivo. La ventana se llena antes de que alguien admita que empezó una colección.",
+      "aka": ["indoor plants", "house plants", "plant parent"],
+      "accent": "jade"
+    },
+    {
+      "id": "garden.vegetables",
+      "label": "Huerta",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "patience", "space"],
+      "blurb": "Bancales, sobres de semillas y una avalancha de zapallitos en pleno verano. El supermercado es más barato, pero ese nunca fue el punto.",
+      "aka": ["veg patch", "kitchen garden", "allotment"]
+    },
+    {
+      "id": "garden.herbs",
+      "label": "Hierbas",
+      "class": "node",
+      "tags": ["cheap-start", "hands-on", "outdoors"],
+      "blurb": "Albahaca en la ventana, romero junto a la puerta. El jardín más chico posible que igual cambia el sabor de la cena."
+    },
+    {
+      "id": "garden.bonsai",
+      "label": "Bonsái",
+      "class": "node",
+      "inner": true,
+      "tags": ["patience", "hands-on", "research"],
+      "blurb": "Alambrar, podar y trasplantar con un calendario medido en años. Un árbol en una bandeja, y décadas de discusión con él sobre su forma."
+    },
+    {
+      "id": "garden.terrariums",
+      "label": "Terrarios",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "patience"],
+      "blurb": "Un frasco sellado con su propio clima. Se arma en una tarde y se observa por meses, a ver si el musgo aprueba tus decisiones."
+    },
+    {
+      "id": "garden.succulents",
+      "label": "Suculentas y cactus",
+      "class": "node",
+      "tags": ["collecting", "cheap-start", "patience"],
+      "blurb": "Plantas que prosperan con el abandono y mueren casi siempre de cariño. La colección de entrada, del ancho de una ventana.",
+      "aka": ["cactus", "succulent collecting"]
+    },
+    {
+      "id": "garden.orchids",
+      "label": "Orquídeas",
+      "class": "node",
+      "tags": ["collecting", "patience", "research"],
+      "blurb": "Corteza en vez de tierra, raíces que quieren aire y una flor que tarda un año en repetirse. El nivel de dificultad arriba de las plantas de interior."
+    },
+    {
+      "id": "garden.composting",
+      "label": "Compostaje",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "cheap-start"],
+      "blurb": "Verdes, secos y una pila que se calienta o no. Convertir residuos de cocina en la próxima primavera es alquimia lenta con horqueta."
+    },
+    {
+      "id": "garden.seed-saving",
+      "label": "Guardar semillas",
+      "class": "node",
+      "tags": ["research", "patience", "cheap-start"],
+      "blurb": "Sobres, fechas y qué tomate se cruzó con cuál. De una sola buena temporada nace un banco de semillas privado."
+    },
+    {
+      "id": "garden.propagation",
+      "label": "Propagación",
+      "class": "node",
+      "tags": ["hands-on", "patience", "cheap-start"],
+      "blurb": "Esquejes en frascos de agua a lo largo de la ventana. El momento en que una planta se vuelve plantas, y la razón de que aquí ya nadie las compre.",
+      "aka": ["cuttings", "plant propagation"]
+    },
+    {
+      "id": "garden.hydroponics",
+      "label": "Hidroponia",
+      "class": "node",
+      "tags": ["gear", "electronics", "research"],
+      "blurb": "Bombas, solución nutritiva y raíces que nunca tocan tierra. Un jardín que corre con números: pH, EC y un timer que recuerda por ti.",
+      "aka": ["hydro", "indoor growing"]
+    },
+    {
+      "id": "garden.aquascaping",
+      "label": "Aquascaping",
+      "class": "node",
+      "tags": ["gear", "hands-on", "patience"],
+      "blurb": "Un jardín bajo el agua con inyección de CO2 y tijeras de poda. La jardinería en su versión más cargada de equipo, juzgada como el bonsái.",
+      "aka": ["planted tank", "aquarium plants"]
+    },
+    {
+      "id": "garden.design",
+      "label": "Diseño de jardines",
+      "class": "node",
+      "tags": ["research", "outdoors", "space"],
+      "blurb": "Borduras, líneas de vista y qué florece después de qué. Planear en invierno una postal que solo existe el próximo verano."
+    },
+    {
+      "id": "garden.wildlife",
+      "label": "Jardinería para fauna",
+      "class": "node",
+      "tags": ["outdoors", "research", "patience"],
+      "blurb": "Estanques, pilas de troncos y plantas elegidas según quién las visita. El jardín se vuelve hábitat y el jardinero, observador.",
+      "aka": ["pollinator garden", "wildlife pond"]
+    }
+  ],
+  "edges": [
+    { "from": "garden.houseplants", "to": "garden.succulents", "kind": "kin" },
+    { "from": "garden.houseplants", "to": "garden.propagation", "kind": "leads-to" },
+    { "from": "garden.houseplants", "to": "garden.orchids", "kind": "leads-to" },
+    { "from": "garden.houseplants", "to": "garden.terrariums", "kind": "kin" },
+    { "from": "garden.houseplants", "to": "garden.vegetables", "kind": "kin" },
+    { "from": "garden.vegetables", "to": "garden.herbs", "kind": "kin" },
+    { "from": "garden.vegetables", "to": "garden.composting", "kind": "leads-to" },
+    { "from": "garden.vegetables", "to": "garden.seed-saving", "kind": "leads-to" },
+    { "from": "garden.vegetables", "to": "garden.design", "kind": "kin" },
+    { "from": "garden.design", "to": "garden.wildlife", "kind": "kin" },
+    { "from": "garden.propagation", "to": "garden.seed-saving", "kind": "kin" },
+    { "from": "garden.propagation", "to": "garden.bonsai", "kind": "leads-to", "note": "El material de entrenamiento sale de viveros y esquejes enraizados. Nadie alambra un árbol que no puede reemplazar." },
+    { "from": "garden.terrariums", "to": "garden.aquascaping", "kind": "kin" },
+    { "from": "garden.aquascaping", "to": "garden.hydroponics", "kind": "shares-gear", "note": "Bombas, timers, luces LED y el mismo kit de pruebas de agua. Un jardín es vitrina; el otro, la cena." }
+  ]
+}

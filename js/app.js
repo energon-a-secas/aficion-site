@@ -19,7 +19,7 @@ async function init() {
   loadPrefs();
   restoreProfile();
   try {
-    state.atlas = await loadAtlas('data/');
+    state.atlas = await loadAtlas(state.prefs.lang === 'es' ? 'data-es/' : 'data/');
   } catch (err) {
     showFatal(err.detail || err.message);
     return;

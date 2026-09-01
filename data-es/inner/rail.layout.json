@@ -1,0 +1,26 @@
+{
+  "of": "rail.layout",
+  "label": "Diseño de maqueta",
+  "blurb": "Las decisiones tomadas en papel que los próximos tres años de construcción no pueden deshacer.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "rail.layout.track-plan", "label": "Plano de vías",    "class": "notable", "tags": ["research", "patience"],   "blurb": "Para qué es el ferrocarril, dibujado como vía. Un plano con propósito sobrevive el contacto con el cuarto; uno que es solo una forma, no." },
+    { "id": "rail.layout.radius",     "label": "Radio mínimo","class": "node",   "tags": ["research", "space"],       "blurb": "La curva más cerrada de la maqueta decide qué podrá correr en ella. El material largo en una curva cerrada descarrila y sigue descarrilando." },
+    { "id": "rail.layout.staging",    "label": "Vías ocultas (staging)",       "class": "node",   "tags": ["space", "research"],       "blurb": "Vías escondidas de donde vienen y adonde van los trenes. Sin ellas el ferrocarril es un óvalo; con ellas, es parte de una red." },
+    { "id": "rail.layout.helix",      "label": "Hélice",         "class": "node",   "tags": ["hands-on", "space", "patience"],"blurb": "Una espiral para pasar de un nivel a otro. Devora una cantidad enorme de espacio y de recorrido para ganar un piso." },
+    { "id": "rail.layout.grades",     "label": "Pendientes",        "class": "node",   "tags": ["research", "patience"],    "blurb": "Cuánto puede subir la vía antes de que una locomotora se plante con un tren realista detrás. Dos por ciento ya es mucho." },
+    { "id": "rail.layout.aisle",      "label": "Ancho de pasillo",   "class": "node",   "tags": ["space"],                   "blurb": "Donde se para la gente. Lo último que diseña un principiante y lo primero que diseña quien ya corrió una sesión de operación." },
+    { "id": "rail.layout.backdrop",   "label": "Telón de fondo",      "class": "node",   "tags": ["paint", "hands-on"],       "blurb": "El cielo pintado detrás del escenario. Elimina la esquina del cuarto de cada fotografía que vayas a tomar." },
+    { "id": "rail.layout.lighting",   "label": "Iluminación de maqueta","class": "node",  "tags": ["electronics", "gear"],     "blurb": "Luz pareja y de color correcto sobre toda la maqueta. Cambia cómo se lee el escenario más de lo que lo haría otro mes de escenografía." }
+  ],
+  "edges": [
+    { "from": "rail.layout.track-plan", "to": "rail.layout.radius",   "kind": "leads-to" },
+    { "from": "rail.layout.track-plan", "to": "rail.layout.staging",  "kind": "leads-to" },
+    { "from": "rail.layout.track-plan", "to": "rail.layout.aisle",    "kind": "leads-to" },
+    { "from": "rail.layout.radius",     "to": "rail.layout.helix",    "kind": "kin" },
+    { "from": "rail.layout.radius",     "to": "rail.layout.grades",   "kind": "kin" },
+    { "from": "rail.layout.helix",      "to": "rail.layout.grades",   "kind": "kin" },
+    { "from": "rail.layout.backdrop",   "to": "rail.layout.lighting", "kind": "kin" },
+    { "from": "rail.layout.staging",    "to": "rail.layout.backdrop", "kind": "kin" }
+  ]
+}

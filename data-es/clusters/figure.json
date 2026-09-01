@@ -1,0 +1,83 @@
+{
+  "id": "figure",
+  "label": "Figuras y miniaturas",
+  "blurb": "Gente chica y caras más chicas. Una mitad se compra y se exhibe, la otra llega en resina sin pintar y hay que ganársela.",
+  "notable": "figure.mini-painting",
+  "accent": "ember",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-714, -714],
+    "radius": 255,
+    "startAngle": 150,
+    "spread": 620,
+    "order": [
+      "figure.mini-painting", "figure.printed-minis", "figure.basing", "figure.army-painting",
+      "figure.busts", "figure.competition", "figure.repaints", "figure.garage-kits",
+      "figure.sculpting", "figure.casting", "figure.figure-photo", "figure.collecting",
+      "figure.scale-figures", "figure.articulated", "figure.bootlegs", "figure.display"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "figure.mini-painting",
+      "label": "Pintura de miniaturas",
+      "class": "notable",
+      "tags": ["paint", "patience", "hands-on", "cheap-start"],
+      "blurb": "Pintar algo de 32 mm para que se lea bien a medio metro. La habilidad de pintura más transferible del mapa.",
+      "aka": ["painting miniatures", "warhammer painting", "mini painting"],
+      "accent": "violet",
+      "levels": [
+        { "label": "Mesa",  "note": "Base, lavado, pincel seco. Terminada, en la mesa, y se ve bien desde la silla" },
+        { "label": "Exhibición",   "note": "Con capas y filos iluminados. Sobrevive a que la levanten y la miren de cerca" },
+        { "label": "Concurso", "note": "Difuminado, freehand y una base que es su propio modelo. Se juzga en vitrina" }
+      ]
+    },
+    {
+      "id": "figure.garage-kits",
+      "label": "Garage kits",
+      "class": "node",
+      "tags": ["kits", "paint", "patience", "hands-on"],
+      "blurb": "Resina sin pintar, casi siempre tiraje limitado, casi siempre un personaje de anime. El coleccionista espera un armado y descubre un acabado completo.",
+      "aka": ["resin kits", "resin figures"],
+      "accent": "jade",
+      "inner": true
+    },
+    { "id": "figure.printed-minis","label": "Minis impresas",  "class": "node", "tags": ["kits", "hands-on", "cheap-start"], "blurb": "Imprimir las tuyas en resina. El problema de conseguirlas desaparece y llega en su lugar el de quitar soportes." },
+    { "id": "figure.basing",       "label": "Bases y peanas","class": "node","tags": ["hands-on", "paint"],              "blurb": "El suelo donde la figura se para, y la mitad de lo que un juez mira en realidad. Una buena base puede cargar una figura promedio." },
+    { "id": "figure.army-painting","label": "Pintura en serie",  "class": "node", "tags": ["paint", "patience"],              "blurb": "Sesenta modelos a un mismo estándar, en un orden que nunca suelta el pincel dos veces. Una habilidad distinta de pintar uno bien." },
+    { "id": "figure.busts",        "label": "Bustos",   "class": "node", "tags": ["paint", "patience", "collecting"],"blurb": "Cabeza y hombros a una escala donde cada pincelada se ve. Adonde van los pintores a trabajar piel y ojos." },
+    { "id": "figure.competition",  "label": "Concursos de pintura","class": "node","tags": ["social", "paint"],                "blurb": "Jueceo en vitrina contra un estándar que nadie escribe. El feedback más rápido del hobby y el menos amable." },
+    { "id": "figure.repaints",     "label": "Repintados custom", "class": "node", "tags": ["paint", "hands-on", "fandom"],    "blurb": "Quitarle la pintura de fábrica a una figura producida en masa y hacerla como se debe. Práctica barata sobre un buen esculpido." },
+    { "id": "figure.sculpting",    "label": "Escultura",       "class": "node", "tags": ["hands-on", "patience"],           "blurb": "Masilla epóxica sobre un armazón, o escultura digital para imprimir. El paso de terminar el diseño de otro a tener uno propio." },
+    { "id": "figure.casting",      "label": "Moldes y vaciado","class":"node","tags":["hands-on", "gear", "space"],     "blurb": "Silicona, resina y una olla de presión. Convertirte en el garage de garage kit, junto con un problema real de ventilación." },
+    { "id": "figure.figure-photo", "label": "Fotografía de figuras","class": "node","tags": ["content", "patience"],           "blurb": "Macro, un fondo y la cámara a nivel del ojo. Fotografiar una figura desde arriba la hace verse como un juguete en un escritorio, que es lo que es." },
+    { "id": "figure.collecting",   "label": "Coleccionar figuras","class": "node", "tags": ["collecting", "fandom", "research"], "blurb": "Saber de escalas, marcas, ciclos de lanzamiento y la repisa que se quedó sin espacio hace dos años.",
+      "aka": ["figure collector", "anime figures", "pvc figures"] },
+    { "id": "figure.scale-figures","label": "Figuras a escala",   "class": "node", "tags": ["collecting", "fandom", "gear"],   "blurb": "PVC prepintado en 1/7 y 1/8, vendido en preventa dieciocho meses antes de existir. La corriente principal del hobby." },
+    { "id": "figure.articulated",  "label": "Figuras articuladas","class":"node","tags": ["collecting", "mecha", "fandom"], "blurb": "Líneas poseables con manos y caras intercambiables. Se compran para posarlas y fotografiarlas, no para dejarlas en la caja.",
+      "aka": ["figma", "figuarts", "action figures"] },
+    { "id": "figure.bootlegs",     "label": "Detectar bootlegs", "class": "node", "tags": ["research", "collecting"],        "blurb": "Recasts y falsificaciones son un mercado real, y distinguirlos es una habilidad aprendida: impresión de la caja, pintura chorreada y líneas de molde." },
+    { "id": "figure.display",      "label": "Exhibición e iluminación","class":"node","tags": ["collecting", "space", "gear"],  "blurb": "Vitrinas, UV, polvo y tiras LED. El punto donde una colección deja de ser almacenaje y se vuelve una presentación." }
+  ],
+  "edges": [
+    { "from": "figure.mini-painting", "to": "figure.basing",        "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.army-painting", "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.competition",   "kind": "leads-to" },
+    { "from": "figure.mini-painting", "to": "figure.printed-minis", "kind": "kin" },
+    { "from": "figure.mini-painting", "to": "figure.busts",         "kind": "leads-to", "note": "El doble de tamaño, diez veces el escrutinio. A los bustos van los pintores a aprender piel." },
+    { "from": "figure.mini-painting", "to": "figure.repaints",      "kind": "kin" },
+    { "from": "figure.mini-painting", "to": "figure.garage-kits",   "kind": "leads-to" },
+    { "from": "figure.garage-kits",   "to": "figure.sculpting",     "kind": "leads-to" },
+    { "from": "figure.sculpting",     "to": "figure.casting",       "kind": "leads-to" },
+    { "from": "figure.garage-kits",   "to": "figure.figure-photo",  "kind": "kin" },
+    { "from": "figure.garage-kits",   "to": "figure.collecting",    "kind": "kin",      "note": "Casi nadie arma uno de estos sin haber sido antes coleccionista de la versión terminada." },
+    { "from": "figure.collecting",    "to": "figure.scale-figures", "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.articulated",   "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.bootlegs",      "kind": "kin" },
+    { "from": "figure.collecting",    "to": "figure.display",       "kind": "leads-to" },
+    { "from": "figure.display",       "to": "figure.figure-photo",  "kind": "kin" },
+    { "from": "figure.repaints",      "to": "figure.articulated",   "kind": "kin" },
+    { "from": "figure.busts",         "to": "figure.competition",   "kind": "kin" },
+    { "from": "figure.printed-minis", "to": "figure.basing",        "kind": "kin" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "of": "model.gunpla",
+  "label": "Técnicas de Gunpla",
+  "blurb": "Lo que separa un kit de encastre de un modelo terminado.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 150, "startAngle": -90 },
+  "nodes": [
+    { "id": "model.gunpla.panel-lining", "label": "Panel lining", "class": "node", "tags": ["paint", "hands-on"], "blurb": "Un lavado en los recovecos. El paso más barato con el mayor retorno visible." },
+    { "id": "model.gunpla.topcoat",      "label": "Top coat",     "class": "node", "tags": ["paint"],            "blurb": "Mate o brillante sobre todo el kit. Mata el brillo de juguete y sella las calcas." },
+    { "id": "model.gunpla.weathering",   "label": "Weathering",   "class": "node", "tags": ["paint", "patience"],"blurb": "Desconchados, manchas, hollín de escape. Daño deliberado que se lee como historia." },
+    { "id": "model.gunpla.scribing",     "label": "Scribing",     "class": "node", "tags": ["hands-on", "patience"], "blurb": "Tallar tus propias líneas de panel. Lo primero irreversible que le haces a un kit." },
+    { "id": "model.gunpla.nub-removal",  "label": "Quitar nubs",  "class": "node", "tags": ["hands-on", "cheap-start"], "blurb": "Corta lejos de la pieza y luego rebaja el resto. Cortar al ras blanquea el plástico y la marca no sale nunca." },
+    { "id": "model.gunpla.seam-lines",   "label": "Borrar uniones", "class": "node", "tags": ["hands-on", "patience"], "blurb": "Cemento, curado, lija. Borrar el hecho de que el brazo llegó en dos mitades." },
+    { "id": "model.gunpla.pla-plate",    "label": "Trabajo con pla-plate","class": "node","tags": ["hands-on", "kits"],  "blurb": "Lámina y varilla de estireno sumadas al kit hasta que la silueta es tuya y no la del arte de la caja." },
+    { "id": "model.gunpla.led-install",  "label": "Instalar LED",  "class": "node", "tags": ["electronics", "hands-on"], "blurb": "Perforar una cabeza para iluminar los ojos. El punto donde un kit de plástico adquiere interruptor de encendido." }
+  ],
+  "edges": [
+    { "from": "model.gunpla.nub-removal",  "to": "model.gunpla.seam-lines",   "kind": "leads-to" },
+    { "from": "model.gunpla.seam-lines",   "to": "model.gunpla.panel-lining", "kind": "leads-to" },
+    { "from": "model.gunpla.panel-lining", "to": "model.gunpla.topcoat",      "kind": "leads-to" },
+    { "from": "model.gunpla.topcoat",      "to": "model.gunpla.weathering",   "kind": "leads-to" },
+    { "from": "model.gunpla.scribing",     "to": "model.gunpla.panel-lining", "kind": "leads-to" },
+    { "from": "model.gunpla.scribing",     "to": "model.gunpla.pla-plate",    "kind": "kin" },
+    { "from": "model.gunpla.pla-plate",    "to": "model.gunpla.led-install",  "kind": "kin" }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "of": "garden.bonsai",
+  "label": "Bonsái, árbol por árbol",
+  "blurb": "El primer junípero es una compra. Todo lo que sigue es una práctica, corrida en el calendario del árbol y no en el tuyo.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "garden.bonsai.nursery-stock", "garden.bonsai.yamadori", "garden.bonsai.deadwood",
+      "garden.bonsai.wiring", "garden.bonsai.ramification", "garden.bonsai.species-study",
+      "garden.bonsai.winter-care", "garden.bonsai.pots-display", "garden.bonsai.soil-mixes",
+      "garden.bonsai.repotting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.bonsai.nursery-stock",
+      "label": "Caza en viveros",
+      "class": "notable",
+      "tags": ["cheap-start", "outdoors", "research"],
+      "blurb": "Viveros recorridos despacio, mirando troncos en vez de follaje. El arbusto más barato del estante a veces esconde el mejor árbol, y ese es todo el deporte."
+    },
+    {
+      "id": "garden.bonsai.yamadori",
+      "label": "Yamadori",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research"],
+      "blurb": "Recolectar árboles silvestres, con permiso, de montañas y cercos. Décadas de lucha natural en un tronco, y una tasa de supervivencia que enseña humildad."
+    },
+    {
+      "id": "garden.bonsai.wiring",
+      "label": "Alambrado",
+      "class": "node",
+      "tags": ["hands-on", "patience", "gear"],
+      "blurb": "Cobre o aluminio enrollado en cada rama para fijar su línea. Horas de aplicación, meses de espera, y una temporada de más deja cicatrices."
+    },
+    {
+      "id": "garden.bonsai.ramification",
+      "label": "Poda y ramificación",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Podar, dejar crecer, podar de nuevo hasta que las ramitas se dividan como un delta. La mayor parte del trabajo es elegir qué pierde el árbol."
+    },
+    {
+      "id": "garden.bonsai.repotting",
+      "label": "Trasplante y raíces",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Poda de raíces y sustrato fresco cuando el árbol lo dicta. Trabajo de primavera con ventana corta; perderla cuesta un año."
+    },
+    {
+      "id": "garden.bonsai.soil-mixes",
+      "label": "Mezclas de sustrato",
+      "class": "node",
+      "tags": ["research", "gear"],
+      "blurb": "Akadama, pómez y lava, tamizadas por grados. Bolsas de arcilla importada, compradas por gente con un jardín lleno de tierra gratis."
+    },
+    {
+      "id": "garden.bonsai.deadwood",
+      "label": "Madera muerta, jin y shari",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Ramas muertas y tronco descortezado, tallados y blanqueados con azufre de cal. Hacer que parte del árbol parezca muerta exige un cuidado sorprendente con la parte viva."
+    },
+    {
+      "id": "garden.bonsai.species-study",
+      "label": "Estudio de especies",
+      "class": "node",
+      "tags": ["research", "patience", "collecting"],
+      "blurb": "Juníperos, arces y ficus piden trabajos distintos en meses distintos. Conocer bien una especie le gana a tener diez árboles confundidos."
+    },
+    {
+      "id": "garden.bonsai.pots-display",
+      "label": "Macetas y exhibición",
+      "class": "node",
+      "tags": ["collecting", "research", "space"],
+      "blurb": "La maceta es la mitad del cuadro, y los coleccionistas la tratan así. Mesas, pergaminos y plantas de acento convierten un árbol en una exhibición."
+    },
+    {
+      "id": "garden.bonsai.winter-care",
+      "label": "Cuidado invernal",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research"],
+      "blurb": "Cajoneras frías, macetas con mulch y raíces que se congelan más rápido en bandeja que en el suelo. La temporada tranquila, que los árboles no consideran opcional."
+    }
+  ],
+  "edges": [
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.wiring", "kind": "leads-to", "note": "El primer árbol existe para practicar en él." },
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.repotting", "kind": "leads-to" },
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.yamadori", "kind": "leads-to", "note": "Cuando el ojo aprende a leer troncos, los cercos dejan de ser paisaje." },
+    { "from": "garden.bonsai.wiring", "to": "garden.bonsai.ramification", "kind": "kin", "note": "Dos mitades del estilizado: el alambre fija la línea, la tijera construye la densidad." },
+    { "from": "garden.bonsai.wiring", "to": "garden.bonsai.deadwood", "kind": "shares-gear", "note": "Las pinzas de jin hacen doble turno: doblan alambre un día y pelan corteza al otro. Un solo estuche sirve para ambos trabajos." },
+    { "from": "garden.bonsai.ramification", "to": "garden.bonsai.species-study", "kind": "leads-to", "note": "Cada corte se programa por especie, así que el calendario de poda se vuelve una lista de lectura." },
+    { "from": "garden.bonsai.species-study", "to": "garden.bonsai.winter-care", "kind": "kin" },
+    { "from": "garden.bonsai.repotting", "to": "garden.bonsai.soil-mixes", "kind": "leads-to", "note": "El primer trasplante es cuando se compra la bolsa de akadama." },
+    { "from": "garden.bonsai.repotting", "to": "garden.bonsai.pots-display", "kind": "kin", "note": "El cambio de maceta ocurre al trasplantar, así que el hábito coleccionista empieza ahí." },
+    { "from": "garden.bonsai.yamadori", "to": "garden.bonsai.deadwood", "kind": "kin", "note": "Los árboles recolectados llegan con su madera muerta ya escrita. Tallar solo continúa la historia." }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "video",
+  "label": "Producción de video",
+  "blurb": "Filmar algo que hiciste y editarlo hasta que un desconocido lo vea completo. Un segundo hobby entero montado sobre el primero.",
+  "notable": "video.youtube",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "arc",
+    "anchor": [261, -975],
+    "radius": 290,
+    "startAngle": 195,
+    "spread": 210,
+    "order": [
+      "video.scripting", "video.videography", "video.lighting", "video.macro", "video.timelapse",
+      "video.audio-capture", "video.voiceover", "video.youtube", "video.editing", "video.colour",
+      "video.motion-graphics", "video.thumbnails", "video.shorts", "video.streaming", "video.podcasting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "video.youtube",
+      "label": "Canal de YouTube",
+      "class": "notable",
+      "tags": ["content", "social", "patience", "screen"],
+      "blurb": "Cadencia, retención y un título que alguien sí clickea. El oficio que decide si alguien ve las otras diez cosas que aprendiste.",
+      "aka": ["content creation", "youtuber", "channel craft", "vlogging"],
+      "accent": "ember"
+    },
+    {
+      "id": "video.editing",
+      "label": "Edición de video",
+      "class": "node",
+      "tags": ["content", "patience", "screen"],
+      "blurb": "Corte, ritmo, estructura. Donde veinte minutos aburridos se vuelven seis interesantes, y donde cada error cometido al filmar se vuelve permanente.",
+      "aka": ["editing", "post production", "davinci resolve", "premiere"],
+      "accent": "cyan",
+      "inner": true
+    },
+    { "id": "video.videography",  "label": "Videografía",     "class": "node", "tags": ["content", "gear", "hands-on"], "blurb": "Cámara, trípode, slider y la decisión de dónde poner todo eso. La toma que no grabaste no se puede agregar en la edición.",
+      "aka": ["filming", "cinematography", "camera work"] },
+    { "id": "video.lighting",     "label": "Iluminar una escena","class": "node", "tags": ["gear", "hands-on", "patience"], "blurb": "Luz principal, relleno y algo detrás del sujeto. Las miniaturas en particular piden mucha más luz de la que tus ojos sugieren." },
+    { "id": "video.audio-capture","label": "Captura de audio",   "class": "node", "tags": ["audio", "gear"],               "blurb": "Dónde poner el micrófono y un cuarto que no ayuda. Ninguna edición recupera una mala grabación, por eso esto va antes del corte y no después." },
+    { "id": "video.voiceover",    "label": "Voz en off",       "class": "node", "tags": ["audio", "content"],            "blurb": "Leer tu propio guion sin sonar a que estás leyendo tu propio guion. Se graba después del corte, para que calce con las imágenes." },
+    { "id": "video.scripting",    "label": "Guion",       "class": "node", "tags": ["content", "research"],         "blurb": "Decidir de qué trata el video antes de sacar la cámara. El lugar más barato para arreglar un video es la página." },
+    { "id": "video.thumbnails",   "label": "Miniaturas y títulos","class":"node","tags": ["content", "screen"],        "blurb": "Un cuadro y seis palabras. Injusto, inevitable, y la parte que casi nadie se toma en serio hasta que sí." },
+    { "id": "video.colour",       "label": "Corrección de color",  "class": "node", "tags": ["content", "patience", "screen"], "blurb": "Primero igualar las tomas entre sí, y recién después darle un look al conjunto. En ese orden, siempre." },
+    { "id": "video.motion-graphics","label": "Motion graphics","class":"node", "tags": ["content", "code", "screen"],   "blurb": "Títulos, diagramas y llamadas que se mueven. La diferencia entre mostrar un diagrama de cableado y explicarlo." },
+    { "id": "video.macro",        "label": "Macro y apilado de foco","class":"node", "tags": ["patience", "gear", "hands-on"],"blurb": "A escala de modelismo, la profundidad de campo es todo el problema. El focus stacking es cómo una escena 1/87 queda nítida de punta a punta.",
+      "aka": ["focus stacking", "macro video"] },
+    { "id": "video.timelapse",    "label": "Timelapse",       "class": "node", "tags": ["patience", "content", "gear"], "blurb": "La construcción comprimida en cuarenta segundos. Barato de grabar e implacable con la cámara que se movió el día tres." },
+    { "id": "video.streaming",    "label": "Streaming en vivo",  "class": "node", "tags": ["content", "social", "screen"], "blurb": "Sin edición, sin repetir la toma, y un chat que pregunta justo lo que estabas por responder. Otro tipo de nervio que el video grabado." },
+    { "id": "video.shorts",       "label": "Formato corto",      "class": "node", "tags": ["content", "screen", "cheap-start"], "blurb": "Menos de un minuto, vertical, y tiene que funcionar sin sonido. Llega a gente que jamás abriría una bitácora de veinte minutos." },
+    { "id": "video.podcasting",   "label": "Podcasting",      "class": "node", "tags": ["audio", "social", "content"],  "blurb": "Dos personas, dos micrófonos y un tema con fondo suficiente para una hora. El menor costo en equipo de todo este grupo." }
+  ],
+  "edges": [
+    { "from": "video.youtube",     "to": "video.videography",   "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.scripting",     "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.thumbnails",    "kind": "kin" },
+    { "from": "video.youtube",     "to": "video.shorts",        "kind": "leads-to" },
+    { "from": "video.youtube",     "to": "video.streaming",     "kind": "leads-to" },
+    { "from": "video.youtube",     "to": "video.podcasting",    "kind": "leads-to" },
+    { "from": "video.videography", "to": "video.editing",       "kind": "leads-to" },
+    { "from": "video.videography", "to": "video.lighting",      "kind": "kin" },
+    { "from": "video.videography", "to": "video.macro",         "kind": "kin" },
+    { "from": "video.videography", "to": "video.audio-capture", "kind": "kin" },
+    { "from": "video.videography", "to": "video.timelapse",     "kind": "leads-to" },
+    { "from": "video.audio-capture","to": "video.editing",      "kind": "leads-to", "note": "Se graba antes del corte porque ninguna edición rescata un mal cuarto. El único prerrequisito de verdad en este grupo." },
+    { "from": "video.audio-capture","to": "video.voiceover",    "kind": "kin" },
+    { "from": "video.editing",     "to": "video.colour",        "kind": "leads-to" },
+    { "from": "video.editing",     "to": "video.motion-graphics","kind": "leads-to" },
+    { "from": "video.podcasting",  "to": "video.voiceover",     "kind": "kin" },
+    { "from": "video.macro",       "to": "video.lighting",      "kind": "shares-gear" },
+    { "from": "video.scripting",   "to": "video.thumbnails",    "kind": "kin" }
+  ]
+}

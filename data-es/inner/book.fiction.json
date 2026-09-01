@@ -1,0 +1,41 @@
+{
+  "of": "book.fiction",
+  "label": "Ficción, estante por estante",
+  "blurb": "La novela se divide por apetito, y cada estante se cree el serio. La misma silla, la misma lámpara, contratos distintos.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "book.fiction.mystery", "book.fiction.horror", "book.fiction.short-stories",
+      "book.fiction.literary", "book.fiction.translated", "book.fiction.reading-log",
+      "book.fiction.rereads", "book.fiction.epics", "book.fiction.romance",
+      "book.fiction.historical"
+    ]
+  },
+  "nodes": [
+    { "id": "book.fiction.mystery",       "label": "Misterio y crimen",    "class": "notable", "tags": ["cheap-start", "patience"],            "blurb": "Un cadáver, un detective y una chance justa de adivinar primero. El género con el contrato más estricto, leído por gente que audita cada cláusula." },
+    { "id": "book.fiction.horror",        "label": "Terror",               "class": "node", "tags": ["fandom", "patience", "cheap-start"],     "blurb": "Fantasmas, casas malditas y cosas mejor no nombradas. Los fans te explican que en el fondo habla del duelo, mientras disfrutan mucho del monstruo." },
+    { "id": "book.fiction.historical",    "label": "Ficción histórica",   "class": "node", "tags": ["research", "patience"],                  "blurb": "Ficción con vestuario de época, notas al pie opcionales. La mitad del público viene por la historia y la otra mitad a corregirle la tarea al autor." },
+    { "id": "book.fiction.romance",       "label": "Romance",              "class": "node", "tags": ["cheap-start", "social", "patience"],     "blurb": "El único género que garantiza su final y aun así vende más que el resto. Parece que el suspenso nunca fue cuestión de cómo termina." },
+    { "id": "book.fiction.literary",      "label": "Ficción literaria",     "class": "node", "tags": ["patience", "research", "cheap-start"],   "blurb": "Listas de premios, ambición a nivel de frase y cero promesas de trama. El estante donde no terminar el libro igual puede contar como leerlo." },
+    { "id": "book.fiction.translated",    "label": "Ficción traducida",   "class": "node", "tags": ["research", "patience"],                  "blurb": "Alguien reescribió cada frase para que pudieras leerla, y ganó una línea en la portadilla. Los stickers de premios tampoco suelen mencionarlo." },
+    { "id": "book.fiction.short-stories", "label": "Cuentos",        "class": "node", "tags": ["cheap-start", "patience"],               "blurb": "Mundos enteros que se abren y cierran en veinte páginas. La forma que todos elogian, enseñan y recomiendan, y que por algún motivo nadie compra." },
+    { "id": "book.fiction.epics",         "label": "Épicas ladrillo",       "class": "node", "tags": ["patience", "fandom"],                    "blurb": "Mil páginas, tres mapas y un árbol genealógico. Empezar una se parece menos a elegir un libro y más a firmar un contrato de arriendo." },
+    { "id": "book.fiction.rereads",       "label": "Relecturas favoritas", "class": "node", "tags": ["patience", "cheap-start"],               "blurb": "Volver al mismo estante a propósito, a veces con calendario. Consuelo, sobre todo, más la emoción callada de saber el giro y verlo venir." },
+    { "id": "book.fiction.reading-log",   "label": "Registros y reseñas",     "class": "node", "tags": ["content", "research", "patience"],       "blurb": "Estrellas, planillas y un conteo anual en curso. El registro empieza documentando la lectura y termina asignándola." }
+  ],
+  "edges": [
+    { "from": "book.fiction.mystery",       "to": "book.fiction.horror",        "kind": "kin" },
+    { "from": "book.fiction.mystery",       "to": "book.fiction.historical",    "kind": "kin",         "note": "El crimen histórico ya tiene pasillo propio. Dos hábitos de investigación, un solo cadáver." },
+    { "from": "book.fiction.historical",    "to": "book.fiction.romance",       "kind": "kin" },
+    { "from": "book.fiction.historical",    "to": "book.fiction.epics",         "kind": "shares-gear", "note": "Ambas llegan con mapas, árboles genealógicos y un elenco de casas. El apéndice hace trabajo estructural." },
+    { "from": "book.fiction.horror",        "to": "book.fiction.short-stories", "kind": "kin" },
+    { "from": "book.fiction.short-stories", "to": "book.fiction.literary",      "kind": "kin" },
+    { "from": "book.fiction.literary",      "to": "book.fiction.translated",    "kind": "kin" },
+    { "from": "book.fiction.epics",         "to": "book.fiction.rereads",       "kind": "leads-to",    "note": "Una saga tan larga se relee desde el principio antes de cada tomo nuevo." },
+    { "from": "book.fiction.romance",       "to": "book.fiction.rereads",       "kind": "leads-to" },
+    { "from": "book.fiction.rereads",       "to": "book.fiction.reading-log",   "kind": "kin" }
+  ]
+}

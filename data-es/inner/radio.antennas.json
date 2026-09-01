@@ -1,0 +1,21 @@
+{
+  "of": "radio.antennas",
+  "label": "Tipos de antena",
+  "blurb": "La parte más barata de una estación y la que decide hasta dónde llega.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 155, "startAngle": -90 },
+  "nodes": [
+    { "id": "radio.antennas.dipole",   "label": "Dipolo",      "class": "node", "tags": ["radio", "cheap-start", "space"], "blurb": "Dos brazos de alambre y un punto de alimentación. La primera antena que casi todos construyen y la que sigue funcionando." },
+    { "id": "radio.antennas.vertical", "label": "Vertical",    "class": "node", "tags": ["radio", "space"],                "blurb": "Un cuarto de onda contra un plano de tierra. Radiación de ángulo bajo, y un campo de radiales que nunca terminarás de tender." },
+    { "id": "radio.antennas.yagi",     "label": "Yagi",        "class": "node", "tags": ["radio", "hands-on", "gear"],     "blurb": "Un elemento activo más directores y un reflector. Ganancia en una dirección, lo que significa que ahora necesitas un rotor." },
+    { "id": "radio.antennas.loop",     "label": "Loop magnético","class": "node","tags": ["radio", "hands-on"],             "blurb": "Un lazo sintonizado que cabe en un balcón. Ancho de banda angosto, alto voltaje en el capacitor, silencioso en recepción." },
+    { "id": "radio.antennas.swr",      "label": "ROE y ajuste", "class": "node","tags": ["radio", "research"],             "blurb": "Medir cuánta potencia vuelve en vez de salir. Recorta, mide, recorta de nuevo, y nunca adivines." },
+    { "id": "radio.antennas.feedline", "label": "Línea de alimentación",     "class": "node","tags": ["radio", "hands-on"],             "blurb": "Coaxial, línea escalera, conectores y la pérdida que aceptas entre el equipo y el alambre." }
+  ],
+  "edges": [
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.swr",      "kind": "leads-to" },
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.vertical", "kind": "kin" },
+    { "from": "radio.antennas.vertical", "to": "radio.antennas.yagi",     "kind": "leads-to" },
+    { "from": "radio.antennas.dipole",   "to": "radio.antennas.loop",     "kind": "kin" },
+    { "from": "radio.antennas.swr",      "to": "radio.antennas.feedline", "kind": "kin" }
+  ]
+}

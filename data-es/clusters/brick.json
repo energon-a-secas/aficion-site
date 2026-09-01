@@ -1,0 +1,72 @@
+{
+  "id": "brick",
+  "label": "Construcción con bricks",
+  "blurb": "Un sistema con lista de piezas fija y sin pegamento, donde la restricción es el punto y todo lo que armas se puede volver a desarmar.",
+  "notable": "brick.moc",
+  "accent": "jade",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [-1125, -1340],
+    "radius": 255,
+    "startAngle": 295,
+    "spread": 195,
+    "order": [
+      "brick.moc", "brick.snot", "brick.stud-io", "brick.instructions", "brick.technic",
+      "brick.powered", "brick.mindstorms", "brick.gbc", "brick.trains", "brick.dioramas",
+      "brick.shows", "brick.sets", "brick.minifigs", "brick.parts", "brick.sorting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "brick.moc",
+      "label": "Construir MOCs",
+      "class": "notable",
+      "tags": ["hands-on", "kits", "patience", "cheap-start"],
+      "blurb": "My Own Creation. Armar algo que nunca vino en caja, usando solo piezas que existen, una restricción más dura de lo que suena.",
+      "aka": ["moc", "lego building", "custom lego"],
+      "accent": "cyan"
+    },
+    {
+      "id": "brick.trains",
+      "label": "Trenes Lego",
+      "class": "node",
+      "tags": ["kits", "hands-on", "collecting", "space"],
+      "blurb": "Trenes motorizados sobre vía plástica, más o menos en escala L. Un hobby de maquetas con caja de piezas en vez de cabina de pintura.",
+      "aka": ["lego train", "l gauge", "brick railway"],
+      "accent": "ember"
+    },
+    { "id": "brick.snot",     "label": "Técnica SNOT",  "class": "node", "tags": ["hands-on", "research"],           "blurb": "Studs Not On Top. Poner los bricks de costado para lograr superficies y ángulos para los que el sistema no parecía diseñado." },
+    { "id": "brick.stud-io",  "label": "Diseño digital",  "class": "node", "tags": ["code", "kits", "patience"],       "blurb": "Armar el modelo primero en software, con una lista de piezas que sale del otro lado. Te enteras de lo que cuesta antes de comprarlo." },
+    { "id": "brick.instructions","label": "Publicar instrucciones","class":"node","tags":["content", "research", "patience"],"blurb": "Convertir tu propia construcción en pasos que otro pueda seguir. El orden de los pasos es un problema de diseño real y casi todos fallan al primer intento." },
+    { "id": "brick.technic",  "label": "Technic",         "class": "node", "tags": ["kits", "mecha", "hands-on"],      "blurb": "Vigas, pines, engranajes y articulaciones. Donde el sistema deja de ser superficie y empieza a ser mecanismo." },
+    { "id": "brick.powered",  "label": "Motorización",  "class": "node", "tags": ["electronics", "code", "kits"],    "blurb": "Motores, hubs y una app bluetooth, o un control de terceros si quieres que el modelo haga algo que la app no hará.",
+      "aka": ["powered up", "power functions"] },
+    { "id": "brick.mindstorms","label": "Sets de robótica",  "class": "node", "tags": ["code", "electronics", "mecha"],   "blurb": "Sensores, motores y programación por bloques o texto. El primer programa de mucha gente hizo moverse algo físico." },
+    { "id": "brick.gbc",      "label": "Máquinas de bolitas (GBC)","class": "node", "tags": ["mecha", "hands-on", "social"],   "blurb": "Módulos que se pasan bolitas a ritmo fijo, hechos bajo un estándar común para que máquinas de desconocidos se conecten en una expo." },
+    { "id": "brick.dioramas", "label": "Dioramas de bricks",  "class": "node", "tags": ["hands-on", "space", "patience"],  "blurb": "Una escena en vez de un modelo. Hacer paisaje en un medio sin curvas, que es exactamente la parte interesante." },
+    { "id": "brick.shows",    "label": "Expos de fans",       "class": "node", "tags": ["social", "space", "kits"],        "blurb": "Mesas de club en un centro de convenciones, donde los estándares modulares rinden y las secciones de todos se unen." },
+    { "id": "brick.sets",     "label": "Coleccionar sets",  "class": "node", "tags": ["collecting", "gear", "fandom"],   "blurb": "Sellados, armados o retirados. Un hobby de colección con catálogo publicado y un mercado secundario que lo vigila de cerca." },
+    { "id": "brick.minifigs", "label": "Coleccionar minifiguras","class":"node","tags": ["collecting", "fandom", "cheap-start"],"blurb": "La gente amarilla chiquita, licencias incluidas. Barato para empezar, profundo para especializarse, fácil de falsificar." },
+    { "id": "brick.parts",    "label": "Conseguir piezas",  "class": "node", "tags": ["collecting", "research", "cheap-start"],"blurb": "Comprar por elemento y color en vez de por set. La habilidad que separa a quien arma desde el balde de quien arma un diseño." },
+    { "id": "brick.sorting",  "label": "Orden y almacenaje","class":"node","tags": ["space", "patience"],             "blurb": "Por pieza, por color, o por ninguno. La decisión sin glamour que define si construir es un placer o una búsqueda." }
+  ],
+  "edges": [
+    { "from": "brick.moc",     "to": "brick.sets",       "kind": "kin" },
+    { "from": "brick.moc",     "to": "brick.snot",       "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.stud-io",    "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.parts",      "kind": "kin",      "note": "En cuanto un diseño necesita una pieza que no tienes, este hobby adquiere una hoja de cálculo." },
+    { "from": "brick.moc",     "to": "brick.dioramas",   "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.trains",     "kind": "leads-to" },
+    { "from": "brick.moc",     "to": "brick.technic",    "kind": "kin" },
+    { "from": "brick.technic", "to": "brick.powered",    "kind": "leads-to" },
+    { "from": "brick.technic", "to": "brick.gbc",        "kind": "kin" },
+    { "from": "brick.powered", "to": "brick.mindstorms", "kind": "kin" },
+    { "from": "brick.powered", "to": "brick.trains",     "kind": "shares-gear" },
+    { "from": "brick.parts",   "to": "brick.sorting",    "kind": "kin" },
+    { "from": "brick.sets",    "to": "brick.minifigs",   "kind": "kin" },
+    { "from": "brick.minifigs","to": "brick.parts",      "kind": "kin" },
+    { "from": "brick.stud-io", "to": "brick.instructions","kind": "leads-to" },
+    { "from": "brick.dioramas","to": "brick.shows",      "kind": "kin" },
+    { "from": "brick.gbc",     "to": "brick.shows",      "kind": "kin" }
+  ]
+}

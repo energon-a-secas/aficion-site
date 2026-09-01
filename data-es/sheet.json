@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "purpose": "Domain fold for the character sheet radar. Content, not code: the six axes and which core crafts feed each. Order is render order, from the top vertex clockwise.",
+  "domains": [
+    { "id": "circuits", "label": "Circuitos", "crafts": ["core.electronics", "core.soldering"] },
+    { "id": "workshop", "label": "Taller", "crafts": ["core.hand-tools", "core.3d-printing"] },
+    { "id": "brushwork", "label": "Pincel", "crafts": ["core.painting"] },
+    { "id": "lens", "label": "Lente", "crafts": ["core.photography"] },
+    { "id": "code", "label": "Código", "crafts": ["core.programming"] },
+    { "id": "story-sound", "label": "Historia y Sonido", "crafts": ["core.writing", "core.audio"] }
+  ],
+  "titlesNote": "Títulos de perfil, ganados, nunca comprados. all = cada id marcado; any + min = al menos min de la lista marcados; levels = nivel mínimo fijado por id; crafts / clusters = cantidad de crafts o clusters distintos marcados.",
+  "titles": [
+    { "id": "mecha-head", "label": "Mechadicto", "all": ["anime.mecha", "model.gunpla"] },
+    { "id": "mesh-node", "label": "Nodo Mesh", "all": ["radio.meshtastic", "maker.esp32"] },
+    { "id": "brush-hand", "label": "Mano de Pincel", "all": ["figure.mini-painting"], "levels": { "figure.mini-painting": 2 } },
+    { "id": "tabletop-regular", "label": "Habitué de Mesa", "any": ["tabletop.boardgames", "tabletop.card-games", "tabletop.wargames", "tabletop.kill-team"], "min": 2 },
+    { "id": "seasonal-scholar", "label": "Erudito de Temporada", "all": ["anime.series"], "levels": { "anime.series": 3 } },
+    { "id": "bench-keeper", "label": "Guardián del Banco", "crafts": 3 },
+    { "id": "brick-lord", "label": "Señor del Ladrillo", "any": ["brick.moc", "brick.trains", "brick.technic", "brick.sets", "brick.minifigs"], "min": 3 },
+    { "id": "signal-chaser", "label": "Cazaseñales", "any": ["radio.meshtastic", "radio.sdr", "radio.mesh-admin", "radio.qsl"], "min": 2 },
+    { "id": "frame-perfect", "label": "Frame Perfect", "all": ["video.videography", "video.editing"] },
+    { "id": "atlas-walker", "label": "Caminante del Atlas", "clusters": 6 }
+  ]
+}

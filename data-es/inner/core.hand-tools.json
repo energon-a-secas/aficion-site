@@ -1,0 +1,26 @@
+{
+  "of": "core.hand-tools",
+  "label": "Trabajo de banco",
+  "blurb": "La mitad sin glamour de todo hobby de hacer cosas en el mapa, y la que más lejos se transfiere.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 170, "startAngle": -90 },
+  "nodes": [
+    { "id": "core.hand-tools.abrasives", "label": "Progresión de granos","class": "notable","tags": ["hands-on", "patience"],  "blurb": "Nunca te saltes un grano. Un grano grueso perdido deja un rayón que los cuatro grados siguientes no alcanzan, sea lijando una unión o puliendo un espejo." },
+    { "id": "core.hand-tools.cutting",   "label": "Corte",         "class": "node",   "tags": ["hands-on", "cheap-start"],"blurb": "Cuchillo, sierra, alicates y tijeras. Una herramienta afilada corta donde apuntaste; una sin filo va donde el material prefiera." },
+    { "id": "core.hand-tools.drilling",  "label": "Perforado",        "class": "node",   "tags": ["hands-on"],               "blurb": "Granete, agujero piloto y recién la medida. Saltarse el granete es la manera en que la broca se pasea por una pieza que ya habías terminado." },
+    { "id": "core.hand-tools.adhesives", "label": "Adhesivos",       "class": "node",   "tags": ["hands-on", "research"],   "blurb": "Cemento solvente, cianoacrilato, epoxi y cemento de contacto, cada uno con un material donde funciona y varios que arruina." },
+    { "id": "core.hand-tools.filling",   "label": "Masillado",         "class": "node",   "tags": ["hands-on", "patience"],   "blurb": "Masilla, lija, inspección, repetir. Casi siempre más ciclos de los planeados, y el primer decide cuándo terminaste." },
+    { "id": "core.hand-tools.measuring", "label": "Medición",       "class": "node",   "tags": ["research", "patience"],   "blurb": "Calibre, escuadras y un punto de referencia al que siempre vuelves. Medir desde el último corte acumula cada error que cometiste." },
+    { "id": "core.hand-tools.jigs",      "label": "Plantillas y prensas", "class": "node",   "tags": ["hands-on"],               "blurb": "El accesorio que hace que la segunda pieza calce con la primera. Armar la plantilla suele ser más rápido que corregir la diferencia." },
+    { "id": "core.hand-tools.safety",    "label": "Polvo y EPP",    "class": "node",   "tags": ["research", "gear"],       "blurb": "Extracción, protección ocular y el cartucho correcto. El polvo de resina y de MDF son las dos puertas más salteadas de este mapa." }
+  ],
+  "edges": [
+    { "from": "core.hand-tools.cutting",   "to": "core.hand-tools.abrasives", "kind": "leads-to" },
+    { "from": "core.hand-tools.abrasives", "to": "core.hand-tools.filling",   "kind": "kin",      "note": "Masillar, lijar, imprimar, hallar la siguiente falla. El ciclo que se come casi todo el tiempo de cualquier acabado." },
+    { "from": "core.hand-tools.abrasives", "to": "core.hand-tools.safety",    "kind": "kin" },
+    { "from": "core.hand-tools.cutting",   "to": "core.hand-tools.measuring", "kind": "kin" },
+    { "from": "core.hand-tools.measuring", "to": "core.hand-tools.drilling",  "kind": "leads-to" },
+    { "from": "core.hand-tools.drilling",  "to": "core.hand-tools.jigs",      "kind": "kin" },
+    { "from": "core.hand-tools.adhesives", "to": "core.hand-tools.filling",   "kind": "kin" },
+    { "from": "core.hand-tools.jigs",      "to": "core.hand-tools.adhesives", "kind": "kin" }
+  ]
+}

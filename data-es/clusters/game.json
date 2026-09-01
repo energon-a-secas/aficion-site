@@ -1,0 +1,112 @@
+{
+  "id": "game",
+  "label": "Videojuegos",
+  "blurb": "Jugarlos con intención: sistemas que vale la pena estudiar, máquinas que vale la pena armar, y las salidas laterales hacia el código y el hardware.",
+  "notable": "game.arpg",
+  "accent": "jade",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [735, -1363],
+    "radius": 255,
+    "startAngle": 210,
+    "order": [
+      "game.arpg", "game.jrpg", "game.build-crafting", "game.roguelike", "game.strategy",
+      "game.speedrunning", "game.preservation", "game.modding", "game.gamedev", "game.mmo",
+      "game.co-op", "game.fighting", "game.rhythm", "game.controllers", "game.pc-building",
+      "game.simracing", "game.flightsim", "game.vr", "game.photomode"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "game.arpg",
+      "label": "RPG de acción",
+      "class": "notable",
+      "tags": ["screen", "patience", "research"],
+      "blurb": "Loot, temporadas y un árbol pasivo con miles de nodos. Lo juega gente que disfruta la planilla al menos tanto como el combate.",
+      "aka": ["arpg", "path of exile", "diablo"],
+      "accent": "violet"
+    },
+    {
+      "id": "game.build-crafting",
+      "label": "Armado de builds",
+      "class": "node",
+      "tags": ["research", "patience", "code"],
+      "blurb": "Planear un personaje en un árbol de habilidades enorme antes de jugarlo. El hobby de leer un grafo, que es más o menos todo este sitio.",
+      "accent": "jade"
+    },
+    { "id": "game.roguelike",  "label": "Roguelikes",      "class": "node", "tags": ["screen", "patience", "cheap-start"],"blurb": "Runs en vez de partidas guardadas. Perder es contenido, y lo que aprendes entre intentos es la verdadera progresión." },
+    { "id": "game.strategy",   "label": "Juegos de estrategia",  "class": "node", "tags": ["patience", "research", "screen"],  "blurb": "Por turnos o gran estrategia. Sesiones largas, sistemas profundos y una comunidad que escribe más documentación que el propio estudio." },
+    { "id": "game.speedrunning","label": "Speedrunning",   "class": "node", "tags": ["patience", "social", "screen"],    "blurb": "Planeo de rutas, ejecución al frame y un cronómetro. Una disciplina de precisión montada sobre el juego de otro." },
+    { "id": "game.preservation","label": "Preservación de juegos","class":"node", "tags": ["research", "collecting", "code"], "blurb": "Volcar, documentar y mantener jugable lo que ya no se vende. Un hobby de archivo con su zona legal gris incluida." },
+    { "id": "game.modding",    "label": "Modding de juegos",    "class": "node", "tags": ["code", "content", "patience"],     "blurb": "Editar el juego de alguien más con sus herramientas, o sin ellas. El primer proyecto de programación que la gente sí termina." },
+    { "id": "game.gamedev",    "label": "Desarrollo de juegos","class": "node", "tags": ["code", "content", "patience"],     "blurb": "Hacer uno chico en vez de modear uno grande. Controlar el alcance es toda la habilidad, y casi nadie la tiene al primer intento." },
+    { "id": "game.co-op",      "label": "Jugar con amigos","class":"node","tags": ["social", "screen", "cheap-start"],"blurb": "La noche agendada que mantiene en contacto al grupo de amigos. Quizá el único hobby del mapa con horario semanal fijo." },
+    { "id": "game.controllers","label": "Modding de controles","class":"node", "tags": ["hands-on", "electronics", "gear"],"blurb": "Sticks de efecto Hall, arcade sticks y botones a medida. Un hobby de soldadura escondido dentro de uno gamer." },
+    { "id": "game.pc-building","label": "Armado de PC",     "class": "node", "tags": ["hands-on", "gear", "electronics"], "blurb": "Elegir piezas, rutear cables y cuidar temperaturas. Armar es la mitad fácil; decidir qué comprar es donde va la investigación.", "inner": true },
+    { "id": "game.simracing",  "label": "Sim racing",      "class": "node", "tags": ["gear", "screen", "space"],         "blurb": "Volante, pedales y un rig atornillado. La escalada de equipo es empinada y lo aprendido de física sirve en una pista real." },
+    { "id": "game.flightsim",  "label": "Simulación de vuelo","class": "node", "tags": ["gear", "screen", "research"],     "blurb": "Procedimientos, cartas y una cabina armada con paneles de switches. Más cerca de un hobby de estudio que de un juego." },
+    { "id": "game.photomode",  "label": "Fotografía in-game","class":"node","tags": ["content", "screen", "patience"],  "blurb": "Composición, distancia focal y luz dentro de un mundo renderizado. Toda habilidad se transfiere, salvo el caminar." },
+    {
+      "id": "game.jrpg",
+      "label": "JRPG",
+      "class": "node",
+      "tags": ["screen", "patience", "fandom"],
+      "blurb": "Historias de sesenta horas, menús por turnos y un grupo del que eliges favoritos. El backlog es el verdadero endgame, y todos en el género van perdiendo.",
+      "aka": ["jrpg", "final fantasy", "persona"]
+    },
+    {
+      "id": "game.fighting",
+      "label": "Juegos de pelea",
+      "class": "node",
+      "tags": ["social", "screen", "patience"],
+      "blurb": "Frame data, espaciado y un modo entrenamiento que nunca miente. El único género donde mejorar se mide contra alguien que intenta impedírtelo.",
+      "aka": ["fgc", "street fighter", "tekken"]
+    },
+    {
+      "id": "game.rhythm",
+      "label": "Juegos de ritmo",
+      "class": "node",
+      "tags": ["screen", "audio", "patience"],
+      "blurb": "Caen notas y las aciertas a tiempo, calificado al milisegundo. Practicar se ve igual que jugar, algo que ningún instrumento ha logrado.",
+      "aka": ["rhythm game", "beat saber", "ddr"]
+    },
+    {
+      "id": "game.mmo",
+      "label": "Mundos en línea",
+      "class": "node",
+      "tags": ["social", "screen", "patience"],
+      "blurb": "Un mundo persistente, miles de desconocidos y un calendario de raids. Los únicos juegos del mapa que siguen sin ti mientras duermes.",
+      "aka": ["mmo", "mmorpg", "wow", "ffxiv"]
+    },
+    {
+      "id": "game.vr",
+      "label": "VR y simulación",
+      "class": "node",
+      "tags": ["gear", "screen", "space"],
+      "blurb": "Un visor, un piso despejado y un cable que aprendes a esquivar. Nadie lo cree hasta la demo, y nadie lo explica bien después tampoco.",
+      "aka": ["vr", "virtual reality", "headset"]
+    }
+  ],
+  "edges": [
+    { "from": "game.arpg",       "to": "game.build-crafting","kind": "kin",      "note": "Para mucha gente el árbol es el juego. Se van horas planeando un personaje que nunca llega a jugarse." },
+    { "from": "game.arpg",       "to": "game.speedrunning",  "kind": "leads-to" },
+    { "from": "game.arpg",       "to": "game.roguelike",     "kind": "kin" },
+    { "from": "game.arpg",       "to": "game.co-op",         "kind": "kin" },
+    { "from": "game.arpg",       "to": "game.strategy",      "kind": "kin" },
+    { "from": "game.build-crafting","to": "game.modding",    "kind": "kin" },
+    { "from": "game.modding",    "to": "game.gamedev",       "kind": "leads-to", "note": "El modding te da las partes difíciles ya resueltas; por eso más gente termina un mod que un juego." },
+    { "from": "game.gamedev",    "to": "game.preservation",  "kind": "kin" },
+    { "from": "game.speedrunning","to": "game.preservation", "kind": "kin" },
+    { "from": "game.co-op",      "to": "game.controllers",   "kind": "kin" },
+    { "from": "game.controllers","to": "game.pc-building",   "kind": "kin" },
+    { "from": "game.pc-building","to": "game.simracing",     "kind": "kin" },
+    { "from": "game.simracing",  "to": "game.flightsim",     "kind": "kin" },
+    { "from": "game.simracing",  "to": "game.photomode",     "kind": "kin" },
+    { "from": "game.arpg",       "to": "game.jrpg",          "kind": "kin",      "note": "Dos respuestas a la misma raíz RPG: uno vuelve el combate menús, el otro planilla. Mucha gente guarda partida en ambos." },
+    { "from": "game.fighting",   "to": "game.co-op",         "kind": "kin",      "note": "El género nunca dejó el sillón. El netcode se puso al día, pero el local con stick prestado sigue siendo la puerta de entrada." },
+    { "from": "game.rhythm",     "to": "game.controllers",   "kind": "kin",      "note": "Pistas de baile, baterías y sliders caseros. Media escena termina soldando el control que tenía el arcade." },
+    { "from": "game.mmo",        "to": "game.co-op",         "kind": "kin",      "note": "La sesión semanal, escalada a un gremio y anotada en un calendario de raids." },
+    { "from": "game.simracing",  "to": "game.vr",            "kind": "kin" },
+    { "from": "game.flightsim",  "to": "game.vr",            "kind": "kin",      "note": "El head tracking es la mejora en que ambas cabinas coinciden. La percepción de profundidad es por qué mejoran los aterrizajes." }
+  ]
+}

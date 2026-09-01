@@ -1,0 +1,151 @@
+{
+  "id": "kitchen",
+  "label": "Cocina y comida",
+  "blurb": "Todos ya hacen esto a diario. El hobby empieza cuando la cena deja de ser el punto y el proceso toma el mando.",
+  "notable": "kitchen.cooking",
+  "accent": "ember",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [2000, 1100],
+    "radius": 250,
+    "startAngle": 0,
+    "order": [
+      "kitchen.cooking", "kitchen.baking", "kitchen.sourdough", "kitchen.fermentation",
+      "kitchen.cheese", "kitchen.homebrewing", "kitchen.preserving", "kitchen.bbq",
+      "kitchen.spices", "kitchen.knife-skills", "kitchen.pasta", "kitchen.meal-planning",
+      "kitchen.food-photo", "kitchen.chocolate"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "kitchen.cooking",
+      "label": "Cocina casera",
+      "class": "notable",
+      "tags": ["hands-on", "cheap-start", "social"],
+      "blurb": "La cena, pero a propósito. Deja de ser una tarea más o menos cuando empiezas a cocinar cosas que nadie pidió.",
+      "aka": ["cooking", "home chef", "weeknight cooking"],
+      "accent": "ember"
+    },
+    {
+      "id": "kitchen.baking",
+      "label": "Repostería",
+      "class": "node",
+      "inner": true,
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Gramos, temperaturas de horno y química que muestra su trabajo. La rama de la cocina donde improvisar es la manera de que salga mal.",
+      "aka": ["cakes", "pastry"]
+    },
+    {
+      "id": "kitchen.sourdough",
+      "label": "Masa madre",
+      "class": "node",
+      "tags": ["patience", "hands-on", "research"],
+      "blurb": "Un frasco de harina y agua con nombre propio. Horarios de comida, fotos de la miga y un cultivo que sobrevive a casi cualquier membresía de gimnasio.",
+      "aka": ["sourdough starter", "bread baking"]
+    },
+    {
+      "id": "kitchen.fermentation",
+      "label": "Fermentación",
+      "class": "node",
+      "tags": ["patience", "research", "cheap-start"],
+      "blurb": "Kimchi, chucrut, miso y cosas burbujeando en frascos. Descomposición controlada, a cargo de gente que lee el funk como un reporte del clima.",
+      "aka": ["fermenting", "kimchi", "kombucha"]
+    },
+    {
+      "id": "kitchen.bbq",
+      "label": "BBQ y ahumado",
+      "class": "node",
+      "tags": ["outdoors", "gear", "patience", "social"],
+      "blurb": "Manejo del fuego, rubs y un termómetro con wifi. Doce horas para una sola comida, la mayoría mirando un número que no se mueve.",
+      "aka": ["barbecue", "smoking meat", "low and slow"]
+    },
+    {
+      "id": "kitchen.knife-skills",
+      "label": "Manejo del cuchillo",
+      "class": "node",
+      "tags": ["hands-on", "gear", "cheap-start"],
+      "blurb": "Agarre, ángulo y una piedra bien plana. Afilar se vuelve un hobby propio una semana después de que llega el primer cuchillo serio.",
+      "aka": ["knife sharpening", "whetstone"]
+    },
+    {
+      "id": "kitchen.pasta",
+      "label": "Pasta casera",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "social"],
+      "blurb": "Harina, huevos y una máquina de manivela atornillada a la mesa. Las formas tienen nombre, región y reglas, y la pasta seca deja de ser aceptable.",
+      "aka": ["fresh pasta", "noodle making"]
+    },
+    {
+      "id": "kitchen.preserving",
+      "label": "Conservas",
+      "class": "node",
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Mermelada, encurtidos y filas de frascos etiquetados. Excedentes de temporada vueltos no perecibles, más un saber sobre botulismo que no planeabas.",
+      "aka": ["canning", "pickling", "jam making"]
+    },
+    {
+      "id": "kitchen.homebrewing",
+      "label": "Cerveza casera",
+      "class": "node",
+      "tags": ["gear", "patience", "research"],
+      "blurb": "Malta, levadura y sanitizar todo dos veces. De veinte litros en veinte litros, con un densímetro llevando el puntaje.",
+      "aka": ["home brew", "beer brewing", "mead"]
+    },
+    {
+      "id": "kitchen.chocolate",
+      "label": "Chocolate bean to bar",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Tostar cacao, molerlo por dos días y templar grado a grado. Un hobby con un solo ingrediente y una docena de formas de arruinarlo.",
+      "aka": ["chocolate making", "craft chocolate"]
+    },
+    {
+      "id": "kitchen.food-photo",
+      "label": "Fotografía de comida",
+      "class": "node",
+      "tags": ["content", "hands-on", "patience"],
+      "blurb": "Emplatado, luz de ventana y una cena que se enfría a propósito. El plato está listo cuando la foto lo está, no antes.",
+      "aka": ["food styling", "plating"]
+    },
+    {
+      "id": "kitchen.spices",
+      "label": "Mezcla de especias",
+      "class": "node",
+      "tags": ["research", "collecting", "cheap-start"],
+      "blurb": "Semillas enteras, una sartén seca y un molinillo que ya no muele café. Un garam masala desde cero recalibra el sabor de los frascos del súper.",
+      "aka": ["spice rack", "curry blends"]
+    },
+    {
+      "id": "kitchen.meal-planning",
+      "label": "Planificación de comidas",
+      "class": "node",
+      "tags": ["research", "cheap-start", "patience"],
+      "blurb": "Una semana de cenas decidida el domingo. Planillas, cocinar por tandas y la satisfacción callada de un congelador con índice.",
+      "aka": ["meal prep", "batch cooking"]
+    },
+    {
+      "id": "kitchen.cheese",
+      "label": "Quesos caseros",
+      "class": "node",
+      "tags": ["patience", "hands-on", "gear"],
+      "blurb": "Cultivos, cuajo y una cuajada que cortas con regla. Los frescos salen en un fin de semana; los madurados piden una cueva y un cambio de personalidad.",
+      "aka": ["cheese making", "home dairy"]
+    }
+  ],
+  "edges": [
+    { "from": "kitchen.cooking", "to": "kitchen.baking", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.knife-skills", "kind": "leads-to" },
+    { "from": "kitchen.cooking", "to": "kitchen.pasta", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.meal-planning", "kind": "leads-to" },
+    { "from": "kitchen.cooking", "to": "kitchen.bbq", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.spices", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.food-photo", "kind": "leads-to" },
+    { "from": "kitchen.baking", "to": "kitchen.sourdough", "kind": "leads-to" },
+    { "from": "kitchen.baking", "to": "kitchen.chocolate", "kind": "kin" },
+    { "from": "kitchen.sourdough", "to": "kitchen.fermentation", "kind": "kin", "note": "Una masa madre es un proyecto de fermentación que además hace pan. La gente de los frascos y la de la miga son la misma gente." },
+    { "from": "kitchen.fermentation", "to": "kitchen.preserving", "kind": "kin" },
+    { "from": "kitchen.fermentation", "to": "kitchen.cheese", "kind": "leads-to" },
+    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Ambos son manejo de levaduras con distinto papeleo." },
+    { "from": "kitchen.bbq", "to": "kitchen.preserving", "kind": "kin", "note": "Ahumar fue conservación antes que sabor. El tocino y el charqui siguen parados en esa línea." }
+  ]
+}

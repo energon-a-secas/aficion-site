@@ -6,10 +6,10 @@
 
 let sheetData = null;
 
-export async function ensureSheet() {
+export async function ensureSheet(basePath = 'data/') {
   if (sheetData) return sheetData;
-  const res = await fetch('data/sheet.json');
-  if (!res.ok) throw new Error(`data/sheet.json answered ${res.status}`);
+  const res = await fetch(`${basePath}sheet.json`);
+  if (!res.ok) throw new Error(`${basePath}sheet.json answered ${res.status}`);
   const raw = await res.json();
   if (!raw || !Array.isArray(raw.domains) || raw.domains.length !== 6) {
     throw new Error('data/sheet.json does not declare six domains');

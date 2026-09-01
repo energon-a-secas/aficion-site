@@ -1,0 +1,23 @@
+{
+  "of": "rail.dcc",
+  "label": "Control digital",
+  "blurb": "Lo que puedes hacer cuando cada locomotora tiene una dirección propia.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 160, "startAngle": -90 },
+  "nodes": [
+    { "id": "rail.dcc.addressing",  "label": "Direccionamiento",   "class": "node", "tags": ["electronics", "research"],       "blurb": "Darle a cada locomotora un número con el que la llama la central. El paso que hace siquiera posibles dos trenes en una misma vía." },
+    { "id": "rail.dcc.cv",          "label": "Programar CVs","class": "node", "tags": ["code", "research", "patience"], "blurb": "Variables de configuración para inercia, curvas de velocidad y luces. Toda la personalidad de un decodificador vive en una tabla de números." },
+    { "id": "rail.dcc.consisting",  "label": "Doble tracción",   "class": "node", "tags": ["research"],                      "blurb": "Dos o más locomotoras respondiendo como una, con velocidades igualadas para que no peleen entre sí en una pendiente." },
+    { "id": "rail.dcc.sound",       "label": "Decodificadores de sonido","class": "node", "tags": ["audio", "gear"],                "blurb": "Un parlante en un espacio donde no cabe ninguno, más su caja, porque un parlante pelado dentro del casco suena a teléfono." },
+    { "id": "rail.dcc.detection",   "label": "Detección de bloques","class":"node", "tags": ["electronics", "hands-on"],      "blurb": "Que la maqueta sepa dónde están los trenes. El prerrequisito de las señales y de todo lo automático." },
+    { "id": "rail.dcc.jmri",        "label": "Control por computadora","class":"node","tags": ["code", "research"],             "blurb": "Software libre manejando el ferrocarril: flotas, mandos, señales y despacho, desde una laptop en el borde de la maqueta." },
+    { "id": "rail.dcc.throttles",   "label": "Mandos",    "class": "node", "tags": ["gear", "social"],                "blurb": "Con cable, por radio o un teléfono. Lo que los operadores visitantes de verdad tocan, y de lo que van a tener opiniones." }
+  ],
+  "edges": [
+    { "from": "rail.dcc.addressing", "to": "rail.dcc.cv",         "kind": "leads-to" },
+    { "from": "rail.dcc.cv",         "to": "rail.dcc.consisting",  "kind": "leads-to" },
+    { "from": "rail.dcc.cv",         "to": "rail.dcc.sound",       "kind": "leads-to" },
+    { "from": "rail.dcc.addressing", "to": "rail.dcc.throttles",   "kind": "kin" },
+    { "from": "rail.dcc.detection",  "to": "rail.dcc.jmri",        "kind": "leads-to" },
+    { "from": "rail.dcc.consisting", "to": "rail.dcc.detection",   "kind": "kin" }
+  ]
+}

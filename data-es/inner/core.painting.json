@@ -1,0 +1,30 @@
+{
+  "of": "core.painting",
+  "label": "Técnicas de pintura",
+  "blurb": "El orden importa más que la marca. La mayoría de los fracasos de pintura son un paso hecho antes que el que va debajo.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    { "id": "core.painting.brush-control", "label": "Control de pincel",  "class": "node", "tags": ["paint", "cheap-start"], "blurb": "Diluye la pintura, carga la punta y tira el trazo. Toda otra técnica es esta misma repetida con intención." },
+    { "id": "core.painting.priming",       "label": "Imprimación",        "class": "node", "tags": ["paint", "hands-on"],    "blurb": "Adherencia, y un solo color plano que revela cada falla que la superficie desnuda escondía." },
+    { "id": "core.painting.airbrush",      "label": "Aerografía",    "class": "node", "tags": ["paint", "gear"],        "blurb": "Compresor, aguja, presión de aire. La puerta a los degradados, a la modulación y a cualquier acabado que deba quedar parejo." },
+    { "id": "core.painting.masking",       "label": "Enmascarado",        "class": "node", "tags": ["paint", "patience"],    "blurb": "Cinta, masilla y film. Un borde duro no se pinta: se despega después." },
+    { "id": "core.painting.washes",        "label": "Lavados",         "class": "node", "tags": ["paint"],                "blurb": "Pintura oscura diluida que corre hacia los recovecos sobre una capa brillante, y luego se retira de las superficies planas." },
+    { "id": "core.painting.highlighting",  "label": "Luces",   "class": "node", "tags": ["paint", "patience"],    "blurb": "Luces de borde, capas y difuminados. Pintar donde habría caído la luz, no donde está el color." },
+    { "id": "core.painting.weathering",    "label": "Envejecido",     "class": "node", "tags": ["paint", "patience"],    "blurb": "Desconchados, chorreados, pigmentos y hollín. Daño aplicado a propósito para que el objeto se lea como usado." },
+    { "id": "core.painting.metallics",     "label": "Metálicos",      "class": "node", "tags": ["paint", "hands-on"],    "blurb": "Pinturas metálicas, y el truco más difícil del metal no metálico: que una superficie plana se lea como acero pulido." },
+    { "id": "core.painting.safety",        "label": "Seguridad con aerosoles",   "class": "node", "tags": ["gear", "space"],        "blurb": "Cabina, extracción y un respirador con el cartucho correcto. Deja de ser opcional apenas hay solventes en el aire." },
+    { "id": "core.painting.colour-theory", "label": "Teoría del color",  "class": "node", "tags": ["research", "paint"],    "blurb": "Por qué un repintado se ve mejor que el arte de la caja. Primero el valor, luego la temperatura, luego la saturación." }
+  ],
+  "edges": [
+    { "from": "core.painting.brush-control", "to": "core.painting.priming",      "kind": "leads-to" },
+    { "from": "core.painting.priming",       "to": "core.painting.washes",       "kind": "leads-to" },
+    { "from": "core.painting.priming",       "to": "core.painting.airbrush",     "kind": "leads-to" },
+    { "from": "core.painting.airbrush",      "to": "core.painting.masking",      "kind": "leads-to" },
+    { "from": "core.painting.airbrush",      "to": "core.painting.safety",       "kind": "kin",      "note": "El compresor y el respirador se compran en el mismo pedido, o el segundo se compra tarde." },
+    { "from": "core.painting.washes",        "to": "core.painting.weathering",   "kind": "leads-to" },
+    { "from": "core.painting.brush-control", "to": "core.painting.highlighting", "kind": "leads-to" },
+    { "from": "core.painting.highlighting",  "to": "core.painting.metallics",    "kind": "kin" },
+    { "from": "core.painting.colour-theory", "to": "core.painting.highlighting", "kind": "leads-to" },
+    { "from": "core.painting.colour-theory", "to": "core.painting.weathering",   "kind": "kin" }
+  ]
+}

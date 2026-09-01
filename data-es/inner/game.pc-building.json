@@ -1,0 +1,37 @@
+{
+  "of": "game.pc-building",
+  "label": "Armar PCs, tras el primer boot",
+  "blurb": "Ensamblar una máquina es un sábado. Estas son las direcciones que toma la segunda.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "game.pc-building.parts-picking", "game.pc-building.small-form-factor", "game.pc-building.silent-builds",
+      "game.pc-building.undervolting", "game.pc-building.overclocking", "game.pc-building.benchmarking",
+      "game.pc-building.watercooling", "game.pc-building.case-modding", "game.pc-building.cable-management"
+    ]
+  },
+  "nodes": [
+    { "id": "game.pc-building.parts-picking",     "label": "Elegir componentes",     "class": "notable", "tags": ["research", "gear"],               "blurb": "Listas de compatibilidad, historial de precios y una planilla antes de cualquier pedido. La mayor parte del hobby ocurre antes de que algo se despache." },
+    { "id": "game.pc-building.watercooling",      "label": "Refrigeración líquida",      "class": "node", "tags": ["hands-on", "gear", "patience"],      "blurb": "Bloques, radiadores y tubos, blandos o rígidos, hasta un custom loop completo. La prueba de fugas cuesta un día, y saltársela puede costar una GPU." },
+    { "id": "game.pc-building.cable-management",  "label": "Gestión de cables",  "class": "node", "tags": ["hands-on", "patience"],              "blurb": "Ruteo, peines y velcro detrás de la bandeja de la placa. Invisible con el panel puesto, que es exactamente por qué se hace bien." },
+    { "id": "game.pc-building.overclocking",      "label": "Overclocking",      "class": "node", "tags": ["research", "patience", "gear"],      "blurb": "Más reloj por más voltaje hasta que deja de salir gratis. Las pruebas de estabilidad son el hobby; el benchmark es solo el recibo." },
+    { "id": "game.pc-building.undervolting",      "label": "Undervolting",      "class": "node", "tags": ["research", "patience", "cheap-start"],"blurb": "La misma curva trabajada en la otra dirección. Menos calor y menos ruido por los mismos frames, y no cuesta más que una tarde." },
+    { "id": "game.pc-building.small-form-factor", "label": "Formato compacto (SFF)", "class": "node", "tags": ["space", "gear", "patience"],         "blurb": "La máquina entera en diez litros o menos. Cada pieza se elige dos veces: una por rendimiento y otra por si físicamente cabe." },
+    { "id": "game.pc-building.benchmarking",      "label": "Benchmarking",      "class": "node", "tags": ["research", "screen", "patience"],    "blurb": "Corridas, gráficos y mínimos del uno por ciento. La máquina se armó para jugar y su primera semana la pasa siendo medida." },
+    { "id": "game.pc-building.silent-builds",     "label": "Builds silenciosas",     "class": "node", "tags": ["gear", "research", "patience"],      "blurb": "Curvas de ventilador, disipadores sobredimensionados y monturas de goma. La meta es una máquina que hay que mirar para saber si está prendida." },
+    { "id": "game.pc-building.case-modding",      "label": "Case modding",      "class": "node", "tags": ["hands-on", "paint"],                 "blurb": "Paneles cortados, pintura custom y piezas que ningún catálogo vende. El punto donde una computadora deja de armarse y empieza a hacerse." }
+  ],
+  "edges": [
+    { "from": "game.pc-building.parts-picking",    "to": "game.pc-building.cable-management",  "kind": "leads-to" },
+    { "from": "game.pc-building.parts-picking",    "to": "game.pc-building.small-form-factor", "kind": "leads-to", "note": "El segundo build casi siempre es más chico que el primero." },
+    { "from": "game.pc-building.benchmarking",     "to": "game.pc-building.overclocking",      "kind": "leads-to", "note": "No puedes afinar lo que no has medido." },
+    { "from": "game.pc-building.overclocking",     "to": "game.pc-building.undervolting",      "kind": "kin",      "note": "El mismo editor de curvas, apuntado al revés." },
+    { "from": "game.pc-building.overclocking",     "to": "game.pc-building.watercooling",      "kind": "leads-to" },
+    { "from": "game.pc-building.undervolting",     "to": "game.pc-building.silent-builds",     "kind": "kin" },
+    { "from": "game.pc-building.watercooling",     "to": "game.pc-building.case-modding",      "kind": "kin" },
+    { "from": "game.pc-building.cable-management", "to": "game.pc-building.case-modding",      "kind": "kin" }
+  ]
+}

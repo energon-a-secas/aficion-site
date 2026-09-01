@@ -1,0 +1,66 @@
+{
+  "id": "retro",
+  "label": "Tecnología retro",
+  "blurb": "Hardware que dejó de fabricarse, mantenido vivo por gente que aprendió a repararlo. Mitad colección, mitad reparación electrónica.",
+  "notable": "retro.consoles",
+  "accent": "ember",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [-735, -1363],
+    "radius": 250,
+    "startAngle": 300,
+    "spread": 190,
+    "order": [
+      "retro.consoles", "retro.crt", "retro.arcade", "retro.pinball", "retro.modding",
+      "retro.recapping", "retro.cartridges", "retro.repro-detect", "retro.handhelds",
+      "retro.emulation", "retro.computers", "retro.floppy", "retro.demoscene", "retro.mechanical-kb"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "retro.consoles",
+      "label": "Consolas retro",
+      "class": "notable",
+      "tags": ["collecting", "screen", "electronics", "research"],
+      "blurb": "Hardware de antes de las actualizaciones en línea: o funciona, o necesita a alguien con cautín. Cada vez más, ese alguien es el dueño.",
+      "aka": ["retro gaming", "vintage consoles"],
+      "accent": "ember"
+    },
+    {
+      "id": "retro.crt",
+      "label": "Pantallas CRT",
+      "class": "node",
+      "tags": ["gear", "space", "research"],
+      "blurb": "La pantalla para la que se diseñaron estas máquinas, y la única donde su imagen se ve correcta. Pesada, de stock finito y peligrosa por dentro.",
+      "accent": "cyan"
+    },
+    { "id": "retro.arcade",    "label": "Cabinas arcade", "class": "node", "tags": ["space", "gear", "hands-on"],       "blurb": "Una cabina completa en un cuarto que no se diseñó para eso. Carpintería, monitor, fuente y arte, todo restaurable y todo pesado." },
+    { "id": "retro.pinball",   "label": "Pinball",         "class": "node", "tags": ["space", "hands-on", "gear"],       "blurb": "Electromecánico o de estado sólido; igual es un hobby de mantenimiento con un juego adjunto. Switches, bobinas y mucha goma." },
+    { "id": "retro.modding",   "label": "Modding de consolas", "class": "node", "tags": ["electronics", "hands-on", "patience"],"blurb": "Switch de región, salida RGB, emuladores de lector óptico. Soldadura fina sobre una placa de la que no puedes comprar otra." },
+    { "id": "retro.recapping", "label": "Recapping",       "class": "node", "tags": ["electronics", "hands-on", "patience"],"blurb": "Cambiar capacitores electrolíticos antes de que goteen y se coman las pistas de abajo. La habilidad de reparación más útil del clúster." },
+    { "id": "retro.cartridges","label": "Coleccionar cartuchos","class":"node","tags": ["collecting", "research", "gear"],"blurb": "En caja, sueltos o completos. Un mercado con guías de precios publicadas, variantes regionales y muchas falsificaciones." },
+    { "id": "retro.repro-detect","label": "Detectar repros","class": "node", "tags": ["research", "collecting"],         "blurb": "Distinguir un cartucho repro de uno original por la impresión de la etiqueta, la revisión de placa y los tornillos de la carcasa." },
+    { "id": "retro.handhelds", "label": "Portátiles",       "class": "node", "tags": ["collecting", "cheap-start", "screen"],"blurb": "La entrada más barata al hobby, y la de escena de modding más activa: pantallas, baterías y retroiluminación." },
+    { "id": "retro.emulation", "label": "Emulación",       "class": "node", "tags": ["code", "screen", "cheap-start"],   "blurb": "Software que finge ser el hardware. Precisión contra velocidad es una discusión real con respuestas reales por sistema." },
+    { "id": "retro.computers", "label": "Computadoras vintage","class": "node", "tags": ["collecting", "code", "research"], "blurb": "Máquinas de ocho y dieciséis bits con hardware documentado, y por eso todavía se les puede escribir software nuevo." },
+    { "id": "retro.floppy",    "label": "Preservar discos","class": "node", "tags": ["research", "code", "patience"],   "blurb": "Leer medios magnéticos en descomposición a nivel de flujo antes de que queden ilegibles. Trabajo de archivo con fecha límite real." },
+    { "id": "retro.demoscene", "label": "Demoscene",       "class": "node", "tags": ["code", "audio", "social"],         "blurb": "Hacer que una máquina haga lo que sus diseñadores dijeron que no podía, en un tamaño fijo, y mostrarlo en una party." },
+    { "id": "retro.mechanical-kb","label": "Teclados mecánicos","class":"node","tags": ["hands-on", "gear", "collecting"],"blurb": "Switches, placas, espuma y un cautín. Un hobby moderno que le pidió prestada toda su estética y media caja de herramientas a este clúster." }
+  ],
+  "edges": [
+    { "from": "retro.consoles",  "to": "retro.crt",         "kind": "kin",      "note": "Las scanlines y el fósforo eran parte de la dirección de arte. En un panel plano el mismo juego es otra imagen." },
+    { "from": "retro.consoles",  "to": "retro.modding",     "kind": "leads-to" },
+    { "from": "retro.consoles",  "to": "retro.cartridges",  "kind": "kin" },
+    { "from": "retro.consoles",  "to": "retro.handhelds",   "kind": "kin" },
+    { "from": "retro.consoles",  "to": "retro.emulation",   "kind": "kin" },
+    { "from": "retro.modding",   "to": "retro.recapping",   "kind": "leads-to" },
+    { "from": "retro.recapping", "to": "retro.pinball",     "kind": "kin" },
+    { "from": "retro.crt",       "to": "retro.arcade",      "kind": "kin" },
+    { "from": "retro.arcade",    "to": "retro.pinball",     "kind": "kin" },
+    { "from": "retro.cartridges","to": "retro.repro-detect","kind": "kin" },
+    { "from": "retro.emulation", "to": "retro.computers",   "kind": "kin" },
+    { "from": "retro.computers", "to": "retro.floppy",      "kind": "leads-to" },
+    { "from": "retro.computers", "to": "retro.demoscene",   "kind": "kin" },
+    { "from": "retro.computers", "to": "retro.mechanical-kb","kind": "kin" }
+  ]
+}

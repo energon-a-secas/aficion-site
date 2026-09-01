@@ -1,0 +1,170 @@
+{
+  "id": "radio",
+  "label": "Radio y mesh",
+  "blurb": "Llevar una señal de aquí a allá sin pagarle a nadie por el privilegio. Una mitad exige licencia; la otra, a propósito, no.",
+  "notable": "radio.ham",
+  "accent": "violet",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [1723, -304],
+    "radius": 250,
+    "startAngle": -100,
+    "order": [
+      "radio.ham", "radio.meshtastic", "radio.node-build", "radio.mesh-admin", "radio.repeater",
+      "radio.antennas", "radio.propagation", "radio.digital-modes", "radio.sdr", "radio.satellites",
+      "radio.hf-station", "radio.pota", "radio.contesting", "radio.qsl", "radio.morse"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "radio.ham",
+      "label": "Radioafición",
+      "class": "notable",
+      "tags": ["radio", "electronics", "social", "patience"],
+      "blurb": "Radio amateur con licencia. Un examen, un indicativo, y permiso para hablar con un extraño en otro continente con equipo que puedes reparar tú.",
+      "aka": ["amateur radio", "hamradio", "ham"],
+      "accent": "cyan",
+      "levels": [
+        { "label": "Técnico", "note": "35 preguntas. Todo sobre 30 MHz más privilegios HF limitados" },
+        { "label": "General",    "note": "35 preguntas más. Privilegios en todas las bandas, la puerta al contacto mundial" },
+        { "label": "Extra",      "note": "50 preguntas. Todos los privilegios que la estructura de licencias tiene" }
+      ]
+    },
+    {
+      "id": "radio.meshtastic",
+      "label": "Meshtastic",
+      "class": "node",
+      "tags": ["radio", "code", "outdoors", "cheap-start"],
+      "blurb": "Una malla LoRa fuera de red en espectro ISM libre. Una placa y una antena son todo el costo de entrada, y ningún examen se interpone.",
+      "aka": ["lora mesh", "meshtastic node", "off-grid messaging"],
+      "accent": "jade"
+    },
+    {
+      "id": "radio.node-build",
+      "label": "Armado de nodos",
+      "class": "node",
+      "tags": ["electronics", "hands-on", "code"],
+      "blurb": "Elegir placa y ponerle firmware. ESP32 para la interfaz web, nRF52 cuando el nodo debe durar semanas con una celda.",
+      "aka": ["esp32", "nrf52", "firmware flashing", "heltec"]
+    },
+    {
+      "id": "radio.mesh-admin",
+      "label": "Configuración de la malla",
+      "class": "node",
+      "tags": ["radio", "code", "research"],
+      "blurb": "Región y preset del módem deben coincidir en toda la malla, o un nodo que se ve bien no habla con nadie. La región también es el marco legal."
+    },
+    {
+      "id": "radio.repeater",
+      "label": "Repetidor solar",
+      "class": "node",
+      "tags": ["outdoors", "electronics", "radio", "space"],
+      "blurb": "Un nodo en un mástil que nadie visita. Presupuesto solar, sellado contra el clima, montaje, y la charla por el acceso al sitio que va antes de los tres."
+    },
+    {
+      "id": "radio.antennas",
+      "label": "Antenas",
+      "class": "node",
+      "tags": ["hands-on", "radio", "space"],
+      "blurb": "Alambre, tubo y matemáticas. Nunca transmitas sin una conectada, porque la potencia reflejada vuelve directo al chip.",
+      "aka": ["dipole", "yagi", "antenna building"],
+      "inner": true
+    },
+    {
+      "id": "radio.propagation",
+      "label": "Propagación",
+      "class": "node",
+      "tags": ["radio", "research", "patience"],
+      "blurb": "Por qué el mismo equipo llega a Japón a las 3am y a nada al mediodía. Flujo solar, la ionósfera y el timing de la línea gris.",
+      "aka": ["band conditions", "ionosphere"]
+    },
+    {
+      "id": "radio.digital-modes",
+      "label": "Modos digitales",
+      "class": "node",
+      "tags": ["radio", "code", "patience"],
+      "blurb": "FT8, packet y APRS. Contactos a niveles de señal que el oído humano no percibe, donde el pensar de ham y el de mesh se encuentran.",
+      "aka": ["ft8", "aprs", "packet radio"]
+    },
+    {
+      "id": "radio.sdr",
+      "label": "Escucha SDR",
+      "class": "node",
+      "tags": ["radio", "code", "cheap-start"],
+      "blurb": "Un dongle al precio de una comida rápida vuelve tu laptop un receptor de casi todo el espectro. Primero escuchar, después transmitir.",
+      "aka": ["rtl-sdr", "software defined radio", "scanner"]
+    },
+    {
+      "id": "radio.satellites",
+      "label": "Pases de satélite",
+      "class": "node",
+      "tags": ["radio", "outdoors", "patience"],
+      "blurb": "Los satélites amateur y el repetidor de la ISS pasan por encima unos diez minutos. Rastreas, corriges el doppler, y luego ya no está."
+    },
+    {
+      "id": "radio.hf-station",
+      "label": "Estación HF",
+      "class": "node",
+      "tags": ["radio", "gear", "space"],
+      "blurb": "El salto del portátil al escritorio: un transceptor, un sintonizador, una línea de alimentación y jardín suficiente para una antena que resuene.",
+      "aka": ["shack", "hf rig"]
+    },
+    {
+      "id": "radio.pota",
+      "label": "POTA y SOTA",
+      "class": "node",
+      "tags": ["outdoors", "radio", "social"],
+      "blurb": "Parks y Summits on the Air. Cargas una estación ligera a un lugar con vista, haces contactos desde ahí y luego escribes la activación.",
+      "aka": ["parks on the air", "summits on the air", "portable operating"]
+    },
+    {
+      "id": "radio.contesting",
+      "label": "Concursos",
+      "class": "node",
+      "tags": ["radio", "social", "patience"],
+      "blurb": "Un fin de semana haciendo todos los contactos posibles bajo un reglamento. La forma más rápida de descubrir qué no puede hacer tu estación."
+    },
+    {
+      "id": "radio.qsl",
+      "label": "Tarjetas QSL",
+      "class": "node",
+      "tags": ["collecting", "radio", "social"],
+      "blurb": "La postal que confirma que el contacto ocurrió. Una costumbre centenaria que volvió el hobby una caja de zapatos que vale la pena guardar."
+    },
+    {
+      "id": "radio.morse",
+      "label": "Código morse",
+      "class": "node",
+      "tags": ["radio", "patience", "cheap-start"],
+      "blurb": "Ya no lo exige ninguna licencia, y sigue siendo el modo que pasa cuando la voz no puede. Se aprende de oído, no de tabla.",
+      "aka": ["cw", "continuous wave"]
+    }
+  ],
+  "edges": [
+    { "from": "radio.ham",           "to": "radio.meshtastic",     "kind": "kin",        "note": "Malla sin licencia de un lado, un examen del otro. Mismos instintos de antena, mismo cajón de conectores." },
+    { "from": "radio.ham",           "to": "radio.antennas",       "kind": "kin" },
+    { "from": "radio.ham",           "to": "radio.hf-station",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.digital-modes",  "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.contesting",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.satellites",     "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.pota",           "kind": "leads-to" },
+    { "from": "radio.ham",           "to": "radio.morse",          "kind": "kin" },
+    { "from": "radio.ham",           "to": "radio.qsl",            "kind": "kin" },
+    { "from": "radio.meshtastic",    "to": "radio.node-build",     "kind": "leads-to",   "note": "Nada pasa hasta que el firmware está en la placa y el driver serial instalado." },
+    { "from": "radio.meshtastic",    "to": "radio.mesh-admin",     "kind": "leads-to" },
+    { "from": "radio.meshtastic",    "to": "radio.repeater",       "kind": "leads-to",   "note": "El salto de un nodo en tu bolsillo a un nodo en un cerro para el que necesitas permiso." },
+    { "from": "radio.node-build",    "to": "radio.repeater",       "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.hf-station",     "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.repeater",       "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.satellites",     "kind": "shares-gear" },
+    { "from": "radio.antennas",      "to": "radio.pota",           "kind": "shares-gear" },
+    { "from": "radio.hf-station",    "to": "radio.propagation",    "kind": "leads-to" },
+    { "from": "radio.digital-modes", "to": "radio.propagation",    "kind": "kin" },
+    { "from": "radio.sdr",           "to": "radio.propagation",    "kind": "kin",        "note": "La forma más barata de saber si una banda está abierta es escucharla." },
+    { "from": "radio.sdr",           "to": "radio.ham",            "kind": "leads-to",   "note": "La mayoría de las licencias empiezan con alguien oyendo algo que no debía entender." },
+    { "from": "radio.sdr",           "to": "radio.meshtastic",     "kind": "kin" },
+    { "from": "radio.contesting",    "to": "radio.qsl",            "kind": "kin" },
+    { "from": "radio.morse",         "to": "radio.contesting",     "kind": "kin" },
+    { "from": "radio.mesh-admin",    "to": "radio.propagation",    "kind": "kin" }
+  ]
+}

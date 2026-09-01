@@ -1,0 +1,82 @@
+{
+  "id": "music",
+  "label": "Música y sonido",
+  "blurb": "Hacer sonido, capturarlo, o poseer las máquinas que hacen ambas cosas. El clúster con el camino más corto al cautín.",
+  "notable": "music.synths",
+  "accent": "jade",
+  "layout": {
+    "recipe": "spiral",
+    "anchor": [-2077, 375],
+    "radius": 250,
+    "startAngle": 250,
+    "spread": 600,
+    "order": [
+      "music.synths", "music.modular", "music.pedals", "music.guitar", "music.theory",
+      "music.live", "music.recording", "music.mixing", "music.sampling", "music.field-recording",
+      "music.chiptune", "music.dj", "music.vinyl", "music.hifi", "music.piano"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "music.synths",
+      "label": "Sintetizadores",
+      "class": "notable",
+      "tags": ["audio", "electronics", "gear", "patience"],
+      "blurb": "Osciladores, filtros y envolventes. Un instrumento que se aprende entendiendo la ruta de señal, no practicando escalas.",
+      "aka": ["synth", "synthesiser", "analog synth"],
+      "accent": "cyan"
+    },
+    {
+      "id": "music.vinyl",
+      "label": "Coleccionar vinilos",
+      "class": "node",
+      "tags": ["collecting", "audio", "research"],
+      "blurb": "Prensados, números de matriz y la tienda a la que vas el sábado. Un hobby de investigación que de paso hace ruido.",
+      "accent": "ember"
+    },
+    { "id": "music.modular",  "label": "Eurorack",        "class": "node", "tags": ["audio", "electronics", "gear", "space"],"blurb": "Un sintetizador que armas por módulos y parchas a mano. Profundo, caro, y nunca llega a un estado que llamarías terminado." },
+    { "id": "music.pedals",   "label": "Pedales DIY","class": "node", "tags": ["electronics", "hands-on", "audio", "cheap-start"],"blurb": "Un kit through-hole en una caja que perforas tú. El clásico primer armado de electrónica con recompensa audible al final." },
+    { "id": "music.guitar",   "label": "Guitarra",          "class": "node", "tags": ["audio", "patience", "cheap-start"], "blurb": "El instrumento que la mayoría ya tiene guardado en un clóset. Casi todo lo que sigue en este clúster termina enchufado a ella." },
+    { "id": "music.theory",   "label": "Teoría musical",    "class": "node", "tags": ["research", "patience", "cheap-start"],"blurb": "Nombres para lo que tu oído ya notó. No hace falta para tocar, y acelera todo una vez que la tienes." },
+    { "id": "music.live",     "label": "Tocar en vivo",    "class": "node", "tags": ["social", "audio", "gear"],          "blurb": "Una sala, un set y equipo que tiene que funcionar a la primera. La forma más rápida de saber qué partes sí te sabes." },
+    { "id": "music.recording","label": "Grabación casera",  "class": "node", "tags": ["audio", "gear", "code"],            "blurb": "Interfaz, micrófonos y un DAW. La sala es el instrumento que nadie presupuestó, y decide más que el micrófono." },
+    { "id": "music.mixing",   "label": "Mezcla",          "class": "node", "tags": ["audio", "patience", "code"],        "blurb": "Balance, luego espacio, luego tono. Sobre todo una habilidad de escucha, entrenada comparando tu trabajo con discos que conoces." },
+    { "id": "music.sampling", "label": "Sampleo",        "class": "node", "tags": ["audio", "code", "research"],        "blurb": "Tomar un fragmento y hacerlo tuyo. Cortar, pitchear, y la pregunta de los derechos que nadie quiere responder." },
+    { "id": "music.field-recording","label": "Grabación de campo","class":"node","tags": ["audio", "outdoors", "patience"], "blurb": "Una grabadora, un paravientos y un lugar interesante. Trenes, máquinas, clima y salas, capturados porque nadie más lo hizo." },
+    { "id": "music.chiptune", "label": "Chiptune",        "class": "node", "tags": ["audio", "code", "cheap-start"],     "blurb": "Música escrita para chips de sonido de tres o cuatro voces. Restricciones reales, y a menudo escrita en el hardware original." },
+    { "id": "music.dj",       "label": "DJing",           "class": "node", "tags": ["audio", "social", "gear"],          "blurb": "Primero la selección, después la mezcla. Leer la pista es la parte que ningún equipo nuevo mejora." },
+    { "id": "music.hifi",     "label": "Hi-Fi",           "class": "node", "tags": ["gear", "audio", "space"],           "blurb": "Amplificadores, parlantes y tratamiento acústico, más una discusión animada sobre cuál de los tres importa de verdad." },
+    {
+      "id": "music.piano",
+      "label": "Piano",
+      "class": "node",
+      "tags": ["audio", "patience", "cheap-start"],
+      "blurb": "Ochenta y ocho teclas y ningún lugar donde esconderse. Donde la teoría deja de ser abstracta, porque el teclado entero es el diagrama.",
+      "aka": ["keyboard", "keys", "digital piano"],
+      "levels": [
+        { "label": "Inicio", "note": "Ambas manos, despacio. Un teclado digital contrapesado y diez minutos honestos al día" },
+        { "label": "Estable", "note": "Leer un poco antes que tus manos, y tocar para alguien sin detenerte" },
+        { "label": "Repertorio", "note": "Piezas que conservas, técnica practicada a propósito y opiniones sobre digitación" }
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "music.synths",   "to": "music.modular",  "kind": "kin" },
+    { "from": "music.synths",   "to": "music.sampling", "kind": "leads-to" },
+    { "from": "music.synths",   "to": "music.recording","kind": "kin" },
+    { "from": "music.synths",   "to": "music.chiptune", "kind": "kin" },
+    { "from": "music.synths",   "to": "music.theory",   "kind": "kin" },
+    { "from": "music.modular",  "to": "music.pedals",   "kind": "kin",      "note": "Ambos son circuitos de audio en una caja. Uno es un kit baratísimo y enseña casi la misma lección." },
+    { "from": "music.pedals",   "to": "music.guitar",   "kind": "kin" },
+    { "from": "music.theory",   "to": "music.guitar",   "kind": "leads-to" },
+    { "from": "music.guitar",   "to": "music.live",     "kind": "leads-to" },
+    { "from": "music.recording","to": "music.mixing",   "kind": "leads-to" },
+    { "from": "music.recording","to": "music.field-recording","kind": "kin" },
+    { "from": "music.mixing",   "to": "music.dj",       "kind": "kin" },
+    { "from": "music.dj",       "to": "music.vinyl",    "kind": "kin" },
+    { "from": "music.vinyl",    "to": "music.hifi",     "kind": "kin" },
+    { "from": "music.theory",   "to": "music.piano",    "kind": "leads-to" },
+    { "from": "music.piano",    "to": "music.recording","kind": "kin" },
+    { "from": "music.piano",    "to": "music.synths",   "kind": "shares-gear", "note": "Un teclado MIDI es un piano practicando para ser sinte. Mismas teclas, mismo soporte, mismos audífonos." }
+  ]
+}

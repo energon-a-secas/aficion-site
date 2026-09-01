@@ -111,7 +111,8 @@ function neighbourList(s, node) {
     .map((link) => {
       const kind = s.atlas.edgeKinds.get(link.kind);
       const verb = link.dir === 'in' && kind ? `${kind.label} this` : kind ? kind.label : link.kind;
-      return `<li>${nodeButton(s, link.to)}<span class="rel">${escHtml(verb)}</span></li>`;
+      const note = link.note ? `<span class="link__note">${escHtml(link.note)}</span>` : '';
+      return `<li>${nodeButton(s, link.to)}<span class="rel">${escHtml(verb)}</span>${note}</li>`;
     })
     .join('');
   return `<div class="field-block"><p class="field-label">Connects to</p><ul class="linklist">${rows}</ul></div>`;
@@ -122,6 +123,7 @@ export function renderDetail(s) {
   const body = $('detailBody');
   if (!title || !body) return;
   const node = s.selected ? s.atlas.nodes.get(s.selected) : null;
+  renderStageCard(s, node);
   if (!node) {
     title.textContent = 'Nothing selected';
     body.innerHTML =
@@ -146,6 +148,34 @@ export function renderDetail(s) {
     </div>
     ${levelPicker(s, node)}
     ${neighbourList(s, node)}`;
+}
+
+/**
+ * Narrow screens: the docked card that answers a tap while the sheet is
+ * closed. Without it the phone loop was tap, open the sheet, mark, close the
+ * sheet: four taps with the map hidden in between. Same data-act plumbing as
+ * the sheet, so the two can never act differently.
+ */
+function renderStageCard(s, node) {
+  const card = $('stageCard');
+  if (!card) return;
+  if (!node || !window.matchMedia('(max-width: 940px)').matches) {
+    card.hidden = true;
+    card.innerHTML = '';
+    return;
+  }
+  const mine = s.profile.n.includes(node.id);
+  const markable = node.class !== 'hub';
+  card.hidden = false;
+  card.innerHTML = `
+    <p class="panel__where">${whereOf(s, node)}</p>
+    <p class="panel__title">${escHtml(node.label)}</p>
+    <div class="toolbar">
+      ${markable ? `<button type="button" class="btn ${mine ? 'btn--secondary' : 'btn--primary'} btn--sm"
+              data-act="toggle" data-node="${escHtml(node.id)}">${mine ? 'Remove' : 'Mark as mine'}</button>` : ''}
+      ${hasInner(s.atlas, node.id) ? `<button type="button" class="btn btn--secondary btn--sm" data-act="inner" data-node="${escHtml(node.id)}">Drill in</button>` : ''}
+      <button type="button" class="btn btn--ghost btn--sm" data-act="open-panel">Details</button>
+    </div>`;
 }
 
 function bridgeLines(s) {
@@ -203,7 +233,8 @@ export function renderMine(s) {
   const ids = s.profile.n;
   count.textContent = String(ids.length);
   if (!ids.length) {
-    body.innerHTML = '<p class="panel__lead">Nothing marked yet. Pick one thing you actually do and the map will start joining it up.</p>';
+    body.innerHTML = `<p class="panel__lead">Nothing marked yet. Pick one thing you actually do and the map will start joining it up.</p>
+      <div class="toolbar"><button type="button" class="btn btn--ghost btn--sm" data-act="example-open">See an example map</button></div>`;
     return;
   }
   const groups = buckets(s.atlas, ids);
@@ -228,6 +259,8 @@ export function renderMine(s) {
     ${bridgeLines(s)}
     <div class="toolbar">
       <button type="button" class="btn btn--ghost btn--sm" data-act="fit-mine">Fit to my map</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-act="sheet-open">Character sheet</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-act="example-open">Example map</button>
       <button type="button" class="btn btn--ghost btn--sm" data-act="clear-mine">Clear my map</button>
     </div>`;
 }
@@ -268,6 +301,12 @@ export function renderSearch(s) {
   if (q.length < 2) {
     list.hidden = true;
     list.innerHTML = '';
+    // The ring channel is shared with trace; typing claimed it, clearing
+    // releases it.
+    if (s.focusRing.size) {
+      s.focusRing = new Set();
+      paint(s);
+    }
     return;
   }
   const hits = [];
@@ -277,6 +316,10 @@ export function renderSearch(s) {
     if (hits.length > 60) break;
   }
   hits.sort((a, b) => a.rank - b.rank || a.node.label.localeCompare(b.node.label));
+  // The map answers with the panel: the same capped list the results print
+  // gets the focus ring, so a match off-screen is still visibly somewhere.
+  s.focusRing = new Set(hits.slice(0, 10).map((h) => h.id));
+  paint(s);
   if (!hits.length) {
     list.hidden = false;
     list.innerHTML = '<li class="side__empty">Nothing by that name</li>';

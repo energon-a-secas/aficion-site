@@ -32,7 +32,18 @@
       "blurb": "The source most series are adapted from, usually longer, usually different, and usually still running.",
       "accent": "jade"
     },
-    { "id": "anime.series",     "label": "Seasonal Watching","class": "node", "tags": ["screen", "fandom", "social"],   "blurb": "Following a cour as it airs, one episode a week, with everybody else watching the same episode that day." },
+    {
+      "id": "anime.series",
+      "label": "Seasonal Watching",
+      "class": "node",
+      "tags": ["screen", "fandom", "social"],
+      "blurb": "Following a cour as it airs, one episode a week, with everybody else watching the same episode that day.",
+      "levels": [
+        { "label": "A few shows", "note": "You keep up with what friends recommend and finish most of it" },
+        { "label": "Every season", "note": "You read the seasonal chart before it airs and drop shows on schedule" },
+        { "label": "Deep cuts", "note": "Staff names mean something, and you will watch a weak show for one key animator" }
+      ]
+    },
     { "id": "anime.films",      "label": "Anime Films",      "class": "node", "tags": ["screen", "fandom"],             "blurb": "Two hours, one budget, and the format most likely to convince somebody who says they do not watch anime." },
     { "id": "anime.retro-anime","label": "Pre-2000 Anime",   "class": "node", "tags": ["screen", "research", "collecting"], "blurb": "Cel-era work, hand-painted and shot on film. Looks nothing like what came after, and increasingly hard to see properly." },
     { "id": "anime.industry",   "label": "Studios and Staff","class": "node", "tags": ["research", "screen"],           "blurb": "Following key animators, directors and studios rather than titles. Turns a watch list into something with a shape." },

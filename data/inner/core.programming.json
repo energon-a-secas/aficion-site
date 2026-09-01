@@ -1,0 +1,41 @@
+{
+  "of": "core.programming",
+  "label": "What the code is for",
+  "blurb": "The craft splits by purpose. Most people arrive through one of these doors and never need the others, and that is fine.",
+  "layout": { "recipe": "ring", "anchor": [0, 0], "radius": 175, "startAngle": -90 },
+  "nodes": [
+    {
+      "id": "core.programming.scripts",
+      "label": "Automation Scripts",
+      "class": "node",
+      "tags": ["code", "cheap-start"],
+      "blurb": "Rename five hundred files, scrape a page, wire two tools together. The door most hobbies enter through."
+    },
+    {
+      "id": "core.programming.web",
+      "label": "Web Design",
+      "class": "node",
+      "tags": ["code", "content"],
+      "blurb": "HTML, CSS and restraint. A page that loads fast and says one thing well beats a framework you fight."
+    },
+    {
+      "id": "core.programming.embedded",
+      "label": "Microcontroller Code",
+      "class": "node",
+      "tags": ["code", "electronics"],
+      "blurb": "Code with pins attached. Timing, memory and power budgets the desktop never made you think about."
+    },
+    {
+      "id": "core.programming.chatbots",
+      "label": "Chatbots and Agents",
+      "class": "node",
+      "tags": ["code", "research"],
+      "blurb": "Prompting, wiring and guardrails around a model someone else trained. The newest door, and the easiest to overestimate."
+    }
+  ],
+  "edges": [
+    { "from": "core.programming.scripts", "to": "core.programming.web", "kind": "leads-to" },
+    { "from": "core.programming.scripts", "to": "core.programming.embedded", "kind": "leads-to" },
+    { "from": "core.programming.web", "to": "core.programming.chatbots", "kind": "leads-to" }
+  ]
+}

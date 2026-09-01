@@ -5,6 +5,7 @@
 
 import { withAlpha } from './theme.js';
 import { NODE_RADIUS } from './pick.js';
+import { hasInner } from './load.js';
 
 const MIN_SCREEN_R = 2.4;
 
@@ -37,6 +38,22 @@ function accentOf(env, node) {
   return node.accent ? env.theme.accents[node.accent] || env.theme.node : null;
 }
 
+/**
+ * A node with an inner tree advertises it: a fine dashed orbit outside the
+ * face, the map's answer to "where are the subcategories". Skipped when
+ * zoomed out (env.px is one CSS pixel in world units, so px > 1.1 means the
+ * orbit would be sub-pixel noise).
+ */
+function innerMark(env, node, p, r) {
+  if (env.px > 1.1 || !hasInner(env.atlas, node.id)) return;
+  const { ctx, theme } = env;
+  const lit = env.view.allocated.has(node.id);
+  const rr = (node.class === 'notable' ? r * 1.55 : r) + 5.5 * env.px;
+  ctx.setLineDash([2 * env.px, 3 * env.px]);
+  ring(ctx, p.x, p.y, rr, withAlpha(lit ? theme.routeBright : theme.nodeNotable, lit ? 0.6 : 0.4), 1 * env.px);
+  ctx.setLineDash([]);
+}
+
 /** Dim everything that is not part of the current story. */
 function fade(env, id) {
   const { view } = env;
@@ -64,10 +81,15 @@ export function drawCoreNodes(env) {
   const { ctx, theme } = env;
   eachOfClass(env, 'core', (node, p) => {
     const r = radius(env, 'core');
+    // Allocated keeps the hollow (the hollow is the class signal); only the
+    // ring and centre switch to the route gold.
+    const lit = env.view.allocated.has(node.id);
+    const c = lit ? theme.route : theme.nodeCore;
     ctx.globalAlpha = fade(env, node.id);
-    disc(ctx, p.x, p.y, r, withAlpha(theme.nodeCore, 0.14));
-    ring(ctx, p.x, p.y, r, theme.nodeCore, 1.7 * env.px);
-    disc(ctx, p.x, p.y, r * 0.3, theme.nodeCore);
+    disc(ctx, p.x, p.y, r, withAlpha(c, 0.14));
+    ring(ctx, p.x, p.y, r, c, 1.7 * env.px);
+    disc(ctx, p.x, p.y, r * 0.3, lit ? theme.routeBright : theme.nodeCore);
+    innerMark(env, node, p, r);
     ctx.globalAlpha = 1;
   });
 }
@@ -79,8 +101,13 @@ export function drawPlainNodes(env) {
     const r = radius(env, 'node');
     ctx.globalAlpha = fade(env, node.id);
     const accent = accentOf(env, node);
-    disc(ctx, p.x, p.y, r, accent || theme.node);
-    if (accent) ring(ctx, p.x, p.y, r + 2.5 * env.px, withAlpha(accent, 0.4), 1.2 * env.px);
+    // The gold thread gets gold beads: an allocated node's own face lights,
+    // the way the reference's allocated sockets do. Layered fills, no filter.
+    const lit = env.view.allocated.has(node.id);
+    disc(ctx, p.x, p.y, r, lit ? theme.route : accent || theme.node);
+    if (lit) disc(ctx, p.x, p.y, r * 0.35, theme.routeBright);
+    else if (accent) ring(ctx, p.x, p.y, r + 2.5 * env.px, withAlpha(accent, 0.4), 1.2 * env.px);
+    innerMark(env, node, p, r);
     ctx.globalAlpha = 1;
   });
 }
@@ -92,10 +119,13 @@ export function drawNotables(env) {
     const r = radius(env, 'notable');
     ctx.globalAlpha = fade(env, node.id);
     const accent = accentOf(env, node);
-    const face = accent || theme.nodeNotable;
+    const lit = env.view.allocated.has(node.id);
+    const face = lit ? theme.route : accent || theme.nodeNotable;
     disc(ctx, p.x, p.y, r * 1.55, withAlpha(face, 0.1));
     disc(ctx, p.x, p.y, r, face);
+    if (lit) disc(ctx, p.x, p.y, r * 0.35, theme.routeBright);
     ring(ctx, p.x, p.y, r * 1.55, withAlpha(face, 0.55), 1.4 * env.px);
+    innerMark(env, node, p, r);
     ctx.globalAlpha = 1;
   });
 }

@@ -78,11 +78,11 @@ function addAdj(adj, edge) {
     else adj.set(id, [entry]);
   };
   if (edge.directed) {
-    push(edge.from, { to: edge.to, kind: edge.kind, weight: edge.weight, dir: 'out' });
-    push(edge.to, { to: edge.from, kind: edge.kind, weight: edge.weight, dir: 'in' });
+    push(edge.from, { to: edge.to, kind: edge.kind, weight: edge.weight, note: edge.note, dir: 'out' });
+    push(edge.to, { to: edge.from, kind: edge.kind, weight: edge.weight, note: edge.note, dir: 'in' });
   } else {
-    push(edge.from, { to: edge.to, kind: edge.kind, weight: edge.weight, dir: 'both' });
-    push(edge.to, { to: edge.from, kind: edge.kind, weight: edge.weight, dir: 'both' });
+    push(edge.from, { to: edge.to, kind: edge.kind, weight: edge.weight, note: edge.note, dir: 'both' });
+    push(edge.to, { to: edge.from, kind: edge.kind, weight: edge.weight, note: edge.note, dir: 'both' });
   }
 }
 

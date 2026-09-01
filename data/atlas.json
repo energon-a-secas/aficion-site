@@ -96,7 +96,13 @@
       "label": "Programming",
       "class": "core",
       "tags": ["code"],
-      "blurb": "Enough code to make a thing you built do something you wanted."
+      "blurb": "Enough code to make a thing you built do something you wanted.",
+      "inner": true,
+      "levels": [
+        { "label": "Scripts", "note": "Glue and automation. Copied, tweaked, and it works, mostly" },
+        { "label": "Projects", "note": "Things with a repo and a README that someone else could run" },
+        { "label": "Systems", "note": "Designed before typing, and maintained after shipping" }
+      ]
     },
     {
       "id": "core.3d-printing",

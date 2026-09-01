@@ -21,23 +21,26 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 
 | Module | Lines | Owns |
 |---|---:|---|
-| `js/render.js` | 349 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `bucketLabel` |
-| `js/events.js` | 337 | `bindEvents` |
+| `js/events.js` | 402 | `bindEvents` |
+| `js/render.js` | 389 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `bucketLabel` |
+| `js/actions.js` | 363 | `commit`, `select`, `toggleNode`, `applyLevel`, `trace`, `openSheet`, `adoptShared`, `seedStarter` |
 | `js/atlas/load.js` | 280 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
-| `js/actions.js` | 240 | `commit`, `select`, `toggleNode`, `applyLevel`, `trace` |
-| `js/atlas/draw-nodes.js` | 221 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
-| `js/panels.js` | 203 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner` |
+| `js/atlas/draw-nodes.js` | 250 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
+| `js/panels.js` | 224 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
+| `js/render-sheet.js` | 212 | `renderSheet` (the character sheet view) |
 | `js/alloc.js` | 196 | `toggle`, `setLevel`, `computeRoutes`, `nearMisses`, `bucketOf` |
-| `js/profile.js` | 168 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode` |
+| `js/profile.js` | 178 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
 | `js/atlas/layout.js` | 167 | `computeLayout`, `layoutInner`, `boundsOfIds` |
 | `js/atlas/draw-edges.js` | 161 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawCompareEdges` |
-| `js/atlas/camera.js` | 151 | `MIN_ZOOM`, `MAX_ZOOM`, `createCamera` |
+| `js/atlas/camera.js` | 160 | `MIN_ZOOM`, `MAX_ZOOM`, `createCamera` (stage-aware `minZoom` floor) |
+| `js/discover.js` | 131 | `suggest`, `startingPoints` |
 | `js/atlas/theme.js` | 129 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
-| `js/discover.js` | 127 | `suggest`, `startingPoints` |
 | `js/atlas/draw-labels.js` | 125 | `drawLabels` |
 | `js/atlas/draw.js` | 113 | `createRenderer` |
 | `js/compare.js` | 112 | `compare`, `compareHeadline` |
-| `js/state.js` | 108 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/state.js` | 110 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/sheet.js` | 104 | `ensureSheet`, `computeSheet`, `computeTitles` |
+| `js/examples.js` | 18 | `ensureExamples` |
 | `js/atlas/pick.js` | 85 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
 | `js/builds.js` | 69 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
 | `js/modal.js` | 65 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
@@ -52,10 +55,15 @@ matching `css/neorgon-*.css`.
 
 ## Data
 
-`data/` is the product. 32 files: `atlas.json` (clusters, tags, retired ids),
-`edges.json` (563 typed top-layer edges), `builds.json` (6 curated builds),
-`clusters/*.json` (18 files, 268 top nodes) and `inner/*.json` (10 trees, 77
-nodes). Content is data, never inside a `.js` file.
+`data/` is the product. 35 files: `atlas.json` (clusters, tags, retired ids),
+`edges.json` (typed top-layer edges, every shares-gear edge noted),
+`builds.json` (9 curated builds), `clusters/*.json` (18 files),
+`inner/*.json` (11 trees), `sheet.json` (the character sheet's six-domain
+fold of the nine core crafts, plus the earned profile-title rules) and
+`examples.json` (loadable example maps in the shared-link shape). Totals move
+with the corpus; `make validate` prints the live census (269 top nodes, 566
+top edges, 81 inner nodes as of 2026-08-31). Content is data, never inside a
+`.js` file.
 
 ## Conventions
 
@@ -107,7 +115,7 @@ Safari. Concretely: Escape after a *mouse* click on a drill-in row does nothing
 in WebKit, while the keyboard route works in both engines and "Back to the map"
 always works. This is a platform convention, not a bug in this code. If it is
 ever worth closing, give the row focus explicitly when it is activated. Do
-**not** move the Escape listener back onto `document`: `js/events.js:311`
+**not** move the Escape listener back onto `document`: `js/events.js:374`
 already binds one there, and a second reachable path makes one keypress close
 two things.
 
@@ -123,6 +131,32 @@ of them would put 21% of the atlas in the "one step away" state while the panel
 still listed six. The on-canvas set is deliberately the same six the panel
 prints, in the same `--atlas-accent-ember` token. Keep them the same set: the
 panel and the map disagreeing is the defect this channel was built to close.
+
+**A shared `#p=` link never adopts silently over a non-empty map.** applyHash
+holds the decoded profile in `state.pendingShared` and renders a three-way
+card (compare, replace, dismiss); "replace" writes a one-step backup to
+`aficion:profile:prev:v1` first, and the hash is consumed and cleared via
+`history.replaceState` either way, so a reload cannot replay it. Only an
+empty local profile adopts directly. Regressing this reintroduces the
+data-loss bug where clicking a friend's link destroyed your saved map.
+
+**The character sheet's Escape is bound on `#sheetOverlay`, its numbers on
+`computeSheet()`.** Same Escape rule as the drill-in (never a second
+`document` path). The radar polygon and the printed domain rows must both
+come from one `computeSheet()` result per render; a second derivation is the
+bucketOf defect wearing a new shirt. The domain fold is `data/sheet.json`.
+
+**`prefs.panel: 'collapsed'` collapses the desktop sidebar.** The toggle is
+the `.side-handle` drawer box on the sidebar's own border (not a header
+button); the same `#panelToggle` id opens the sheet below 940px and that mode
+is deliberately not persisted. After toggling the desktop collapse,
+`camera.resize()` must run or the canvas keeps painting at the old width.
+
+**First visit seeds the example map.** `seedStarter` (actions.js) adopts
+`data/examples.json`'s first profile only when `hasSaved()` is false, meaning
+the profile key has never been written. Clear my map saves an empty profile,
+which is a choice, not a first visit, so a reset never re-seeds. A `#p=` link
+on first visit wins over the seed.
 
 **`make corpus` and `make validate` are one target under two names.** The alias
 is prerequisite-only (`corpus: validate`) so it cannot swallow an exit code.

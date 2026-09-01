@@ -151,6 +151,11 @@ export function readPasted(text) {
   return null;
 }
 
+/** A saved-empty map is a choice; never-saved is a first visit. */
+export function hasSaved() {
+  return load() !== null;
+}
+
 /** Uncompressed on purpose: a synchronous read on the boot path. */
 export function load() {
   const raw = safeGetJSON(STORAGE_KEY, null);
@@ -160,6 +165,12 @@ export function load() {
 
 export function save(profile) {
   return safeSetJSON(STORAGE_KEY, { v: PROFILE_VERSION, n: profile.n, l: profile.l, t: profile.t });
+}
+
+/** One-step backup written just before "Replace mine" adopts a shared link.
+    A new key, not a new format: the v1 contract stays frozen. */
+export function saveBackup(profile) {
+  return safeSetJSON('aficion:profile:prev:v1', { v: PROFILE_VERSION, n: profile.n, l: profile.l, t: profile.t });
 }
 
 export function clearSaved() {

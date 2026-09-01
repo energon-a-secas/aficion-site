@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "purpose": "Domain fold for the character sheet radar. Content, not code: the six axes and which core crafts feed each. Order is render order, from the top vertex clockwise.",
+  "domains": [
+    { "id": "circuits", "label": "Circuits", "crafts": ["core.electronics", "core.soldering"] },
+    { "id": "workshop", "label": "Workshop", "crafts": ["core.hand-tools", "core.3d-printing"] },
+    { "id": "brushwork", "label": "Brushwork", "crafts": ["core.painting"] },
+    { "id": "lens", "label": "Lens", "crafts": ["core.photography"] },
+    { "id": "code", "label": "Code", "crafts": ["core.programming"] },
+    { "id": "story-sound", "label": "Story and Sound", "crafts": ["core.writing", "core.audio"] }
+  ],
+  "titlesNote": "Profile titles, earned, never bought. all = every id marked; any + min = at least min of the list marked; levels = minimum set level per id; crafts / clusters = distinct marked craft or cluster count.",
+  "titles": [
+    { "id": "mecha-head", "label": "Mecha Head", "all": ["anime.mecha", "model.gunpla"] },
+    { "id": "mesh-node", "label": "Mesh Node", "all": ["radio.meshtastic", "maker.esp32"] },
+    { "id": "brush-hand", "label": "Brush Hand", "all": ["figure.mini-painting"], "levels": { "figure.mini-painting": 2 } },
+    { "id": "tabletop-regular", "label": "Tabletop Regular", "any": ["tabletop.boardgames", "tabletop.card-games", "tabletop.wargames", "tabletop.kill-team"], "min": 2 },
+    { "id": "seasonal-scholar", "label": "Seasonal Scholar", "all": ["anime.series"], "levels": { "anime.series": 3 } },
+    { "id": "bench-keeper", "label": "Bench Keeper", "crafts": 3 },
+    { "id": "brick-lord", "label": "Brick Lord", "any": ["brick.moc", "brick.trains", "brick.technic", "brick.sets", "brick.minifigs"], "min": 3 },
+    { "id": "signal-chaser", "label": "Signal Chaser", "any": ["radio.meshtastic", "radio.sdr", "radio.mesh-admin", "radio.qsl"], "min": 2 },
+    { "id": "frame-perfect", "label": "Frame Perfect", "all": ["video.videography", "video.editing"] },
+    { "id": "atlas-walker", "label": "Atlas Walker", "clusters": 6 }
+  ]
+}

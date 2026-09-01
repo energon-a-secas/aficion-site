@@ -10,7 +10,7 @@ import { savePrefs, rememberCamera, persistProfile } from './state.js';
 import { nodeAt, nodeToward } from './atlas/pick.js';
 import { openModal, closeModal, openModalEl, onModalKeydown } from './modal.js';
 import { renderShare, renderBuildPanel } from './panels.js';
-import { renderSearch, renderHint, paint, updateCanvasLabel } from './render.js';
+import { renderSearch, renderHint, renderDetail, paint, updateCanvasLabel } from './render.js';
 import {
   select,
   toggleNode,
@@ -27,6 +27,12 @@ import {
   stackBuild,
   openBuilds,
   applyHash,
+  compareShared,
+  adoptShared,
+  dismissShared,
+  openSheet,
+  closeSheet,
+  openExample,
 } from './actions.js';
 
 export { applyHash };
@@ -123,7 +129,7 @@ function bindCanvas(s) {
     (e) => {
       e.preventDefault();
       const p = local(e);
-      s.camera.zoomAt(p.x, p.y, Math.exp(-e.deltaY * 0.0016));
+      s.camera.zoomAt(p.x, p.y, Math.exp(-e.deltaY * 0.0028));
       s.camera.clampTo(s.atlas.meta.world);
       rememberCamera(s.camera);
     },
@@ -172,8 +178,8 @@ function onCanvasKey(s, e) {
   if (key === 'f') s.camera.flyTo(s.layout.bounds);
   else if (key === 'm') fitMine(s);
   else if (key === 'i' && s.selected) drillInto(s, s.selected);
-  else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.25);
-  else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.8);
+  else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.4);
+  else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.714);
 }
 
 // ── One delegated handler for every rendered control ─────────
@@ -195,6 +201,28 @@ const ACTIONS = {
     select(s, el.dataset.node, { centre: true });
     renderBuildPanel(s);
   },
+  'open-panel': () => {
+    document.body.classList.add('side-open');
+    $('panelToggle')?.setAttribute('aria-expanded', 'true');
+    $('side')?.focus();
+  },
+  'shared-compare': (s) => compareShared(s),
+  'shared-adopt': (s) => adoptShared(s),
+  'shared-dismiss': (s) => dismissShared(s),
+  'sheet-open': (s) => openSheet(s),
+  'example-open': (s) => openExample(s),
+  'sheet-goto': (s, el) => {
+    closeSheet();
+    select(s, el.dataset.node, { centre: true });
+  },
+  'sheet-trace': (s, el) => {
+    closeSheet();
+    trace(s, el.dataset.path.split(','));
+  },
+  'sheet-quest': (s, el) => {
+    closeSheet();
+    openBuild(s, el.dataset.build);
+  },
 };
 
 function onDelegatedClick(s, e) {
@@ -209,8 +237,8 @@ function onDelegatedClick(s, e) {
 }
 
 function bindTools(s) {
-  $('zoomIn')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.3));
-  $('zoomOut')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.77));
+  $('zoomIn')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.5));
+  $('zoomOut')?.addEventListener('click', () => s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.667));
   $('fitBtn')?.addEventListener('click', () => s.camera.flyTo(s.layout.bounds));
   $('fitMineBtn')?.addEventListener('click', () => fitMine(s));
 
@@ -223,21 +251,44 @@ function bindTools(s) {
   $('labelBtn')?.addEventListener('click', (e) => {
     const order = ['auto', 'all', 'none'];
     s.prefs.labelMode = order[(order.indexOf(s.prefs.labelMode) + 1) % order.length];
-    e.currentTarget.textContent = `Labels: ${s.prefs.labelMode}`;
+    const val = e.currentTarget.querySelector('.tool__val');
+    if (val) val.textContent = s.prefs.labelMode;
     savePrefs();
     paint(s);
   });
+  // One toggle, two modes: below 940px it opens the sheet, above it collapses
+  // the sidebar column outright and the map takes the full width.
+  const sheetMode = () => window.matchMedia('(max-width: 940px)').matches;
   $('panelToggle')?.addEventListener('click', (e) => {
-    const open = document.body.classList.toggle('side-open');
+    let open;
+    if (sheetMode()) {
+      open = document.body.classList.toggle('side-open');
+      if (open) $('side')?.focus();
+    } else {
+      open = !document.body.classList.toggle('side-collapsed');
+      s.prefs.panel = open ? null : 'collapsed';
+      savePrefs();
+      s.camera.resize();
+    }
     e.currentTarget.setAttribute('aria-expanded', String(open));
-    if (open) $('side')?.focus();
+    // WebKit does not focus a button on click (CLAUDE.md), so the closing
+    // branch places focus explicitly.
+    if (!open) e.currentTarget.focus();
   });
-  $('sideClose')?.addEventListener('click', () => {
-    document.body.classList.remove('side-open');
-    const toggle = $('panelToggle');
-    toggle?.setAttribute('aria-expanded', 'false');
-    toggle?.focus();
-  });
+
+  // The HTML ships the defaults; persisted prefs have to reach the toggles'
+  // faces, or a reload leaves them lying about their state.
+  $('drawsOnBtn')?.setAttribute('aria-pressed', String(s.prefs.showDrawsOn));
+  const labelVal = $('labelBtn')?.querySelector('.tool__val');
+  if (labelVal) labelVal.textContent = s.prefs.labelMode;
+  if (s.prefs.panel === 'collapsed' && !sheetMode()) {
+    document.body.classList.add('side-collapsed');
+    s.camera.resize();
+  }
+  $('panelToggle')?.setAttribute(
+    'aria-expanded',
+    String(sheetMode() ? document.body.classList.contains('side-open') : !document.body.classList.contains('side-collapsed')),
+  );
 }
 
 function bindDialogs(s) {
@@ -268,6 +319,20 @@ function bindDialogs(s) {
 
   $('btnBuilds')?.addEventListener('click', () => openBuilds(s));
   $('btnHelp')?.addEventListener('click', () => openModal('helpModal'));
+  $('btnSheet')?.addEventListener('click', () => openSheet(s));
+  $('sheetClose')?.addEventListener('click', () => closeSheet());
+  $('sheetShare')?.addEventListener('click', () => {
+    openModal('shareModal');
+    renderShare(s);
+  });
+  // Escape listens on the overlay, never on document: events.js already binds
+  // a document Escape for modals, and a second reachable path makes one
+  // keypress close two things (CLAUDE.md, the drill-in gotcha).
+  $('sheetOverlay')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    closeSheet();
+  });
   $('innerClose')?.addEventListener('click', () => leaveInner(s));
 
   // Escape has to listen where the focus actually is. Opening the drill-in
@@ -320,6 +385,9 @@ export function bindEvents(s) {
     debounce(() => {
       s.camera.resize();
       s.renderer.requestFrame();
+      // The docked card only exists on narrow stages; crossing the breakpoint
+      // with a node selected has to re-decide it.
+      renderDetail(s);
     }, 120),
   );
 

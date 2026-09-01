@@ -13,11 +13,14 @@ import { toggle, setLevel, computeRoutes } from './alloc.js';
 import { boundsOfIds } from './atlas/layout.js';
 import { hasInner, ensureNodes } from './atlas/load.js';
 import { openInner, closeInner } from './inner.js';
-import { decode, reconcile, readPasted, PROFILE_VERSION } from './profile.js';
+import { decode, reconcile, readPasted, saveBackup, PROFILE_VERSION } from './profile.js';
 import { compare } from './compare.js';
 import { ensureBuilds, listBuilds, applyBuild, buildProgress } from './builds.js';
+import { ensureSheet } from './sheet.js';
+import { renderSheet } from './render-sheet.js';
+import { ensureExamples } from './examples.js';
 import { render, renderDetail, renderNotice, paint, announce } from './render.js';
-import { renderCompare, renderBuildsList, renderBuildPanel, renderInner } from './panels.js';
+import { renderCompare, renderBuildsList, renderBuildPanel, renderInner, renderSharedPrompt } from './panels.js';
 import { openModal, closeModal } from './modal.js';
 
 /**
@@ -30,10 +33,11 @@ import { openModal, closeModal } from './modal.js';
  * with it or the button lies about what it does.
  */
 function revealPanel(id) {
-  const toggle = $('panelToggle');
-  if (toggle && getComputedStyle(toggle).display !== 'none') {
+  // The handle is visible at every width now, so sheet mode is the media
+  // query, not the toggle's computed display.
+  if (window.matchMedia('(max-width: 940px)').matches) {
     document.body.classList.add('side-open');
-    toggle.setAttribute('aria-expanded', 'true');
+    $('panelToggle')?.setAttribute('aria-expanded', 'true');
   }
   $(id)?.scrollIntoView({ block: 'nearest' });
 }
@@ -127,6 +131,74 @@ export function leaveInner(s) {
   $('atlasCanvas')?.focus();
 }
 
+// ── The character sheet ──────────────────────────────────────
+export async function openSheet(s) {
+  let data;
+  try {
+    data = await ensureSheet();
+  } catch (err) {
+    showToast(`The sheet did not load: ${err.detail || err.message}`);
+    return;
+  }
+  // Quests are a bonus row, not a precondition: a failed builds fetch just
+  // renders a sheet without them.
+  try {
+    await ensureBuilds(s.atlas);
+  } catch {
+    /* the quests section is simply absent */
+  }
+  renderSheet(s, data);
+  const overlay = $('sheetOverlay');
+  if (overlay) overlay.hidden = false;
+  // WebKit does not focus on click; the sheet places focus itself.
+  $('sheetClose')?.focus();
+}
+
+/**
+ * First visit only: the map opens as the example rather than an unexplained
+ * starfield. Seeded once, persisted, and Clear my map is the reset; a cleared
+ * map saves as empty, which is not "never saved", so it never re-seeds.
+ */
+export async function seedStarter(s) {
+  try {
+    const doc = await ensureExamples();
+    const ex = doc.examples[0];
+    await ensureNodes(s.atlas, ex.profile.n);
+    const { profile } = reconcile(s.atlas, ex.profile);
+    s.profile = profile;
+    setNotice(`This is ${ex.name}, an example map to explore. Clear my map starts your own.`);
+    commit(s, `Opened ${ex.name}, an example map.`);
+    fitMine(s);
+  } catch {
+    /* an empty first map is the quiet fallback */
+  }
+}
+
+/** Load an example map through the same card a shared link gets. */
+export async function openExample(s, id = null) {
+  let doc;
+  try {
+    doc = await ensureExamples();
+  } catch (err) {
+    showToast(`Examples did not load: ${err.detail || err.message}`);
+    return;
+  }
+  const ex = (id && doc.examples.find((e) => e.id === id)) || doc.examples[0];
+  if (!ex) return;
+  await ensureNodes(s.atlas, ex.profile.n);
+  const rec = reconcile(s.atlas, ex.profile);
+  s.pendingShared = { rec, incoming: ex.profile, example: ex.name };
+  renderSharedPrompt(s);
+  revealPanel('sharedPanel');
+  announce(`Example map: ${ex.name}. Yours is untouched.`);
+}
+
+export function closeSheet() {
+  const overlay = $('sheetOverlay');
+  if (overlay) overlay.hidden = true;
+  $('atlasCanvas')?.focus();
+}
+
 // ── Compare ──────────────────────────────────────────────────
 export function stopCompare(s) {
   s.theirs = null;
@@ -149,20 +221,25 @@ export async function runCompare(s) {
   }
   try {
     const theirs = await decode(parsed.key, parsed.payload);
-    await ensureNodes(s.atlas, theirs.n);
-    const { profile } = reconcile(s.atlas, theirs);
-    s.theirs = profile;
-    s.theirName = profile.t || null;
-    s.comparison = compare(s.atlas, s.profile, profile);
-    renderCompare(s);
-    paint(s);
     closeModal('compareModal');
-    revealPanel('comparePanel');
-    announce(`Comparing with ${profile.t || 'their map'}.`);
+    await applyTheirs(s, theirs);
   } catch (error) {
     err.hidden = false;
     err.textContent = error.message;
   }
+}
+
+/** The one compare entry: paste dialog and shared-link card both land here. */
+async function applyTheirs(s, theirs) {
+  await ensureNodes(s.atlas, theirs.n);
+  const { profile } = reconcile(s.atlas, theirs);
+  s.theirs = profile;
+  s.theirName = profile.t || null;
+  s.comparison = compare(s.atlas, s.profile, profile);
+  renderCompare(s);
+  paint(s);
+  revealPanel('comparePanel');
+  announce(`Comparing with ${profile.t || 'their map'}.`);
 }
 
 // ── Builds ───────────────────────────────────────────────────
@@ -213,27 +290,74 @@ export async function applyHash(s, parsed) {
   try {
     const incoming = await decode(parsed.key, parsed.payload);
     await ensureNodes(s.atlas, incoming.n);
-    const { profile, unknown, retired, clamped } = reconcile(s.atlas, incoming);
-    s.profile = profile;
-    const notes = [];
-    if (retired.length) {
-      notes.push(`${retired.length} ${plural(retired.length, 'was on the map once and has', 'were on the map once and have')} been retired since`);
+    const rec = reconcile(s.atlas, incoming);
+    const mine = s.profile.n;
+    const p = rec.profile;
+    const differs = p.n.length !== mine.length || p.n.some((id) => !mine.includes(id));
+    if (mine.length && differs) {
+      // The natural gesture (clicking a link a friend sent) must never
+      // overwrite the visitor's own saved map. Hold the decoded profile and
+      // offer the honest outcomes instead of silently adopting it.
+      s.pendingShared = { rec, incoming };
+      renderSharedPrompt(s);
+      revealPanel('sharedPanel');
+      clearShareHash();
+      announce(`A shared map of ${p.n.length} nodes arrived. Your map is untouched.`);
+      return;
     }
-    if (unknown.length) {
-      notes.push(`${unknown.length} ${plural(unknown.length, 'is not a node here', 'are not nodes here')}`);
-    }
-    if (clamped.length) notes.push(`${clamped.length} had a depth this atlas no longer goes to`);
-    if (incoming.v > PROFILE_VERSION) {
-      setNotice('This link was made with a newer version of Aficion. Reload the page to see all of it.');
-    } else if (notes.length) {
-      setNotice(`Opened ${profile.n.length} of ${incoming.n.length} nodes: ${notes.join(', ')}.`);
-    } else {
-      setNotice(null);
-    }
-    commit(s, `Opened a shared map of ${profile.n.length} nodes.`);
-    if (profile.n.length) fitMine(s);
+    adoptShared(s, { rec, incoming });
   } catch (err) {
     setNotice(err.message);
     renderNotice(s);
   }
+}
+
+/** The payload is consumed; a reload must not re-apply it, and a copied
+    address should be this page, not somebody's old map. */
+function clearShareHash() {
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+}
+
+/** Adopt a decoded link as the visitor's own map, backing the old one up. */
+export function adoptShared(s, pending = s.pendingShared) {
+  if (!pending) return;
+  const { rec, incoming } = pending;
+  const { profile, unknown, retired, clamped } = rec;
+  if (s.profile.n.length) saveBackup(s.profile);
+  s.profile = profile;
+  const notes = [];
+  if (retired.length) {
+    notes.push(`${retired.length} ${plural(retired.length, 'was on the map once and has', 'were on the map once and have')} been retired since`);
+  }
+  if (unknown.length) {
+    notes.push(`${unknown.length} ${plural(unknown.length, 'is not a node here', 'are not nodes here')}`);
+  }
+  if (clamped.length) notes.push(`${clamped.length} had a depth this atlas no longer goes to`);
+  if (incoming.v > PROFILE_VERSION) {
+    setNotice('This link was made with a newer version of Aficion. Reload the page to see all of it.');
+  } else if (notes.length) {
+    setNotice(`Opened ${profile.n.length} of ${incoming.n.length} nodes: ${notes.join(', ')}.`);
+  } else {
+    setNotice(null);
+  }
+  s.pendingShared = null;
+  renderSharedPrompt(s);
+  clearShareHash();
+  commit(s, `Opened a shared map of ${profile.n.length} nodes.`);
+  if (profile.n.length) fitMine(s);
+}
+
+/** Compare the held link with the visitor's map; theirs stays in memory only. */
+export async function compareShared(s) {
+  if (!s.pendingShared) return;
+  const theirs = s.pendingShared.rec.profile;
+  s.pendingShared = null;
+  renderSharedPrompt(s);
+  await applyTheirs(s, theirs);
+}
+
+export function dismissShared(s) {
+  s.pendingShared = null;
+  renderSharedPrompt(s);
+  announce('Kept your map.');
 }

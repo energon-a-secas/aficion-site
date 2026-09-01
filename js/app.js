@@ -9,9 +9,10 @@ import { createCamera } from './atlas/camera.js';
 import { buildIndex } from './atlas/pick.js';
 import { createRenderer } from './atlas/draw.js';
 import { computeRoutes } from './alloc.js';
-import { readHash } from './profile.js';
+import { readHash, hasSaved } from './profile.js';
 import { render, showFatal } from './render.js';
 import { bindEvents, applyHash } from './events.js';
+import { seedStarter } from './actions.js';
 
 async function init() {
   loadPrefs();
@@ -24,7 +25,7 @@ async function init() {
   }
   const canvas = $('atlasCanvas');
   state.layout = computeLayout(state.atlas);
-  state.camera = createCamera(canvas);
+  state.camera = createCamera(canvas, state.layout.bounds);
   state.index = buildIndex(state.atlas, state.layout);
   state.renderer = createRenderer(canvas, state.atlas, state.layout);
   state.renderer.setCamera(state.camera);
@@ -35,6 +36,7 @@ async function init() {
   bindEvents(state);
   const hash = readHash();
   if (hash) await applyHash(state, hash);
+  else if (!state.profile.n.length && !hasSaved()) await seedStarter(state);
 }
 
 init();

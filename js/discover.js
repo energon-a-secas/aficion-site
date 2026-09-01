@@ -66,7 +66,12 @@ function reasonFor(atlas, node, parts) {
   }
   if (near.surprise) {
     const names = joinList(near.via.map((id) => labelOf(atlas, id)));
-    return `Shares gear with ${names}. Same kit, different shelf.`;
+    // The corpus authors a why-connected note on cross-cluster gear edges;
+    // when the surprise link carries one, it beats the template.
+    const noted = (atlas.adj.get(node.id) || []).find(
+      (l) => l.kind === 'shares-gear' && l.note && near.via.includes(l.to),
+    );
+    return `Shares gear with ${names}. ${noted ? noted.note : 'Same kit, different shelf.'}`;
   }
   if (near.via.length >= 2) {
     return `Sits next to ${joinList(near.via.map((id) => labelOf(atlas, id)))}, both already yours.`;

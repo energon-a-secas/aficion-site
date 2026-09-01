@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "purpose": "Example maps a visitor can load against their own. Content: each is a full profile in the shared-link shape, anonymous by design.",
+  "examples": [
+    {
+      "id": "bench-and-shelf",
+      "name": "Bench and Shelf",
+      "blurb": "A maker-collector: cameras and microcontrollers on the bench, figures and brick on the shelf, cards on the table, and a piano that gets ten honest minutes.",
+      "profile": {
+        "v": 1,
+        "t": "Bench and Shelf",
+        "n": [
+          "core.photography",
+          "video.videography",
+          "game.pc-building",
+          "game.arpg",
+          "game.build-crafting",
+          "core.programming",
+          "core.programming.web",
+          "core.programming.chatbots",
+          "figure.collecting",
+          "model.gunpla",
+          "music.piano",
+          "music.hifi",
+          "brick.moc",
+          "brick.minifigs",
+          "tabletop.card-games",
+          "tabletop.boardgames",
+          "figure.mini-painting",
+          "radio.meshtastic",
+          "maker.esp32",
+          "anime.series",
+          "anime.mecha"
+        ],
+        "l": {
+          "music.piano": 1,
+          "figure.mini-painting": 1,
+          "core.programming": 1,
+          "anime.series": 3
+        }
+      }
+    }
+  ]
+}

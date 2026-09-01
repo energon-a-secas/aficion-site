@@ -73,6 +73,33 @@ export function renderCompare(s) {
     <div class="toolbar"><button type="button" class="btn btn--ghost btn--sm" data-act="compare-clear">Stop comparing</button></div>`;
 }
 
+/** The card a shared link opens instead of overwriting the visitor's map. */
+export function renderSharedPrompt(s) {
+  const panel = $('sharedPanel');
+  const body = $('sharedBody');
+  if (!panel || !body) return;
+  if (!s.pendingShared) {
+    panel.hidden = true;
+    body.innerHTML = '';
+    return;
+  }
+  const ps = s.pendingShared;
+  const p = ps.rec.profile;
+  const title = $('sharedTitle');
+  if (title) title.textContent = ps.example ? 'An example map' : 'A shared map';
+  const line = ps.example
+    ? `${escHtml(ps.example)}: ${p.n.length} nodes across the atlas. Yours is untouched.`
+    : `${p.t ? escHtml(p.t) : 'Someone'} sent a map of ${p.n.length} ${plural(p.n.length, 'node', 'nodes')}. Yours is untouched.`;
+  panel.hidden = false;
+  body.innerHTML = `
+    <p class="panel__blurb">${line}</p>
+    <div class="toolbar">
+      <button type="button" class="btn btn--primary btn--sm" data-act="shared-compare">Compare with yours</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-act="shared-adopt">Replace mine with it</button>
+    </div>
+    <p class="panel__lead">Replacing keeps a one-step backup of your current map.</p>`;
+}
+
 export function renderBuildsList(s) {
   const host = $('buildsList');
   if (!host) return;

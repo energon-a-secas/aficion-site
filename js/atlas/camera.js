@@ -11,7 +11,7 @@ import { clamp, prefersReducedMotion } from '../utils.js';
 export const MIN_ZOOM = 0.25;
 export const MAX_ZOOM = 4;
 
-export function createCamera(canvas) {
+export function createCamera(canvas, fitBounds = null) {
   const listeners = new Set();
   let flight = null;
 
@@ -22,6 +22,7 @@ export function createCamera(canvas) {
     dpr: 1,
     w: 1,
     h: 1,
+    minZoom: MIN_ZOOM,
 
     resize() {
       const rect = canvas.getBoundingClientRect();
@@ -30,6 +31,15 @@ export function createCamera(canvas) {
       cam.h = Math.max(1, Math.round(rect.height));
       canvas.width = Math.round(cam.w * cam.dpr);
       canvas.height = Math.round(cam.h * cam.dpr);
+      // The zoom floor is stage-aware. MIN_ZOOM was tuned on desktop widths;
+      // on a phone it left "Fit the whole atlas" unreachable (a 375px stage
+      // needs about 0.07 for this world). The floor is whatever fits the full
+      // layout bounds plus flyTo's padding, never higher than MIN_ZOOM.
+      if (fitBounds) {
+        const bw = fitBounds.maxX - fitBounds.minX + 320;
+        const bh = fitBounds.maxY - fitBounds.minY + 320;
+        cam.minZoom = Math.min(MIN_ZOOM, cam.w / bw, cam.h / bh);
+      }
       emit();
     },
 
@@ -63,7 +73,7 @@ export function createCamera(canvas) {
     /** Keeps the world point under (sx, sy) fixed while the scale changes. */
     zoomAt(sx, sy, factor) {
       const before = cam.toWorld(sx, sy);
-      const next = clamp(cam.zoom * factor, MIN_ZOOM, MAX_ZOOM);
+      const next = clamp(cam.zoom * factor, cam.minZoom, MAX_ZOOM);
       if (next === cam.zoom) return;
       cam.zoom = next;
       const after = cam.toWorld(sx, sy);
@@ -77,7 +87,7 @@ export function createCamera(canvas) {
       const bh = Math.max(1, bounds.maxY - bounds.minY);
       cam.zoom = clamp(
         Math.min(cam.w / (bw + padding * 2), cam.h / (bh + padding * 2)),
-        MIN_ZOOM,
+        cam.minZoom,
         MAX_ZOOM,
       );
       cam.x = (bounds.minX + bounds.maxX) / 2;
@@ -139,10 +149,10 @@ export function createCamera(canvas) {
       return {
         x: (target.minX + target.maxX) / 2,
         y: (target.minY + target.maxY) / 2,
-        zoom: clamp(Math.min(c.w / (bw + padding * 2), c.h / (bh + padding * 2)), MIN_ZOOM, MAX_ZOOM),
+        zoom: clamp(Math.min(c.w / (bw + padding * 2), c.h / (bh + padding * 2)), c.minZoom, MAX_ZOOM),
       };
     }
-    return { x: target.x, y: target.y, zoom: target.zoom === undefined ? c.zoom : clamp(target.zoom, MIN_ZOOM, MAX_ZOOM) };
+    return { x: target.x, y: target.y, zoom: target.zoom === undefined ? c.zoom : clamp(target.zoom, c.minZoom, MAX_ZOOM) };
   }
 
   cam.resize();

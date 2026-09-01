@@ -113,6 +113,64 @@
         { "node": "core.photography",             "level": 2,    "why": "Macro, eye level and a plain backdrop. Shot from above, a finished figure looks like a toy on a desk." },
         { "node": "figure.figure-photo",          "level": null, "why": "The photograph is how everyone except your household will ever see six weeks of work." }
       ]
+    },
+    {
+      "id": "build.lit-cabinet",
+      "name": "Lit Mecha Cabinet",
+      "summary": "Six finished kits behind glass with the lights inside them. An electronics project hidden inside a display hobby, and every wire has to be run while the kit is still in pieces.",
+      "tags": ["kits", "electronics", "mecha", "gear"],
+      "steps": [
+        { "node": "anime.mecha",              "level": null, "why": "The shelf is an argument about which machines matter, and that taste is set watching, not shopping." },
+        { "node": "model.gunpla",             "level": 3,    "why": "Master Grade internal frames have room for wire runs. An HG shin has no space worth lighting." },
+        { "node": "core.soldering",           "level": 3,    "why": "Magnet wire onto 0603 LEDs inside a head sculpt. The joint is smaller than the iron tip that makes it." },
+        { "node": "core.electronics",         "level": 2,    "why": "Twenty LEDs a kit, six kits, one supply. The current budget is summed on paper before anything is bought." },
+        { "node": "model.gunpla.led-install", "level": null, "why": "Channels filed into the frame before assembly. Wiring a finished kit means unbuilding a finished kit." },
+        { "node": "maker.addressable-led",    "level": null, "why": "WS2812 strips light the shelves. The first pixel is where a 3.3V data line into a 5V strip quietly fails." },
+        { "node": "maker.arduino",            "level": 2,    "why": "One board runs the animations and a door switch, so the cabinet wakes when it is opened and not before." },
+        { "node": "maker.power",              "level": null, "why": "The supply is sized for full white on every strip, which is roughly triple what the demo loop draws." },
+        { "node": "core.3d-printing",         "level": 2,    "why": "Strip channels, diffusers and risers in white PETG. An untuned printer's ripple reads straight through a diffuser." },
+        { "node": "figure.display",           "level": null, "why": "Glass case, dust seals and UV film, fitted before the first decal fades rather than after." },
+        { "node": "core.photography",         "level": 3,    "why": "Shooting through glass doubles every light source. The kits come out, the backdrop goes in, the LEDs stay on." },
+        { "node": "figure.figure-photo",      "level": null, "why": "Cabinets move house badly. The lit photographs are the record that survives the shelf itself." }
+      ]
+    },
+    {
+      "id": "build.army-to-table",
+      "name": "Army to the Table",
+      "summary": "A skirmish force taken from bare plastic to a tournament weekend. Batch painting is a production line wearing a hobby's clothes, and the game at the end is what keeps the line moving.",
+      "tags": ["paint", "hands-on", "social", "patience"],
+      "steps": [
+        { "node": "tabletop.warhammer",     "level": null, "why": "The faction fixes the model count, and the count is the project. A horde list triples every step below this one." },
+        { "node": "figure.mini-painting",   "level": 1,    "why": "One miniature to tabletop standard, thinned paint and a wash. The batch line repeats whatever this step teaches." },
+        { "node": "core.painting",          "level": null, "why": "Priming is weather work. A rattle can in cold damp air frosts a whole squad in one pass." },
+        { "node": "model.airbrush-rig",     "level": null, "why": "Priming and basecoats indoors, year round. The compressor has paid for itself by the second squad." },
+        { "node": "figure.army-painting",   "level": null, "why": "Paint by colour across the squad, never by model. Twenty shoulder pads, then twenty helmets, or it never ends." },
+        { "node": "figure.basing",          "level": null, "why": "Texture, tufts and a rimmed edge. The cheapest step here, and the one that makes a batch read as an army." },
+        { "node": "tabletop.kill-team",     "level": null, "why": "Rules learned on a dozen models while the main queue dries. Losing small games costs less and teaches the same." },
+        { "node": "tabletop.list-building", "level": null, "why": "Points maths against the local meta. The list names which units exist, so it steers the painting queue from here." },
+        { "node": "tabletop.terrain",       "level": null, "why": "A table of line-of-sight blockers. A flat table teaches the wrong lesson about every unit on it." },
+        { "node": "tabletop.wargames",      "level": null, "why": "Full-size games at the club. The soft spots in a list surface inside three turns against a stranger." },
+        { "node": "tabletop.tournaments",   "level": null, "why": "Most events require fully painted and based, which makes the entry fee the deadline that finishes the last squad." }
+      ]
+    },
+    {
+      "id": "build.retro-stream",
+      "name": "Recapped Console Stream",
+      "summary": "A dead console brought back board-first and put on air. The restoration and the broadcast share one machine, and the mod that saves the stream is fitted with the iron, months before OBS opens.",
+      "tags": ["electronics", "screen", "content", "hands-on"],
+      "steps": [
+        { "node": "retro.consoles",   "level": null, "why": "Pick a machine with a published fault list and a parts supply. Obscurity is charming until a custom chip dies." },
+        { "node": "core.electronics", "level": 2,    "why": "Service manual first: rails, fuses, polarity. Half of dead consoles are a power fault, not a board fault." },
+        { "node": "maker.test-gear",  "level": null, "why": "A multimeter and an ESR meter turn dead into a named fault before the iron warms up." },
+        { "node": "core.soldering",   "level": 2,    "why": "Recapping is mostly desoldering. Braid, flux and patience, and pads lift the moment any of the three runs out." },
+        { "node": "retro.recapping",  "level": null, "why": "Every electrolytic goes and the board gets washed. Leaked electrolyte keeps eating traces under the solder mask." },
+        { "node": "maker.repair",     "level": null, "why": "Bodge wires over the traces the electrolyte already ate. The continuity beeper decides what is fixed, not eyesight." },
+        { "node": "retro.modding",    "level": null, "why": "RGB or HDMI out, fitted while the board is open anyway. Composite into a capture card falls apart at stream bitrates." },
+        { "node": "retro.crt",        "level": null, "why": "The tube is for playing, the mod is for capture. Split the video at the console or latency ruins one of the two." },
+        { "node": "core.audio",       "level": null, "why": "Console line out and a mic, mixed before OBS ever sees them. Viewers forgive soft video and leave over bad audio." },
+        { "node": "video.lighting",   "level": null, "why": "A CRT in frame strobes until the camera shutter matches its refresh, and the room light has to beat the tube's glow." },
+        { "node": "video.streaming",  "level": null, "why": "OBS scenes, the capture chain, and a test recording watched end to end. The first live hour is a bad place to debug." }
+      ]
     }
   ]
 }

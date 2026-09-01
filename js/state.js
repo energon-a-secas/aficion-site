@@ -42,6 +42,7 @@ export const state = {
   theirs: null,
   theirName: null,
   comparison: null,
+  pendingShared: null, // a decoded link held for the visitor's choice, never persisted
 
   notice: null, // one quiet line: reconcile results, decode failures
   search: '',

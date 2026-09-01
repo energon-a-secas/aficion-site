@@ -17,7 +17,7 @@
 
 import { safeGetJSON, safeSetJSON, safeRemove } from './neorgon-persist.js';
 
-export const PROFILE_VERSION = 1;
+export const PROFILE_VERSION = 2;
 export const STORAGE_KEY = 'aficion:profile:v1';
 
 function toBase64Url(bytes) {
@@ -48,15 +48,19 @@ async function gunzip(bytes) {
 const canGzip = typeof CompressionStream !== 'undefined' && typeof DecompressionStream !== 'undefined';
 
 export function emptyProfile() {
-  return { v: PROFILE_VERSION, n: [], l: {}, t: null };
+  return { v: PROFILE_VERSION, n: [], l: {}, e: [], t: null };
 }
 
 /** Migrations are append-only and are never edited after they ship. */
-const MIGRATIONS = [];
+const MIGRATIONS = [
+  // v1 to v2: hand-tied links (`e`) arrive. A v1 payload simply has none yet.
+  (p) => ({ ...p, v: 2, e: p.e || [] }),
+];
 
 export async function encode(profile) {
   const payload = { v: PROFILE_VERSION, n: [...profile.n].sort() };
   if (profile.l && Object.keys(profile.l).length) payload.l = profile.l;
+  if (profile.e && profile.e.length) payload.e = profile.e;
   if (profile.t) payload.t = String(profile.t).trim().slice(0, 24);
   const json = new TextEncoder().encode(JSON.stringify(payload));
   if (!canGzip) return { key: 'pj', payload: toBase64Url(json) };
@@ -85,10 +89,26 @@ export async function decode(key, payload) {
   if (!Number.isInteger(raw.v) || raw.v < 1) throw new Error('This link is not readable: no format version.');
   if (!Array.isArray(raw.n)) throw new Error('This link is not readable: no node list.');
 
+  // Hand-tied links: canonical sorted pairs of node ids. Sanitised here so
+  // nothing downstream meets a malformed pair; the cap is a payload sanity
+  // bound, far above any real map.
+  const seenPairs = new Set();
+  const links = [];
+  for (const p of Array.isArray(raw.e) ? raw.e.slice(0, 400) : []) {
+    if (!Array.isArray(p) || p.length !== 2) continue;
+    const [a, b] = p;
+    if (typeof a !== 'string' || typeof b !== 'string' || a === b) continue;
+    const pair = a < b ? [a, b] : [b, a];
+    const key = pair.join('|');
+    if (seenPairs.has(key)) continue;
+    seenPairs.add(key);
+    links.push(pair);
+  }
   let out = {
     v: raw.v,
     n: raw.n.filter((id) => typeof id === 'string'),
     l: raw.l && typeof raw.l === 'object' ? { ...raw.l } : {},
+    e: links,
     t: typeof raw.t === 'string' ? raw.t.trim().slice(0, 24) : null,
   };
   // A v1 URL opened by a v2 app: migrate it forward. A v2 URL opened by a v1
@@ -127,7 +147,15 @@ export function reconcile(atlas, profile) {
       l[id] = level;
     }
   }
-  return { profile: { ...profile, n: keep.sort(), l }, unknown, retired, clamped };
+  // A hand-tied link survives only while both of its ends do.
+  const keepSet = new Set(keep);
+  const e = [];
+  let droppedLinks = 0;
+  for (const pair of profile.e || []) {
+    if (keepSet.has(pair[0]) && keepSet.has(pair[1])) e.push(pair);
+    else droppedLinks += 1;
+  }
+  return { profile: { ...profile, n: keep.sort(), l, e }, unknown, retired, clamped, droppedLinks };
 }
 
 export async function buildShareUrl(profile, base) {
@@ -162,17 +190,35 @@ export function hasSaved() {
 export function load() {
   const raw = safeGetJSON(STORAGE_KEY, null);
   if (!raw || typeof raw !== 'object' || !Array.isArray(raw.n)) return null;
-  return { v: raw.v || PROFILE_VERSION, n: raw.n, l: raw.l || {}, t: raw.t || null };
+  return {
+    v: raw.v || PROFILE_VERSION,
+    n: raw.n,
+    l: raw.l || {},
+    e: Array.isArray(raw.e) ? raw.e : [],
+    t: raw.t || null,
+  };
 }
 
 export function save(profile) {
-  return safeSetJSON(STORAGE_KEY, { v: PROFILE_VERSION, n: profile.n, l: profile.l, t: profile.t });
+  return safeSetJSON(STORAGE_KEY, {
+    v: PROFILE_VERSION,
+    n: profile.n,
+    l: profile.l,
+    e: profile.e || [],
+    t: profile.t,
+  });
 }
 
 /** One-step backup written just before "Replace mine" adopts a shared link.
-    A new key, not a new format: the v1 contract stays frozen. */
+    A separate key, same format version as save(). */
 export function saveBackup(profile) {
-  return safeSetJSON('aficion:profile:prev:v1', { v: PROFILE_VERSION, n: profile.n, l: profile.l, t: profile.t });
+  return safeSetJSON('aficion:profile:prev:v1', {
+    v: PROFILE_VERSION,
+    n: profile.n,
+    l: profile.l,
+    e: profile.e || [],
+    t: profile.t,
+  });
 }
 
 export function clearSaved() {

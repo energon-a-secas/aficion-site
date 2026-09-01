@@ -17,8 +17,8 @@ const STEPS = [
     body: 'Hover a node and its neighbours light up with their names, so you can see what sits beside what. Click to read it in the panel: what it is, what it connects to, and why.',
   },
   {
-    title: 'Right-click marks and rates',
-    body: 'Right-click a node for the quick menu: mark it as yours and set your dedication, from Low to Hardcore, in time rather than talent. Gold paths join everything you mark.',
+    title: 'Right-click marks, rates and ties',
+    body: 'Right-click a node for the quick menu: mark it as yours, set your dedication from Low to Hardcore in time rather than talent, or link it by hand to anything else on your map. Gold paths join everything you mark.',
   },
   {
     title: 'Focus and layers',

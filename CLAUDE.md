@@ -21,30 +21,31 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 
 | Module | Lines | Owns |
 |---|---:|---|
-| `js/events.js` | 466 | `bindEvents` |
-| `js/render.js` | 448 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `bucketLabel` |
-| `js/actions.js` | 406 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `lightAffinity`, `openSheet`, `adoptShared`, `seedStarter` |
+| `js/render.js` | 484 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `renderLinkChip`, `bucketLabel` |
+| `js/actions.js` | 452 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `startLink`, `completeLink`, `openSheet`, `adoptShared`, `seedStarter` |
+| `js/events.js` | 313 | `bindEvents` (the delegated data-act layer) |
 | `js/atlas/draw-nodes.js` | 311 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
 | `js/atlas/load.js` | 294 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
+| `js/canvas-input.js` | 255 | `bindCanvas` (pointer, keyboard, link mode, long-press) |
+| `js/alloc.js` | 235 | `toggle`, `setLevel`, `addLink`, `removeLink`, `computeRoutes`, `nearMisses`, `bucketOf` |
 | `js/panels.js` | 231 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
+| `js/profile.js` | 226 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
 | `js/render-sheet.js` | 222 | `renderSheet` (the character sheet view) |
-| `js/alloc.js` | 195 | `toggle`, `setLevel`, `computeRoutes`, `nearMisses`, `bucketOf` |
-| `js/profile.js` | 180 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
-| `js/atlas/draw-edges.js` | 172 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawCompareEdges` |
+| `js/atlas/draw-edges.js` | 219 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawPersonalEdges`, `drawCompareEdges` |
 | `js/atlas/layout.js` | 166 | `computeLayout`, `layoutInner`, `boundsOfIds` |
 | `js/atlas/camera.js` | 160 | `MIN_ZOOM`, `MAX_ZOOM`, `createCamera` (stage-aware `minZoom` floor) |
 | `js/discover.js` | 131 | `suggest`, `startingPoints` |
 | `js/atlas/draw-labels.js` | 131 | `drawLabels` |
 | `js/atlas/theme.js` | 128 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
-| `js/atlas/draw.js` | 115 | `createRenderer` |
-| `js/state.js` | 112 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/atlas/draw.js` | 116 | `createRenderer` |
+| `js/state.js` | 113 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
 | `js/compare.js` | 111 | `compare`, `compareHeadline` |
 | `js/sheet.js` | 104 | `ensureSheet`, `computeSheet`, `computeTitles` |
 | `js/atlas/pick.js` | 84 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
 | `js/tour.js` | 82 | `openTour`, `tourNext`, `tourBack`, `closeTour` (first-visit tour) |
 | `js/builds.js` | 68 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
 | `js/modal.js` | 64 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
-| `js/context-menu.js` | 62 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
+| `js/context-menu.js` | 63 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
 | `js/inner.js` | 56 | `openInner`, `closeInner`, `currentInner`, `normalise`, `innerProgress` |
 | `js/utils.js` | 43 | `$`, `rad`, `joinList`, `plural` |
 | `js/examples.js` | 18 | `ensureExamples` |
@@ -123,10 +124,29 @@ already binds one there, and a second reachable path makes one keypress close
 two things.
 
 **Never rename `aficion:profile:v1`.** Once the site is live that key holds real
-visitor state and nothing warns you. Same for the `#p=` fragment format: a v1
-app reading a v2 payload must read what it understands and **refuse to write**,
-which is what `js/profile.js` does today. Downgrading somebody's saved map from
-a stale tab is the failure that looks exactly like the link having worked.
+visitor state and nothing warns you. The FORMAT inside it is now v2
+(`PROFILE_VERSION = 2`): `e` carries hand-tied links as canonically sorted id
+pairs, and `MIGRATIONS[0]` (append-only, never edited after shipping) lifts a
+v1 payload forward. The protection is unchanged: an app reading a payload
+NEWER than its own `PROFILE_VERSION` must read what it understands and
+**refuse to write**, which `commit()` and the share-name input both enforce.
+Downgrading somebody's saved map from a stale tab is the failure that looks
+exactly like the link having worked.
+
+**A hand tie implies both ends are marked, everywhere.** `addLink` marks both
+endpoints, `toggle` removes a node's ties with the node, and `clearMine`
+empties `e` alongside `n` (the adversarial review caught it keeping ties on an
+"empty" map). Every `computeRoutes` caller passes `profile.e`, including the
+boot call in `app.js`; the one that did not made a reload offer bridges across
+islands the visitor had already tied. Pairs are canonical (`a < b`), built and
+compared via `join('|')`.
+
+**Pointer discipline in `canvas-input.js` is load-bearing.** A pinch is never
+a click (either finger lifting must not select, tie or cancel), only button 0
+acts as a click (right-click belongs to the menu), a long-press swallows the
+click iOS synthesises after it, and the second click of a tie-completing
+double must not unmark the tie. Each guard exists because an adversarial pass
+produced the concrete failure without it.
 
 **Suggestions light six nodes on the canvas, not the whole frontier.**
 `nearMisses()` returns 15, 34 and 56 ids at 3, 8 and 14 marks, and ringing all

@@ -46,6 +46,7 @@ export function openContextMenu(s, id, x, y, { focus = true } = {}) {
     <p class="ctx__title">${escHtml(node.label)}</p>
     ${markable ? `<button type="button" class="ctx__item${mine ? '' : ' ctx__item--primary'}" data-act="toggle" data-node="${escHtml(id)}">${mine ? 'Remove from my map' : 'Mark as mine'}</button>` : ''}
     ${markable ? `<div class="ctx__depths" role="group" aria-label="Dedication">${depths}</div>` : ''}
+    ${markable ? `<button type="button" class="ctx__item" data-act="link-start" data-node="${escHtml(id)}">Link from here</button>` : ''}
     <button type="button" class="ctx__item" data-act="centre" data-node="${escHtml(id)}">Centre here</button>
     ${hasInner(s.atlas, id) ? `<button type="button" class="ctx__item" data-act="inner" data-node="${escHtml(id)}">Drill in</button>` : ''}
     ${node.cluster ? `<button type="button" class="ctx__item" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus this cluster</button>` : ''}

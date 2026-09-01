@@ -9,7 +9,7 @@
 
 import { $, showToast, plural } from './utils.js';
 import { persistProfile, setNotice } from './state.js';
-import { toggle, setLevel, computeRoutes } from './alloc.js';
+import { toggle, setLevel, computeRoutes, addLink, removeLink } from './alloc.js';
 import { boundsOfIds } from './atlas/layout.js';
 import { hasInner, ensureNodes } from './atlas/load.js';
 import { openInner, closeInner } from './inner.js';
@@ -19,7 +19,7 @@ import { ensureBuilds, listBuilds, applyBuild, buildProgress } from './builds.js
 import { ensureSheet } from './sheet.js';
 import { renderSheet } from './render-sheet.js';
 import { ensureExamples } from './examples.js';
-import { render, renderDetail, renderNotice, renderFocusChip, paint, announce } from './render.js';
+import { render, renderDetail, renderNotice, renderFocusChip, renderLinkChip, paint, announce } from './render.js';
 import { renderCompare, renderBuildsList, renderBuildPanel, renderInner, renderSharedPrompt } from './panels.js';
 import { openModal, closeModal } from './modal.js';
 
@@ -50,7 +50,7 @@ function revealPanel(id) {
  * must not be able to downgrade somebody's saved map by opening their link.
  */
 export function commit(s, message) {
-  s.routes = computeRoutes(s.atlas, new Set(s.profile.n));
+  s.routes = computeRoutes(s.atlas, new Set(s.profile.n), s.profile.e || []);
   if (s.profile.v <= PROFILE_VERSION) persistProfile();
   render(s);
   renderBuildPanel(s);
@@ -102,7 +102,7 @@ export function trace(s, path) {
 }
 
 export function clearMine(s) {
-  s.profile = { ...s.profile, n: [], l: {} };
+  s.profile = { ...s.profile, n: [], l: {}, e: [] };
   s.focusRing = new Set();
   commit(s, 'Your map is empty again.');
 }
@@ -154,6 +154,51 @@ export function lightAffinity(s, tag) {
   s.focusRing = new Set(ids);
   paint(s);
   announce(`${ids.length} nodes share ${s.atlas.tags.get(tag) || tag}. Escape clears the highlight.`);
+}
+
+// ── Hand-tied links ──────────────────────────────────────────
+export function startLink(s, id) {
+  const node = s.atlas.nodes.get(id);
+  if (!node || node.class === 'hub') return;
+  s.linking = id;
+  renderLinkChip(s);
+  paint(s);
+  // The only Escape for link mode listens on the canvas, and a button click
+  // leaves focus on the button (or on body, in WebKit). Move it.
+  $('atlasCanvas')?.focus();
+  announce(`Linking from ${node.label}. Click another node to tie them together; Escape cancels.`);
+}
+
+export function cancelLink(s) {
+  if (!s.linking) return;
+  s.linking = null;
+  renderLinkChip(s);
+  paint(s);
+  announce('Link cancelled.');
+}
+
+export function completeLink(s, targetId) {
+  const from = s.linking;
+  s.linking = null;
+  renderLinkChip(s);
+  const source = s.atlas.nodes.get(from);
+  const target = s.atlas.nodes.get(targetId);
+  if (!source || !target || target.class === 'hub' || from === targetId) {
+    paint(s);
+    announce('Nothing tied: a link needs two different nodes, and never the hub.');
+    return;
+  }
+  const before = (s.profile.e || []).length;
+  s.profile = addLink(s.profile, from, targetId);
+  const added = (s.profile.e || []).length !== before;
+  commit(s, added ? `${source.label} and ${target.label} tied together.` : `${source.label} and ${target.label} were already tied.`);
+}
+
+export function unlink(s, a, b) {
+  const la = s.atlas.nodes.get(a)?.label || a;
+  const lb = s.atlas.nodes.get(b)?.label || b;
+  s.profile = removeLink(s.profile, a, b);
+  commit(s, `${la} and ${lb} untied.`);
 }
 
 export async function drillInto(s, id) {
@@ -365,7 +410,7 @@ function clearShareHash() {
 export function adoptShared(s, pending = s.pendingShared) {
   if (!pending) return;
   const { rec, incoming } = pending;
-  const { profile, unknown, retired, clamped } = rec;
+  const { profile, unknown, retired, clamped, droppedLinks } = rec;
   if (s.profile.n.length) saveBackup(s.profile);
   s.profile = profile;
   const notes = [];
@@ -376,6 +421,7 @@ export function adoptShared(s, pending = s.pendingShared) {
     notes.push(`${unknown.length} ${plural(unknown.length, 'is not a node here', 'are not nodes here')}`);
   }
   if (clamped.length) notes.push(`${clamped.length} had a depth this atlas no longer goes to`);
+  if (droppedLinks) notes.push(`${droppedLinks} hand-tied ${plural(droppedLinks, 'link', 'links')} lost an end`);
   if (incoming.v > PROFILE_VERSION) {
     setNotice('This link was made with a newer version of Aficion. Reload the page to see all of it.');
   } else if (notes.length) {

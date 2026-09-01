@@ -6,11 +6,12 @@
 // Nothing is exposed on window.
 
 import { $, showToast, copyText, debounce } from './utils.js';
-import { savePrefs, rememberCamera, persistProfile } from './state.js';
-import { nodeAt, nodeToward } from './atlas/pick.js';
+import { savePrefs, persistProfile } from './state.js';
+import { PROFILE_VERSION } from './profile.js';
 import { openModal, closeModal, openModalEl, onModalKeydown } from './modal.js';
 import { renderShare, renderBuildPanel } from './panels.js';
-import { renderSearch, renderHint, renderDetail, paint, updateCanvasLabel } from './render.js';
+import { renderSearch, renderDetail, paint, updateCanvasLabel } from './render.js';
+import { bindCanvas } from './canvas-input.js';
 import {
   select,
   toggleNode,
@@ -36,173 +37,16 @@ import {
   focusCluster,
   leaveFocus,
   lightAffinity,
+  startLink,
+  cancelLink,
+  unlink,
 } from './actions.js';
-import { openContextMenu, closeContextMenu, refreshContextMenu } from './context-menu.js';
+import { closeContextMenu, refreshContextMenu } from './context-menu.js';
 import { openTour, tourNext, tourBack, closeTour } from './tour.js';
 
 export { applyHash };
 
-// ── Canvas: pointer ──────────────────────────────────────────
-function bindCanvas(s) {
-  const canvas = $('atlasCanvas');
-  if (!canvas) return;
-  let dragging = false;
-  let moved = 0;
-  let lastX = 0;
-  let lastY = 0;
-  const pointers = new Map();
-  let pinch = 0;
-
-  const local = (e) => {
-    const r = canvas.getBoundingClientRect();
-    return { x: e.clientX - r.left, y: e.clientY - r.top };
-  };
-
-  canvas.addEventListener('pointerdown', (e) => {
-    closeContextMenu();
-    canvas.setPointerCapture(e.pointerId);
-    pointers.set(e.pointerId, local(e));
-    if (!s.prefs.seenIntro) {
-      s.prefs.seenIntro = true;
-      savePrefs();
-      renderHint(s);
-    }
-    if (pointers.size === 1) {
-      dragging = true;
-      moved = 0;
-      const p = local(e);
-      lastX = p.x;
-      lastY = p.y;
-    }
-  });
-
-  canvas.addEventListener('pointermove', (e) => {
-    const p = local(e);
-    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, p);
-
-    if (pointers.size === 2) {
-      const [a, b] = [...pointers.values()];
-      const dist = Math.hypot(a.x - b.x, a.y - b.y);
-      if (pinch) s.camera.zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, dist / pinch);
-      pinch = dist;
-      return;
-    }
-    if (dragging) {
-      moved += Math.abs(p.x - lastX) + Math.abs(p.y - lastY);
-      s.camera.panBy(p.x - lastX, p.y - lastY);
-      lastX = p.x;
-      lastY = p.y;
-      s.camera.clampTo(s.atlas.meta.world);
-      return;
-    }
-    const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    canvas.style.cursor = hit ? 'pointer' : '';
-    if (hit !== s.hover) {
-      s.hover = hit;
-      paint(s);
-    }
-  });
-
-  // A drag that moved more than a few pixels is a pan, not a click.
-  canvas.addEventListener('pointerup', (e) => {
-    pointers.delete(e.pointerId);
-    if (pointers.size < 2) pinch = 0;
-    if (!dragging) return;
-    dragging = false;
-    if (moved > 6) {
-      rememberCamera(s.camera);
-      return;
-    }
-    const p = local(e);
-    const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    if (hit && e.shiftKey) toggleNode(s, hit);
-    else select(s, hit);
-  });
-
-  canvas.addEventListener('pointercancel', (e) => {
-    pointers.delete(e.pointerId);
-    dragging = false;
-  });
-
-  canvas.addEventListener('dblclick', (e) => {
-    const p = local(e);
-    const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    if (hit) toggleNode(s, hit);
-  });
-
-  // Right-click: the quick menu. Selecting first keeps the panel and the menu
-  // telling one story about the same node.
-  canvas.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    const p = local(e);
-    const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    if (!hit) {
-      closeContextMenu();
-      return;
-    }
-    select(s, hit);
-    openContextMenu(s, hit, p.x, p.y);
-  });
-
-  canvas.addEventListener(
-    'wheel',
-    (e) => {
-      e.preventDefault();
-      closeContextMenu();
-      const p = local(e);
-      s.camera.zoomAt(p.x, p.y, Math.exp(-e.deltaY * 0.0028));
-      s.camera.clampTo(s.atlas.meta.world);
-      rememberCamera(s.camera);
-    },
-    { passive: false },
-  );
-}
-
-// ── Canvas: keyboard ─────────────────────────────────────────
-// A canvas has no tab order, so arrow keys walk the graph geometrically and
-// render.js announces the landing node through the live region. This is the
-// route across the map for anyone not using a pointer.
-const ARROWS = {
-  ArrowUp: [0, -1],
-  ArrowDown: [0, 1],
-  ArrowLeft: [-1, 0],
-  ArrowRight: [1, 0],
-};
-
-function onCanvasKey(s, e) {
-  const dir = ARROWS[e.key];
-  if (dir) {
-    e.preventDefault();
-    if (e.shiftKey) {
-      s.camera.panBy(-dir[0] * 90, -dir[1] * 90);
-      s.camera.clampTo(s.atlas.meta.world);
-      return;
-    }
-    const next = s.selected ? nodeToward(s.index, s.selected, dir[0], dir[1]) : s.atlas.hubId;
-    if (next) select(s, next, { centre: true });
-    return;
-  }
-  if ((e.key === 'Enter' || e.key === ' ') && s.selected) {
-    e.preventDefault();
-    toggleNode(s, s.selected);
-    return;
-  }
-  if (e.key === 'Escape') {
-    if (s.inner) leaveInner(s);
-    else if (s.focusRing.size) {
-      s.focusRing = new Set();
-      paint(s);
-    } else if (s.clusterFocus) leaveFocus(s);
-    else select(s, null);
-    return;
-  }
-  const key = e.key.toLowerCase();
-  if (key === 'f') s.camera.flyTo(s.layout.bounds);
-  else if (key === 'm') fitMine(s);
-  else if (key === 'i' && s.selected) drillInto(s, s.selected);
-  else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.4);
-  else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.714);
-}
+// The canvas pointer and keyboard listeners live in canvas-input.js.
 
 // ── One delegated handler for every rendered control ─────────
 const ACTIONS = {
@@ -247,6 +91,9 @@ const ACTIONS = {
   },
   'focus-cluster': (s, el) => focusCluster(s, el.dataset.cluster),
   'focus-exit': (s) => leaveFocus(s),
+  'link-start': (s, el) => startLink(s, el.dataset.node),
+  'link-cancel': (s) => cancelLink(s),
+  unlink: (s, el) => unlink(s, el.dataset.a, el.dataset.b),
   affinity: (s, el) => lightAffinity(s, el.dataset.tag),
   'tour-open': () => {
     closeModal('helpModal');
@@ -349,7 +196,8 @@ function bindDialogs(s) {
     'input',
     debounce(() => {
       s.profile = { ...s.profile, t: $('shareName').value.trim().slice(0, 24) || null };
-      persistProfile();
+      // Same refusal commit() applies: never write a newer-version profile down.
+      if (s.profile.v <= PROFILE_VERSION) persistProfile();
       renderShare(s);
     }, 260),
   );
@@ -439,7 +287,6 @@ export function bindEvents(s) {
   document.addEventListener('click', (e) => onDelegatedClick(s, e));
 
   bindCanvas(s);
-  $('atlasCanvas')?.addEventListener('keydown', (e) => onCanvasKey(s, e));
 
   s.camera.onChange(() => s.renderer.requestFrame());
   window.addEventListener(

@@ -2,9 +2,9 @@
 
 > A constellation atlas of hobbies. 331 nodes across 22 clusters, joined
 > by typed edges that say why two things sit together. Mark what you
-> practise, set your dedication from Low to Hardcore, watch the gold
-> paths join your nodes, and share the whole map as a link that never
-> touches a server.
+> practise, set your dedication from Low to Hardcore, tie your own links
+> between nodes, watch the gold paths join, and share the whole map as a
+> link that never touches a server.
 
 Notes for agents:
 

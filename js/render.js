@@ -45,12 +45,17 @@ export function buildViewModel(s) {
     focus: s.focusRing,
     clusterFocus: s.clusterFocusIds,
     layers: s.prefs.layers,
+    personal: (s.profile.e || []).filter((p) => s.layout.pos.has(p[0]) && s.layout.pos.has(p[1])),
+    linking: s.linking,
     compare: s.comparison
       ? {
           both: s.comparison.both,
           mineOnly: s.comparison.mineOnly,
           theirsOnly: s.comparison.theirsOnly,
           nearMiss: s.comparison.nearMiss,
+          personal: (s.theirs && s.theirs.e ? s.theirs.e : []).filter(
+            (p) => s.layout.pos.has(p[0]) && s.layout.pos.has(p[1]),
+          ),
         }
       : null,
     build: s.build ? { steps: s.build.steps.map((x) => x.node), cursor: s.buildCursor } : null,
@@ -163,9 +168,25 @@ export function renderDetail(s) {
       ${drill}
       <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">Centre</button>
       ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus cluster</button>` : ''}
+      ${markable ? `<button type="button" class="btn btn--ghost btn--sm" data-act="link-start" data-node="${escHtml(node.id)}">Link from here</button>` : ''}
     </div>
     ${levelPicker(s, node)}
+    ${personalLinks(s, node)}
     ${neighbourList(s, node)}`;
+}
+
+/** The visitor's own ties through this node, each with its undo. */
+function personalLinks(s, node) {
+  const pairs = (s.profile.e || []).filter((p) => p[0] === node.id || p[1] === node.id);
+  if (!pairs.length) return '';
+  const rows = pairs
+    .map((p) => {
+      const other = p[0] === node.id ? p[1] : p[0];
+      return `<li>${nodeButton(s, other)}<span class="rel">your link</span>
+        <button type="button" class="btn btn--ghost btn--sm" data-act="unlink" data-a="${escHtml(p[0])}" data-b="${escHtml(p[1])}">Unlink</button></li>`;
+    })
+    .join('');
+  return `<div class="field-block"><p class="field-label">Your links</p><ul class="linklist">${rows}</ul></div>`;
 }
 
 /**
@@ -271,9 +292,10 @@ export function renderMine(s) {
       return `<div class="minegroup"><p class="field-label">${escHtml(label)}</p><div class="chips">${chips}</div></div>`;
     })
     .join('');
+  const hand = (s.profile.e || []).length;
   body.innerHTML = `
     <p class="panel__lead">${ids.length} ${plural(ids.length, 'node', 'nodes')}${spreadLine(groups)},
-      joined by ${s.routes.edges.size} ${plural(s.routes.edges.size, 'link', 'links')}.</p>
+      joined by ${s.routes.edges.size} ${plural(s.routes.edges.size, 'link', 'links')}${hand ? ` and ${hand} ${plural(hand, 'tie', 'ties')} of your own` : ''}.</p>
     ${blocks}
     ${bridgeLines(s)}
     <div class="toolbar">
@@ -388,6 +410,19 @@ export function renderFocusChip(s) {
     : '';
 }
 
+/** The chip while a hand link is being tied, plus the crosshair state. */
+export function renderLinkChip(s) {
+  const el = $('linkChip');
+  if (!el) return;
+  const node = s.linking ? s.atlas.nodes.get(s.linking) : null;
+  el.hidden = !node;
+  document.body.classList.toggle('is-linking', !!node);
+  el.innerHTML = node
+    ? `<span class="stage__focus-label">Linking from ${escHtml(node.label)}: click another node</span>
+       <button type="button" class="btn btn--ghost btn--sm" data-act="link-cancel">Cancel</button>`
+    : '';
+}
+
 export function renderNotice(s) {
   const el = $('notice');
   if (!el) return;
@@ -439,6 +474,7 @@ export function render(s) {
   renderHint(s);
   renderNotice(s);
   renderFocusChip(s);
+  renderLinkChip(s);
   renderDetail(s);
   renderMine(s);
   renderSuggest(s);

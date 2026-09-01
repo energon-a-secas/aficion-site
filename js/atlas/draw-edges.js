@@ -153,6 +153,44 @@ export function drawRoute(env) {
   ctx.stroke();
 }
 
+/**
+ * Pass 5b: the ties the visitor made by hand. Gold like the route, dashed
+ * because a hand tie is the visitor's assertion rather than a corpus fact.
+ * Additive underglow first, then the bright dash, no filter.
+ */
+export function drawPersonalEdges(env) {
+  const { ctx, view, theme } = env;
+  if (!view.personal.length) return;
+  const segs = [];
+  for (const [a, b] of view.personal) {
+    const seg = segment(env, { from: a, to: b });
+    if (seg) segs.push(seg);
+  }
+  if (!segs.length) return;
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.setLineDash([6 * env.px, 5 * env.px]);
+  ctx.strokeStyle = withAlpha(theme.route, 0.2);
+  ctx.lineWidth = 5 * env.px;
+  ctx.beginPath();
+  for (const seg of segs) {
+    ctx.moveTo(seg.a.x, seg.a.y);
+    ctx.lineTo(seg.b.x, seg.b.y);
+  }
+  ctx.stroke();
+  ctx.restore();
+  ctx.setLineDash([6 * env.px, 5 * env.px]);
+  ctx.strokeStyle = withAlpha(theme.routeBright, 0.85);
+  ctx.lineWidth = 1.6 * env.px;
+  ctx.beginPath();
+  for (const seg of segs) {
+    ctx.moveTo(seg.a.x, seg.a.y);
+    ctx.lineTo(seg.b.x, seg.b.y);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
 /** Pass 6: the friend's thread, drawn beside yours in its own colour. */
 export function drawCompareEdges(env) {
   const { ctx, view, theme } = env;
@@ -167,6 +205,15 @@ export function drawCompareEdges(env) {
     if (!seg) continue;
     const shared = cmp.both.has(edge.from) && cmp.both.has(edge.to);
     stroke(ctx, seg.a, seg.b, shared ? theme.compareBoth : theme.compareTheirs, 2 * env.px);
+  }
+  // Their hand ties, in a tighter dash so an asserted link reads apart from
+  // the corpus fabric on their side too.
+  ctx.setLineDash([4 * env.px, 4 * env.px]);
+  for (const [a, b] of cmp.personal || []) {
+    const seg = segment(env, { from: a, to: b });
+    if (!seg) continue;
+    const shared = cmp.both.has(a) && cmp.both.has(b);
+    stroke(ctx, seg.a, seg.b, shared ? theme.compareBoth : theme.compareTheirs, 1.6 * env.px);
   }
   ctx.setLineDash([]);
 }

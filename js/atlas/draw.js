@@ -11,7 +11,7 @@
 // nothing at all on every iPhone.
 
 import { resolveTheme, onThemeChange, withAlpha } from './theme.js';
-import { drawDrawsOn, drawBaseEdges, drawRoute, drawCompareEdges } from './draw-edges.js';
+import { drawDrawsOn, drawBaseEdges, drawRoute, drawPersonalEdges, drawCompareEdges } from './draw-edges.js';
 import { drawCoreNodes, drawPlainNodes, drawNotables, drawHub, drawHalos, drawRings } from './draw-nodes.js';
 import { drawLabels } from './draw-labels.js';
 
@@ -84,6 +84,7 @@ export function createRenderer(canvas, atlas, layout) {
     drawDrawsOn(env);
     drawBaseEdges(env);
     drawRoute(env);
+    drawPersonalEdges(env);
     drawCompareEdges(env);
     drawCoreNodes(env);
     drawPlainNodes(env);

@@ -165,8 +165,12 @@
              delegated data-act handler like everything else. -->
         <div class="stage__card" id="stageCard" hidden></div>
 
-        <!-- Cluster focus: the chip that names the mode and carries the exit. -->
-        <div class="stage__focus" id="focusChip" hidden></div>
+        <!-- Mode chips, stacked top-centre: cluster focus and link mode. Each
+             names the state the map is in and carries its own exit. -->
+        <div class="stage__chips">
+          <div class="stage__focus" id="focusChip" hidden></div>
+          <div class="stage__focus" id="linkChip" hidden></div>
+        </div>
 
         <!-- Right-click quick menu; js/context-menu.js renders the content,
              the delegated data-act handler runs it. -->
@@ -372,14 +376,15 @@
           <dt>Drag</dt><dd>Pan the map</dd>
           <dt>Wheel or pinch</dt><dd>Zoom where the pointer is</dd>
           <dt>Hover</dt><dd>Light a node's neighbours, with their names</dd>
-          <dt>Right-click</dt><dd>Quick menu: mark, set dedication, focus the cluster</dd>
+          <dt>Right-click</dt><dd>Quick menu: mark, set dedication, link by hand, focus the cluster</dd>
           <dt>Arrow keys</dt><dd>Walk to the nearest node in that direction</dd>
           <dt>Shift and arrows</dt><dd>Pan without changing the selection</dd>
           <dt>Enter</dt><dd>Mark the selected node as yours</dd>
           <dt>I</dt><dd>Drill into the selected node, when it has an inner tree</dd>
+          <dt>L</dt><dd>Start a hand link from the selected node; click or Enter ties it</dd>
           <dt>F</dt><dd>Fit the whole atlas</dd>
           <dt>M</dt><dd>Fit mine, the view zoomed to what you have marked</dd>
-          <dt>Escape</dt><dd>Close a drill-in, leave a focus, then clear the selection</dd>
+          <dt>Escape</dt><dd>Cancel a link, close a drill-in, leave a focus, then clear the selection</dd>
           <dt>/</dt><dd>Jump to search</dd>
         </dl>
 
@@ -427,6 +432,7 @@
           <dt>Dashed line</dt><dd>Shares gear: the same kit on two shelves</dd>
           <dt>Faint line to the centre</dt><dd>Draws on a craft many families share</dd>
           <dt>Gold</dt><dd>Yours: marked nodes and the paths between them</dd>
+          <dt>Dashed gold</dt><dd>A link you tied yourself, between two of your own</dd>
         </dl>
       </div>
       <footer class="modal__footer">

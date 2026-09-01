@@ -38,6 +38,7 @@ export const state = {
   dimOthers: false,
   clusterFocus: null, // cluster id the visitor is focused on, or null
   clusterFocusIds: null, // Set of ids kept bright in that mode: the cluster plus the crafts it draws on
+  linking: null, // node id a hand link is being tied from; transient, never persisted
 
   inner: null,
   build: null,

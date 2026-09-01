@@ -32,7 +32,7 @@ async function init() {
   state.renderer.setCamera(state.camera);
   applySavedCamera(state.camera, state.layout);
   await ensureNodes(state.atlas, state.profile.n);
-  state.routes = computeRoutes(state.atlas, new Set(state.profile.n));
+  state.routes = computeRoutes(state.atlas, new Set(state.profile.n), state.profile.e || []);
   render(state);
   bindEvents(state);
   const hash = readHash();

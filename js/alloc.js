@@ -13,13 +13,37 @@ const MAX_BRIDGE_STEPS = 6;
 export function toggle(profile, nodeId) {
   const n = new Set(profile.n);
   const l = { ...profile.l };
+  let e = (profile.e || []).slice();
   if (n.has(nodeId)) {
     n.delete(nodeId);
     delete l[nodeId];
+    // A hand-tied link is a claim about two of YOUR nodes; unmarking an end
+    // takes the tie with it rather than leaving a thread to nowhere.
+    e = e.filter((pair) => pair[0] !== nodeId && pair[1] !== nodeId);
   } else {
     n.add(nodeId);
   }
-  return { ...profile, n: [...n].sort(), l };
+  return { ...profile, n: [...n].sort(), l, e };
+}
+
+/** Tie two nodes by hand. Marks both ends: a tie is a claim about your map. */
+export function addLink(profile, a, b) {
+  if (!a || !b || a === b) return profile;
+  const pair = a < b ? [a, b] : [b, a];
+  const key = pair.join('|');
+  const e = (profile.e || []).slice();
+  if (e.some((p) => p.join('|') === key)) return profile;
+  e.push(pair);
+  e.sort((x, y) => x.join('|').localeCompare(y.join('|')));
+  const n = new Set(profile.n);
+  n.add(a);
+  n.add(b);
+  return { ...profile, n: [...n].sort(), e };
+}
+
+export function removeLink(profile, a, b) {
+  const key = (a < b ? [a, b] : [b, a]).join('|');
+  return { ...profile, e: (profile.e || []).filter((p) => p.join('|') !== key) };
 }
 
 export function setLevel(profile, nodeId, level) {
@@ -39,7 +63,7 @@ function onTopLayer(atlas, allocated) {
   return out;
 }
 
-function componentsOf(atlas, allocated) {
+function componentsOf(atlas, allocated, extra) {
   const seen = new Set();
   const out = [];
   for (const id of allocated) {
@@ -54,6 +78,12 @@ function componentsOf(atlas, allocated) {
         if (allocated.has(link.to) && !seen.has(link.to)) {
           seen.add(link.to);
           stack.push(link.to);
+        }
+      }
+      for (const to of (extra && extra.get(cur)) || []) {
+        if (allocated.has(to) && !seen.has(to)) {
+          seen.add(to);
+          stack.push(to);
         }
       }
     }
@@ -112,13 +142,23 @@ function pathBack(prev, id) {
  * that do not touch are reported as components, and the shortest walk between
  * each island and its nearest neighbour is reported as a bridge.
  */
-export function computeRoutes(atlas, allocated) {
+export function computeRoutes(atlas, allocated, personal = []) {
   const mine = onTopLayer(atlas, allocated);
   const edges = new Set();
   for (const edge of atlas.edges) {
     if (mine.has(edge.from) && mine.has(edge.to)) edges.add(edge.key);
   }
-  const components = componentsOf(atlas, mine);
+  // Hand-tied pairs join islands the corpus does not: two components with a
+  // personal link between them are one island, so no bridge is offered.
+  const extra = new Map();
+  for (const [a, b] of personal) {
+    if (!mine.has(a) || !mine.has(b)) continue;
+    if (!extra.has(a)) extra.set(a, []);
+    if (!extra.has(b)) extra.set(b, []);
+    extra.get(a).push(b);
+    extra.get(b).push(a);
+  }
+  const components = componentsOf(atlas, mine, extra);
 
   const ownerOf = new Map();
   components.forEach((group, i) => {

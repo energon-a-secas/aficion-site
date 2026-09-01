@@ -15,11 +15,40 @@ import { drawDrawsOn, drawBaseEdges, drawRoute, drawPersonalEdges, drawCompareEd
 import { drawCoreNodes, drawPlainNodes, drawNotables, drawHub, drawHalos, drawRings } from './draw-nodes.js';
 import { drawLabels } from './draw-labels.js';
 
+// ── Starfield ────────────────────────────────────────────────
+// Deterministic like the layout: the same sky on every visit, seeded and
+// placed in world space so the stars belong to the map, not to the screen.
+function mulberry32(seed) {
+  let a = seed;
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function makeStars(world) {
+  const rnd = mulberry32(20260901);
+  const stars = [];
+  for (let i = 0; i < 420; i++) {
+    stars.push({
+      x: world.minX + rnd() * (world.maxX - world.minX),
+      y: world.minY + rnd() * (world.maxY - world.minY),
+      r: 0.7 + rnd() * 1.5,
+      a: 0.06 + rnd() * 0.2,
+    });
+  }
+  return stars;
+}
+
 export function createRenderer(canvas, atlas, layout) {
   const ctx = canvas.getContext('2d');
   let camera = null;
   let view = null;
   let theme = resolveTheme();
+  const stars = makeStars(atlas.meta.world);
   let pending = 0;
   let dead = false;
 
@@ -45,6 +74,20 @@ export function createRenderer(canvas, atlas, layout) {
     ctx.fillRect(0, 0, w, h);
   }
 
+  /** Pass 2b: the sky. Stars recede as you zoom in, a cheap depth cue. */
+  function starfield(env) {
+    const shrink = Math.max(1, Math.sqrt(env.camera.zoom));
+    ctx.fillStyle = env.theme.label;
+    for (const st of stars) {
+      if (st.x < env.rect.minX || st.x > env.rect.maxX || st.y < env.rect.minY || st.y > env.rect.maxY) continue;
+      ctx.globalAlpha = st.a;
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r / shrink, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
   /** One translucent disc per cluster, so a constellation reads as a region.
       Tinted with the cluster's declared accent, so a region also has a hue. */
   function hulls(env) {
@@ -58,6 +101,14 @@ export function createRenderer(canvas, atlas, layout) {
       ctx.beginPath();
       ctx.arc(hull.cx, hull.cy, hull.r, 0, Math.PI * 2);
       ctx.fill();
+      // The region's edge, barely there: a boundary to sense, not a fence.
+      ctx.strokeStyle = accent ? withAlpha(accent, 0.16) : env.theme.hullEdge;
+      ctx.lineWidth = 1.2 * env.px;
+      ctx.setLineDash([10 * env.px, 14 * env.px]);
+      ctx.beginPath();
+      ctx.arc(hull.cx, hull.cy, hull.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
   }
 
@@ -80,6 +131,7 @@ export function createRenderer(canvas, atlas, layout) {
       px: 1 / camera.zoom, // one CSS pixel, expressed in world units
     };
 
+    starfield(env);
     hulls(env);
     drawDrawsOn(env);
     drawBaseEdges(env);

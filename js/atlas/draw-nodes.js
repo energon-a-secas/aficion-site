@@ -156,6 +156,21 @@ export function drawNotables(env) {
     disc(ctx, p.x, p.y, r, face);
     if (lit) disc(ctx, p.x, p.y, r * 0.35, theme.routeBright);
     ring(ctx, p.x, p.y, r * 1.55, withAlpha(face, 0.55), 1.4 * env.px);
+    // The keystone frame, PoE2-fashion: a quiet outer ring with four diagonal
+    // ticks. Only when close enough that ornament reads as identity.
+    if (env.px <= 0.9) {
+      const rr = r * 2;
+      ring(ctx, p.x, p.y, rr, withAlpha(face, 0.26), 1 * env.px);
+      ctx.strokeStyle = withAlpha(face, 0.5);
+      ctx.lineWidth = 1.3 * env.px;
+      ctx.beginPath();
+      for (let i = 0; i < 4; i++) {
+        const a = Math.PI / 4 + (i * Math.PI) / 2;
+        ctx.moveTo(p.x + Math.cos(a) * rr * 0.94, p.y + Math.sin(a) * rr * 0.94);
+        ctx.lineTo(p.x + Math.cos(a) * rr * 1.16, p.y + Math.sin(a) * rr * 1.16);
+      }
+      ctx.stroke();
+    }
     innerMark(env, node, p, r);
     ctx.globalAlpha = 1;
   });

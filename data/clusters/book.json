@@ -23,7 +23,8 @@
       "tags": ["patience", "cheap-start", "research"],
       "blurb": "Novels, and the pile of them beside the bed. The to-be-read stack grows faster than the read one, and everyone here pretends that is fine.",
       "aka": ["novels", "reading", "literature", "tbr pile"],
-      "accent": "violet"
+      "accent": "violet",
+      "inner": true
     },
     {
       "id": "book.nonfiction",

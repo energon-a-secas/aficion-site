@@ -30,6 +30,7 @@
       "id": "kitchen.baking",
       "label": "Baking",
       "class": "node",
+      "inner": true,
       "tags": ["hands-on", "patience", "research"],
       "blurb": "Grams, oven temperatures and chemistry that shows its work. The branch of cooking where improvising is how things go wrong.",
       "aka": ["cakes", "pastry"]

@@ -45,6 +45,7 @@
       "id": "garden.bonsai",
       "label": "Bonsai",
       "class": "node",
+      "inner": true,
       "tags": ["patience", "hands-on", "research"],
       "blurb": "Wiring, pruning and repotting on a schedule measured in years. A tree in a tray, and a decades-long argument with it about its shape."
     },

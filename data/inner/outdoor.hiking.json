@@ -1,0 +1,42 @@
+{
+  "of": "outdoor.hiking",
+  "label": "Hiking, past the first summit",
+  "blurb": "A walk stops being simple the moment you plan it. These are the directions the planning takes, and most of them happen indoors.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "outdoor.hiking.day-hikes", "outdoor.hiking.snacks", "outdoor.hiking.footwear",
+      "outdoor.hiking.night-hikes", "outdoor.hiking.thru-routes", "outdoor.hiking.leave-no-trace",
+      "outdoor.hiking.map-compass", "outdoor.hiking.gpx", "outdoor.hiking.logs",
+      "outdoor.hiking.peak-bagging"
+    ]
+  },
+  "nodes": [
+    { "id": "outdoor.hiking.day-hikes",      "label": "Day hikes",                 "class": "notable", "tags": ["outdoors", "cheap-start", "social"], "blurb": "Up in the morning, back for dinner, one summit or a loop. The format everything else on this map quietly complicates." },
+    { "id": "outdoor.hiking.thru-routes",    "label": "Overnight and thru routes", "class": "node", "tags": ["outdoors", "gear", "patience"],         "blurb": "The walk keeps going after dark, so the house comes along. Somewhere past the second night it stops being a hike and becomes a commute with views." },
+    { "id": "outdoor.hiking.map-compass",    "label": "Map and compass",           "class": "node", "tags": ["outdoors", "research", "cheap-start"],  "blurb": "Contours, bearings and a plastic baseplate that never needs charging. Practised on clear days so it works on the day the cloud comes down." },
+    { "id": "outdoor.hiking.gpx",            "label": "GPX planning",              "class": "node", "tags": ["outdoors", "research"],                 "blurb": "Routes drawn at a desk the week before, elevation profile and all. Some of a walk's best hours happen at the computer, which nobody admits." },
+    { "id": "outdoor.hiking.snacks",         "label": "Trail snacks and water",    "class": "node", "tags": ["outdoors", "cheap-start", "research"],  "blurb": "Calories per gram, litres per hour and a firm position on jelly sweets. The menu gets planned harder than most dinner parties." },
+    { "id": "outdoor.hiking.footwear",       "label": "Footwear and blister craft","class": "node", "tags": ["outdoors", "gear", "research"],         "blurb": "Boots or trail shoes, lacing patterns and tape applied before the hot spot, not after. Feet are the one piece of gear you cannot swap mid-walk." },
+    { "id": "outdoor.hiking.peak-bagging",   "label": "Peak bagging",              "class": "node", "tags": ["outdoors", "collecting", "patience"],   "blurb": "A published list of summits and a tick against each one. The hill was always there; the spreadsheet is what gets you out in November." },
+    { "id": "outdoor.hiking.night-hikes",    "label": "Night hikes",               "class": "node", "tags": ["outdoors", "gear", "patience"],         "blurb": "The same trail after dark, on a headtorch beam. Familiar paths stop being familiar, which is either the appeal or the warning." },
+    { "id": "outdoor.hiking.leave-no-trace", "label": "Leave no trace",            "class": "node", "tags": ["outdoors", "research"],                 "blurb": "Pack it out, keep to the path, leave nothing to find. The one discipline here that is invisible when done well, which makes it hard to show off." },
+    { "id": "outdoor.hiking.logs",           "label": "Hiking logs",               "class": "node", "tags": ["content", "research", "patience"],      "blurb": "Dates, routes, weather and who came along, kept for years. Reads as admin until the day you need to know which year the bridge washed out." }
+  ],
+  "edges": [
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.thru-routes",    "kind": "leads-to",    "note": "One planned overnight is how a day hiker learns what their pack really weighs." },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.peak-bagging",   "kind": "leads-to" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.night-hikes",    "kind": "kin" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.snacks",         "kind": "kin" },
+    { "from": "outdoor.hiking.day-hikes",    "to": "outdoor.hiking.footwear",       "kind": "leads-to",    "note": "The first long descent teaches more about lacing than any shop fitting." },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.map-compass",    "kind": "leads-to",    "note": "Multi-day routes turn navigation from an app into a skill." },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.leave-no-trace", "kind": "kin" },
+    { "from": "outdoor.hiking.thru-routes",  "to": "outdoor.hiking.night-hikes",    "kind": "shares-gear", "note": "Same headtorch and spare batteries. One packs it for camp chores, the other builds the whole walk around it." },
+    { "from": "outdoor.hiking.map-compass",  "to": "outdoor.hiking.gpx",            "kind": "kin",         "note": "The same route planned twice: once on paper that cannot die, once on a screen that can." },
+    { "from": "outdoor.hiking.gpx",          "to": "outdoor.hiking.logs",           "kind": "kin" },
+    { "from": "outdoor.hiking.peak-bagging", "to": "outdoor.hiking.logs",           "kind": "leads-to",    "note": "A list of summits is already a log; it just grows more columns." }
+  ]
+}

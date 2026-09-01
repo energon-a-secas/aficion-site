@@ -25,7 +25,8 @@
       "tags": ["outdoors", "cheap-start", "social"],
       "blurb": "Boots, a route and a summit or a loop. The entry point to everything else out here, and the one that needs the least explaining.",
       "aka": ["hillwalking", "trekking", "day hikes"],
-      "accent": "cyan"
+      "accent": "cyan",
+      "inner": true
     },
     {
       "id": "outdoor.camping",

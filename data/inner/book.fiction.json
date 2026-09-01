@@ -1,0 +1,41 @@
+{
+  "of": "book.fiction",
+  "label": "Fiction, shelf by shelf",
+  "blurb": "The novel splits by appetite, and every shelf is sure it is the serious one. Same chair, same lamp, different contracts.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "book.fiction.mystery", "book.fiction.horror", "book.fiction.short-stories",
+      "book.fiction.literary", "book.fiction.translated", "book.fiction.reading-log",
+      "book.fiction.rereads", "book.fiction.epics", "book.fiction.romance",
+      "book.fiction.historical"
+    ]
+  },
+  "nodes": [
+    { "id": "book.fiction.mystery",       "label": "Mystery and crime",    "class": "notable", "tags": ["cheap-start", "patience"],            "blurb": "A body, a detective and a fair chance to guess first. The genre with the strictest contract, read by people who audit every clause." },
+    { "id": "book.fiction.horror",        "label": "Horror",               "class": "node", "tags": ["fandom", "patience", "cheap-start"],     "blurb": "Ghosts, bad houses and things best left unnamed. Fans will explain it is really about grief, while enjoying the monster very much." },
+    { "id": "book.fiction.historical",    "label": "Historical fiction",   "class": "node", "tags": ["research", "patience"],                  "blurb": "Fiction wearing period dress, footnotes optional. Half the audience comes for the story and half comes to mark the author's homework." },
+    { "id": "book.fiction.romance",       "label": "Romance",              "class": "node", "tags": ["cheap-start", "social", "patience"],     "blurb": "The only genre that guarantees its ending and outsells the rest anyway. Apparently suspense was never about how it ends." },
+    { "id": "book.fiction.literary",      "label": "Literary fiction",     "class": "node", "tags": ["patience", "research", "cheap-start"],   "blurb": "Prize lists, sentence-level ambition and no promises about plot. The shelf where not finishing the book can still count as reading it." },
+    { "id": "book.fiction.translated",    "label": "Translated fiction",   "class": "node", "tags": ["research", "patience"],                  "blurb": "Someone rewrote every sentence so you could read it, and got a line on the title page for it. The prize stickers rarely mention them either." },
+    { "id": "book.fiction.short-stories", "label": "Short stories",        "class": "node", "tags": ["cheap-start", "patience"],               "blurb": "Whole worlds opened and closed inside twenty pages. The form everyone praises, teaches and recommends, and somehow never buys." },
+    { "id": "book.fiction.epics",         "label": "Doorstop epics",       "class": "node", "tags": ["patience", "fandom"],                    "blurb": "A thousand pages, three maps and a family tree. Starting one is less like choosing a book and more like signing a lease." },
+    { "id": "book.fiction.rereads",       "label": "Rereading favourites", "class": "node", "tags": ["patience", "cheap-start"],               "blurb": "Back to the same shelf on purpose, sometimes on a schedule. Comfort, mostly, plus the quiet thrill of knowing the twist and watching it come." },
+    { "id": "book.fiction.reading-log",   "label": "Logs and reviews",     "class": "node", "tags": ["content", "research", "patience"],       "blurb": "Stars, spreadsheets and a running yearly count. The paper trail starts as a record of the reading and ends up assigning it." }
+  ],
+  "edges": [
+    { "from": "book.fiction.mystery",       "to": "book.fiction.horror",        "kind": "kin" },
+    { "from": "book.fiction.mystery",       "to": "book.fiction.historical",    "kind": "kin",         "note": "Historical crime is its own aisle now. Two research habits, one body." },
+    { "from": "book.fiction.historical",    "to": "book.fiction.romance",       "kind": "kin" },
+    { "from": "book.fiction.historical",    "to": "book.fiction.epics",         "kind": "shares-gear", "note": "Both arrive with maps, family trees and a cast of houses. The appendix is doing structural work." },
+    { "from": "book.fiction.horror",        "to": "book.fiction.short-stories", "kind": "kin" },
+    { "from": "book.fiction.short-stories", "to": "book.fiction.literary",      "kind": "kin" },
+    { "from": "book.fiction.literary",      "to": "book.fiction.translated",    "kind": "kin" },
+    { "from": "book.fiction.epics",         "to": "book.fiction.rereads",       "kind": "leads-to",    "note": "A series that long gets reread from the beginning before each new volume." },
+    { "from": "book.fiction.romance",       "to": "book.fiction.rereads",       "kind": "leads-to" },
+    { "from": "book.fiction.rereads",       "to": "book.fiction.reading-log",   "kind": "kin" }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "of": "kitchen.baking",
+  "label": "Baking, once the scale comes out",
+  "blurb": "One good batch is how it starts. Then the scale comes out, the oven gets a thermometer, and the recipes turn into ratios.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "kitchen.baking.cookies", "kitchen.baking.cakes", "kitchen.baking.enriched-doughs",
+      "kitchen.baking.lamination", "kitchen.baking.pie-crust", "kitchen.baking.bakers-math",
+      "kitchen.baking.starter-keeping", "kitchen.baking.whole-grain", "kitchen.baking.scoring",
+      "kitchen.baking.oven-steam"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "kitchen.baking.cookies",
+      "label": "Cookies",
+      "class": "notable",
+      "tags": ["cheap-start", "hands-on", "social"],
+      "blurb": "Drop, slice-and-bake and the endless chocolate chip variations. The lowest stakes in baking, which is why everyone runs their most serious experiments here."
+    },
+    {
+      "id": "kitchen.baking.cakes",
+      "label": "Cakes and sponges",
+      "class": "node",
+      "tags": ["hands-on", "social", "research"],
+      "blurb": "Genoise, chiffon and the layer cake with a crumb coat. The first bake with an audience, since nobody makes a cake for no one."
+    },
+    {
+      "id": "kitchen.baking.enriched-doughs",
+      "label": "Enriched doughs",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Brioche, babka and cinnamon rolls, doughs with butter and eggs on the payroll. Slower to rise than anything else here, and gone faster."
+    },
+    {
+      "id": "kitchen.baking.lamination",
+      "label": "Laminated pastry",
+      "class": "node",
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Croissants and puff, butter folded into dough until the layers run to the hundreds. A kitchen two degrees too warm undoes an hour of work."
+    },
+    {
+      "id": "kitchen.baking.pie-crust",
+      "label": "Pie and tart crust",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "patience"],
+      "blurb": "Shortcrust, blind baking and the crimp that identifies the baker. Soggy bottoms are discussed with a seriousness outsiders find alarming."
+    },
+    {
+      "id": "kitchen.baking.bakers-math",
+      "label": "Baker's percentages",
+      "class": "node",
+      "tags": ["research", "cheap-start"],
+      "blurb": "Every ingredient written as a percentage of the flour. A notation change that quietly turns recipes into things you can reason about."
+    },
+    {
+      "id": "kitchen.baking.starter-keeping",
+      "label": "Starter keeping",
+      "class": "node",
+      "tags": ["patience", "hands-on", "cheap-start"],
+      "blurb": "Flour, water and a feeding schedule kept like a rota. Holidays now get planned around who minds the jar."
+    },
+    {
+      "id": "kitchen.baking.whole-grain",
+      "label": "Rye and whole grain",
+      "class": "node",
+      "tags": ["research", "hands-on", "patience"],
+      "blurb": "Dense flours, thirsty doughs and flavours white flour never mentions. The crumb gets tighter and the opinions get stronger."
+    },
+    {
+      "id": "kitchen.baking.scoring",
+      "label": "Bread scoring",
+      "class": "node",
+      "tags": ["hands-on", "content", "cheap-start"],
+      "blurb": "A razor, a steady wrist and one committed stroke before the oven. Wheat stalks and spirals, drawn on a surface that will not sit still."
+    },
+    {
+      "id": "kitchen.baking.oven-steam",
+      "label": "Oven steam tricks",
+      "class": "node",
+      "tags": ["gear", "research", "cheap-start"],
+      "blurb": "Dutch ovens, lava rocks and a tray of boiling water on the bottom shelf. Domestic ovens vent steam out on purpose, so bakers spend years sneaking it back in."
+    }
+  ],
+  "edges": [
+    { "from": "kitchen.baking.cookies", "to": "kitchen.baking.cakes", "kind": "leads-to" },
+    { "from": "kitchen.baking.cookies", "to": "kitchen.baking.pie-crust", "kind": "leads-to" },
+    { "from": "kitchen.baking.cakes", "to": "kitchen.baking.enriched-doughs", "kind": "leads-to", "note": "Brioche is where cake people and bread people meet in the middle." },
+    { "from": "kitchen.baking.enriched-doughs", "to": "kitchen.baking.lamination", "kind": "leads-to" },
+    { "from": "kitchen.baking.pie-crust", "to": "kitchen.baking.lamination", "kind": "shares-gear", "note": "The same rolling pin, bench scraper and fridge discipline. Keeping the butter cold is the whole game in both." },
+    { "from": "kitchen.baking.cakes", "to": "kitchen.baking.bakers-math", "kind": "leads-to", "note": "Scaling a recipe to a bigger tin is where the percentages sneak in." },
+    { "from": "kitchen.baking.bakers-math", "to": "kitchen.baking.starter-keeping", "kind": "kin", "note": "Feeding ratios are percentages wearing an apron." },
+    { "from": "kitchen.baking.starter-keeping", "to": "kitchen.baking.whole-grain", "kind": "leads-to", "note": "Rye is where most starters do their best work." },
+    { "from": "kitchen.baking.starter-keeping", "to": "kitchen.baking.scoring", "kind": "leads-to" },
+    { "from": "kitchen.baking.scoring", "to": "kitchen.baking.oven-steam", "kind": "kin", "note": "The cut and the steam work together; oven spring opens what the razor drew." }
+  ]
+}

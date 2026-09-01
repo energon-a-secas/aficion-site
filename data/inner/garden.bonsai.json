@@ -1,0 +1,101 @@
+{
+  "of": "garden.bonsai",
+  "label": "Bonsai, tree by tree",
+  "blurb": "The first juniper is a purchase. Everything after it is a practice, run on the tree's calendar rather than yours.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 0],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "garden.bonsai.nursery-stock", "garden.bonsai.yamadori", "garden.bonsai.deadwood",
+      "garden.bonsai.wiring", "garden.bonsai.ramification", "garden.bonsai.species-study",
+      "garden.bonsai.winter-care", "garden.bonsai.pots-display", "garden.bonsai.soil-mixes",
+      "garden.bonsai.repotting"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.bonsai.nursery-stock",
+      "label": "Nursery stock hunting",
+      "class": "notable",
+      "tags": ["cheap-start", "outdoors", "research"],
+      "blurb": "Garden centres walked slowly, looking at trunks instead of foliage. The cheapest shrub on the rack sometimes hides the best tree, which is the whole sport."
+    },
+    {
+      "id": "garden.bonsai.yamadori",
+      "label": "Yamadori",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research"],
+      "blurb": "Collecting wild trees, with permission, from mountains and hedgerows. Decades of natural struggle in one trunk, and a survival rate that teaches humility."
+    },
+    {
+      "id": "garden.bonsai.wiring",
+      "label": "Wiring",
+      "class": "node",
+      "tags": ["hands-on", "patience", "gear"],
+      "blurb": "Copper or aluminium wrapped along every branch to set its line. Hours of application, months of waiting, and one season too long leaves scars."
+    },
+    {
+      "id": "garden.bonsai.ramification",
+      "label": "Pruning and ramification",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Cut back, let it grow, cut back again until the twigs divide like a river delta. Most of the work is choosing what the tree loses."
+    },
+    {
+      "id": "garden.bonsai.repotting",
+      "label": "Repotting and root work",
+      "class": "node",
+      "tags": ["hands-on", "patience"],
+      "blurb": "Root pruning and fresh soil on a schedule the tree sets. A spring job with a short window, missed at the cost of a year."
+    },
+    {
+      "id": "garden.bonsai.soil-mixes",
+      "label": "Soil mixes",
+      "class": "node",
+      "tags": ["research", "gear"],
+      "blurb": "Akadama, pumice and lava, sieved into grades. Bags of imported clay, bought by people who own a garden full of free dirt."
+    },
+    {
+      "id": "garden.bonsai.deadwood",
+      "label": "Deadwood, jin and shari",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Dead branches and stripped trunk, carved and bleached with lime sulphur. Making part of a tree look dead takes surprising care with the living part."
+    },
+    {
+      "id": "garden.bonsai.species-study",
+      "label": "Species study",
+      "class": "node",
+      "tags": ["research", "patience", "collecting"],
+      "blurb": "Junipers, maples and ficus each want different work in different months. Knowing one species well beats owning ten confused trees."
+    },
+    {
+      "id": "garden.bonsai.pots-display",
+      "label": "Pots and display",
+      "class": "node",
+      "tags": ["collecting", "research", "space"],
+      "blurb": "The pot is half the picture, and collectors treat it that way. Stands, scrolls and accent plants turn a tree into an exhibit."
+    },
+    {
+      "id": "garden.bonsai.winter-care",
+      "label": "Winter care",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research"],
+      "blurb": "Cold frames, mulched pots and roots that freeze faster in a tray than in the ground. The quiet season, which the trees do not consider optional."
+    }
+  ],
+  "edges": [
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.wiring", "kind": "leads-to", "note": "The first tree exists to be practised on." },
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.repotting", "kind": "leads-to" },
+    { "from": "garden.bonsai.nursery-stock", "to": "garden.bonsai.yamadori", "kind": "leads-to", "note": "Once the eye learns to read trunks, hedgerows stop being scenery." },
+    { "from": "garden.bonsai.wiring", "to": "garden.bonsai.ramification", "kind": "kin", "note": "Two halves of styling: wire sets the line, scissors build the density." },
+    { "from": "garden.bonsai.wiring", "to": "garden.bonsai.deadwood", "kind": "shares-gear", "note": "Jin pliers do double duty, bending wire one day and stripping bark the next. One tool roll serves both jobs." },
+    { "from": "garden.bonsai.ramification", "to": "garden.bonsai.species-study", "kind": "leads-to", "note": "Every cut is timed to a species, so the pruning calendar becomes a reading list." },
+    { "from": "garden.bonsai.species-study", "to": "garden.bonsai.winter-care", "kind": "kin" },
+    { "from": "garden.bonsai.repotting", "to": "garden.bonsai.soil-mixes", "kind": "leads-to", "note": "The first repot is when the bag of akadama gets bought." },
+    { "from": "garden.bonsai.repotting", "to": "garden.bonsai.pots-display", "kind": "kin", "note": "The pot swap happens at repotting time, so the collecting habit starts there." },
+    { "from": "garden.bonsai.yamadori", "to": "garden.bonsai.deadwood", "kind": "kin", "note": "Collected trees arrive with their deadwood already written. Carving only continues the story." }
+  ]
+}

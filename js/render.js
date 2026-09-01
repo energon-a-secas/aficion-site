@@ -429,10 +429,23 @@ export function renderLinkChip(s) {
   if (!el) return;
   const node = s.linking ? s.atlas.nodes.get(s.linking) : null;
   el.hidden = !node;
-  document.body.classList.toggle('is-linking', !!node);
+  document.body.classList.toggle('is-linking', !!(node || s.pathing));
   el.innerHTML = node
     ? `<span class="stage__focus-label">Linking from ${escHtml(node.label)}: click another node</span>
        <button type="button" class="btn btn--ghost btn--sm" data-act="link-cancel">Cancel</button>`
+    : '';
+}
+
+/** The chip while a shortest walk is being traced; same crosshair as linking. */
+export function renderPathChip(s) {
+  const el = $('pathChip');
+  if (!el) return;
+  const node = s.pathing ? s.atlas.nodes.get(s.pathing) : null;
+  el.hidden = !node;
+  document.body.classList.toggle('is-linking', !!(node || s.linking));
+  el.innerHTML = node
+    ? `<span class="stage__focus-label">Pathing from ${escHtml(node.label)}: click another node</span>
+       <button type="button" class="btn btn--ghost btn--sm" data-act="path-cancel">Cancel</button>`
     : '';
 }
 

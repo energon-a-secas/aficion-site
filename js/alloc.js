@@ -201,6 +201,27 @@ export function computeRoutes(atlas, allocated, personal = []) {
   return { edges, components, bridges };
 }
 
+/** Shortest walk between two nodes through the public fabric, never through
+    the hub (the same rule bridges follow: a walk through the centre says
+    nothing). Directed edges are walked both ways; this is a route for a
+    person, not a dependency order. */
+export function shortestPath(atlas, from, to) {
+  if (!from || !to || from === to) return null;
+  const prev = new Map([[from, null]]);
+  const queue = [from];
+  let head = 0;
+  while (head < queue.length) {
+    const cur = queue[head++];
+    for (const link of atlas.adj.get(cur) || []) {
+      if (link.to === atlas.hubId || prev.has(link.to)) continue;
+      prev.set(link.to, cur);
+      if (link.to === to) return pathBack(prev, to);
+      queue.push(link.to);
+    }
+  }
+  return null;
+}
+
 /** Adjacent to something allocated, not allocated. The ring of near misses. */
 export function nearMisses(atlas, allocated) {
   const mine = onTopLayer(atlas, allocated);

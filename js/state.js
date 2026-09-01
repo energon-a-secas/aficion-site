@@ -39,6 +39,7 @@ export const state = {
   clusterFocus: null, // cluster id the visitor is focused on, or null
   clusterFocusIds: null, // Set of ids kept bright in that mode: the cluster plus the crafts it draws on
   linking: null, // node id a hand link is being tied from; transient, never persisted
+  pathing: null, // node id a shortest-walk trace starts from; transient
   linkNoteEdit: null, // canonical pair key whose note is being edited in the panel
 
   inner: null,

@@ -19,6 +19,9 @@ import {
   startLink,
   cancelLink,
   completeLink,
+  startPath,
+  cancelPath,
+  completePath,
 } from './actions.js';
 
 const LONG_PRESS_MS = 550;
@@ -101,7 +104,7 @@ export function bindCanvas(s) {
       return;
     }
     const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    canvas.style.cursor = s.linking ? 'crosshair' : hit ? 'pointer' : '';
+    canvas.style.cursor = s.linking || s.pathing ? 'crosshair' : hit ? 'pointer' : '';
     if (hit !== s.hover) {
       s.hover = hit;
       paint(s);
@@ -144,6 +147,11 @@ export function bindCanvas(s) {
         linkedAt = performance.now();
         completeLink(s, hit);
       } else cancelLink(s);
+      return;
+    }
+    if (s.pathing) {
+      if (hit) completePath(s, hit);
+      else cancelPath(s);
       return;
     }
     if (hit && e.shiftKey) toggleNode(s, hit);
@@ -230,13 +238,16 @@ function onCanvasKey(s, e) {
   }
   if ((e.key === 'Enter' || e.key === ' ') && s.selected) {
     e.preventDefault();
-    // In link mode Enter ties the walked-to node; outside it, Enter marks.
+    // In link mode Enter ties the walked-to node; in path mode it traces;
+    // outside both, Enter marks.
     if (s.linking) completeLink(s, s.selected);
+    else if (s.pathing) completePath(s, s.selected);
     else toggleNode(s, s.selected);
     return;
   }
   if (e.key === 'Escape') {
     if (s.linking) cancelLink(s);
+    else if (s.pathing) cancelPath(s);
     else if (s.inner) leaveInner(s);
     else if (s.focusRing.size) {
       s.focusRing = new Set();
@@ -250,6 +261,7 @@ function onCanvasKey(s, e) {
   else if (key === 'm') fitMine(s);
   else if (key === 'i' && s.selected) drillInto(s, s.selected);
   else if (key === 'l' && s.selected) startLink(s, s.selected);
+  else if (key === 'p' && s.selected) startPath(s, s.selected);
   else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.4);
   else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.714);
 }

@@ -43,6 +43,8 @@ import {
   editLinkNote,
   saveLinkNote,
   openNode,
+  startPath,
+  cancelPath,
 } from './actions.js';
 import { closeContextMenu, refreshContextMenu } from './context-menu.js';
 import { openTour, tourNext, tourBack, closeTour } from './tour.js';
@@ -96,6 +98,8 @@ const ACTIONS = {
   'focus-exit': (s) => leaveFocus(s),
   'link-start': (s, el) => startLink(s, el.dataset.node),
   'link-cancel': (s) => cancelLink(s),
+  'path-start': (s, el) => startPath(s, el.dataset.node),
+  'path-cancel': (s) => cancelPath(s),
   unlink: (s, el) => unlink(s, el.dataset.a, el.dataset.b),
   'link-note-edit': (s, el) => editLinkNote(s, el.dataset.key),
   'link-note-cancel': (s) => editLinkNote(s, null),

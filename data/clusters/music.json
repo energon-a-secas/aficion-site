@@ -3,6 +3,7 @@
   "label": "Music and Sound",
   "blurb": "Making sound, capturing it, or owning the machines that do either. The cluster with the shortest path to a soldering iron.",
   "notable": "music.synths",
+  "accent": "jade",
   "layout": {
     "recipe": "spiral",
     "anchor": [-2077, 375],

@@ -60,11 +60,11 @@ export function computeSheet(atlas, profile, domains) {
       for (const h of craftHobbies.get(cid) || []) if (markedParents.has(h)) implied.add(h);
       const mine = marked.has(cid);
       let level = null;
-      if (mine && cnode && cnode.levels && Number.isInteger(profile.l[cid])) {
-        const li = Math.min(profile.l[cid], cnode.levels.length);
+      if (mine && Number.isInteger(profile.l[cid])) {
+        const li = Math.min(profile.l[cid], atlas.dedication.length);
         if (li > 0) {
           depth += li;
-          level = cnode.levels[li - 1].label;
+          level = atlas.dedication[li - 1].label;
         }
       }
       return { id: cid, label: cnode ? cnode.label : cid, mine, level };

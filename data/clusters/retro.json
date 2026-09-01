@@ -3,6 +3,7 @@
   "label": "Retro Tech",
   "blurb": "Hardware that stopped being made, kept running by people who learned to fix it. Half collecting, half electronics repair.",
   "notable": "retro.consoles",
+  "accent": "ember",
   "layout": {
     "recipe": "fan",
     "anchor": [-735, -1363],

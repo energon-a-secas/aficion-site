@@ -28,7 +28,7 @@ function priorityOf(env, id, node) {
   const { view } = env;
   if (view.selected === id || view.hover === id) return 0;
   if (view.allocated.has(id)) return 1;
-  if (view.focus.has(id)) return 2;
+  if (view.focus.has(id) || view.hoverAdj.has(id)) return 2;
   if (view.suggested.has(id)) return 3;
   if (node.class === 'hub') return 4;
   if (node.class === 'notable') return 5;
@@ -38,6 +38,9 @@ function priorityOf(env, id, node) {
 
 function named(view, id) {
   if (view.selected === id || view.hover === id || view.allocated.has(id) || view.focus.has(id)) return true;
+  // The hovered node's neighbours get their names while the pointer rests:
+  // that is the whole answer to "what is related to this".
+  if (view.hover && view.hoverAdj.has(id)) return true;
   // A suggestion is named only while it is the story on screen. A compare or a
   // build is its own story, and the map dims everything outside it: six names
   // at full strength over six dimmed dots is the noise this channel avoids.
@@ -48,8 +51,12 @@ function wanted(env, id, node) {
   const { view, camera } = env;
   if (view.labelMode === 'none') return false;
   if (named(view, id)) return true;
+  // In cluster focus, the family is the page: name all of it, nothing else.
+  if (view.clusterFocus) return view.clusterFocus.has(id);
   if (view.labelMode === 'all') return true;
   if (node.class === 'hub') return true;
+  // Layers "main": anchors and crafts carry the names at any zoom.
+  if (view.layers === 'main') return node.class === 'notable' || node.class === 'core';
   if (node.class === 'notable') return camera.zoom >= ZOOM_NOTABLE;
   if (node.class === 'core') return camera.zoom >= ZOOM_CORE;
   return camera.zoom >= ZOOM_NODE;

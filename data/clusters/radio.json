@@ -3,6 +3,7 @@
   "label": "Radio and Mesh",
   "blurb": "Getting a signal from here to there without paying anyone for the privilege. One half needs a licence, the other half deliberately does not.",
   "notable": "radio.ham",
+  "accent": "violet",
   "layout": {
     "recipe": "orbit",
     "anchor": [1723, -304],

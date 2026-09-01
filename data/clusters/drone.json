@@ -3,6 +3,7 @@
   "label": "Drones and Aerial",
   "blurb": "Flying a camera. Half electronics bench, half standing in a field in the cold waiting for the wind to drop.",
   "notable": "drone.fpv",
+  "accent": "cyan",
   "layout": {
     "recipe": "orbit",
     "anchor": [1515, 875],

@@ -3,6 +3,7 @@
   "label": "Scale Models",
   "blurb": "Things that arrive as sprues in a box and leave as an object on a shelf.",
   "notable": "model.gunpla",
+  "accent": "violet",
   "layout": {
     "recipe": "spiral",
     "anchor": [-980, 260],

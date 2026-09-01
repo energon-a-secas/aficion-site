@@ -13,6 +13,7 @@ import { readHash, hasSaved } from './profile.js';
 import { render, showFatal } from './render.js';
 import { bindEvents, applyHash } from './events.js';
 import { seedStarter } from './actions.js';
+import { openTour } from './tour.js';
 
 async function init() {
   loadPrefs();
@@ -37,6 +38,7 @@ async function init() {
   const hash = readHash();
   if (hash) await applyHash(state, hash);
   else if (!state.profile.n.length && !hasSaved()) await seedStarter(state);
+  if (!state.prefs.seenTour) openTour();
 }
 
 init();

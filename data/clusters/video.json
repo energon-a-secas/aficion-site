@@ -3,6 +3,7 @@
   "label": "Video Craft",
   "blurb": "Filming a thing you made and cutting it into something a stranger will watch to the end. A whole second hobby stacked on top of the first.",
   "notable": "video.youtube",
+  "accent": "cyan",
   "layout": {
     "recipe": "arc",
     "anchor": [261, -975],

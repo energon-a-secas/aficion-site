@@ -3,6 +3,7 @@
   "label": "Electronics and Making",
   "blurb": "The shelf everything else quietly borrows from. A dev board, an iron and a printer, and half the map opens up.",
   "notable": "maker.arduino",
+  "accent": "jade",
   "layout": {
     "recipe": "ring",
     "anchor": [975, -262],
@@ -10,8 +11,8 @@
     "startAngle": -90,
     "order": [
       "maker.arduino", "maker.esp32", "maker.sensors", "maker.addressable-led", "maker.power",
-      "maker.soldering-bench", "maker.test-gear", "maker.pcb-design", "maker.repair", "maker.robotics",
-      "maker.wearables", "maker.home-automation", "maker.cad", "maker.printer-tuning",
+      "maker.soldering-bench", "maker.test-gear", "maker.pcb-design", "maker.keyboards", "maker.repair",
+      "maker.robotics", "maker.wearables", "maker.home-automation", "maker.cad", "maker.printer-tuning",
       "maker.enclosures", "maker.laser-cnc"
     ]
   },
@@ -53,7 +54,9 @@
     { "id": "maker.cad",          "label": "CAD Modelling",     "class": "node", "tags": ["code", "hands-on", "patience"],       "blurb": "Parametric sketching, and the discipline of designing a part around the tolerance of the machine that will make it." },
     { "id": "maker.printer-tuning","label": "Printer Tuning",   "class": "node", "tags": ["hands-on", "gear", "patience"],       "blurb": "Flow, temperature towers, retraction and a first layer you can trust. A tuned cheap printer beats an untuned expensive one." },
     { "id": "maker.enclosures",   "label": "Enclosure Design",  "class": "node", "tags": ["hands-on", "kits"],                   "blurb": "The box. Heat inserts, screw bosses, cable strain relief, and the lid that comes off again when you need it to." },
-    { "id": "maker.laser-cnc",    "label": "Laser and CNC",     "class": "node", "tags": ["hands-on", "gear", "space"],          "blurb": "Subtractive machines. Flat stock, a toolpath, extraction, and the smell that tells your neighbours what you are doing." }
+    { "id": "maker.laser-cnc",    "label": "Laser and CNC",     "class": "node", "tags": ["hands-on", "gear", "space"],          "blurb": "Subtractive machines. Flat stock, a toolpath, extraction, and the smell that tells your neighbours what you are doing." },
+    { "id": "maker.keyboards",    "label": "Custom Keyboards",  "class": "node", "tags": ["hands-on", "gear", "electronics"],    "blurb": "Switches, keycaps, lube and firmware. An input device rebuilt as a hobby, where the sound of a keypress is a spec you tune on purpose.",
+      "aka": ["mechanical keyboard", "keycaps", "qmk"] }
   ],
   "edges": [
     { "from": "maker.arduino",  "to": "maker.esp32",          "kind": "kin" },
@@ -74,6 +77,8 @@
     { "from": "maker.cad",      "to": "maker.enclosures",     "kind": "leads-to" },
     { "from": "maker.cad",      "to": "maker.laser-cnc",      "kind": "leads-to" },
     { "from": "maker.enclosures","to": "maker.printer-tuning","kind": "shares-gear" },
-    { "from": "maker.power",    "to": "maker.addressable-led","kind": "kin",      "note": "A metre of strip at full white is a current draw people size a cell for only once." }
+    { "from": "maker.power",    "to": "maker.addressable-led","kind": "kin",      "note": "A metre of strip at full white is a current draw people size a cell for only once." },
+    { "from": "maker.keyboards","to": "maker.soldering-bench","kind": "shares-gear", "note": "Hot-swap sockets postponed the iron, not for ever. A dead socket or a solder-only kit lands the board on this bench." },
+    { "from": "maker.keyboards","to": "maker.pcb-design",     "kind": "kin" }
   ]
 }

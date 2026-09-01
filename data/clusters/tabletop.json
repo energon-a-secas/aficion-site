@@ -3,6 +3,7 @@
   "label": "Tabletop Games",
   "blurb": "Games played on a table with objects you own, and usually painted yourself, in front of people who are in the room.",
   "notable": "tabletop.warhammer",
+  "accent": "violet",
   "layout": {
     "recipe": "orbit",
     "anchor": [-1723, -304],

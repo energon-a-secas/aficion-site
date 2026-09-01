@@ -45,11 +45,14 @@ export function createRenderer(canvas, atlas, layout) {
     ctx.fillRect(0, 0, w, h);
   }
 
-  /** One translucent disc per cluster, so a constellation reads as a region. */
+  /** One translucent disc per cluster, so a constellation reads as a region.
+      Tinted with the cluster's declared accent, so a region also has a hue. */
   function hulls(env) {
-    for (const hull of layout.hulls.values()) {
+    for (const [id, hull] of layout.hulls) {
+      const cluster = atlas.clusters.get(id);
+      const accent = cluster && cluster.accent ? env.theme.accents[cluster.accent] : null;
       const g = ctx.createRadialGradient(hull.cx, hull.cy, hull.r * 0.15, hull.cx, hull.cy, hull.r);
-      g.addColorStop(0, env.theme.hull);
+      g.addColorStop(0, accent ? withAlpha(accent, 0.085) : env.theme.hull);
       g.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = g;
       ctx.beginPath();

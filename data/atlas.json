@@ -14,6 +14,13 @@
 
   "accents": ["ember", "cyan", "violet", "jade"],
 
+  "dedication": [
+    { "label": "Low",      "note": "It happens when it happens. A shelf, not a schedule." },
+    { "label": "Medium",   "note": "A regular slot most weeks, and gear you chose on purpose." },
+    { "label": "High",     "note": "Most free evenings end up here, and you plan around it." },
+    { "label": "Hardcore", "note": "The thing you organise other things around. People know you for it." }
+  ],
+
   "tags": {
     "hands-on":    "Hands on",
     "electronics": "Electronics",
@@ -44,7 +51,7 @@
     "blurb": "Every cluster on the map connects back through here."
   },
 
-  "coreLayout": { "recipe": "arc", "anchor": [0, 1400], "radius": 600, "startAngle": 200, "spread": 140 },
+  "coreLayout": { "recipe": "orbit", "anchor": [0, 0], "radius": 420, "startAngle": 262 },
 
   "core": [
     {
@@ -143,7 +150,8 @@
   "clusters": [
     "model", "rail", "brick", "figure", "tabletop", "anime",
     "film", "video", "starwars", "radio", "maker", "drone",
-    "astro", "music", "retro", "game", "cosplay", "coffee"
+    "astro", "music", "retro", "game", "cosplay", "coffee",
+    "book", "garden", "kitchen", "outdoor"
   ],
 
   "retired": []

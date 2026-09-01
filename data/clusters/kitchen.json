@@ -1,0 +1,150 @@
+{
+  "id": "kitchen",
+  "label": "Cooking and Food",
+  "blurb": "Everyone already does this daily. The hobby starts when dinner stops being the point and the process takes over.",
+  "notable": "kitchen.cooking",
+  "accent": "ember",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [2000, 1100],
+    "radius": 250,
+    "startAngle": 0,
+    "order": [
+      "kitchen.cooking", "kitchen.baking", "kitchen.sourdough", "kitchen.fermentation",
+      "kitchen.cheese", "kitchen.homebrewing", "kitchen.preserving", "kitchen.bbq",
+      "kitchen.spices", "kitchen.knife-skills", "kitchen.pasta", "kitchen.meal-planning",
+      "kitchen.food-photo", "kitchen.chocolate"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "kitchen.cooking",
+      "label": "Home Cooking",
+      "class": "notable",
+      "tags": ["hands-on", "cheap-start", "social"],
+      "blurb": "Dinner, but on purpose. It stops being a chore roughly when you start cooking things nobody asked for.",
+      "aka": ["cooking", "home chef", "weeknight cooking"],
+      "accent": "ember"
+    },
+    {
+      "id": "kitchen.baking",
+      "label": "Baking",
+      "class": "node",
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Grams, oven temperatures and chemistry that shows its work. The branch of cooking where improvising is how things go wrong.",
+      "aka": ["cakes", "pastry"]
+    },
+    {
+      "id": "kitchen.sourdough",
+      "label": "Sourdough",
+      "class": "node",
+      "tags": ["patience", "hands-on", "research"],
+      "blurb": "A jar of flour and water with a name. Feeding schedules, crumb photographs and a starter that outlives most gym memberships.",
+      "aka": ["sourdough starter", "bread baking"]
+    },
+    {
+      "id": "kitchen.fermentation",
+      "label": "Fermentation",
+      "class": "node",
+      "tags": ["patience", "research", "cheap-start"],
+      "blurb": "Kimchi, kraut, miso and things bubbling in jars. Controlled spoilage, run by people who read the funk like a weather report.",
+      "aka": ["fermenting", "kimchi", "kombucha"]
+    },
+    {
+      "id": "kitchen.bbq",
+      "label": "BBQ and Smoking",
+      "class": "node",
+      "tags": ["outdoors", "gear", "patience", "social"],
+      "blurb": "Fire management, rubs and a thermometer with wifi. Twelve hours for one meal, most of it spent watching a number not move.",
+      "aka": ["barbecue", "smoking meat", "low and slow"]
+    },
+    {
+      "id": "kitchen.knife-skills",
+      "label": "Knife Skills",
+      "class": "node",
+      "tags": ["hands-on", "gear", "cheap-start"],
+      "blurb": "Grip, angle and a stone kept flat. Sharpening becomes its own hobby about a week after the first proper knife arrives.",
+      "aka": ["knife sharpening", "whetstone"]
+    },
+    {
+      "id": "kitchen.pasta",
+      "label": "Pasta Making",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "social"],
+      "blurb": "Flour, eggs and a crank machine bolted to the table. Shapes have names, regions and rules, and the dried stuff stops being acceptable.",
+      "aka": ["fresh pasta", "noodle making"]
+    },
+    {
+      "id": "kitchen.preserving",
+      "label": "Preserving",
+      "class": "node",
+      "tags": ["hands-on", "patience", "research"],
+      "blurb": "Jam, pickles and rows of labelled jars. Seasonal gluts turned shelf-stable, plus a working knowledge of botulism you did not plan on.",
+      "aka": ["canning", "pickling", "jam making"]
+    },
+    {
+      "id": "kitchen.homebrewing",
+      "label": "Homebrewing",
+      "class": "node",
+      "tags": ["gear", "patience", "research"],
+      "blurb": "Malt, yeast and sanitising everything twice. Five gallons at a time, with a hydrometer doing the scoring.",
+      "aka": ["home brew", "beer brewing", "mead"]
+    },
+    {
+      "id": "kitchen.chocolate",
+      "label": "Bean-to-Bar Chocolate",
+      "class": "node",
+      "tags": ["hands-on", "gear", "patience"],
+      "blurb": "Roasting cocoa, grinding it for two days and tempering by degrees. A hobby with one ingredient and a dozen ways to ruin it.",
+      "aka": ["chocolate making", "craft chocolate"]
+    },
+    {
+      "id": "kitchen.food-photo",
+      "label": "Food Photography",
+      "class": "node",
+      "tags": ["content", "hands-on", "patience"],
+      "blurb": "Plating, window light and a dinner going cold on purpose. The dish is finished when the shot is, not before.",
+      "aka": ["food styling", "plating"]
+    },
+    {
+      "id": "kitchen.spices",
+      "label": "Spice Blending",
+      "class": "node",
+      "tags": ["research", "collecting", "cheap-start"],
+      "blurb": "Whole seeds, a dry pan and a grinder that no longer does coffee. Garam masala from scratch recalibrates what the shop jars taste like.",
+      "aka": ["spice rack", "curry blends"]
+    },
+    {
+      "id": "kitchen.meal-planning",
+      "label": "Meal Planning",
+      "class": "node",
+      "tags": ["research", "cheap-start", "patience"],
+      "blurb": "A week of dinners decided on Sunday. Spreadsheets, batch cooking and the quiet satisfaction of a freezer with an index.",
+      "aka": ["meal prep", "batch cooking"]
+    },
+    {
+      "id": "kitchen.cheese",
+      "label": "Cheesemaking",
+      "class": "node",
+      "tags": ["patience", "hands-on", "gear"],
+      "blurb": "Cultures, rennet and a curd you cut with a ruler. Fresh cheeses land in a weekend; the aged ones require a cave and a personality change.",
+      "aka": ["cheese making", "home dairy"]
+    }
+  ],
+  "edges": [
+    { "from": "kitchen.cooking", "to": "kitchen.baking", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.knife-skills", "kind": "leads-to" },
+    { "from": "kitchen.cooking", "to": "kitchen.pasta", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.meal-planning", "kind": "leads-to" },
+    { "from": "kitchen.cooking", "to": "kitchen.bbq", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.spices", "kind": "kin" },
+    { "from": "kitchen.cooking", "to": "kitchen.food-photo", "kind": "leads-to" },
+    { "from": "kitchen.baking", "to": "kitchen.sourdough", "kind": "leads-to" },
+    { "from": "kitchen.baking", "to": "kitchen.chocolate", "kind": "kin" },
+    { "from": "kitchen.sourdough", "to": "kitchen.fermentation", "kind": "kin", "note": "A starter is a fermentation project that happens to make bread. The jar people and the crumb people are the same people." },
+    { "from": "kitchen.fermentation", "to": "kitchen.preserving", "kind": "kin" },
+    { "from": "kitchen.fermentation", "to": "kitchen.cheese", "kind": "leads-to" },
+    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Both are yeast management with different paperwork." },
+    { "from": "kitchen.bbq", "to": "kitchen.preserving", "kind": "kin", "note": "Smoking was preservation before it was flavour. Bacon and jerky still sit on the line." }
+  ]
+}

@@ -62,7 +62,9 @@ export function drawDrawsOn(env) {
     view.hover === edge.from ||
     view.hover === edge.to ||
     view.selected === edge.from ||
-    view.selected === edge.to;
+    view.selected === edge.to ||
+    // In cluster focus the crafts underneath are the point: light the stack.
+    (view.clusterFocus !== null && view.clusterFocus.has(edge.from));
 
   for (const edge of env.atlas.edges) {
     if (edge.kind !== 'draws-on') continue;
@@ -80,17 +82,27 @@ export function drawDrawsOn(env) {
 /** Pass 4: the fabric. kin, leads-to and shares-gear. */
 export function drawBaseEdges(env) {
   const { ctx, view, theme } = env;
-  const dim = view.dimOthers || view.compare || view.build;
+  const dim = view.dimOthers || view.compare || view.build || view.clusterFocus;
+  const mainMode = view.layers === 'main';
   for (const edge of env.atlas.edges) {
     if (edge.kind === 'draws-on') continue;
-    const seg = segment(env, edge);
-    if (!seg) continue;
     const near =
       view.allocated.has(edge.from) ||
       view.allocated.has(edge.to) ||
       view.hover === edge.from ||
       view.hover === edge.to;
-    const color = near ? theme.edge : dim ? withAlpha(theme.edgeDim, 0.5) : theme.edgeDim;
+    // Layers "main": only the fabric between anchors survives; an edge into a
+    // plain node steps back with the node it reached.
+    if (mainMode && !near) {
+      const a = env.atlas.nodes.get(edge.from);
+      const b = env.atlas.nodes.get(edge.to);
+      if ((a && a.class === 'node') || (b && b.class === 'node')) continue;
+    }
+    const seg = segment(env, edge);
+    if (!seg) continue;
+    // The focused family's own fabric stays bright while everything else dims.
+    const inFocus = view.clusterFocus && view.clusterFocus.has(edge.from) && view.clusterFocus.has(edge.to);
+    const color = near || inFocus ? theme.edge : dim ? withAlpha(theme.edgeDim, 0.5) : theme.edgeDim;
     if (edge.kind === 'shares-gear') ctx.setLineDash([7 * env.px, 5 * env.px]);
     stroke(ctx, seg.a, seg.b, color, (edge.kind === 'shares-gear' ? 1.5 : 1.1) * env.px);
     ctx.setLineDash([]);

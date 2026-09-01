@@ -33,7 +33,12 @@ import {
   openSheet,
   closeSheet,
   openExample,
+  focusCluster,
+  leaveFocus,
+  lightAffinity,
 } from './actions.js';
+import { openContextMenu, closeContextMenu, refreshContextMenu } from './context-menu.js';
+import { openTour, tourNext, tourBack, closeTour } from './tour.js';
 
 export { applyHash };
 
@@ -54,6 +59,7 @@ function bindCanvas(s) {
   };
 
   canvas.addEventListener('pointerdown', (e) => {
+    closeContextMenu();
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, local(e));
     if (!s.prefs.seenIntro) {
@@ -124,10 +130,25 @@ function bindCanvas(s) {
     if (hit) toggleNode(s, hit);
   });
 
+  // Right-click: the quick menu. Selecting first keeps the panel and the menu
+  // telling one story about the same node.
+  canvas.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    const p = local(e);
+    const hit = nodeAt(s.index, s.camera, p.x, p.y);
+    if (!hit) {
+      closeContextMenu();
+      return;
+    }
+    select(s, hit);
+    openContextMenu(s, hit, p.x, p.y);
+  });
+
   canvas.addEventListener(
     'wheel',
     (e) => {
       e.preventDefault();
+      closeContextMenu();
       const p = local(e);
       s.camera.zoomAt(p.x, p.y, Math.exp(-e.deltaY * 0.0028));
       s.camera.clampTo(s.atlas.meta.world);
@@ -171,7 +192,8 @@ function onCanvasKey(s, e) {
     else if (s.focusRing.size) {
       s.focusRing = new Set();
       paint(s);
-    } else select(s, null);
+    } else if (s.clusterFocus) leaveFocus(s);
+    else select(s, null);
     return;
   }
   const key = e.key.toLowerCase();
@@ -223,17 +245,35 @@ const ACTIONS = {
     closeSheet();
     openBuild(s, el.dataset.build);
   },
+  'focus-cluster': (s, el) => focusCluster(s, el.dataset.cluster),
+  'focus-exit': (s) => leaveFocus(s),
+  affinity: (s, el) => lightAffinity(s, el.dataset.tag),
+  'tour-open': () => {
+    closeModal('helpModal');
+    openTour();
+  },
+  'tour-next': (s) => tourNext(s),
+  'tour-back': () => tourBack(),
+  'tour-skip': (s) => closeTour(s),
 };
 
 function onDelegatedClick(s, e) {
   const modal = e.target.closest('.modal');
   if (modal && !modal.hasAttribute('hidden') && e.target.closest('[data-modal-close]')) closeModal(modal.id);
+  // Any click outside the context menu dismisses it; a level click inside
+  // refreshes it in place, any other menu action closes it after running.
+  const inMenu = e.target.closest('#ctxMenu');
+  if (!inMenu) closeContextMenu();
   const el = e.target.closest('[data-act]');
   if (!el) return;
   const fn = ACTIONS[el.dataset.act];
   if (!fn) return;
   e.preventDefault();
   fn(s, el);
+  if (inMenu) {
+    if (el.dataset.act === 'level') refreshContextMenu(s);
+    else closeContextMenu();
+  }
 }
 
 function bindTools(s) {
@@ -253,6 +293,13 @@ function bindTools(s) {
     s.prefs.labelMode = order[(order.indexOf(s.prefs.labelMode) + 1) % order.length];
     const val = e.currentTarget.querySelector('.tool__val');
     if (val) val.textContent = s.prefs.labelMode;
+    savePrefs();
+    paint(s);
+  });
+  $('layersBtn')?.addEventListener('click', (e) => {
+    s.prefs.layers = s.prefs.layers === 'main' ? 'full' : 'main';
+    const val = e.currentTarget.querySelector('.tool__val');
+    if (val) val.textContent = s.prefs.layers;
     savePrefs();
     paint(s);
   });
@@ -281,6 +328,8 @@ function bindTools(s) {
   $('drawsOnBtn')?.setAttribute('aria-pressed', String(s.prefs.showDrawsOn));
   const labelVal = $('labelBtn')?.querySelector('.tool__val');
   if (labelVal) labelVal.textContent = s.prefs.labelMode;
+  const layersVal = $('layersBtn')?.querySelector('.tool__val');
+  if (layersVal) layersVal.textContent = s.prefs.layers;
   if (s.prefs.panel === 'collapsed' && !sheetMode()) {
     document.body.classList.add('side-collapsed');
     s.camera.resize();
@@ -344,6 +393,19 @@ function bindDialogs(s) {
     if (e.key !== 'Escape') return;
     e.preventDefault();
     leaveInner(s);
+  });
+
+  // Same Escape discipline for the two new overlays: each listens on itself.
+  $('tourOverlay')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    closeTour(s);
+  });
+  $('ctxMenu')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    closeContextMenu();
+    $('atlasCanvas')?.focus();
   });
 }
 

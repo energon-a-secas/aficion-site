@@ -3,6 +3,7 @@
   "label": "Film and Screen",
   "blurb": "Movies, taken seriously enough to have a shelf, a list and an opinion about which cut is the right one.",
   "notable": "film.horror",
+  "accent": "ember",
   "layout": {
     "recipe": "fan",
     "anchor": [1125, -1340],

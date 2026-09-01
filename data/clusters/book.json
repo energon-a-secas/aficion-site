@@ -1,0 +1,143 @@
+{
+  "id": "book",
+  "label": "Reading and Books",
+  "blurb": "A chair, a lamp and something printed. The cheapest deep hobby on the map, right up until the collecting starts.",
+  "notable": "book.fiction",
+  "accent": "violet",
+  "layout": {
+    "recipe": "orbit",
+    "anchor": [-860, 760],
+    "radius": 250,
+    "startAngle": -90,
+    "order": [
+      "book.fiction", "book.scifi", "book.comics", "book.zines", "book.libraries",
+      "book.nonfiction", "book.translation", "book.collecting", "book.bookbinding",
+      "book.marginalia", "book.poetry", "book.rereading", "book.clubs", "book.audiobooks"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "book.fiction",
+      "label": "Fiction",
+      "class": "notable",
+      "tags": ["patience", "cheap-start", "research"],
+      "blurb": "Novels, and the pile of them beside the bed. The to-be-read stack grows faster than the read one, and everyone here pretends that is fine.",
+      "aka": ["novels", "reading", "literature", "tbr pile"],
+      "accent": "violet"
+    },
+    {
+      "id": "book.nonfiction",
+      "label": "Nonfiction",
+      "class": "node",
+      "tags": ["research", "patience", "cheap-start"],
+      "blurb": "History, memoir, science and the odd doorstop biography. The section where one good book quietly assigns you four more."
+    },
+    {
+      "id": "book.scifi",
+      "label": "Sci-Fi and Fantasy",
+      "class": "node",
+      "tags": ["fandom", "research", "patience"],
+      "blurb": "Series that run to ten volumes and worlds with appendices. The genre shelf most likely to come with a map inside the cover.",
+      "aka": ["sff", "science fiction", "fantasy novels"]
+    },
+    {
+      "id": "book.comics",
+      "label": "Comics and Graphic Novels",
+      "class": "node",
+      "tags": ["collecting", "fandom", "cheap-start"],
+      "blurb": "Single issues, trades and the long boxes that follow. Reading them is cheap; keeping them in order is the actual hobby.",
+      "aka": ["graphic novels", "comic books"]
+    },
+    {
+      "id": "book.poetry",
+      "label": "Poetry",
+      "class": "node",
+      "tags": ["patience", "cheap-start"],
+      "blurb": "Short to read and slow to finish. The one shelf where reading a page four times is the method, not a failure."
+    },
+    {
+      "id": "book.collecting",
+      "label": "Book Collecting",
+      "class": "node",
+      "tags": ["collecting", "research", "space"],
+      "blurb": "First editions, dust jackets and the difference a printing line makes. Condition grading arrives quietly and never leaves.",
+      "aka": ["first editions", "rare books", "used books"]
+    },
+    {
+      "id": "book.bookbinding",
+      "label": "Bookbinding",
+      "class": "node",
+      "tags": ["hands-on", "patience", "cheap-start"],
+      "blurb": "Folding signatures, sewing them and casing the block in board and cloth. Starts as repairing one loved paperback, ends as a bone folder you have opinions about.",
+      "aka": ["book repair", "binding"]
+    },
+    {
+      "id": "book.marginalia",
+      "label": "Annotation and Marginalia",
+      "class": "node",
+      "tags": ["patience", "cheap-start", "research"],
+      "blurb": "Pencil in the margins, tabs on the edges and an index of your own in the back. A private conversation with the author, kept in the object.",
+      "aka": ["annotating books", "book tabs", "marginalia"]
+    },
+    {
+      "id": "book.clubs",
+      "label": "Book Clubs",
+      "class": "node",
+      "tags": ["social", "patience"],
+      "blurb": "One book, one month, several people who read it differently. Half the value is being made to finish; the other half is the argument."
+    },
+    {
+      "id": "book.audiobooks",
+      "label": "Audiobooks",
+      "class": "node",
+      "tags": ["audio", "cheap-start", "patience"],
+      "blurb": "Books read to you while your hands do something else. A narrator can rescue a book or sink it, which print never has to answer for."
+    },
+    {
+      "id": "book.zines",
+      "label": "Zines",
+      "class": "node",
+      "tags": ["content", "hands-on", "cheap-start", "social"],
+      "blurb": "Photocopied, folded, stapled and traded. Publishing with the gatekeeping removed and the staples showing.",
+      "aka": ["zine making", "small press"]
+    },
+    {
+      "id": "book.libraries",
+      "label": "Libraries and Archives",
+      "class": "node",
+      "tags": ["research", "cheap-start", "social"],
+      "blurb": "The one place the whole cluster is free. Regulars learn the catalogue, the sales shelf and the librarians by name."
+    },
+    {
+      "id": "book.rereading",
+      "label": "Rereading",
+      "class": "node",
+      "tags": ["patience", "research"],
+      "blurb": "Going back on purpose, sometimes annually. The book did not change, which is exactly how you can tell that you did."
+    },
+    {
+      "id": "book.translation",
+      "label": "Reading in Translation",
+      "class": "node",
+      "tags": ["research", "patience"],
+      "blurb": "The same book exists twice, and the translator decided which one you got. Comparing editions is the enthusiast tell."
+    }
+  ],
+  "edges": [
+    { "from": "book.fiction", "to": "book.scifi", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.nonfiction", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.audiobooks", "kind": "kin" },
+    { "from": "book.fiction", "to": "book.clubs", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.marginalia", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.rereading", "kind": "leads-to" },
+    { "from": "book.fiction", "to": "book.translation", "kind": "kin" },
+    { "from": "book.scifi", "to": "book.comics", "kind": "kin" },
+    { "from": "book.comics", "to": "book.zines", "kind": "kin" },
+    { "from": "book.zines", "to": "book.libraries", "kind": "kin", "note": "Zine libraries are real institutions with real catalogues. The least commercial print culture gets the most careful archiving." },
+    { "from": "book.nonfiction", "to": "book.libraries", "kind": "kin" },
+    { "from": "book.libraries", "to": "book.collecting", "kind": "kin" },
+    { "from": "book.collecting", "to": "book.bookbinding", "kind": "leads-to", "note": "A shelf of old books eventually contains one worth repairing, and repair is how binding starts." },
+    { "from": "book.marginalia", "to": "book.rereading", "kind": "kin" },
+    { "from": "book.marginalia", "to": "book.poetry", "kind": "kin" }
+  ]
+}

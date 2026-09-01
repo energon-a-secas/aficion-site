@@ -7,6 +7,15 @@
 
 export const SCHEMA = 1;
 
+// The universal dedication ladder, used when the corpus does not declare one.
+// One scale for every node: time and commitment, not skill grades.
+const DEFAULT_DEDICATION = [
+  { label: 'Low', note: 'It happens when it happens.' },
+  { label: 'Medium', note: 'A regular slot most weeks.' },
+  { label: 'High', note: 'Most free evenings end up here.' },
+  { label: 'Hardcore', note: 'The thing you organise other things around.' },
+];
+
 export class AtlasError extends Error {
   constructor(message, detail) {
     super(message);
@@ -126,6 +135,11 @@ export async function loadAtlas(basePath = 'data/') {
     edgeKinds,
     accents: Object.freeze((manifest.accents || []).slice()),
     classes: Object.freeze((manifest.classes || []).slice()),
+    dedication: Object.freeze(
+      (Array.isArray(manifest.dedication) && manifest.dedication.length ? manifest.dedication : DEFAULT_DEDICATION).map(
+        (d) => Object.freeze({ label: d.label, note: d.note || '' }),
+      ),
+    ),
     coreLayout: Object.freeze({ ...need(manifest.coreLayout, 'atlas.json', 'coreLayout') }),
     nodes: new Map(),
     topNodes: [],
@@ -169,6 +183,7 @@ export async function loadAtlas(basePath = 'data/') {
         label: need(doc.label, where, 'label'),
         blurb: need(doc.blurb, where, 'blurb'),
         notable: need(doc.notable, where, 'notable'),
+        accent: doc.accent === undefined ? null : doc.accent,
         layout: Object.freeze({ ...need(doc.layout, where, 'layout') }),
         nodeIds: Object.freeze(ids.slice()),
       }),

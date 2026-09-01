@@ -146,6 +146,7 @@
           <div class="tools__seg" role="group" aria-label="Show on the map">
             <button type="button" class="tool" id="drawsOnBtn" aria-pressed="true" title="Show the links from hobbies to the crafts under them">Craft links</button>
             <button type="button" class="tool" id="labelBtn">Labels <span class="tool__val">auto</span></button>
+            <button type="button" class="tool" id="layersBtn" title="Step back to the main hobbies, or show the full network">Layers <span class="tool__val">full</span></button>
           </div>
         </div>
 
@@ -163,6 +164,18 @@
              sheet is closed. renderDetail fills it; actions go through the
              delegated data-act handler like everything else. -->
         <div class="stage__card" id="stageCard" hidden></div>
+
+        <!-- Cluster focus: the chip that names the mode and carries the exit. -->
+        <div class="stage__focus" id="focusChip" hidden></div>
+
+        <!-- Right-click quick menu; js/context-menu.js renders the content,
+             the delegated data-act handler runs it. -->
+        <div class="ctx" id="ctxMenu" hidden role="group" aria-label="Node quick actions"></div>
+
+        <!-- First-visit tour; js/tour.js renders the cards. -->
+        <div class="tour" id="tourOverlay" hidden>
+          <div class="tour__card" role="dialog" aria-modal="false" aria-labelledby="tourTitle" id="tourCard"></div>
+        </div>
 
         <p class="stage__hint" id="stageHint">Loading the atlas</p>
 
@@ -358,17 +371,66 @@
         <dl class="keys">
           <dt>Drag</dt><dd>Pan the map</dd>
           <dt>Wheel or pinch</dt><dd>Zoom where the pointer is</dd>
+          <dt>Hover</dt><dd>Light a node's neighbours, with their names</dd>
+          <dt>Right-click</dt><dd>Quick menu: mark, set dedication, focus the cluster</dd>
           <dt>Arrow keys</dt><dd>Walk to the nearest node in that direction</dd>
           <dt>Shift and arrows</dt><dd>Pan without changing the selection</dd>
           <dt>Enter</dt><dd>Mark the selected node as yours</dd>
           <dt>I</dt><dd>Drill into the selected node, when it has an inner tree</dd>
           <dt>F</dt><dd>Fit the whole atlas</dd>
           <dt>M</dt><dd>Fit mine, the view zoomed to what you have marked</dd>
-          <dt>Escape</dt><dd>Close a drill-in, then clear the selection</dd>
+          <dt>Escape</dt><dd>Close a drill-in, leave a focus, then clear the selection</dd>
           <dt>/</dt><dd>Jump to search</dd>
+        </dl>
+
+        <h3 class="help__sub" id="orgmapTitle">How the atlas is organised</h3>
+        <figure class="orgmap">
+          <svg viewBox="0 0 340 200" role="img" aria-labelledby="orgmapTitle"
+               aria-label="Diagram: hobby families around the edge, the crafts they lean on orbiting the hub at the centre, and dashed rings marking nodes that open into inner trees">
+            <line x1="88" y1="34" x2="252" y2="38" class="om-gear"/>
+            <line x1="64" y1="54" x2="140" y2="150" class="om-draws"/>
+            <line x1="276" y1="52" x2="200" y2="150" class="om-draws"/>
+            <g>
+              <circle cx="64" cy="54" r="40" class="om-hull om-hull--a"/>
+              <line x1="64" y1="54" x2="40" y2="40" class="om-kin"/>
+              <line x1="64" y1="54" x2="88" y2="34" class="om-kin"/>
+              <line x1="64" y1="54" x2="46" y2="74" class="om-kin"/>
+              <line x1="46" y1="74" x2="90" y2="70" class="om-kin"/>
+              <circle cx="64" cy="54" r="9" class="om-notable om-notable--a"/>
+              <circle cx="40" cy="40" r="4" class="om-node"/>
+              <circle cx="88" cy="34" r="4" class="om-node"/>
+              <circle cx="46" cy="74" r="4" class="om-node"/>
+              <circle cx="90" cy="70" r="4" class="om-node"/>
+              <circle cx="90" cy="70" r="8" class="om-inner"/>
+            </g>
+            <g>
+              <circle cx="276" cy="52" r="38" class="om-hull om-hull--b"/>
+              <line x1="276" y1="52" x2="252" y2="38" class="om-kin"/>
+              <line x1="276" y1="52" x2="300" y2="40" class="om-kin"/>
+              <line x1="276" y1="52" x2="256" y2="70" class="om-kin"/>
+              <circle cx="276" cy="52" r="9" class="om-notable om-notable--b"/>
+              <circle cx="252" cy="38" r="4" class="om-node"/>
+              <circle cx="300" cy="40" r="4" class="om-node"/>
+              <circle cx="256" cy="70" r="4" class="om-node"/>
+            </g>
+            <circle cx="170" cy="150" r="30" class="om-orbit"/>
+            <circle cx="170" cy="150" r="9" class="om-hub"/>
+            <circle cx="170" cy="120" r="5" class="om-core"/>
+            <circle cx="200" cy="150" r="5" class="om-core"/>
+            <circle cx="170" cy="180" r="5" class="om-core"/>
+            <circle cx="140" cy="150" r="5" class="om-core"/>
+          </svg>
+          <figcaption>Families of hobbies, each around an anchor; the crafts they all lean on orbit the centre; a dashed ring means a node opens into its own inner tree.</figcaption>
+        </figure>
+        <dl class="keys">
+          <dt>Solid line</dt><dd>Sits beside, or leads to: one family's fabric</dd>
+          <dt>Dashed line</dt><dd>Shares gear: the same kit on two shelves</dd>
+          <dt>Faint line to the centre</dt><dd>Draws on a craft many families share</dd>
+          <dt>Gold</dt><dd>Yours: marked nodes and the paths between them</dd>
         </dl>
       </div>
       <footer class="modal__footer">
+        <button type="button" class="btn btn--secondary" data-act="tour-open">Take the tour</button>
         <button type="button" class="btn btn--primary" data-modal-close>Got it</button>
       </footer>
     </div>

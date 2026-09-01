@@ -3,6 +3,7 @@
   "label": "Night Sky",
   "blurb": "Standing outside in the cold on purpose. The one hobby here where the subject is free and everything else is patience.",
   "notable": "astro.astrophoto",
+  "accent": "cyan",
   "layout": {
     "recipe": "arc",
     "anchor": [1949, -613],

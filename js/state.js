@@ -16,7 +16,9 @@ const DEFAULT_PREFS = {
   panel: null,
   showDrawsOn: true,
   labelMode: 'auto',
+  layers: 'full', // 'full' | 'main': the default is the whole network, by request
   seenIntro: false,
+  seenTour: false,
 };
 
 export const state = {
@@ -32,8 +34,10 @@ export const state = {
 
   selected: null,
   hover: null,
-  focusRing: new Set(), // ids lit by a bridge trace, and only by one. Escape clears it
+  focusRing: new Set(), // ids lit by a bridge trace, a search or an affinity chip. Escape clears it
   dimOthers: false,
+  clusterFocus: null, // cluster id the visitor is focused on, or null
+  clusterFocusIds: null, // Set of ids kept bright in that mode: the cluster plus the crafts it draws on
 
   inner: null,
   build: null,

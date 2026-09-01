@@ -3,6 +3,7 @@
   "label": "Model Railroading",
   "blurb": "A powered, motorised railway on a table, built in a fixed order because scenery over unproven track is the mistake nobody recovers from.",
   "notable": "rail.layout",
+  "accent": "cyan",
   "layout": {
     "recipe": "spiral",
     "anchor": [-1515, 875],

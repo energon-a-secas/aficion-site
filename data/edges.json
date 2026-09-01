@@ -303,6 +303,39 @@
     { "from": "starwars.chassis-design","to": "maker.enclosures",   "kind": "shares-gear", "note": "A board, a cell, a speaker and a kill key inside a 35 mm tube is a packaging problem before it is a saber problem." },
     { "from": "starwars.soundfonts",  "to": "music.sampling",       "kind": "shares-gear", "note": "A saber preset is a curated set of audio files. Trimming and levelling them is the same work as chopping a sample." },
     { "from": "rail.clubs",           "to": "brick.shows",          "kind": "kin",         "note": "Both hobbies solved the same problem with a modular standard, so twenty people's sections join up on one table at a show." },
-    { "from": "figure.casting",       "to": "cosplay.makeup",       "kind": "kin",         "note": "Platinum silicone and low-viscosity resin serve garage kits, props, statues and prosthetic appliances from one skill set." }
+    { "from": "figure.casting",       "to": "cosplay.makeup",       "kind": "kin",         "note": "Platinum silicone and low-viscosity resin serve garage kits, props, statues and prosthetic appliances from one skill set." },
+
+    { "from": "book.fiction",         "to": "hub",                  "kind": "kin" },
+    { "from": "garden.houseplants",   "to": "hub",                  "kind": "kin" },
+    { "from": "kitchen.cooking",      "to": "hub",                  "kind": "kin" },
+    { "from": "outdoor.hiking",       "to": "hub",                  "kind": "kin" },
+
+    { "from": "book.comics",          "to": "anime.manga",          "kind": "kin",         "note": "Comics from the other shelf. The readers cross constantly; only the shop shelving keeps pretending otherwise." },
+    { "from": "book.bookbinding",     "to": "core.hand-tools",      "kind": "draws-on",    "note": "Bone folder, awl, needle and a sharp blade. Bindery work is hand-tool work at book scale." },
+    { "from": "book.zines",           "to": "core.writing",         "kind": "draws-on" },
+    { "from": "book.scifi",           "to": "film.scifi",           "kind": "kin",         "note": "The same franchises run through both, and the paperback usually got there first." },
+    { "from": "book.audiobooks",      "to": "video.podcasting",     "kind": "kin",         "note": "Same earbuds and the same commute. The line between a narrated book and a long podcast is thinner than either side admits." },
+    { "from": "garden.hydroponics",   "to": "maker.sensors",        "kind": "shares-gear", "note": "Moisture probes, pH meters and an ESP32 logging it all. A hydroponic rig is a sensor project that happens to grow lettuce." },
+    { "from": "garden.terrariums",    "to": "model.dioramas",       "kind": "kin",         "note": "Both compose a landscape in a small glass box. One of them keeps growing after you finish." },
+    { "from": "garden.aquascaping",   "to": "coffee.water",         "kind": "shares-gear", "note": "Hardness and alkalinity out of the same dropper test kits. One tank grows plants, the other pulls shots." },
+    { "from": "garden.vegetables",    "to": "kitchen.preserving",   "kind": "leads-to",    "note": "The July glut has to go somewhere. Jars are how a garden survives its own success." },
+    { "from": "kitchen.food-photo",   "to": "core.photography",     "kind": "draws-on",    "note": "Window light, a reflector and a plate going cold. The food is the model and it has a deadline." },
+    { "from": "kitchen.chocolate",    "to": "coffee.roasting",      "kind": "shares-gear", "note": "Cocoa and coffee crack in the same small drum roaster, listened to the same way. Many bean-to-bar setups started as coffee rigs." },
+    { "from": "kitchen.homebrewing",  "to": "coffee.water",         "kind": "shares-gear", "note": "Same test strips, same mineral salts, same suspicion of the tap. Brewers and baristas argue over identical numbers." },
+    { "from": "kitchen.spices",       "to": "coffee.cupping",       "kind": "kin",         "note": "Both are trained-palate hobbies with a tasting vocabulary. The flavour wheel on the wall is practically the same poster." },
+    { "from": "outdoor.birdwatching", "to": "astro.visual",         "kind": "shares-gear", "note": "Binoculars and a tripod-mounted spotting scope serve both. One community points them up, the other at a hedge." },
+    { "from": "outdoor.birdwatching", "to": "core.photography",     "kind": "draws-on",    "note": "Long lenses, bad light and a subject that leaves. The patience test photography was always threatening to become." },
+    { "from": "outdoor.geocaching",   "to": "radio.meshtastic",     "kind": "kin",         "note": "Both are grid references and offline maps in places with no signal. The overlap in membership is not a coincidence." },
+    { "from": "outdoor.hiking",       "to": "radio.pota",           "kind": "kin",         "note": "A POTA activation is a hike that carries a radio to the top. Half the hobby is the walk in." },
+    { "from": "outdoor.camping",      "to": "astro.dark-sky",       "kind": "kin",         "note": "A star party is a camping trip that complains about headlights. Same site criteria, same thermos." },
+    { "from": "outdoor.foraging",     "to": "kitchen.fermentation", "kind": "leads-to",    "note": "Wild mushrooms and hedgerow fruit outrun a fridge fast. Jars and brine are the traditional exit." },
+
+    { "from": "game.jrpg",            "to": "anime.series",         "kind": "kin",         "note": "One fandom with two screens. The seasonal chart and the release calendar are read by the same people in the same week." },
+    { "from": "game.rhythm",          "to": "music.dj",             "kind": "kin",         "note": "The founding arcade cabinet was a DJ simulation. Beat matching is the shared skill, and some players cross over for real." },
+    { "from": "game.vr",              "to": "film.home-cinema",     "kind": "kin",         "note": "Two answers to the same room: one padded the walls with speakers, the other cleared the floor and strapped the screen on." },
+    { "from": "maker.keyboards",      "to": "game.pc-building",     "kind": "shares-gear", "note": "Built on the same desk as the machine it plugs into, usually within a month of it, with the same screwdrivers." },
+    { "from": "game.fighting",        "to": "tabletop.tournaments", "kind": "kin",         "note": "Locals, brackets and a scene run by volunteers. The weekly at the game shop is the same institution in both hobbies." },
+    { "from": "game.mmo",             "to": "tabletop.ttrpg",       "kind": "kin",         "note": "The direct descendant, by way of MUDs. The party, the loot and the scheduling problem all survived the move online." },
+    { "from": "maker.keyboards",      "to": "retro.mechanical-kb",  "kind": "kin",         "note": "One scene restores the boards the other one is quoting. Group buys and eBay finds end up on the same desk mat." }
   ]
 }

@@ -3,6 +3,7 @@
   "label": "Cosplay",
   "blurb": "Making a costume you can walk around in for eight hours. Every prop skill on the map applies, plus one nothing else demands: it has to be wearable.",
   "notable": "cosplay.armour",
+  "accent": "cyan",
   "layout": {
     "recipe": "ring",
     "anchor": [-1949, -613],

@@ -71,12 +71,11 @@ function chip(s, id, extra = '') {
 }
 
 function levelBadge(s, id) {
-  const node = s.atlas.nodes.get(id);
   const lv = levelOf(id);
-  if (!lv || !node || !node.levels) return '';
+  if (!lv) return '';
   // The local profile is not re-clamped by reconcile; never index past the ladder.
-  const li = Math.min(lv, node.levels.length);
-  return ` <span class="chipnode__lv">${escHtml(node.levels[li - 1].label)}</span>`;
+  const d = s.atlas.dedication;
+  return ` <span class="chipnode__lv">${escHtml(d[Math.min(lv, d.length) - 1].label)}</span>`;
 }
 
 function domainRows(sheet) {

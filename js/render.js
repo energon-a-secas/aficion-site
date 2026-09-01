@@ -27,13 +27,24 @@ const KIND_ORDER = ['kin', 'leads-to', 'shares-gear', 'draws-on'];
  * product still ships.
  */
 export function buildViewModel(s) {
+  // The hovered node's neighbourhood: rung and named while the pointer rests,
+  // which is the "what sits beside this" answer without a click.
+  const hoverAdj = new Set();
+  if (s.hover) {
+    for (const link of s.atlas.adj.get(s.hover) || []) hoverAdj.add(link.to);
+    hoverAdj.delete(s.atlas.hubId);
+  }
   return {
     allocated: new Set(s.profile.n),
+    levels: s.profile.l,
     route: s.routes.edges,
     hover: s.hover,
+    hoverAdj,
     selected: s.selected,
     suggested: new Set(s.suggestions.map((x) => x.id)),
     focus: s.focusRing,
+    clusterFocus: s.clusterFocusIds,
+    layers: s.prefs.layers,
     compare: s.comparison
       ? {
           both: s.comparison.both,
@@ -88,18 +99,24 @@ function whereOf(s, node) {
 }
 
 function levelPicker(s, node) {
-  if (!node.levels) return '';
+  if (node.class === 'hub') return '';
   const current = levelOf(node.id);
-  const buttons = node.levels
+  const buttons = s.atlas.dedication
     .map((lv, i) => {
       const on = current === i + 1 ? ' is-on' : '';
-      return `<button type="button" class="depth${on}" data-act="level" data-node="${escHtml(node.id)}"
+      return `<button type="button" class="depth depth--${i + 1}${on}" data-act="level" data-node="${escHtml(node.id)}"
         data-level="${i + 1}" aria-pressed="${current === i + 1}">${escHtml(lv.label)}</button>`;
     })
     .join('');
-  const note = current ? `<p class="panel__lead">${escHtml(node.levels[current - 1].note || '')}</p>` : '';
+  let note = '';
+  if (current) {
+    const step = s.atlas.dedication[current - 1];
+    // A node with an authored ladder keeps it as flavour under the one scale.
+    const flavour = node.levels && current <= node.levels.length ? ` Here that looks like: ${node.levels[current - 1].label}.` : '';
+    note = `<p class="panel__lead">${escHtml((step.note || '') + flavour)}</p>`;
+  }
   return `<div class="field-block">
-    <p class="field-label">How deep you go</p>
+    <p class="field-label">Dedication, in time it takes</p>
     <div class="depths">${buttons}</div>${note}</div>`;
 }
 
@@ -145,6 +162,7 @@ export function renderDetail(s) {
               data-act="toggle" data-node="${escHtml(node.id)}">${mine ? 'Remove from my map' : 'Mark as mine'}</button>` : ''}
       ${drill}
       <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">Centre</button>
+      ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus cluster</button>` : ''}
     </div>
     ${levelPicker(s, node)}
     ${neighbourList(s, node)}`;
@@ -244,8 +262,9 @@ export function renderMine(s) {
       const chips = group.ids
         .map((id) => {
           const lv = levelOf(id);
-          const node = s.atlas.nodes.get(id);
-          const badge = lv && node.levels ? `<span class="chipnode__lv">${escHtml(node.levels[lv - 1].label)}</span>` : '';
+          const badge = lv
+            ? `<span class="chipnode__lv">${escHtml(s.atlas.dedication[Math.min(lv, s.atlas.dedication.length) - 1].label)}</span>`
+            : '';
           return nodeButton(s, id, badge);
         })
         .join('');
@@ -265,13 +284,38 @@ export function renderMine(s) {
     </div>`;
 }
 
+/**
+ * The threads through what the visitor marked, as clickable tag chips. A chip
+ * lights every top-layer node sharing the tag, through the trace channel.
+ */
+function affinityChips(s, allocated) {
+  if (allocated.size < 2) return '';
+  const counts = new Map();
+  for (const id of allocated) {
+    const node = s.atlas.nodes.get(id);
+    if (!node) continue;
+    for (const t of node.tags) counts.set(t, (counts.get(t) || 0) + 1);
+  }
+  const top = [...counts.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  if (!top.length) return '';
+  const chips = top
+    .map(
+      ([t, n]) => `<button type="button" class="tag tag--affinity" data-act="affinity" data-tag="${escHtml(t)}">
+        ${escHtml(s.atlas.tags.get(t) || t)}<span class="tag__count">${n}</span></button>`,
+    )
+    .join('');
+  return `<div class="field-block"><p class="field-label">Your affinities</p>
+    <div class="chips">${chips}</div>
+    <p class="panel__lead">Pick one to light everything on the map that shares it.</p></div>`;
+}
+
 export function renderSuggest(s) {
   const body = $('suggestBody');
   if (!body) return;
   const allocated = new Set(s.profile.n);
   s.suggestions = allocated.size ? suggest(s.atlas, allocated, { limit: 6 }) : startingPoints(s.atlas, 5);
   if (!s.suggestions.length) {
-    body.innerHTML = '<p class="panel__lead">Nothing new is adjacent to what you have marked. Pan out and pick something further away.</p>';
+    body.innerHTML = `${affinityChips(s, allocated)}<p class="panel__lead">Nothing new is adjacent to what you have marked. Pan out and pick something further away.</p>`;
     return;
   }
   const intro = allocated.size
@@ -291,7 +335,7 @@ export function renderSuggest(s) {
       </li>`;
     })
     .join('');
-  body.innerHTML = `${intro}<ul class="suglist">${rows}</ul>`;
+  body.innerHTML = `${affinityChips(s, allocated)}${intro}<ul class="suglist">${rows}</ul>`;
 }
 
 export function renderSearch(s) {
@@ -330,6 +374,18 @@ export function renderSearch(s) {
     .slice(0, 10)
     .map((h) => `<li>${nodeButton(s, h.id)}<span class="rel">${whereOf(s, h.node)}</span></li>`)
     .join('');
+}
+
+/** The chip over the stage naming the focused cluster, with the way out. */
+export function renderFocusChip(s) {
+  const el = $('focusChip');
+  if (!el) return;
+  const cluster = s.clusterFocus ? s.atlas.clusters.get(s.clusterFocus) : null;
+  el.hidden = !cluster;
+  el.innerHTML = cluster
+    ? `<span class="stage__focus-label">Focused: ${escHtml(cluster.label)}</span>
+       <button type="button" class="btn btn--ghost btn--sm" data-act="focus-exit">Show everything</button>`
+    : '';
 }
 
 export function renderNotice(s) {
@@ -382,6 +438,7 @@ export function showFatal(detail) {
 export function render(s) {
   renderHint(s);
   renderNotice(s);
+  renderFocusChip(s);
   renderDetail(s);
   renderMine(s);
   renderSuggest(s);

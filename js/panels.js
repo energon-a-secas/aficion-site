@@ -147,7 +147,9 @@ export function renderBuildPanel(s) {
       const label = node ? node.label : step.node;
       const done = allocated.has(step.node);
       const cur = i === s.buildCursor ? ' is-cursor' : '';
-      const depth = step.level && node && node.levels ? ` <span class="chipnode__lv">${escHtml(node.levels[step.level - 1].label)}</span>` : '';
+      const depth = step.level
+        ? ` <span class="chipnode__lv">${escHtml(s.atlas.dedication[Math.min(step.level, s.atlas.dedication.length) - 1].label)}</span>`
+        : '';
       return `<li class="step${done ? ' is-done' : ''}${cur}">
         <button type="button" class="chipnode" data-act="build-step" data-index="${i}" data-node="${escHtml(step.node)}">${escHtml(label)}${depth}</button>
         <p class="sug__why">${escHtml(step.why)}</p>

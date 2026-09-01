@@ -21,32 +21,34 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 
 | Module | Lines | Owns |
 |---|---:|---|
-| `js/events.js` | 402 | `bindEvents` |
-| `js/render.js` | 389 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `bucketLabel` |
-| `js/actions.js` | 363 | `commit`, `select`, `toggleNode`, `applyLevel`, `trace`, `openSheet`, `adoptShared`, `seedStarter` |
-| `js/atlas/load.js` | 280 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
-| `js/atlas/draw-nodes.js` | 250 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
-| `js/panels.js` | 224 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
-| `js/render-sheet.js` | 212 | `renderSheet` (the character sheet view) |
-| `js/alloc.js` | 196 | `toggle`, `setLevel`, `computeRoutes`, `nearMisses`, `bucketOf` |
-| `js/profile.js` | 178 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
-| `js/atlas/layout.js` | 167 | `computeLayout`, `layoutInner`, `boundsOfIds` |
-| `js/atlas/draw-edges.js` | 161 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawCompareEdges` |
+| `js/events.js` | 466 | `bindEvents` |
+| `js/render.js` | 448 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `bucketLabel` |
+| `js/actions.js` | 406 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `lightAffinity`, `openSheet`, `adoptShared`, `seedStarter` |
+| `js/atlas/draw-nodes.js` | 311 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
+| `js/atlas/load.js` | 294 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
+| `js/panels.js` | 231 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
+| `js/render-sheet.js` | 222 | `renderSheet` (the character sheet view) |
+| `js/alloc.js` | 195 | `toggle`, `setLevel`, `computeRoutes`, `nearMisses`, `bucketOf` |
+| `js/profile.js` | 180 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
+| `js/atlas/draw-edges.js` | 172 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawCompareEdges` |
+| `js/atlas/layout.js` | 166 | `computeLayout`, `layoutInner`, `boundsOfIds` |
 | `js/atlas/camera.js` | 160 | `MIN_ZOOM`, `MAX_ZOOM`, `createCamera` (stage-aware `minZoom` floor) |
 | `js/discover.js` | 131 | `suggest`, `startingPoints` |
-| `js/atlas/theme.js` | 129 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
-| `js/atlas/draw-labels.js` | 125 | `drawLabels` |
-| `js/atlas/draw.js` | 113 | `createRenderer` |
-| `js/compare.js` | 112 | `compare`, `compareHeadline` |
-| `js/state.js` | 110 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/atlas/draw-labels.js` | 131 | `drawLabels` |
+| `js/atlas/theme.js` | 128 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
+| `js/atlas/draw.js` | 115 | `createRenderer` |
+| `js/state.js` | 112 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/compare.js` | 111 | `compare`, `compareHeadline` |
 | `js/sheet.js` | 104 | `ensureSheet`, `computeSheet`, `computeTitles` |
+| `js/atlas/pick.js` | 84 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
+| `js/tour.js` | 82 | `openTour`, `tourNext`, `tourBack`, `closeTour` (first-visit tour) |
+| `js/builds.js` | 68 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
+| `js/modal.js` | 64 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
+| `js/context-menu.js` | 62 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
+| `js/inner.js` | 56 | `openInner`, `closeInner`, `currentInner`, `normalise`, `innerProgress` |
+| `js/utils.js` | 43 | `$`, `rad`, `joinList`, `plural` |
 | `js/examples.js` | 18 | `ensureExamples` |
-| `js/atlas/pick.js` | 85 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
-| `js/builds.js` | 69 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
-| `js/modal.js` | 65 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
-| `js/inner.js` | 57 | `openInner`, `closeInner`, `currentInner`, `normalise`, `innerProgress` |
-| `js/utils.js` | 44 | `$`, `rad`, `joinList`, `plural` |
-| `js/app.js` | 41 | entry point, must stay under 50 lines |
+| `js/app.js` | 44 | entry point, must stay under 50 lines |
 
 Vendored from `packages/neorgon-ui/`, never edited in place, refreshed by the
 sync scripts: `js/neorgon-header.js`, `js/neorgon-footer.js`,
@@ -55,14 +57,15 @@ matching `css/neorgon-*.css`.
 
 ## Data
 
-`data/` is the product. 35 files: `atlas.json` (clusters, tags, retired ids),
-`edges.json` (typed top-layer edges, every shares-gear edge noted),
-`builds.json` (9 curated builds), `clusters/*.json` (18 files),
-`inner/*.json` (11 trees), `sheet.json` (the character sheet's six-domain
+`data/` is the product. 39 files: `atlas.json` (clusters, tags, retired ids,
+and the universal `dedication` ladder), `edges.json` (typed top-layer edges,
+every shares-gear edge noted), `builds.json` (9 curated builds),
+`clusters/*.json` (22 files, each declaring a cluster-level `accent` hue),
+`inner/*.json` (12 trees), `sheet.json` (the character sheet's six-domain
 fold of the nine core crafts, plus the earned profile-title rules) and
 `examples.json` (loadable example maps in the shared-link shape). Totals move
-with the corpus; `make validate` prints the live census (269 top nodes, 566
-top edges, 81 inner nodes as of 2026-08-31). Content is data, never inside a
+with the corpus; `make validate` prints the live census (331 top nodes, 662
+top edges, 90 inner nodes as of 2026-09-01). Content is data, never inside a
 `.js` file.
 
 ## Conventions
@@ -157,6 +160,35 @@ is deliberately not persisted. After toggling the desktop collapse,
 the profile key has never been written. Clear my map saves an empty profile,
 which is a choice, not a first visit, so a reset never re-seeds. A `#p=` link
 on first visit wins over the seed.
+
+**Dedication is one universal ladder, defined once.** `atlas.json` declares
+`dedication` (Low, Medium, High, Hardcore); `profile.l` holds 1..4 on ANY
+markable node, and `reconcile` clamps to that ladder's length, never to
+`node.levels`. Per-node `levels` arrays are flavour under the picker now,
+nothing more: any surface printing a level label must read `atlas.dedication`.
+Old profiles (1..3 on laddered nodes) read as Low..High unchanged, which is
+why the `v1` format did not bump.
+
+**The context menu's close policy lives in `onDelegatedClick`, nowhere else.**
+Opening (canvas `contextmenu`) selects the node first so the panel and the
+menu tell one story; a `level` click inside the menu refreshes it in place,
+any other menu action closes it, any click outside dismisses it. Its Escape,
+like the tour's, listens on its own element, never on document.
+
+**Escape unwinds in a fixed order:** drill-in, then the trace/search/affinity
+ring, then cluster focus, then the selection. Adding a new dismissable state
+means choosing its slot in that chain deliberately, not appending a listener.
+
+**`coreLayout` is an orbit around the hub, and that is load-bearing.** The
+crafts ring the centre at radius 420; the nearest cluster anchor sits 1009
+world units out, so the orbit clears every hull. The `orbit` recipe divides
+360 by n, so adding a tenth craft redistributes the ring with no data edit
+beyond the node itself.
+
+**Cluster `accent` is a cluster-file key, not a node accent.** `draw.js`
+tints the hull wash with it and `draw-nodes.js` tints unaccented faces;
+validator check 30 caps node-level accents only, so the cluster key is
+uncapped and every cluster carries one.
 
 **`make corpus` and `make validate` are one target under two names.** The alias
 is prerequisite-only (`corpus: validate`) so it cannot swallow an exit code.

@@ -3,6 +3,7 @@
   "label": "Star Wars and Props",
   "blurb": "A story people love enough to build the objects out of it, from a shelf of carded figures to a saber that survives a duel.",
   "notable": "starwars.props",
+  "accent": "violet",
   "layout": {
     "recipe": "fan",
     "anchor": [860, 760],

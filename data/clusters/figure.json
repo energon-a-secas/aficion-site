@@ -3,6 +3,7 @@
   "label": "Figures and Miniatures",
   "blurb": "Small people and smaller faces. One half is bought and displayed, the other half arrives as unpainted resin and has to be earned.",
   "notable": "figure.mini-painting",
+  "accent": "ember",
   "layout": {
     "recipe": "spiral",
     "anchor": [-714, -714],

@@ -38,6 +38,13 @@ function accentOf(env, node) {
   return node.accent ? env.theme.accents[node.accent] || env.theme.node : null;
 }
 
+/** The cluster's own hue, for region identity on unaccented nodes. */
+function clusterAccentOf(env, node) {
+  if (!node.cluster) return null;
+  const c = env.atlas.clusters.get(node.cluster);
+  return c && c.accent ? env.theme.accents[c.accent] || null : null;
+}
+
 /**
  * A node with an inner tree advertises it: a fine dashed orbit outside the
  * face, the map's answer to "where are the subcategories". Skipped when
@@ -62,6 +69,9 @@ function fade(env, id) {
     const c = view.compare;
     return c.both.has(id) || c.mineOnly.has(id) || c.theirsOnly.has(id) || c.nearMiss.has(id) ? 1 : 0.3;
   }
+  // Cluster focus: one family and the crafts under it stay bright; the rest
+  // steps far back but never vanishes, so the map is still a map.
+  if (view.clusterFocus) return view.clusterFocus.has(id) || view.allocated.has(id) ? 1 : 0.14;
   if (view.dimOthers) return view.allocated.has(id) || view.suggested.has(id) ? 1 : 0.32;
   return 1;
 }
@@ -96,15 +106,36 @@ export function drawCoreNodes(env) {
 
 /** Pass 8: the small circular nodes the constellations are made of. */
 export function drawPlainNodes(env) {
-  const { ctx, theme } = env;
+  const { ctx, theme, view } = env;
+  const mainMode = view.layers === 'main';
   eachOfClass(env, 'node', (node, p) => {
     const r = radius(env, 'node');
+    const lit = view.allocated.has(node.id);
+    // Layers "main": plain nodes step back to faint markers so the anchors
+    // carry the view. Anything with a story keeps its full face.
+    const story =
+      lit ||
+      view.suggested.has(node.id) ||
+      view.hover === node.id ||
+      view.selected === node.id ||
+      (view.clusterFocus && view.clusterFocus.has(node.id));
+    if (mainMode && !story) {
+      ctx.globalAlpha = fade(env, node.id);
+      disc(ctx, p.x, p.y, r * 0.6, withAlpha(theme.node, 0.3));
+      ctx.globalAlpha = 1;
+      return;
+    }
     ctx.globalAlpha = fade(env, node.id);
     const accent = accentOf(env, node);
     // The gold thread gets gold beads: an allocated node's own face lights,
     // the way the reference's allocated sockets do. Layered fills, no filter.
-    const lit = env.view.allocated.has(node.id);
     disc(ctx, p.x, p.y, r, lit ? theme.route : accent || theme.node);
+    if (!lit && !accent) {
+      // A wash of the cluster's hue over the neutral face: region identity
+      // without a rainbow. Layered alpha, no colour maths.
+      const hue = clusterAccentOf(env, node);
+      if (hue) disc(ctx, p.x, p.y, r, withAlpha(hue, 0.26));
+    }
     if (lit) disc(ctx, p.x, p.y, r * 0.35, theme.routeBright);
     else if (accent) ring(ctx, p.x, p.y, r + 2.5 * env.px, withAlpha(accent, 0.4), 1.2 * env.px);
     innerMark(env, node, p, r);
@@ -120,7 +151,7 @@ export function drawNotables(env) {
     ctx.globalAlpha = fade(env, node.id);
     const accent = accentOf(env, node);
     const lit = env.view.allocated.has(node.id);
-    const face = lit ? theme.route : accent || theme.nodeNotable;
+    const face = lit ? theme.route : accent || clusterAccentOf(env, node) || theme.nodeNotable;
     disc(ctx, p.x, p.y, r * 1.55, withAlpha(face, 0.1));
     disc(ctx, p.x, p.y, r, face);
     if (lit) disc(ctx, p.x, p.y, r * 0.35, theme.routeBright);
@@ -183,6 +214,28 @@ export function drawHalos(env) {
     if (!node) continue;
     ring(ctx, p.x, p.y, radius(env, node.class) + 3.5 * env.px, theme.halo, 1.8 * env.px);
   }
+
+  // Dedication ticks: one quarter arc per level around the halo, Hardcore
+  // closing the circle. Skipped zoomed far out, where they are sub-pixel.
+  if (env.px <= 1.2) {
+    ctx.lineWidth = 2 * env.px;
+    for (const id of view.allocated) {
+      const lv = view.levels[id];
+      if (!lv) continue;
+      const p = env.layout.pos.get(id);
+      if (!p || !visible(env, p, 60)) continue;
+      const node = env.atlas.nodes.get(id);
+      if (!node) continue;
+      const rr = radius(env, node.class) + 7.5 * env.px;
+      for (let i = 0; i < lv && i < 4; i++) {
+        const a0 = -Math.PI / 2 + (i * Math.PI) / 2 + 0.14;
+        ctx.strokeStyle = i === 3 ? theme.routeBright : withAlpha(theme.route, 0.9);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, rr, a0, a0 + Math.PI / 2 - 0.28);
+        ctx.stroke();
+      }
+    }
+  }
 }
 
 /**
@@ -241,6 +294,14 @@ export function drawRings(env) {
   if (view.build) {
     const step = view.build.steps[view.build.cursor];
     if (step) mark(step, theme.focus, 2.4, 9);
+  }
+  // The hovered node's neighbourhood: quiet rings so "related" is visible at
+  // a glance. The labels pass names the same set.
+  if (view.hover) {
+    for (const id of view.hoverAdj) {
+      if (id === view.selected || id === view.hover) continue;
+      mark(id, withAlpha(theme.hover, 0.35), 1.2, 4);
+    }
   }
   if (view.hover && view.hover !== view.selected) mark(view.hover, withAlpha(theme.hover, 0.6), 1.6, 5);
   if (view.selected) {

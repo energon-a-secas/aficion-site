@@ -114,12 +114,14 @@ export function reconcile(atlas, profile) {
     else unknown.push(id);
   }
   const l = {};
+  // Dedication is one universal ladder (atlas.dedication), so a depth is legal
+  // on any kept node. Old ladder positions (1..3) read as Low..High unchanged.
+  const maxDepth = atlas.dedication.length;
   for (const [id, level] of Object.entries(profile.l || {})) {
     if (!keep.includes(id)) continue;
-    const node = atlas.nodes.get(id);
-    if (!node.levels || !Number.isInteger(level) || level < 1) continue;
-    if (level > node.levels.length) {
-      l[id] = node.levels.length;
+    if (!Number.isInteger(level) || level < 1) continue;
+    if (level > maxDepth) {
+      l[id] = maxDepth;
       clamped.push(id);
     } else {
       l[id] = level;

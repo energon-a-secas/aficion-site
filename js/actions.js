@@ -19,7 +19,7 @@ import { ensureBuilds, listBuilds, applyBuild, buildProgress } from './builds.js
 import { ensureSheet } from './sheet.js';
 import { renderSheet } from './render-sheet.js';
 import { ensureExamples } from './examples.js';
-import { render, renderDetail, renderNotice, paint, announce } from './render.js';
+import { render, renderDetail, renderNotice, renderFocusChip, paint, announce } from './render.js';
 import { renderCompare, renderBuildsList, renderBuildPanel, renderInner, renderSharedPrompt } from './panels.js';
 import { openModal, closeModal } from './modal.js';
 
@@ -84,10 +84,13 @@ export function toggleNode(s, id) {
 
 export function applyLevel(s, id, level) {
   const node = s.atlas.nodes.get(id);
-  if (!node || !node.levels) return;
+  // Dedication is universal: any markable node takes a depth. Setting one also
+  // marks the node (setLevel adds it), so the right-click route is one gesture.
+  if (!node || node.class === 'hub') return;
   const next = s.profile.l[id] === level ? null : level;
   s.profile = setLevel(s.profile, id, next);
-  commit(s, next ? `${node.label} set to ${node.levels[next - 1].label}.` : `${node.label} depth cleared.`);
+  const d = s.atlas.dedication;
+  commit(s, next ? `${node.label} set to ${d[next - 1].label}.` : `${node.label} dedication cleared.`);
 }
 
 /** Light the walk between two of the visitor's islands and fly along it. */
@@ -111,6 +114,46 @@ export function fitMine(s) {
     return;
   }
   s.camera.flyTo(boundsOfIds(s.layout, ids, 160));
+}
+
+// ── Cluster focus ────────────────────────────────────────────
+/**
+ * The deep-down view: one family bright, everything else stepped back. The
+ * kept set is the cluster's own nodes plus the crafts they draw on, which is
+ * the "what sits underneath this" the mode exists to answer.
+ */
+export function focusCluster(s, clusterId) {
+  const cluster = s.atlas.clusters.get(clusterId);
+  if (!cluster) return;
+  const keep = new Set(cluster.nodeIds);
+  for (const id of cluster.nodeIds) {
+    for (const link of s.atlas.adj.get(id) || []) {
+      if (link.kind === 'draws-on' && link.dir === 'out') keep.add(link.to);
+    }
+  }
+  s.clusterFocus = clusterId;
+  s.clusterFocusIds = keep;
+  renderFocusChip(s);
+  s.camera.flyTo(boundsOfIds(s.layout, [...keep], 140));
+  paint(s);
+  announce(`Focused on ${cluster.label}: ${cluster.nodeIds.length} nodes and the crafts they lean on. Escape shows everything again.`);
+}
+
+export function leaveFocus(s) {
+  if (!s.clusterFocus) return;
+  s.clusterFocus = null;
+  s.clusterFocusIds = null;
+  renderFocusChip(s);
+  paint(s);
+  announce('Showing the whole atlas.');
+}
+
+/** Light every top-layer node sharing a tag. The trace channel, so Escape clears it. */
+export function lightAffinity(s, tag) {
+  const ids = (s.atlas.byTag.get(tag) || []).filter((id) => s.layout.pos.has(id));
+  s.focusRing = new Set(ids);
+  paint(s);
+  announce(`${ids.length} nodes share ${s.atlas.tags.get(tag) || tag}. Escape clears the highlight.`);
 }
 
 export async function drillInto(s, id) {

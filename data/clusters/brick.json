@@ -3,6 +3,7 @@
   "label": "Brick Building",
   "blurb": "A system with a fixed parts list and no glue, where the constraint is the point and everything you build can be taken apart again.",
   "notable": "brick.moc",
+  "accent": "jade",
   "layout": {
     "recipe": "fan",
     "anchor": [-1125, -1340],

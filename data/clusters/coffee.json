@@ -3,6 +3,7 @@
   "label": "Coffee",
   "blurb": "A daily habit that turns into a measurement problem. The only hobby here you are already doing twice a day.",
   "notable": "coffee.espresso",
+  "accent": "jade",
   "layout": {
     "recipe": "ring",
     "anchor": [2077, 375],

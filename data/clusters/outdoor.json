@@ -1,0 +1,150 @@
+{
+  "id": "outdoor",
+  "label": "Outdoors",
+  "blurb": "Leaving the house as the whole point. Gear lists, weather reading and the quiet pleasure of being mildly uncomfortable somewhere scenic.",
+  "notable": "outdoor.hiking",
+  "accent": "cyan",
+  "layout": {
+    "recipe": "fan",
+    "anchor": [-2000, 1100],
+    "radius": 255,
+    "startAngle": -90,
+    "spread": 300,
+    "order": [
+      "outdoor.hiking", "outdoor.camping", "outdoor.kayaking", "outdoor.fishing",
+      "outdoor.backpacking", "outdoor.weather", "outdoor.navigation", "outdoor.geocaching",
+      "outdoor.trail-running", "outdoor.cycling", "outdoor.bouldering", "outdoor.birdwatching",
+      "outdoor.sketching", "outdoor.foraging"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "outdoor.hiking",
+      "label": "Hiking",
+      "class": "notable",
+      "tags": ["outdoors", "cheap-start", "social"],
+      "blurb": "Boots, a route and a summit or a loop. The entry point to everything else out here, and the one that needs the least explaining.",
+      "aka": ["hillwalking", "trekking", "day hikes"],
+      "accent": "cyan"
+    },
+    {
+      "id": "outdoor.camping",
+      "label": "Camping",
+      "class": "node",
+      "tags": ["outdoors", "gear", "social"],
+      "blurb": "A tent, a stove and a site picked off a map. Sleeping outside on purpose, with gear arguments to fill the winter."
+    },
+    {
+      "id": "outdoor.backpacking",
+      "label": "Backpacking",
+      "class": "node",
+      "tags": ["outdoors", "gear", "patience"],
+      "blurb": "Multi-day routes with everything on your back. The hobby where cutting the handle off a toothbrush counts as progress.",
+      "aka": ["thru hiking", "wild camping", "ultralight"]
+    },
+    {
+      "id": "outdoor.bouldering",
+      "label": "Bouldering",
+      "class": "node",
+      "tags": ["outdoors", "social", "cheap-start"],
+      "blurb": "Short climbs, big pads and no rope. A puzzle you solve with your whole body, four metres off the ground.",
+      "aka": ["climbing", "climbing gym"]
+    },
+    {
+      "id": "outdoor.cycling",
+      "label": "Cycling",
+      "class": "node",
+      "tags": ["outdoors", "gear", "research"],
+      "blurb": "Road, gravel or trail, plus the maintenance stand in the hallway. The rule about how many bikes you need is not a joke to anyone here.",
+      "aka": ["road cycling", "gravel", "mountain biking"]
+    },
+    {
+      "id": "outdoor.birdwatching",
+      "label": "Birdwatching",
+      "class": "node",
+      "tags": ["outdoors", "patience", "research", "collecting"],
+      "blurb": "Binoculars, a field guide and a life list. Starts with a robin at the feeder and ends with a dawn drive for a rare gull.",
+      "aka": ["birding", "twitching"]
+    },
+    {
+      "id": "outdoor.fishing",
+      "label": "Fishing",
+      "class": "node",
+      "tags": ["outdoors", "patience", "gear"],
+      "blurb": "Knots, casts and reading the water. Long stretches of nothing punctuated by the only part anyone photographs.",
+      "aka": ["angling", "fly fishing"]
+    },
+    {
+      "id": "outdoor.foraging",
+      "label": "Foraging",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Mushrooms, berries and hedgerow greens, identified twice before eaten once. The field guide is not optional.",
+      "aka": ["mushroom hunting", "wild food"]
+    },
+    {
+      "id": "outdoor.geocaching",
+      "label": "Geocaching",
+      "class": "node",
+      "tags": ["outdoors", "social", "cheap-start"],
+      "blurb": "GPS coordinates, a hidden box and a logbook to sign. A worldwide treasure hunt hiding in plain sight in every park."
+    },
+    {
+      "id": "outdoor.kayaking",
+      "label": "Kayaking",
+      "class": "node",
+      "tags": ["outdoors", "gear", "space"],
+      "blurb": "Paddle strokes, launch points and reading a river. The boat on the car roof announces the hobby before you do.",
+      "aka": ["canoeing", "paddling", "sea kayaking"]
+    },
+    {
+      "id": "outdoor.trail-running",
+      "label": "Trail Running",
+      "class": "node",
+      "tags": ["outdoors", "cheap-start", "patience"],
+      "blurb": "Running where the ground argues back. Ankles, gels and elevation profiles studied like sheet music.",
+      "aka": ["fell running", "ultrarunning"]
+    },
+    {
+      "id": "outdoor.sketching",
+      "label": "Field Sketching",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "patience"],
+      "blurb": "A pocket watercolour set and a folding stool. Drawing the landscape fixes it in memory in a way the phone photo never has.",
+      "aka": ["nature journaling", "urban sketching", "plein air"]
+    },
+    {
+      "id": "outdoor.weather",
+      "label": "Weather Watching",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Cloud atlases, pressure trends and a home station on the fence post. The forecast stops being something you receive.",
+      "aka": ["weather station", "storm watching"]
+    },
+    {
+      "id": "outdoor.navigation",
+      "label": "Maps and Navigation",
+      "class": "node",
+      "tags": ["outdoors", "research", "cheap-start"],
+      "blurb": "Contour lines, a compass bearing and no battery involved. The skill that turns a bad forecast into a story instead of a rescue.",
+      "aka": ["orienteering", "map and compass"]
+    }
+  ],
+  "edges": [
+    { "from": "outdoor.hiking", "to": "outdoor.camping", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.backpacking", "kind": "leads-to" },
+    { "from": "outdoor.hiking", "to": "outdoor.trail-running", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.geocaching", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.navigation", "kind": "leads-to" },
+    { "from": "outdoor.hiking", "to": "outdoor.birdwatching", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.foraging", "kind": "kin" },
+    { "from": "outdoor.hiking", "to": "outdoor.bouldering", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.kayaking", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.fishing", "kind": "kin" },
+    { "from": "outdoor.camping", "to": "outdoor.backpacking", "kind": "shares-gear", "note": "Same tent, stove and sleeping bag. One carries it from the car, the other resents every gram of it." },
+    { "from": "outdoor.backpacking", "to": "outdoor.weather", "kind": "kin", "note": "The forecast decides the route. Multi-day trips turn weather reading from curiosity into planning." },
+    { "from": "outdoor.birdwatching", "to": "outdoor.sketching", "kind": "kin", "note": "The field notebook predates the camera in this hobby, and some never switched." },
+    { "from": "outdoor.trail-running", "to": "outdoor.cycling", "kind": "kin" },
+    { "from": "outdoor.navigation", "to": "outdoor.geocaching", "kind": "kin" }
+  ]
+}

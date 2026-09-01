@@ -3,6 +3,7 @@
   "label": "Anime and Manga",
   "blurb": "The series people watch, and the enormous economy of objects, art books and plastic that grows out of watching them.",
   "notable": "anime.mecha",
+  "accent": "violet",
   "layout": {
     "recipe": "ring",
     "anchor": [0, -1520],

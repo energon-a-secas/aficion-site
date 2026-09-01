@@ -1,0 +1,143 @@
+{
+  "id": "garden",
+  "label": "Gardening",
+  "blurb": "Keeping things alive on purpose, indoors and out. Progress is measured in seasons, which nothing else on this map dares to attempt.",
+  "notable": "garden.houseplants",
+  "accent": "jade",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [0, 1400],
+    "radius": 255,
+    "startAngle": -90,
+    "order": [
+      "garden.houseplants", "garden.succulents", "garden.orchids", "garden.propagation",
+      "garden.bonsai", "garden.seed-saving", "garden.vegetables", "garden.herbs",
+      "garden.composting", "garden.design", "garden.wildlife", "garden.terrariums",
+      "garden.aquascaping", "garden.hydroponics"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.houseplants",
+      "label": "Houseplants",
+      "class": "notable",
+      "tags": ["patience", "cheap-start", "collecting"],
+      "blurb": "A pothos, then a monstera, then a humidifier and grow lights. The windowsill fills up before anyone admits a collection has started.",
+      "aka": ["indoor plants", "house plants", "plant parent"],
+      "accent": "jade"
+    },
+    {
+      "id": "garden.vegetables",
+      "label": "Vegetable Garden",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "patience", "space"],
+      "blurb": "Beds, seed packets and a July glut of courgettes. The supermarket is cheaper, which was never the point.",
+      "aka": ["veg patch", "kitchen garden", "allotment"]
+    },
+    {
+      "id": "garden.herbs",
+      "label": "Herbs",
+      "class": "node",
+      "tags": ["cheap-start", "hands-on", "outdoors"],
+      "blurb": "Basil on the sill, rosemary by the door. The smallest possible garden that still changes what dinner tastes like."
+    },
+    {
+      "id": "garden.bonsai",
+      "label": "Bonsai",
+      "class": "node",
+      "tags": ["patience", "hands-on", "research"],
+      "blurb": "Wiring, pruning and repotting on a schedule measured in years. A tree in a tray, and a decades-long argument with it about its shape."
+    },
+    {
+      "id": "garden.terrariums",
+      "label": "Terrariums",
+      "class": "node",
+      "tags": ["hands-on", "cheap-start", "patience"],
+      "blurb": "A sealed jar with its own weather. Built in an afternoon, then watched for months to see if the moss agrees with your decisions."
+    },
+    {
+      "id": "garden.succulents",
+      "label": "Succulents and Cacti",
+      "class": "node",
+      "tags": ["collecting", "cheap-start", "patience"],
+      "blurb": "Plants that thrive on neglect, killed most often by kindness. The gateway collection, one windowsill wide.",
+      "aka": ["cactus", "succulent collecting"]
+    },
+    {
+      "id": "garden.orchids",
+      "label": "Orchids",
+      "class": "node",
+      "tags": ["collecting", "patience", "research"],
+      "blurb": "Bark instead of soil, roots that want air and a bloom that takes a year to repeat. The difficulty setting above houseplants."
+    },
+    {
+      "id": "garden.composting",
+      "label": "Composting",
+      "class": "node",
+      "tags": ["outdoors", "hands-on", "cheap-start"],
+      "blurb": "Greens, browns and a pile that either heats up or does not. Turning kitchen waste into next spring is slow alchemy with a fork."
+    },
+    {
+      "id": "garden.seed-saving",
+      "label": "Seed Saving",
+      "class": "node",
+      "tags": ["research", "patience", "cheap-start"],
+      "blurb": "Envelopes, dates and which tomato crossed with which. A private seed bank grows out of one good season."
+    },
+    {
+      "id": "garden.propagation",
+      "label": "Propagation",
+      "class": "node",
+      "tags": ["hands-on", "patience", "cheap-start"],
+      "blurb": "Cuttings in water jars along the windowsill. The moment a plant becomes plants, and the reason nobody here buys them anymore.",
+      "aka": ["cuttings", "plant propagation"]
+    },
+    {
+      "id": "garden.hydroponics",
+      "label": "Hydroponics",
+      "class": "node",
+      "tags": ["gear", "electronics", "research"],
+      "blurb": "Pumps, nutrient solution and roots that never touch soil. A garden run on numbers: pH, EC and a timer doing the remembering.",
+      "aka": ["hydro", "indoor growing"]
+    },
+    {
+      "id": "garden.aquascaping",
+      "label": "Aquascaping",
+      "class": "node",
+      "tags": ["gear", "hands-on", "patience"],
+      "blurb": "An underwater garden with CO2 injection and trimming scissors. Gardening at its most gear-heavy, judged like bonsai.",
+      "aka": ["planted tank", "aquarium plants"]
+    },
+    {
+      "id": "garden.design",
+      "label": "Garden Design",
+      "class": "node",
+      "tags": ["research", "outdoors", "space"],
+      "blurb": "Borders, sight lines and what blooms after what. Planning in winter for a picture that only exists next August."
+    },
+    {
+      "id": "garden.wildlife",
+      "label": "Wildlife Gardening",
+      "class": "node",
+      "tags": ["outdoors", "research", "patience"],
+      "blurb": "Ponds, log piles and plants chosen for who visits them. The garden becomes a habitat, and the gardener becomes an observer.",
+      "aka": ["pollinator garden", "wildlife pond"]
+    }
+  ],
+  "edges": [
+    { "from": "garden.houseplants", "to": "garden.succulents", "kind": "kin" },
+    { "from": "garden.houseplants", "to": "garden.propagation", "kind": "leads-to" },
+    { "from": "garden.houseplants", "to": "garden.orchids", "kind": "leads-to" },
+    { "from": "garden.houseplants", "to": "garden.terrariums", "kind": "kin" },
+    { "from": "garden.houseplants", "to": "garden.vegetables", "kind": "kin" },
+    { "from": "garden.vegetables", "to": "garden.herbs", "kind": "kin" },
+    { "from": "garden.vegetables", "to": "garden.composting", "kind": "leads-to" },
+    { "from": "garden.vegetables", "to": "garden.seed-saving", "kind": "leads-to" },
+    { "from": "garden.vegetables", "to": "garden.design", "kind": "kin" },
+    { "from": "garden.design", "to": "garden.wildlife", "kind": "kin" },
+    { "from": "garden.propagation", "to": "garden.seed-saving", "kind": "kin" },
+    { "from": "garden.propagation", "to": "garden.bonsai", "kind": "leads-to", "note": "Nursery stock and rooted cuttings are where training material comes from. Nobody wires a tree they cannot replace." },
+    { "from": "garden.terrariums", "to": "garden.aquascaping", "kind": "kin" },
+    { "from": "garden.aquascaping", "to": "garden.hydroponics", "kind": "shares-gear", "note": "Pumps, timers, LED lights and the same water test kit. One garden is display, the other is dinner." }
+  ]
+}

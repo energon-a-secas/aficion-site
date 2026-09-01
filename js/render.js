@@ -165,10 +165,10 @@ export function renderDetail(s) {
     <div class="toolbar">
       ${markable ? `<button type="button" class="btn ${mine ? 'btn--secondary' : 'btn--primary'} btn--sm"
               data-act="toggle" data-node="${escHtml(node.id)}">${mine ? 'Remove from my map' : 'Mark as mine'}</button>` : ''}
-      ${drill}
-      <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">Centre</button>
-      ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus cluster</button>` : ''}
       ${markable ? `<button type="button" class="btn btn--ghost btn--sm" data-act="link-start" data-node="${escHtml(node.id)}">Link from here</button>` : ''}
+      ${drill}
+      ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus cluster</button>` : ''}
+      <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">Centre</button>
     </div>
     ${levelPicker(s, node)}
     ${personalLinks(s, node)}

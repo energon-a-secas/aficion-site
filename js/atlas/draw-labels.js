@@ -17,6 +17,16 @@ const ZOOM_CORE = 0.5;
 const ZOOM_NODE = 0.95;
 const LINE_H = 15;
 
+/** The plate behind a label: rounded where the engine can, square where not.
+    roundRect is Baseline 2023; Safari 15 simply gets the old square plate. */
+function plate(ctx, x, y, w, h, fill) {
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, 4);
+  else ctx.rect(x, y, w, h);
+  ctx.fill();
+}
+
 function overlaps(boxes, box) {
   for (const b of boxes) {
     if (box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y) return true;
@@ -90,21 +100,20 @@ export function drawLabels(env) {
     const w = ctx.measureText(text).width;
     const gap = (NODE_RADIUS[c.node.class] || NODE_RADIUS.node) * camera.zoom;
     const box = {
-      x: c.s.x - w / 2 - 4,
-      y: c.s.y + Math.min(28, gap + 6),
-      w: w + 8,
-      h: LINE_H,
+      x: c.s.x - w / 2 - 6,
+      y: c.s.y + Math.min(30, gap + 8),
+      w: w + 12,
+      h: LINE_H + 2,
     };
     if (overlaps(boxes, box)) continue;
     boxes.push(box);
 
-    ctx.fillStyle = withAlpha(theme.labelShadow, 0.72);
-    ctx.fillRect(box.x, box.y - 1, box.w, box.h + 1);
+    plate(ctx, box.x, box.y - 1, box.w, box.h + 1, withAlpha(theme.labelShadow, 0.78));
     if (view.allocated.has(c.id)) ctx.fillStyle = theme.route;
     else if (view.suggested.has(c.id)) ctx.fillStyle = theme.suggest;
     else if (c.pri === 0) ctx.fillStyle = theme.label;
     else ctx.fillStyle = strong ? theme.label : theme.labelDim;
-    ctx.fillText(text, c.s.x, box.y);
+    ctx.fillText(text, c.s.x, box.y + 1);
   }
 
   drawClusterTitles(env, boxes);
@@ -115,6 +124,9 @@ function drawClusterTitles(env, boxes) {
   const { ctx, camera, theme } = env;
   if (camera.zoom > 0.8 || env.view.labelMode === 'none') return;
   ctx.font = `600 12px ${theme.font}`;
+  // Tracked-out uppercase reads as a region name, not a node label.
+  // letterSpacing is not in every engine; missing it just loses the tracking.
+  if ('letterSpacing' in ctx) ctx.letterSpacing = '1.5px';
   for (const [id, hull] of env.layout.hulls) {
     const cluster = env.atlas.clusters.get(id);
     if (!cluster) continue;
@@ -122,10 +134,11 @@ function drawClusterTitles(env, boxes) {
     if (s.x < -80 || s.y < -30 || s.x > camera.w + 80 || s.y > camera.h + 30) continue;
     const text = cluster.label.toUpperCase();
     const w = ctx.measureText(text).width;
-    const box = { x: s.x - w / 2 - 4, y: s.y - 16, w: w + 8, h: LINE_H };
+    const box = { x: s.x - w / 2 - 6, y: s.y - 16, w: w + 12, h: LINE_H };
     if (overlaps(boxes, box)) continue;
     boxes.push(box);
     ctx.fillStyle = withAlpha(theme.labelDim, 0.85);
     ctx.fillText(text, s.x, box.y);
   }
+  if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
 }

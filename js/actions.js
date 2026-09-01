@@ -9,7 +9,7 @@
 
 import { $, showToast, plural } from './utils.js';
 import { persistProfile, setNotice } from './state.js';
-import { toggle, setLevel, computeRoutes, addLink, removeLink } from './alloc.js';
+import { toggle, setLevel, computeRoutes, addLink, removeLink, setLinkNote } from './alloc.js';
 import { boundsOfIds } from './atlas/layout.js';
 import { hasInner, ensureNodes } from './atlas/load.js';
 import { openInner, closeInner } from './inner.js';
@@ -50,6 +50,9 @@ function revealPanel(id) {
  * must not be able to downgrade somebody's saved map by opening their link.
  */
 export function commit(s, message) {
+  // Any profile change closes an open note editor: the row it pointed at may
+  // no longer exist, and a stale key must not resurrect the input later.
+  if (s.linkNoteEdit) s.linkNoteEdit = null;
   s.routes = computeRoutes(s.atlas, new Set(s.profile.n), s.profile.e || []);
   if (s.profile.v <= PROFILE_VERSION) persistProfile();
   render(s);
@@ -60,6 +63,8 @@ export function commit(s, message) {
 }
 
 export function select(s, id, { centre = false } = {}) {
+  // Changing the selection abandons a note edit rather than parking it.
+  if (s.linkNoteEdit && id !== s.selected) s.linkNoteEdit = null;
   s.selected = id;
   if (centre && id) {
     const p = s.layout.pos.get(id);
@@ -102,7 +107,7 @@ export function trace(s, path) {
 }
 
 export function clearMine(s) {
-  s.profile = { ...s.profile, n: [], l: {}, e: [] };
+  s.profile = { ...s.profile, n: [], l: {}, e: [], en: {} };
   s.focusRing = new Set();
   commit(s, 'Your map is empty again.');
 }
@@ -192,6 +197,40 @@ export function completeLink(s, targetId) {
   s.profile = addLink(s.profile, from, targetId);
   const added = (s.profile.e || []).length !== before;
   commit(s, added ? `${source.label} and ${target.label} tied together.` : `${source.label} and ${target.label} were already tied.`);
+}
+
+export function editLinkNote(s, key) {
+  s.linkNoteEdit = key || null;
+  renderDetail(s);
+}
+
+export function saveLinkNote(s, a, b, note) {
+  s.linkNoteEdit = null;
+  s.profile = setLinkNote(s.profile, a, b, note);
+  const key = (a < b ? [a, b] : [b, a]).join('|');
+  commit(s, (s.profile.en || {})[key] ? 'Note saved on the tie.' : 'Note cleared from the tie.');
+}
+
+/** A #node= address: centre and select, keeping the hash (it is an address,
+    not a payload, so unlike #p= it is never consumed). */
+export async function openNode(s, id) {
+  await ensureNodes(s.atlas, [id]);
+  if (!s.atlas.nodes.get(id)) {
+    setNotice(`This link points at "${id}", which is not a node here.`);
+    renderNotice(s);
+    return;
+  }
+  // An inner node has no place on the top layer, so "centre" means its
+  // parent, and the drill-in is where the linked node is actually visible.
+  if (!s.layout.pos.has(id)) {
+    const parent = id.split('.').slice(0, -1).join('.');
+    const pp = s.layout.pos.get(parent);
+    if (pp) s.camera.flyTo({ x: pp.x, y: pp.y, zoom: Math.max(s.camera.zoom, 1.1) });
+    select(s, id);
+    await drillInto(s, parent);
+    return;
+  }
+  select(s, id, { centre: true });
 }
 
 export function unlink(s, a, b) {
@@ -403,7 +442,9 @@ export async function applyHash(s, parsed) {
 /** The payload is consumed; a reload must not re-apply it, and a copied
     address should be this page, not somebody's old map. */
 function clearShareHash() {
-  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  // Only a payload hash is consumed. A #node= address is kept: it is the
+  // visitor's link to a place, not a profile in transit.
+  if (/^#pj?=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
 }
 
 /** Adopt a decoded link as the visitor's own map, backing the old one up. */

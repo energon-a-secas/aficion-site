@@ -12,7 +12,7 @@ import { computeRoutes } from './alloc.js';
 import { readHash, hasSaved } from './profile.js';
 import { render, showFatal } from './render.js';
 import { bindEvents, applyHash } from './events.js';
-import { seedStarter } from './actions.js';
+import { seedStarter, openNode } from './actions.js';
 import { openTour } from './tour.js';
 
 async function init() {
@@ -36,8 +36,10 @@ async function init() {
   render(state);
   bindEvents(state);
   const hash = readHash();
+  const deep = /^#node=([a-z0-9.-]+)$/.exec(location.hash || '');
   if (hash) await applyHash(state, hash);
   else if (!state.profile.n.length && !hasSaved()) await seedStarter(state);
+  if (deep) await openNode(state, deep[1]);
   if (!state.prefs.seenTour) openTour();
 }
 

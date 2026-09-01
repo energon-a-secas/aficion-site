@@ -14,16 +14,22 @@ export function toggle(profile, nodeId) {
   const n = new Set(profile.n);
   const l = { ...profile.l };
   let e = (profile.e || []).slice();
+  const en = { ...(profile.en || {}) };
   if (n.has(nodeId)) {
     n.delete(nodeId);
     delete l[nodeId];
     // A hand-tied link is a claim about two of YOUR nodes; unmarking an end
-    // takes the tie with it rather than leaving a thread to nowhere.
+    // takes the tie with it rather than leaving a thread to nowhere, and the
+    // tie takes its note.
     e = e.filter((pair) => pair[0] !== nodeId && pair[1] !== nodeId);
+    for (const k of Object.keys(en)) {
+      const [a, b] = k.split('|');
+      if (a === nodeId || b === nodeId) delete en[k];
+    }
   } else {
     n.add(nodeId);
   }
-  return { ...profile, n: [...n].sort(), l, e };
+  return { ...profile, n: [...n].sort(), l, e, en };
 }
 
 /** Tie two nodes by hand. Marks both ends: a tie is a claim about your map. */
@@ -43,7 +49,20 @@ export function addLink(profile, a, b) {
 
 export function removeLink(profile, a, b) {
   const key = (a < b ? [a, b] : [b, a]).join('|');
-  return { ...profile, e: (profile.e || []).filter((p) => p.join('|') !== key) };
+  const en = { ...(profile.en || {}) };
+  delete en[key];
+  return { ...profile, e: (profile.e || []).filter((p) => p.join('|') !== key), en };
+}
+
+/** Annotate a hand tie. An empty note clears; a note only sticks to a real tie. */
+export function setLinkNote(profile, a, b, note) {
+  const key = (a < b ? [a, b] : [b, a]).join('|');
+  if (!(profile.e || []).some((p) => p.join('|') === key)) return profile;
+  const en = { ...(profile.en || {}) };
+  const clean = (note || '').trim().slice(0, 120);
+  if (clean) en[key] = clean;
+  else delete en[key];
+  return { ...profile, en };
 }
 
 export function setLevel(profile, nodeId, level) {

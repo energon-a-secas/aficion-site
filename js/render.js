@@ -175,15 +175,28 @@ export function renderDetail(s) {
     ${neighbourList(s, node)}`;
 }
 
-/** The visitor's own ties through this node, each with its undo. */
+/** The visitor's own ties through this node: the note, its editor, the undo. */
 function personalLinks(s, node) {
   const pairs = (s.profile.e || []).filter((p) => p[0] === node.id || p[1] === node.id);
   if (!pairs.length) return '';
+  const en = s.profile.en || {};
   const rows = pairs
     .map((p) => {
       const other = p[0] === node.id ? p[1] : p[0];
+      const key = p.join('|');
+      const note = en[key];
+      if (s.linkNoteEdit === key) {
+        return `<li class="linkedit">
+          <input type="text" class="field" maxlength="120" value="${escHtml(note || '')}"
+                 placeholder="Why these two, in a line" aria-label="Note for this tie" data-note-input="${escHtml(key)}">
+          <button type="button" class="btn btn--primary btn--sm" data-act="link-note-save" data-a="${escHtml(p[0])}" data-b="${escHtml(p[1])}">Save</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-act="link-note-cancel">Cancel</button>
+        </li>`;
+      }
       return `<li>${nodeButton(s, other)}<span class="rel">your link</span>
-        <button type="button" class="btn btn--ghost btn--sm" data-act="unlink" data-a="${escHtml(p[0])}" data-b="${escHtml(p[1])}">Unlink</button></li>`;
+        <button type="button" class="btn btn--ghost btn--sm" data-act="link-note-edit" data-key="${escHtml(key)}">${note ? 'Edit note' : 'Add note'}</button>
+        <button type="button" class="btn btn--ghost btn--sm" data-act="unlink" data-a="${escHtml(p[0])}" data-b="${escHtml(p[1])}">Unlink</button>
+        ${note ? `<span class="link__note">${escHtml(note)}</span>` : ''}</li>`;
     })
     .join('');
   return `<div class="field-block"><p class="field-label">Your links</p><ul class="linklist">${rows}</ul></div>`;

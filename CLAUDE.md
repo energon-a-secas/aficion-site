@@ -21,15 +21,15 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 
 | Module | Lines | Owns |
 |---|---:|---|
-| `js/render.js` | 484 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `renderLinkChip`, `bucketLabel` |
-| `js/actions.js` | 452 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `startLink`, `completeLink`, `openSheet`, `adoptShared`, `seedStarter` |
-| `js/events.js` | 313 | `bindEvents` (the delegated data-act layer) |
+| `js/render.js` | 497 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `renderLinkChip`, `bucketLabel` |
+| `js/actions.js` | 493 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `startLink`, `completeLink`, `openSheet`, `adoptShared`, `seedStarter` |
+| `js/events.js` | 350 | `bindEvents` (the delegated data-act layer) |
 | `js/atlas/draw-nodes.js` | 311 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
 | `js/atlas/load.js` | 294 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
 | `js/canvas-input.js` | 255 | `bindCanvas` (pointer, keyboard, link mode, long-press) |
-| `js/alloc.js` | 235 | `toggle`, `setLevel`, `addLink`, `removeLink`, `computeRoutes`, `nearMisses`, `bucketOf` |
+| `js/alloc.js` | 254 | `toggle`, `setLevel`, `addLink`, `removeLink`, `computeRoutes`, `nearMisses`, `bucketOf` |
 | `js/panels.js` | 231 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
-| `js/profile.js` | 226 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
+| `js/profile.js` | 250 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
 | `js/render-sheet.js` | 222 | `renderSheet` (the character sheet view) |
 | `js/atlas/draw-edges.js` | 219 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawPersonalEdges`, `drawCompareEdges` |
 | `js/atlas/layout.js` | 166 | `computeLayout`, `layoutInner`, `boundsOfIds` |
@@ -38,18 +38,18 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 | `js/atlas/draw-labels.js` | 131 | `drawLabels` |
 | `js/atlas/theme.js` | 128 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
 | `js/atlas/draw.js` | 116 | `createRenderer` |
-| `js/state.js` | 113 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/state.js` | 114 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
 | `js/compare.js` | 111 | `compare`, `compareHeadline` |
 | `js/sheet.js` | 104 | `ensureSheet`, `computeSheet`, `computeTitles` |
 | `js/atlas/pick.js` | 84 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
 | `js/tour.js` | 82 | `openTour`, `tourNext`, `tourBack`, `closeTour` (first-visit tour) |
 | `js/builds.js` | 68 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
 | `js/modal.js` | 64 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
-| `js/context-menu.js` | 63 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
+| `js/context-menu.js` | 64 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
 | `js/inner.js` | 56 | `openInner`, `closeInner`, `currentInner`, `normalise`, `innerProgress` |
 | `js/utils.js` | 43 | `$`, `rad`, `joinList`, `plural` |
 | `js/examples.js` | 18 | `ensureExamples` |
-| `js/app.js` | 44 | entry point, must stay under 50 lines |
+| `js/app.js` | 46 | entry point, must stay under 50 lines |
 
 Vendored from `packages/neorgon-ui/`, never edited in place, refreshed by the
 sync scripts: `js/neorgon-header.js`, `js/neorgon-footer.js`,
@@ -139,7 +139,12 @@ empties `e` alongside `n` (the adversarial review caught it keeping ties on an
 "empty" map). Every `computeRoutes` caller passes `profile.e`, including the
 boot call in `app.js`; the one that did not made a reload offer bridges across
 islands the visitor had already tied. Pairs are canonical (`a < b`), built and
-compared via `join('|')`.
+compared via `join('|')`. Tie notes live in `profile.en`, keyed by that same
+canonical string and NEVER inside `e`: a reader that predates `en` keeps every
+tie and loses only the annotation, which is why notes did not bump the format.
+A note is pruned wherever its tie is (toggle, removeLink, clearMine,
+reconcile). `#node=` is an address, not a payload: it is kept in the bar, and
+`clearShareHash` consumes only `#p=`/`#pj=`.
 
 **Pointer discipline in `canvas-input.js` is load-bearing.** A pinch is never
 a click (either finger lifting must not select, tie or cancel), only button 0

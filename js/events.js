@@ -40,6 +40,9 @@ import {
   startLink,
   cancelLink,
   unlink,
+  editLinkNote,
+  saveLinkNote,
+  openNode,
 } from './actions.js';
 import { closeContextMenu, refreshContextMenu } from './context-menu.js';
 import { openTour, tourNext, tourBack, closeTour } from './tour.js';
@@ -94,6 +97,19 @@ const ACTIONS = {
   'link-start': (s, el) => startLink(s, el.dataset.node),
   'link-cancel': (s) => cancelLink(s),
   unlink: (s, el) => unlink(s, el.dataset.a, el.dataset.b),
+  'link-note-edit': (s, el) => editLinkNote(s, el.dataset.key),
+  'link-note-cancel': (s) => editLinkNote(s, null),
+  'link-note-save': (s, el) => {
+    const input = el.closest('li')?.querySelector('[data-note-input]');
+    saveLinkNote(s, el.dataset.a, el.dataset.b, input ? input.value : '');
+  },
+  'node-link': async (s, el) => {
+    const url = `${location.origin}${location.pathname}#node=${el.dataset.node}`;
+    const ok = await copyText(url);
+    // replaceState fires no hashchange, so the fallback cannot re-enter the router.
+    if (!ok) history.replaceState(null, '', `#node=${el.dataset.node}`);
+    showToast(ok ? 'Link to this node copied.' : 'Copy was blocked, so the link is in the address bar instead.');
+  },
   affinity: (s, el) => lightAffinity(s, el.dataset.tag),
   'tour-open': () => {
     closeModal('helpModal');
@@ -255,6 +271,21 @@ function bindDialogs(s) {
     closeContextMenu();
     $('atlasCanvas')?.focus();
   });
+
+  // The tie-note input: Enter saves, Escape abandons. Bound once on the
+  // panel's stable body (the input itself is re-rendered), and stopped from
+  // propagating so no other Escape path sees it.
+  $('detailBody')?.addEventListener('keydown', (e) => {
+    if (!e.target.closest('[data-note-input]')) return;
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.target.closest('li')?.querySelector('[data-act="link-note-save"]')?.click();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+      editLinkNote(s, null);
+    }
+  });
 }
 
 function bindSearch(s) {
@@ -295,8 +326,9 @@ export function bindEvents(s) {
       s.camera.resize();
       s.renderer.requestFrame();
       // The docked card only exists on narrow stages; crossing the breakpoint
-      // with a node selected has to re-decide it.
-      renderDetail(s);
+      // with a node selected has to re-decide it. Not while a note is being
+      // typed, though: the re-render would wipe the draft mid-word.
+      if (!s.linkNoteEdit) renderDetail(s);
     }, 120),
   );
 
@@ -306,7 +338,12 @@ export function bindEvents(s) {
 
   window.addEventListener('hashchange', () => {
     const parsed = /^#(pj?)=([A-Za-z0-9_-]+)$/.exec(location.hash);
-    if (parsed) applyHash(s, { key: parsed[1], payload: parsed[2] });
+    if (parsed) {
+      applyHash(s, { key: parsed[1], payload: parsed[2] });
+      return;
+    }
+    const deep = /^#node=([a-z0-9.-]+)$/.exec(location.hash);
+    if (deep) openNode(s, deep[1]);
   });
 
   updateCanvasLabel(s);

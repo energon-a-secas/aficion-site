@@ -444,6 +444,9 @@ main#main {
 .rel { font-size: 0.7rem; color: var(--text-muted); text-transform: lowercase; }
 /* An edge's why-connected note, the second line under a noted "Connects to" row. */
 .link__note { flex-basis: 100%; font-size: var(--text-xs); color: var(--text-muted); line-height: 1.5; }
+/* Editing a tie note in place: the input takes the row. */
+.linkedit { flex-wrap: wrap; }
+.linkedit .field { flex: 1 1 150px; min-height: var(--control-height-sm); }
 .bridges li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .bridge__text { flex: 1 1 200px; font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.55; }
 .minegroup { display: flex; flex-direction: column; gap: var(--space-2); }

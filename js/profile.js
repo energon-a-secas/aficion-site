@@ -48,7 +48,7 @@ async function gunzip(bytes) {
 const canGzip = typeof CompressionStream !== 'undefined' && typeof DecompressionStream !== 'undefined';
 
 export function emptyProfile() {
-  return { v: PROFILE_VERSION, n: [], l: {}, e: [], t: null };
+  return { v: PROFILE_VERSION, n: [], l: {}, e: [], en: {}, t: null };
 }
 
 /** Migrations are append-only and are never edited after they ship. */
@@ -61,6 +61,9 @@ export async function encode(profile) {
   const payload = { v: PROFILE_VERSION, n: [...profile.n].sort() };
   if (profile.l && Object.keys(profile.l).length) payload.l = profile.l;
   if (profile.e && profile.e.length) payload.e = profile.e;
+  // Tie notes ride beside the pairs, never inside them: a reader that predates
+  // `en` keeps every tie and loses only the annotation, so no version bump.
+  if (profile.en && Object.keys(profile.en).length) payload.en = profile.en;
   if (profile.t) payload.t = String(profile.t).trim().slice(0, 24);
   const json = new TextEncoder().encode(JSON.stringify(payload));
   if (!canGzip) return { key: 'pj', payload: toBase64Url(json) };
@@ -104,11 +107,23 @@ export async function decode(key, payload) {
     seenPairs.add(key);
     links.push(pair);
   }
+  // Tie notes: keyed by the canonical pair string, values plain short strings.
+  const notes = {};
+  if (raw.en && typeof raw.en === 'object' && !Array.isArray(raw.en)) {
+    for (const [k, v] of Object.entries(raw.en)) {
+      if (typeof v !== 'string') continue;
+      const m = /^([a-z0-9.-]+)\|([a-z0-9.-]+)$/.exec(k);
+      if (!m || m[1] >= m[2]) continue;
+      const note = v.trim().slice(0, 120);
+      if (note) notes[k] = note;
+    }
+  }
   let out = {
     v: raw.v,
     n: raw.n.filter((id) => typeof id === 'string'),
     l: raw.l && typeof raw.l === 'object' ? { ...raw.l } : {},
     e: links,
+    en: notes,
     t: typeof raw.t === 'string' ? raw.t.trim().slice(0, 24) : null,
   };
   // A v1 URL opened by a v2 app: migrate it forward. A v2 URL opened by a v1
@@ -147,7 +162,8 @@ export function reconcile(atlas, profile) {
       l[id] = level;
     }
   }
-  // A hand-tied link survives only while both of its ends do.
+  // A hand-tied link survives only while both of its ends do, and a note only
+  // while its tie does.
   const keepSet = new Set(keep);
   const e = [];
   let droppedLinks = 0;
@@ -155,7 +171,12 @@ export function reconcile(atlas, profile) {
     if (keepSet.has(pair[0]) && keepSet.has(pair[1])) e.push(pair);
     else droppedLinks += 1;
   }
-  return { profile: { ...profile, n: keep.sort(), l, e }, unknown, retired, clamped, droppedLinks };
+  const en = {};
+  for (const pair of e) {
+    const k = pair.join('|');
+    if (profile.en && profile.en[k]) en[k] = profile.en[k];
+  }
+  return { profile: { ...profile, n: keep.sort(), l, e, en }, unknown, retired, clamped, droppedLinks };
 }
 
 export async function buildShareUrl(profile, base) {
@@ -195,6 +216,7 @@ export function load() {
     n: raw.n,
     l: raw.l || {},
     e: Array.isArray(raw.e) ? raw.e : [],
+    en: raw.en && typeof raw.en === 'object' && !Array.isArray(raw.en) ? raw.en : {},
     t: raw.t || null,
   };
 }
@@ -205,6 +227,7 @@ export function save(profile) {
     n: profile.n,
     l: profile.l,
     e: profile.e || [],
+    en: profile.en || {},
     t: profile.t,
   });
 }
@@ -217,6 +240,7 @@ export function saveBackup(profile) {
     n: profile.n,
     l: profile.l,
     e: profile.e || [],
+    en: profile.en || {},
     t: profile.t,
   });
 }

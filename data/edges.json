@@ -326,7 +326,7 @@
     { "from": "outdoor.birdwatching", "to": "astro.visual",         "kind": "shares-gear", "note": "Binoculars and a tripod-mounted spotting scope serve both. One community points them up, the other at a hedge." },
     { "from": "outdoor.birdwatching", "to": "core.photography",     "kind": "draws-on",    "note": "Long lenses, bad light and a subject that leaves. The patience test photography was always threatening to become." },
     { "from": "outdoor.geocaching",   "to": "radio.meshtastic",     "kind": "kin",         "note": "Both are grid references and offline maps in places with no signal. The overlap in membership is not a coincidence." },
-    { "from": "outdoor.hiking",       "to": "radio.pota",           "kind": "kin",         "note": "A POTA activation is a hike that carries a radio to the top. Half the hobby is the walk in." },
+    { "from": "outdoor.hiking",       "to": "radio.pota",           "kind": "kin",         "note": "A POTA activation is a park, a radio and ten contacts. Many are reached on foot, though the rules are happy with a car park." },
     { "from": "outdoor.camping",      "to": "astro.dark-sky",       "kind": "kin",         "note": "A star party is a camping trip that complains about headlights. Same site criteria, same thermos." },
     { "from": "outdoor.foraging",     "to": "kitchen.fermentation", "kind": "leads-to",    "note": "Wild mushrooms and hedgerow fruit outrun a fridge fast. Jars and brine are the traditional exit." },
 

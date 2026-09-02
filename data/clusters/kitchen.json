@@ -145,7 +145,7 @@
     { "from": "kitchen.sourdough", "to": "kitchen.fermentation", "kind": "kin", "note": "A starter is a fermentation project that happens to make bread. The jar people and the crumb people are the same people." },
     { "from": "kitchen.fermentation", "to": "kitchen.preserving", "kind": "kin" },
     { "from": "kitchen.fermentation", "to": "kitchen.cheese", "kind": "leads-to" },
-    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Both are yeast management with different paperwork." },
+    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Both are microbe management with different paperwork. Bacteria do the kraut, yeast does the beer." },
     { "from": "kitchen.bbq", "to": "kitchen.preserving", "kind": "kin", "note": "Smoking was preservation before it was flavour. Bacon and jerky still sit on the line." }
   ]
 }

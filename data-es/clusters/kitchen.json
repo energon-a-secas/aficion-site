@@ -145,7 +145,7 @@
     { "from": "kitchen.sourdough", "to": "kitchen.fermentation", "kind": "kin", "note": "Una masa madre es un proyecto de fermentación que además hace pan. La gente de los frascos y la de la miga son la misma gente." },
     { "from": "kitchen.fermentation", "to": "kitchen.preserving", "kind": "kin" },
     { "from": "kitchen.fermentation", "to": "kitchen.cheese", "kind": "leads-to" },
-    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Ambos son manejo de levaduras con distinto papeleo." },
+    { "from": "kitchen.fermentation", "to": "kitchen.homebrewing", "kind": "kin", "note": "Ambos son manejo de microbios con distinto papeleo. Las bacterias hacen el kraut, la levadura la cerveza." },
     { "from": "kitchen.bbq", "to": "kitchen.preserving", "kind": "kin", "note": "Ahumar fue conservación antes que sabor. El tocino y el charqui siguen parados en esa línea." }
   ]
 }

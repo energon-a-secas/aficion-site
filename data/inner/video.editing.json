@@ -9,7 +9,7 @@
     { "id": "video.editing.b-roll",    "label": "B-roll",       "class": "node",   "tags": ["content", "gear"],      "blurb": "Cutaways that cover a jump and show the detail. Shot after the edit exists, once you know what is missing." },
     { "id": "video.editing.sound-mix", "label": "Sound mix",    "class": "node",   "tags": ["audio"],                "blurb": "Levels, music under voice, and room tone under silence. Viewers forgive a soft picture and leave over bad sound." },
     { "id": "video.editing.titles",    "label": "Titles",       "class": "node",   "tags": ["content", "screen"],    "blurb": "Names, labels and the number that tells somebody which part they are on. Small, and usually the last thing done." },
-    { "id": "video.editing.captions",  "label": "Captions",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Burned in or as a track. Half of all viewing is muted, and captions are also the only accessible route into a video." },
+    { "id": "video.editing.captions",  "label": "Captions",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Burned in or as a track. Half of all viewing is muted, and captions are how a deaf viewer gets in at all." },
     { "id": "video.editing.proxies",   "label": "Proxies",      "class": "node",   "tags": ["code", "gear"],         "blurb": "Editing against small copies so the timeline scrubs, then relinking to the originals to export. A workflow, not a setting." }
   ],
   "edges": [

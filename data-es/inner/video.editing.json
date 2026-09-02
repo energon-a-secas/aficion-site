@@ -9,7 +9,7 @@
     { "id": "video.editing.b-roll",    "label": "B-roll",       "class": "node",   "tags": ["content", "gear"],      "blurb": "Tomas de apoyo que cubren un salto y muestran el detalle. Se graban después de que el corte existe, cuando ya sabes qué falta." },
     { "id": "video.editing.sound-mix", "label": "Mezcla de sonido",    "class": "node",   "tags": ["audio"],                "blurb": "Niveles, música bajo la voz y tono de sala bajo el silencio. El público perdona una imagen blanda y se va por un mal sonido." },
     { "id": "video.editing.titles",    "label": "Títulos",       "class": "node",   "tags": ["content", "screen"],    "blurb": "Nombres, rótulos y el número que le dice a alguien en qué parte va. Pequeño, y casi siempre lo último que se hace." },
-    { "id": "video.editing.captions",  "label": "Subtítulos",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Quemados o como pista aparte. La mitad de las vistas es en silencio, y además son la única ruta accesible hacia un video." },
+    { "id": "video.editing.captions",  "label": "Subtítulos",     "class": "node",   "tags": ["content", "screen"],    "blurb": "Quemados o como pista aparte. La mitad de las vistas es en silencio, y son la entrada de quien no oye al video." },
     { "id": "video.editing.proxies",   "label": "Proxies",      "class": "node",   "tags": ["code", "gear"],         "blurb": "Editar contra copias pequeñas para que el timeline responda, y reenlazar a los originales al exportar. Un flujo de trabajo, no un ajuste." }
   ],
   "edges": [

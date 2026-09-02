@@ -34,5 +34,13 @@ kill:
 .PHONY: validate corpus
 validate:
 	@node tools/validate-corpus.mjs
+	@node tools/validate-corpus.mjs data-es
 
 corpus: validate
+
+# ── Node pages ────────────────────────────────────────────────────────────────
+# Regenerates n/<id>.html crawler stubs and sitemap.xml from the corpus.
+# Run after any corpus change; the output is committed, not built on deploy.
+.PHONY: pages
+pages:
+	@node tools/generate-node-pages.mjs

@@ -11,8 +11,9 @@ or gear, and saves, shares and compares maps by URL. Zero build, no backend.
 
 ```bash
 make serve       # http://localhost:8877
-make validate    # corpus validator, 33 structural checks
+make validate    # corpus validator, both data/ and data-es/
 make corpus      # the same target under its CONTRACTS.md name
+make pages       # regenerate n/<id>.html crawler stubs + sitemap.xml
 ```
 
 It must be served over HTTP. The app is ES modules and `file://` blocks them.
@@ -21,35 +22,45 @@ It must be served over HTTP. The app is ES modules and `file://` blocks them.
 
 | Module | Lines | Owns |
 |---|---:|---|
-| `js/render.js` | 497 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderFocusChip`, `renderLinkChip`, `bucketLabel` |
-| `js/actions.js` | 493 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `startLink`, `completeLink`, `openSheet`, `adoptShared`, `seedStarter` |
-| `js/events.js` | 350 | `bindEvents` (the delegated data-act layer) |
-| `js/atlas/draw-nodes.js` | 311 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
+| `js/actions.js` | 437 | `commit`, `select`, `toggleNode`, `applyLevel`, `focusCluster`, `openNode`, `openSheet`, `adoptShared`, `seedStarter` |
+| `js/render.js` | 426 | `buildViewModel`, `paint`, `announce`, `renderDetail`, `renderMine`, `renderSuggest`, `renderSearch`, `bucketLabel` |
+| `js/events.js` | 367 | `bindEvents` (the delegated data-act layer) |
+| `js/atlas/draw-nodes.js` | 326 | `drawCoreNodes`, `drawPlainNodes`, `drawNotables`, `drawHub`, `drawHalos` |
 | `js/atlas/load.js` | 294 | `SCHEMA`, `AtlasError`, `loadAtlas`, `hasInner`, `loadInner` |
-| `js/canvas-input.js` | 255 | `bindCanvas` (pointer, keyboard, link mode, long-press) |
-| `js/alloc.js` | 254 | `toggle`, `setLevel`, `addLink`, `removeLink`, `computeRoutes`, `nearMisses`, `bucketOf` |
-| `js/panels.js` | 231 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
+| `js/alloc.js` | 275 | `toggle`, `setLevel`, `addLink`, `removeLink`, `setLinkNote`, `computeRoutes`, `shortestPath`, `bucketOf` |
+| `js/canvas-input.js` | 263 | `bindCanvas` (pointer, keyboard, mode ladder, long-press) |
 | `js/profile.js` | 250 | `PROFILE_VERSION`, `STORAGE_KEY`, `emptyProfile`, `encode`, `decode`, `saveBackup`, `hasSaved` |
+| `js/panels.js` | 231 | `renderShare`, `renderCompare`, `renderBuildsList`, `renderBuildPanel`, `renderInner`, `renderSharedPrompt` |
 | `js/render-sheet.js` | 222 | `renderSheet` (the character sheet view) |
 | `js/atlas/draw-edges.js` | 219 | `drawDrawsOn`, `drawBaseEdges`, `drawRoute`, `drawPersonalEdges`, `drawCompareEdges` |
+| `js/atlas/draw.js` | 168 | `createRenderer` (owns the draw pass order, starfield first) |
 | `js/atlas/layout.js` | 166 | `computeLayout`, `layoutInner`, `boundsOfIds` |
 | `js/atlas/camera.js` | 160 | `MIN_ZOOM`, `MAX_ZOOM`, `createCamera` (stage-aware `minZoom` floor) |
+| `js/atlas/draw-labels.js` | 144 | `drawLabels` |
+| `js/postcard.js` | 143 | `downloadPostcard` (offscreen 1200×630 share card) |
 | `js/discover.js` | 131 | `suggest`, `startingPoints` |
-| `js/atlas/draw-labels.js` | 131 | `drawLabels` |
 | `js/atlas/theme.js` | 128 | `withAlpha`, `shade`, `resolveTheme`, `onThemeChange` |
-| `js/atlas/draw.js` | 116 | `createRenderer` |
-| `js/state.js` | 114 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
+| `js/state.js` | 123 | `PREFS_KEY`, `state`, `loadPrefs`, `savePrefs`, `rememberCamera` |
 | `js/compare.js` | 111 | `compare`, `compareHeadline` |
+| `js/links.js` | 109 | `startLink`, `completeLink`, `saveLinkNote`, `unlink`, `startPath`, `completePath` |
 | `js/sheet.js` | 104 | `ensureSheet`, `computeSheet`, `computeTitles` |
+| `js/stage.js` | 92 | `renderFocusChip`, `renderLinkChip`, `renderPathChip`, `renderNotice`, `renderMeta`, `renderHint`, `showFatal` |
 | `js/atlas/pick.js` | 84 | `HIT_FLOOR`, `NODE_RADIUS`, `radiusOf`, `buildIndex`, `nodeAt` |
 | `js/tour.js` | 82 | `openTour`, `tourNext`, `tourBack`, `closeTour` (first-visit tour) |
 | `js/builds.js` | 68 | `ensureBuilds`, `listBuilds`, `buildProgress`, `applyBuild`, `buildSteps` |
+| `js/context-menu.js` | 65 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
 | `js/modal.js` | 64 | `getFocusable`, `openModalEl`, `openModal`, `closeModal`, `onModalKeydown` |
-| `js/context-menu.js` | 64 | `openContextMenu`, `closeContextMenu`, `refreshContextMenu` |
 | `js/inner.js` | 56 | `openInner`, `closeInner`, `currentInner`, `normalise`, `innerProgress` |
+| `js/app.js` | 47 | entry point, must stay under 50 lines |
 | `js/utils.js` | 43 | `$`, `rad`, `joinList`, `plural` |
 | `js/examples.js` | 18 | `ensureExamples` |
-| `js/app.js` | 46 | entry point, must stay under 50 lines |
+
+`js/links.js` and `js/stage.js` were split out of `js/actions.js` and
+`js/render.js` when tie notes pushed both past the 500-line budget. The
+import direction is one-way: links.js imports `commit` and `trace` from
+actions.js, and stage.js imports nothing from render.js. Keep it that way;
+new mode logic goes in links.js, new chips in stage.js, and actions.js or
+render.js importing from either would close a module cycle.
 
 Vendored from `packages/neorgon-ui/`, never edited in place, refreshed by the
 sync scripts: `js/neorgon-header.js`, `js/neorgon-footer.js`,
@@ -58,16 +69,29 @@ matching `css/neorgon-*.css`.
 
 ## Data
 
-`data/` is the product. 39 files: `atlas.json` (clusters, tags, retired ids,
+`data/` is the product. 43 files: `atlas.json` (clusters, tags, retired ids,
 and the universal `dedication` ladder), `edges.json` (typed top-layer edges,
 every shares-gear edge noted), `builds.json` (9 curated builds),
 `clusters/*.json` (22 files, each declaring a cluster-level `accent` hue),
-`inner/*.json` (12 trees), `sheet.json` (the character sheet's six-domain
+`inner/*.json` (16 trees), `sheet.json` (the character sheet's six-domain
 fold of the nine core crafts, plus the earned profile-title rules) and
 `examples.json` (loadable example maps in the shared-link shape). Totals move
 with the corpus; `make validate` prints the live census (331 top nodes, 662
-top edges, 90 inner nodes as of 2026-09-01). Content is data, never inside a
+top edges, 130 inner nodes as of 2026-09-01). Content is data, never inside a
 `.js` file.
+
+`data-es/` is the Spanish mirror: identical structure (ids, edges, builds,
+example profiles and sheet domains verified set-equal against `data/`),
+translated strings only. `make validate` runs the validator over both
+directories, so a corpus edit lands in both or the build fails. `?lang=es`
+(persisted by `loadPrefs`) or the header toggle selects it; `js/app.js`
+picks the base path at boot and `ensureSheet`/`ensureExamples` take it as an
+argument.
+
+`n/*.html` (330 crawler stubs) and `sitemap.xml` are generated by `make
+pages`: real anchors for crawlers, a `location.replace` into `#node=<id>`
+for humans. Regenerate after any corpus change; the output is committed,
+not built on deploy.
 
 ## Conventions
 

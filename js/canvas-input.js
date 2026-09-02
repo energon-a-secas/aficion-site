@@ -8,7 +8,8 @@ import { $ } from './utils.js';
 import { savePrefs, rememberCamera } from './state.js';
 import { nodeAt, nodeToward } from './atlas/pick.js';
 import { openContextMenu, closeContextMenu } from './context-menu.js';
-import { renderHint, paint } from './render.js';
+import { paint } from './render.js';
+import { renderHint } from './stage.js';
 import {
   select,
   toggleNode,
@@ -16,13 +17,8 @@ import {
   drillInto,
   leaveInner,
   leaveFocus,
-  startLink,
-  cancelLink,
-  completeLink,
-  startPath,
-  cancelPath,
-  completePath,
 } from './actions.js';
+import { startLink, cancelLink, completeLink, startPath, cancelPath, completePath } from './links.js';
 
 const LONG_PRESS_MS = 550;
 

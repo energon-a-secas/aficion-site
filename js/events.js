@@ -10,7 +10,8 @@ import { savePrefs, persistProfile } from './state.js';
 import { PROFILE_VERSION } from './profile.js';
 import { openModal, closeModal, openModalEl, onModalKeydown } from './modal.js';
 import { renderShare, renderBuildPanel } from './panels.js';
-import { renderSearch, renderDetail, paint, updateCanvasLabel } from './render.js';
+import { renderSearch, renderDetail, paint } from './render.js';
+import { updateCanvasLabel } from './stage.js';
 import { bindCanvas } from './canvas-input.js';
 import {
   select,
@@ -37,15 +38,9 @@ import {
   focusCluster,
   leaveFocus,
   lightAffinity,
-  startLink,
-  cancelLink,
-  unlink,
-  editLinkNote,
-  saveLinkNote,
   openNode,
-  startPath,
-  cancelPath,
 } from './actions.js';
+import { startLink, cancelLink, unlink, editLinkNote, saveLinkNote, startPath, cancelPath } from './links.js';
 import { closeContextMenu, refreshContextMenu } from './context-menu.js';
 import { downloadPostcard } from './postcard.js';
 import { openTour, tourNext, tourBack, closeTour } from './tour.js';

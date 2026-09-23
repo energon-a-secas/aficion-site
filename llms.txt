@@ -18,7 +18,7 @@ Notes for agents:
   `data/sheet.json` (character sheet domains and earned titles), and
   `data/examples.json` (loadable example maps).
 - The feed of record for launches and changes across the fleet:
-  https://dispatch.neorgon.com/
+  https://antenne.neorgon.com/
 - Corrections to any fact in the corpus: use the Report a correction
   link in the site footer (it opens Balise with page context).
 

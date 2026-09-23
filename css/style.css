@@ -69,18 +69,6 @@ body {
 }
 body.modal-open { overflow: hidden; }
 
-/* The Beacon Kit's control is fixed at bottom-left 20px, which assumes a page
-   that scrolls so the footer is not there. This one does not scroll and the
-   footer is pinned to the viewport floor, so at the default offset the icon
-   lands on the footer copy. --beacon-offset is the kit's documented per-site
-   knob (packages/neorgon-ui/beacon/README.md); it has to be set here rather
-   than in :root because neorgon-beacon.css loads after this file and would
-   win a tie. */
-body { --beacon-offset: 62px; }
-/* The footer's meta bar drops onto its own row below 700px, so the copy that
-   the beacon has to clear gets taller. Measured, not guessed. */
-@media (max-width: 700px) { body { --beacon-offset: 88px; } }
-
 main#main {
   flex: 1;
   min-height: 0;

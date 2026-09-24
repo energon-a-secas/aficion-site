@@ -1,0 +1,119 @@
+{
+  "of": "core.writing",
+  "label": "Escritura, encuentra la forma",
+  "blurb": "Historias, observaciones, instrucciones y revisión. Distintas formas le dan nuevos caminos a la misma curiosidad.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "core.writing.journaling",
+      "core.writing.short-fiction",
+      "core.writing.poetry",
+      "core.writing.worldbuilding",
+      "core.writing.revision",
+      "core.writing.documentation"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "core.writing.journaling",
+      "label": "Escribir un diario",
+      "class": "notable",
+      "tags": [
+        "content",
+        "cheap-start"
+      ],
+      "blurb": "Anota un detalle del día y por qué se quedó contigo. Un registro se vuelve una fuente de ideas sin necesitar público."
+    },
+    {
+      "id": "core.writing.short-fiction",
+      "label": "Narrativa breve",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "Un personaje quiere algo y encuentra resistencia. La forma breve permite explorar un giro en una vida sin inventar todo un mundo primero."
+    },
+    {
+      "id": "core.writing.poetry",
+      "label": "Experimentos poéticos",
+      "class": "node",
+      "tags": [
+        "content",
+        "audio",
+        "cheap-start"
+      ],
+      "blurb": "Sonido, ritmo y lo que puede hacer un salto de línea. Prueba una restricción y descubre qué frase inesperada te ayuda a encontrar."
+    },
+    {
+      "id": "core.writing.worldbuilding",
+      "label": "Construcción de mundos",
+      "class": "node",
+      "tags": [
+        "content",
+        "fandom",
+        "research"
+      ],
+      "blurb": "Imagina cómo funciona un lugar a través de sus costumbres, materiales y rutinas. Los detalles importan cuando cambian lo que alguien puede hacer allí."
+    },
+    {
+      "id": "core.writing.revision",
+      "label": "Revisión y edición",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "Lee con una pregunta a la vez: sentido, estructura y luego las frases. Un borrador terminado es material para trabajar, más que un veredicto."
+    },
+    {
+      "id": "core.writing.documentation",
+      "label": "Escribir instrucciones útiles",
+      "class": "node",
+      "tags": [
+        "content",
+        "social",
+        "research"
+      ],
+      "blurb": "Explica una tarea pequeña a alguien que nunca la ha hecho. Sus preguntas revelan los pasos que parecían demasiado obvios para mencionar."
+    }
+  ],
+  "edges": [
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.short-fiction",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.poetry",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.worldbuilding",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.revision",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.documentation",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.short-fiction",
+      "to": "core.writing.revision",
+      "kind": "kin"
+    }
+  ]
+}

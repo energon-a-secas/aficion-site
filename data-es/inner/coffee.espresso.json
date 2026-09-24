@@ -1,0 +1,117 @@
+{
+  "of": "coffee.espresso",
+  "label": "Espresso, una variable a la vez",
+  "blurb": "El sabor y la repetibilidad dan sentido a los números. Estas rutas exploran la taza, más allá de las máquinas.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "coffee.espresso.dialling",
+      "coffee.espresso.puck-prep",
+      "coffee.espresso.tasting",
+      "coffee.espresso.milk-drinks",
+      "coffee.espresso.brew-journal",
+      "coffee.espresso.bean-comparison"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "coffee.espresso.dialling",
+      "label": "Ajustar por sabor",
+      "class": "notable",
+      "tags": [
+        "research",
+        "hands-on"
+      ],
+      "blurb": "Cambia una variable y compara el resultado. Tus notas conectan lo que hiciste con lo que disfrutaste en la taza."
+    },
+    {
+      "id": "coffee.espresso.puck-prep",
+      "label": "Preparación del café",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Distribución y una rutina repetible antes de extraer. La meta útil es la constancia entre tazas, más que un ritual complicado."
+    },
+    {
+      "id": "coffee.espresso.tasting",
+      "label": "Cata comparativa",
+      "class": "node",
+      "tags": [
+        "research",
+        "social"
+      ],
+      "blurb": "Compara dos tazas y describe la diferencia con tus palabras. Dulzor, textura y final ayudan más que adivinar un sabor exacto."
+    },
+    {
+      "id": "coffee.espresso.milk-drinks",
+      "label": "Bebidas con leche",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "El equilibrio entre café, leche y textura. Una bebida conocida ayuda a notar cómo cambian los ingredientes al combinarse."
+    },
+    {
+      "id": "coffee.espresso.brew-journal",
+      "label": "Diario de preparación",
+      "class": "node",
+      "tags": [
+        "content",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Dosis, bebida obtenida, granos y una nota de cata breve. Guarda solo los datos que ayuden a repetir una taza que te gustó."
+    },
+    {
+      "id": "coffee.espresso.bean-comparison",
+      "label": "Explorar orígenes del café",
+      "class": "node",
+      "tags": [
+        "research",
+        "patience"
+      ],
+      "blurb": "Compara cafés manteniendo una rutina conocida. Origen, proceso y tueste se vuelven preguntas que puedes investigar a través del sabor."
+    }
+  ],
+  "edges": [
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.puck-prep",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.tasting",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.milk-drinks",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.brew-journal",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.bean-comparison",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.puck-prep",
+      "to": "coffee.espresso.brew-journal",
+      "kind": "kin"
+    }
+  ]
+}

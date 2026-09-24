@@ -18,7 +18,9 @@ function getProbe() {
   if (probe && probe.isConnected) return probe;
   probe = document.createElement('span');
   probe.setAttribute('aria-hidden', 'true');
-  probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:0;height:0;pointer-events:none';
+  // Theme transitions may apply globally. A colour probe must read the target
+  // immediately, otherwise every sample catches the previous colour mid-fade.
+  probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:0;height:0;pointer-events:none;transition:none!important;animation:none!important';
   document.body.appendChild(probe);
   return probe;
 }

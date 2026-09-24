@@ -16,7 +16,7 @@ const DEFAULT_PREFS = {
   panel: null,
   showDrawsOn: true,
   labelMode: 'auto',
-  layers: 'full', // 'full' | 'main': the default is the whole network, by request
+  layers: 'main', // Reveal the full network on demand; existing preferences persist.
   lang: 'en', // 'en' | 'es': which corpus directory the atlas loads from
   seenIntro: false,
   seenTour: false,
@@ -43,6 +43,9 @@ export const state = {
   pathing: null, // node id a shortest-walk trace starts from; transient
   linkNoteEdit: null, // canonical pair key whose note is being edited in the panel
 
+  explore: null,
+  tracePath: [],
+  walk: { path: [], hover: null, preview: null, motion: null, dragging: false, journey: null },
   inner: null,
   build: null,
   buildCursor: 0,

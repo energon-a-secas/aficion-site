@@ -9,12 +9,12 @@ import { createCamera } from './atlas/camera.js';
 import { buildIndex } from './atlas/pick.js';
 import { createRenderer } from './atlas/draw.js';
 import { computeRoutes } from './alloc.js';
-import { readHash, hasSaved } from './profile.js';
+import { readHash } from './profile.js';
 import { render } from './render.js';
 import { showFatal } from './stage.js';
 import { bindEvents, applyHash } from './events.js';
-import { seedStarter, openNode } from './actions.js';
-import { openTour } from './tour.js';
+import { openNode } from './actions.js';
+import { initExplorer } from './navigation.js';
 
 async function init() {
   loadPrefs();
@@ -34,14 +34,13 @@ async function init() {
   applySavedCamera(state.camera, state.layout);
   await ensureNodes(state.atlas, state.profile.n);
   state.routes = computeRoutes(state.atlas, new Set(state.profile.n), state.profile.e || []);
+  await initExplorer(state);
   render(state);
   bindEvents(state);
   const hash = readHash();
   const deep = /^#node=([a-z0-9.-]+)$/.exec(location.hash || '');
   if (hash) await applyHash(state, hash);
-  else if (!state.profile.n.length && !hasSaved()) await seedStarter(state);
   if (deep) await openNode(state, deep[1]);
-  if (!state.prefs.seenTour) openTour();
 }
 
 init();

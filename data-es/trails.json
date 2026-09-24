@@ -1,0 +1,47 @@
+{
+  "v": 1,
+  "trails": [
+    {
+      "id": "coffee-meets-code",
+      "title": "Café y código",
+      "blurb": "Sigue tu interés por los microcontroladores hasta el mundo de las modificaciones de cafeteras espresso.",
+      "path": ["maker.arduino", "core.electronics", "coffee.machine-mods", "coffee.espresso"],
+      "notes": ["Los proyectos con Arduino se apoyan en la electrónica.", "Esa misma habilidad aparece al modificar cafeteras espresso.", "Las modificaciones de una cafetera conectan con la preparación del espresso."]
+    },
+    {
+      "id": "tiny-living-worlds",
+      "title": "Pequeños mundos vivos",
+      "blurb": "De los paisajes en miniatura a los terrarios y jardines submarinos, y al agua que comparten.",
+      "path": ["model.dioramas", "garden.terrariums", "garden.aquascaping", "coffee.water"],
+      "notes": ["Los dioramas y los terrarios componen un paisaje en un espacio pequeño.", "Los terrarios conectan con el aquascaping, donde el paisaje en miniatura pasa bajo el agua.", "El aquascaping y el agua para café comparten el interés por medir y ajustar el agua."]
+    },
+    {
+      "id": "circuits-into-sound",
+      "title": "Circuitos que suenan",
+      "blurb": "Un proyecto de circuitos abre la puerta a los sintetizadores modulares y los pedales de efectos.",
+      "path": ["maker.pcb-design", "music.modular", "music.pedals"],
+      "notes": ["El diseño de PCB y los sintetizadores modulares comparten herramientas y materiales para construir circuitos.", "Los sintetizadores modulares conectan con los pedales de efectos por el interés común en transformar el sonido."]
+    },
+    {
+      "id": "birds-to-galaxies",
+      "title": "De las aves a las galaxias",
+      "blurb": "Deja que la observación de fauna te lleve, a través de la fotografía, hasta el cielo nocturno.",
+      "path": ["outdoor.birdwatching", "core.photography", "astro.astrophoto", "astro.deep-sky"],
+      "notes": ["La observación de aves conecta con la fotografía al observar y registrar la fauna.", "La fotografía también sostiene la astrofotografía, con un sujeto muy distinto sobre nuestras cabezas.", "Las imágenes de cielo profundo son una rama de la astrofotografía que puedes explorar."]
+    },
+    {
+      "id": "tabletop-to-zines",
+      "title": "De la mesa al papel",
+      "blurb": "Sigue la escritura que hay detrás de una partida de rol hasta las pequeñas publicaciones personales.",
+      "path": ["tabletop.gm", "core.writing", "book.zines"],
+      "notes": ["Dirigir una partida de rol se apoya en la escritura y la narración.", "Los fanzines son otra salida para esa escritura: pequeñas publicaciones con espacio para intereses poco comunes."]
+    },
+    {
+      "id": "signals-to-sabers",
+      "title": "Señales, sables y sonido",
+      "blurb": "Explora la electrónica que conecta la escucha de radio con los accesorios iluminados y el sonido personalizado.",
+      "path": ["radio.sdr", "core.electronics", "starwars.pixel-saber", "starwars.soundfonts"],
+      "notes": ["La escucha con radio definida por software se apoya en la electrónica.", "Los sables de píxeles usan esa misma habilidad en un accesorio iluminado.", "Los soundfonts personalizados son una rama conectada con la afición a los sables de píxeles."]
+    }
+  ]
+}

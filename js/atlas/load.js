@@ -223,6 +223,17 @@ export async function loadInner(atlas, nodeId) {
   const hit = cache.get(nodeId);
   if (hit) return hit;
 
+  // Cache the in-flight request as well as its result. Search and a deep link
+  // may ask for the same tree before either request has finished.
+  const pending = readInner(atlas, nodeId).catch((error) => {
+    cache.delete(nodeId);
+    throw error;
+  });
+  cache.set(nodeId, pending);
+  return pending;
+}
+
+async function readInner(atlas, nodeId) {
   const where = `inner/${nodeId}.json`;
   const doc = await getJSON(`${atlas.basePath}${where}`);
   const parent = atlas.nodes.get(need(doc.of, where, 'of'));
@@ -242,7 +253,6 @@ export async function loadInner(atlas, nodeId) {
     nodeIds: Object.freeze(nodes.map((n) => n.id)),
     edges: Object.freeze(edges),
   });
-  cache.set(nodeId, tree);
   return tree;
 }
 

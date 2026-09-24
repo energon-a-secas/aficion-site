@@ -35,6 +35,9 @@ kill:
 validate:
 	@node tools/validate-corpus.mjs
 	@node tools/validate-corpus.mjs data-es
+	@node tools/validate-explorer.mjs
+	@node tools/validate-trails.mjs
+	@node tools/generate-search-index.mjs --check
 
 corpus: validate
 
@@ -44,3 +47,13 @@ corpus: validate
 .PHONY: pages
 pages:
 	@node tools/generate-node-pages.mjs
+
+.PHONY: search-index
+search-index:
+	@node tools/generate-search-index.mjs
+
+.PHONY: test
+test:
+	@node tools/test-explore-model.mjs
+	@node tools/test-atlas-navigation.mjs
+	@node tools/test-trail-model.mjs

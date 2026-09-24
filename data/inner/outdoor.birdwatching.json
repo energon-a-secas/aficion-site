@@ -1,0 +1,122 @@
+{
+  "of": "outdoor.birdwatching",
+  "label": "Birdwatching, beyond the name",
+  "blurb": "Identification is one doorway. Behaviour, sound, and returning to a familiar place give the practice its depth.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "outdoor.birdwatching.field-notes",
+      "outdoor.birdwatching.birdsong",
+      "outdoor.birdwatching.local-patch",
+      "outdoor.birdwatching.behaviour",
+      "outdoor.birdwatching.sketching",
+      "outdoor.birdwatching.seasonal-log"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "outdoor.birdwatching.field-notes",
+      "label": "Field notes",
+      "class": "notable",
+      "tags": [
+        "outdoors",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Record shape, posture, movement, and habitat before looking up a name. An uncertain observation is still useful when its details are clear."
+    },
+    {
+      "id": "outdoor.birdwatching.birdsong",
+      "label": "Listening for birds",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "audio",
+        "patience"
+      ],
+      "blurb": "Separate the sounds around you and describe a rhythm or repeated phrase. Listening adds another layer to a place you already know."
+    },
+    {
+      "id": "outdoor.birdwatching.local-patch",
+      "label": "A regular observation spot",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "patience",
+        "cheap-start"
+      ],
+      "blurb": "Return to one accessible place across different days and seasons. Familiarity makes small changes visible."
+    },
+    {
+      "id": "outdoor.birdwatching.behaviour",
+      "label": "Watching behaviour",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "research",
+        "patience"
+      ],
+      "blurb": "Feeding, resting, and interactions tell stories beyond identification. Keep enough distance that your presence does not change what you are watching."
+    },
+    {
+      "id": "outdoor.birdwatching.sketching",
+      "label": "Bird sketches",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Quick shapes and notes record what caught your attention. The drawing is a way to look more carefully, not an illustration contest."
+    },
+    {
+      "id": "outdoor.birdwatching.seasonal-log",
+      "label": "Seasonal observations",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "content",
+        "patience"
+      ],
+      "blurb": "Keep dates and locations for the changes you notice. Over time, a familiar place gains a calendar of its own."
+    }
+  ],
+  "edges": [
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.birdsong",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.local-patch",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.behaviour",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.sketching",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.seasonal-log",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.birdsong",
+      "to": "outdoor.birdwatching.sketching",
+      "kind": "kin"
+    }
+  ]
+}

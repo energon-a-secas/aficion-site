@@ -63,13 +63,30 @@ export function commit(s, message) {
   if (message) announce(message);
 }
 
-export function select(s, id, { centre = false } = {}) {
+export function select(s, id, { centre = false, following = false } = {}) {
   // Changing the selection abandons a note edit rather than parking it.
   if (s.linkNoteEdit && id !== s.selected) s.linkNoteEdit = null;
+  if (s.walk) {
+    s.walk.hover = null;
+    s.walk.group = null;
+    s.walk.preview = null;
+    if (!following && id !== s.selected) { s.walk.path = []; s.walk.motion = null; s.walk.journey = null; }
+  }
   s.selected = id;
+  if (id) {
+    for (const tab of ['detail', 'mine', 'suggest']) {
+      const panel = $(tab + 'Panel');
+      if (panel) panel.hidden = tab !== 'detail';
+      document.querySelector(`[data-panel-tab="${tab}"]`)?.setAttribute('aria-pressed', String(tab === 'detail'));
+    }
+  }
   if (centre && id) {
     const p = s.layout.pos.get(id);
-    if (p) s.camera.flyTo({ x: p.x, y: p.y, zoom: Math.max(s.camera.zoom, 1.1) });
+    if (p) {
+      const zoom = Math.max(s.camera.zoom, 1.1);
+      const inset = window.matchMedia('(max-width: 940px)').matches ? 64 / zoom : 0;
+      s.camera.flyTo({ x: p.x, y: p.y + inset, zoom });
+    }
   }
   renderDetail(s);
   paint(s);
@@ -102,6 +119,7 @@ export function applyLevel(s, id, level) {
 /** Light the walk between two of the visitor's islands and fly along it. */
 export function trace(s, path) {
   s.focusRing = new Set(path);
+  s.tracePath = path.slice();
   s.camera.flyTo(boundsOfIds(s.layout, path, 140));
   paint(s);
   announce(`Tracing ${path.length} nodes.`);
@@ -140,7 +158,7 @@ export function focusCluster(s, clusterId) {
   s.clusterFocus = clusterId;
   s.clusterFocusIds = keep;
   renderFocusChip(s);
-  s.camera.flyTo(boundsOfIds(s.layout, [...keep], 140));
+  s.camera.flyTo(boundsOfIds(s.layout, cluster.nodeIds, 80));
   paint(s);
   announce(`Focused on ${cluster.label}: ${cluster.nodeIds.length} nodes and the crafts they lean on. Escape shows everything again.`);
 }
@@ -189,6 +207,7 @@ export async function drillInto(s, id) {
   try {
     s.inner = await openInner(s.atlas, id);
     renderInner(s);
+    paint(s);
     $('innerClose')?.focus();
   } catch (err) {
     showToast(`That drill-in did not load: ${err.detail || err.message}`);
@@ -199,6 +218,7 @@ export function leaveInner(s) {
   closeInner();
   s.inner = null;
   renderInner(s);
+  paint(s);
   $('atlasCanvas')?.focus();
 }
 
@@ -225,26 +245,6 @@ export async function openSheet(s) {
   $('sheetClose')?.focus();
 }
 
-/**
- * First visit only: the map opens as the example rather than an unexplained
- * starfield. Seeded once, persisted, and Clear my map is the reset; a cleared
- * map saves as empty, which is not "never saved", so it never re-seeds.
- */
-export async function seedStarter(s) {
-  try {
-    const doc = await ensureExamples(s.atlas.basePath);
-    const ex = doc.examples[0];
-    await ensureNodes(s.atlas, ex.profile.n);
-    const { profile } = reconcile(s.atlas, ex.profile);
-    s.profile = profile;
-    setNotice(`This is ${ex.name}, an example map to explore. Clear my map starts your own.`);
-    commit(s, `Opened ${ex.name}, an example map.`);
-    fitMine(s);
-  } catch {
-    /* an empty first map is the quiet fallback */
-  }
-}
-
 /** Load an example map through the same card a shared link gets. */
 export async function openExample(s, id = null) {
   let doc;
@@ -267,7 +267,7 @@ export async function openExample(s, id = null) {
 export function closeSheet() {
   const overlay = $('sheetOverlay');
   if (overlay) overlay.hidden = true;
-  $('atlasCanvas')?.focus();
+  (document.body.dataset.workspace === 'atlas' ? $('atlasCanvas') : $('exploreHeading'))?.focus();
 }
 
 // ── Compare ──────────────────────────────────────────────────

@@ -31,6 +31,19 @@ export function renderLinkChip(s) {
     : '';
 }
 
+/** Keep an explicit, dismissible explanation beside a requested map connection. */
+export function renderTraceChip(s) {
+  const el = $('traceChip');
+  if (!el) return;
+  const path = s.tracePath.every((id) => s.focusRing.has(id)) ? s.tracePath : [];
+  const key = path.join(',');
+  if (el.dataset.path === key) return;
+  el.dataset.path = key;
+  el.hidden = !path.length;
+  const label = path.map((id) => s.atlas.nodes.get(id)?.label || id).join(' → ');
+  el.innerHTML = path.length ? `<span class="stage__focus-label">${escHtml(label)}</span><button type="button" class="btn btn--ghost btn--sm" data-act="trace-clear">${s.prefs.lang === 'es' ? 'Quitar' : 'Clear'}</button>` : '';
+}
+
 /** The chip while a shortest walk is being traced; same crosshair as linking. */
 export function renderPathChip(s) {
   const el = $('pathChip');
@@ -74,8 +87,8 @@ export function updateCanvasLabel(s) {
 export function renderHint(s) {
   const el = $('stageHint');
   if (!el) return;
-  el.hidden = !!s.prefs.seenIntro;
-  el.textContent = 'Drag to pan, scroll to zoom. Click a node to read it, then mark it as yours.';
+  el.hidden = !!s.prefs.seenIntro || !!s.selected;
+  el.textContent = s.prefs.lang === 'es' ? 'Elige un punto. Sigue sus flechas para descubrir conexiones.' : 'Choose a dot. Follow its arrows to discover a connection.';
 }
 
 /**
@@ -83,6 +96,11 @@ export function renderHint(s) {
  * half-drawn map. The loader's detail names the file and the field.
  */
 export function showFatal(detail) {
+  const explorer = $('explorer');
+  if (explorer) {
+    explorer.innerHTML = '<div class="ex-empty"><h2>The hobby atlas could not load</h2><p>Check your connection and try again.</p><a class="btn btn--primary" href="">Try again</a><details><summary>Technical details</summary><p id="exploreLoadError"></p></details></div>';
+    $('exploreLoadError').textContent = detail;
+  }
   const box = $('stageError');
   const hint = $('stageHint');
   if (hint) hint.hidden = true;

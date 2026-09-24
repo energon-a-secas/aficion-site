@@ -205,7 +205,7 @@
     { "from": "coffee.maintenance", "to": "core.hand-tools",  "kind": "draws-on" },
     { "from": "coffee.cupping",     "to": "core.writing",     "kind": "draws-on" },
 
-    { "from": "model.gunpla",       "to": "anime.mecha",        "kind": "shares-gear", "note": "El kit es mercancía de una serie, y la serie es la razón de que quisieras el kit." },
+    { "from": "model.gunpla",       "to": "anime.mecha",        "kind": "kin", "note": "El kit es mercancía de una serie, y la serie es la razón de que quisieras el kit." },
     { "from": "model.airbrush-rig", "to": "tabletop.warhammer", "kind": "shares-gear", "note": "Mismo compresor, misma cabina, mismo thinner, distinta repisa." },
     { "from": "starwars.model-kits","to": "model.gunpla",       "kind": "shares-gear", "note": "Bandai fabrica ambas líneas igual, así que los alicates, el cemento y las mañas se transfieren enteros." },
     { "from": "starwars.model-kits","to": "model.decals",       "kind": "kin" },

@@ -65,6 +65,7 @@ export function createCamera(canvas, fitBounds = null) {
     },
 
     panBy(dxScreen, dyScreen) {
+      cam.stop();
       cam.x -= dxScreen / cam.zoom;
       cam.y -= dyScreen / cam.zoom;
       emit();
@@ -72,6 +73,7 @@ export function createCamera(canvas, fitBounds = null) {
 
     /** Keeps the world point under (sx, sy) fixed while the scale changes. */
     zoomAt(sx, sy, factor) {
+      cam.stop();
       const before = cam.toWorld(sx, sy);
       const next = clamp(cam.zoom * factor, cam.minZoom, MAX_ZOOM);
       if (next === cam.zoom) return;
@@ -83,6 +85,7 @@ export function createCamera(canvas, fitBounds = null) {
     },
 
     fit(bounds, padding = 80) {
+      cam.stop();
       const bw = Math.max(1, bounds.maxX - bounds.minX);
       const bh = Math.max(1, bounds.maxY - bounds.minY);
       cam.zoom = clamp(
@@ -97,6 +100,7 @@ export function createCamera(canvas, fitBounds = null) {
 
     /** target is a bounds box or a world point. Reduced motion jumps instead. */
     flyTo(target, { ms = 420, padding = 160 } = {}) {
+      cam.stop();
       const to = targetState(cam, target, padding);
       if (prefersReducedMotion() || ms <= 0) {
         cam.x = to.x;

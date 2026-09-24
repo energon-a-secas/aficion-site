@@ -36,7 +36,10 @@ export function closeModal(id) {
   if (!modal) return;
   modal.setAttribute('hidden', '');
   document.body.classList.remove('modal-open');
-  if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  if (lastFocus && typeof lastFocus.focus === 'function') {
+    const restore = lastFocus.closest('details:not([open])')?.querySelector('summary') || lastFocus;
+    restore.focus();
+  }
   lastFocus = null;
 }
 

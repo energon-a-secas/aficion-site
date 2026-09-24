@@ -87,7 +87,7 @@
       "inner": true
     },
     {
-      "id": "core.photography",
+      "id": "core.photography", "inner": true,
       "label": "Fotografía",
       "class": "core",
       "tags": ["hands-on", "patience"],
@@ -139,7 +139,7 @@
       "blurb": "Capturar sonido en un cuarto que te sabotea y limpiarlo después. Ninguna edición rescata una mala grabación."
     },
     {
-      "id": "core.writing",
+      "id": "core.writing", "inner": true,
       "label": "Escritura",
       "class": "core",
       "tags": ["content", "patience"],

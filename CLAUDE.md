@@ -77,7 +77,7 @@ every shares-gear edge noted), `builds.json` (9 curated builds),
 fold of the nine core crafts, plus the earned profile-title rules) and
 `examples.json` (loadable example maps in the shared-link shape). Totals move
 with the corpus; `make validate` prints the live census (331 top nodes, 662
-top edges, 130 inner nodes as of 2026-09-01). Content is data, never inside a
+top edges, 178 inner nodes as of 2026-09-20). Content is data, never inside a
 `.js` file.
 
 `data-es/` is the Spanish mirror: identical structure (ids, edges, builds,
@@ -204,11 +204,31 @@ button); the same `#panelToggle` id opens the sheet below 940px and that mode
 is deliberately not persisted. After toggling the desktop collapse,
 `camera.resize()` must run or the canvas keeps painting at the old width.
 
-**First visit seeds the example map.** `seedStarter` (actions.js) adopts
-`data/examples.json`'s first profile only when `hasSaved()` is false, meaning
-the profile key has never been written. Clear my map saves an empty profile,
-which is a choice, not a first visit, so a reset never re-seeds. A `#p=` link
-on first visit wins over the seed.
+**First visit opens Explore with an empty collection.** Do not automatically
+adopt an example or open the tour. `initExplorer` in `navigation.js` loads the
+browse data and reads the route; existing `#p=` and `#node=` routes still open
+the atlas. Browser history carries the previous query, filters, lens and scroll
+position. A hobby page uses `#hobby=`, a category uses `#category=`, and a saved
+collection uses `#mine`. Examples are still available as an explicit action.
+
+**Homepage previews use real paths.** `explore-feature.js` renders the three
+`feature.examples` in each language's `explore.json`. Each has four top-layer
+stops, three connection notes, an authored side branch and a real subtopic of
+one stop. The validator checks all of those and bilingual structural parity.
+The preview opens `startJourney` only after the visitor chooses its Atlas
+action. `positionFeature` moves the same DOM section after search on phones
+so reading order matches visual order; searching hides that preview on phones.
+
+**The browse index includes unloaded subtopics.** `data/search-index.json` and
+its Spanish mirror are generated with `make search-index`. Never hand-edit
+them. `make validate` checks that they match the corpus and that all categories
+belong to one browse direction. `loadInner` caches its in-flight promise so
+search and a shared link cannot duplicate adjacency entries.
+
+**Four lenses carry different claims.** Related and gear results use authored
+edges. Shared skills can traverse two `draws-on` edges and name the craft in
+between. Shared interests require at least two shared tags, are labelled as an
+inference, and never invent a graph path. `make test` checks these contracts.
 
 **Dedication is one universal ladder, defined once.** `atlas.json` declares
 `dedication` (Low, Medium, High, Hardcore); `profile.l` holds 1..4 on ANY
@@ -225,8 +245,22 @@ any other menu action closes it, any click outside dismisses it. Its Escape,
 like the tour's, listens on its own element, never on document.
 
 **Escape unwinds in a fixed order:** drill-in, then the trace/search/affinity
-ring, then cluster focus, then the selection. Adding a new dismissable state
+ring (after an active exploration trail), then cluster focus, then the selection. Adding a new dismissable state
 means choosing its slot in that chain deliberately, not appending a listener.
+
+**Atlas exploration never implicitly saves.** `atlas/traversal.js` chooses
+directional destinations only from authored adjacency, excluding hub shortcuts.
+`atlas-navigation.js` owns previews, the bounded trail and backtracking, including
+returning to the hub when a trail began there. `atlas/draw-navigation.js` draws
+straight paths that match the arrows' true bearings and requests frames only during its finite
+trace animation. Reduced motion skips both the trace and camera interpolation.
+`radialTargets` represents every direct connection exactly once. It packs small
+controls along actual bearings on two rings and groups collisions with visible
+counts; the counts must always add up to the full adjacency list. The old
+four-direction `compassTargets` serves keyboard shortcuts only. Explicit
+link/path modes retain geometric keyboard movement. `atlas-orientation.js`
+handles section navigation and the separate entrance to depth;
+`atlas-depth.js` lets visitors explore SVG subtrees without saving implicitly.
 
 **`coreLayout` is an orbit around the hub, and that is load-bearing.** The
 crafts ring the centre at radius 420; the nearest cluster anchor sits 1009
@@ -243,6 +277,18 @@ uncapped and every cluster carries one.
 is prerequisite-only (`corpus: validate`) so it cannot swallow an exit code.
 `CONTRACTS.md` and `DESIGN.md` send readers to `corpus`; the fleet convention is
 `validate`.
+
+**Saved discovery routes are separate from hobby profiles.** `trail-model.js`
+owns the versioned `aficion:trails:v1` store, up to 50 named routes with 2–12
+connected top-layer stops each. Every mutation reads the latest store, reports
+write failures, and refuses to downgrade a newer format. Structurally valid
+routes with unavailable stops survive corpus changes. `trails.js` owns the
+library and guide controls; `trail-view.js` renders them. `walk.journey` is a
+temporary plan, while `walk.path` contains only visited stops. Opening a trail
+must never call `commit` or change `profile.n`. Suggested content lives in
+`data/trails.json` and its Spanish mirror; `make validate` verifies their paths
+and matching structure. `tools/check-trails.cjs` covers browser acceptance in
+Chromium and WebKit.
 
 ## Do not touch
 

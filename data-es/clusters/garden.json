@@ -18,7 +18,7 @@
   },
   "nodes": [
     {
-      "id": "garden.houseplants",
+      "id": "garden.houseplants", "inner": true,
       "label": "Plantas de interior",
       "class": "notable",
       "tags": ["patience", "cheap-start", "collecting"],

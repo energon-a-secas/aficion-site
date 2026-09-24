@@ -87,7 +87,7 @@
       "inner": true
     },
     {
-      "id": "core.photography",
+      "id": "core.photography", "inner": true,
       "label": "Photography",
       "class": "core",
       "tags": ["hands-on", "patience"],
@@ -139,7 +139,7 @@
       "blurb": "Capturing sound in a room that fights you, then cleaning it up afterwards. No edit rescues a bad recording."
     },
     {
-      "id": "core.writing",
+      "id": "core.writing", "inner": true,
       "label": "Writing",
       "class": "core",
       "tags": ["content", "patience"],

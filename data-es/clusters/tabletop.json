@@ -46,7 +46,7 @@
     { "id": "tabletop.print-play", "label": "Print and play",  "class": "node", "tags": ["cheap-start", "hands-on"],      "blurb": "Un PDF, una impresora y una noche con cúter. Así se prueban casi todos los diseños antes de que alguien gaste dinero." },
     { "id": "tabletop.dice",       "label": "Dados y accesorios","class":"node","tags": ["collecting", "cheap-start"],  "blurb": "Sets, bandejas, torres y los de resina con filo. Un pequeño coleccionismo pegado a cada juego de este grupo." },
     { "id": "tabletop.card-games", "label": "Juegos de cartas",      "class": "node", "tags": ["collecting", "social", "gear"], "blurb": "Mazos construidos, noches de draft y un mercado secundario que se comporta como una bolsa de valores en miniatura." },
-    { "id": "tabletop.boardgames", "label": "Juegos de tablero",     "class": "node", "tags": ["social", "cheap-start", "screen"],"blurb": "De cuarenta minutos a un sábado entero. La puerta por la que llega casi todo este grupo." },
+    { "id": "tabletop.boardgames", "inner": true, "label": "Juegos de tablero",     "class": "node", "tags": ["social", "cheap-start", "screen"],"blurb": "De cuarenta minutos a un sábado entero. La puerta por la que llega casi todo este grupo." },
     { "id": "tabletop.solo",       "label": "Juego en solitario",       "class": "node", "tags": ["patience", "cheap-start"],      "blurb": "Juegos diseñados para uno y campañas contra un mazo en vez de un rival. Lo que hace el hobby cuando nadie tiene tiempo." }
   ],
   "edges": [

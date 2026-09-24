@@ -1,0 +1,94 @@
+const { chromium, webkit } = require('playwright');
+const assert = require('node:assert/strict');
+
+(async () => {
+  const browser = await (process.argv.includes('--webkit') ? webkit : chromium).launch();
+  const origin = process.env.AFICION_PREVIEW_URL || 'http://127.0.0.1:8877';
+  const errors = [];
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+  context.on('page', (page) => page.on('pageerror', (error) => errors.push(error.message)));
+  const page = await context.newPage();
+  try {
+    await page.goto(origin + '/#node=maker.arduino');
+    await page.locator('#nodeCompass button').first().waitFor({ state: 'visible' });
+    const represented = new Set(await page.locator('#nodeCompass [data-walk-to]').evaluateAll((nodes) => nodes.map((node) => node.dataset.walkTo)));
+    const groups = await page.locator('#nodeCompass [data-walk-group]').count();
+    for (let i = 0; i < groups; i++) {
+      await page.locator('#nodeCompass [data-walk-group]').nth(i).click();
+      for (const id of await page.locator('#atlasChoices [data-walk-to]').evaluateAll((nodes) => nodes.map((node) => node.dataset.walkTo))) represented.add(id);
+      await page.keyboard.press('Escape');
+      assert.ok(await page.locator('#atlasChoices').isHidden());
+    }
+    assert.equal(represented.size, 11, 'All eleven Arduino connections are reachable through map controls');
+    assert.ok(represented.has('maker.sensors') && represented.has('maker.addressable-led') && represented.has('astro.mounts'));
+    assert.equal(await page.locator('.node-compass__face').first().evaluate((el) => el.getBoundingClientRect().width), 25, 'Arrow circles stay small');
+    assert.equal(await page.locator('#detailBody .atlas-branch-heading[data-group="local"] span').innerText(), '6');
+    assert.equal(await page.locator('#detailBody .atlas-branch-heading[data-group="craft"] span').innerText(), '2');
+    assert.equal(await page.locator('#detailBody .atlas-branch-heading[data-group="bridge"] span').innerText(), '3');
+    await page.screenshot({ path: '/private/tmp/aficion-atlas-arduino-desktop.png' });
+    await page.locator('#nodeCompass [data-walk-group]').first().click();
+    await page.screenshot({ path: '/private/tmp/aficion-atlas-choices-desktop.png' });
+    const target = await page.locator('#atlasChoices [data-walk-to]').last().getAttribute('data-walk-to');
+    await page.locator('#atlasChoices [data-walk-to]').last().focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.evaluate(async () => (await import('/js/state.js')).state.selected), target);
+    assert.ok(await page.locator('#atlasChoices').isHidden());
+    await page.locator('[data-walk-fit]').click();
+    const pathVisible = await page.evaluate(async () => {
+      const { state: s } = await import('/js/state.js');
+      return s.walk.path.every((id) => { const p = s.layout.pos.get(id), q = s.camera.toScreen(p.x, p.y); return q.x > 0 && q.x < s.camera.w && q.y > 0 && q.y < s.camera.h; });
+    });
+    assert.ok(pathVisible, 'See path frames every visited node');
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await page.screenshot({ path: '/private/tmp/aficion-atlas-route-overview.png' });
+    await page.locator('[data-walk-back]').click();
+    await page.locator('#detailBody .atlas-depth-entry').click();
+    await page.locator('#innerOverlay').waitFor({ state: 'visible' });
+    assert.equal(await page.locator('#innerSvg [data-depth-node]').count(), 6);
+    await page.locator('#innerSvg [data-depth-node="maker.arduino.sensors"]').focus();
+    await page.keyboard.press('Enter');
+    assert.match(await page.locator('#innerFocus h3').innerText(), /Reading sensors/);
+    assert.equal(await page.locator('#innerSvg .inner__edge.is-trail').count(), 1);
+    assert.equal(await page.evaluate(async () => (await import('/js/state.js')).state.profile.n.length), 0, 'Following subtopic branches never saves them');
+    await page.locator('#innerList .atlas-save[data-node="maker.arduino.sensors"]').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.evaluate(async () => (await import('/js/state.js')).state.profile.n.length), 1);
+    assert.equal(await page.locator('#innerSvg .depth-dot.is-saved').count(), 1, 'Saved subtopics remain visible in the tree');
+    assert.ok(await page.locator('#innerList .atlas-save[data-node="maker.arduino.sensors"]').evaluate((el) => el === document.activeElement));
+    await page.screenshot({ path: '/private/tmp/aficion-atlas-depth-desktop.png' });
+    await page.locator('#innerClose').click();
+    await page.evaluate(async () => {
+      const { state } = await import('/js/state.js');
+      const { showAtlas } = await import('/js/explore-events.js');
+      await showAtlas(state, { path: ['maker.arduino.inputs', 'maker.arduino.debugging'] });
+    });
+    assert.equal(await page.locator('#innerSvg .inner__edge.is-trail').count(), 1, 'A requested subtopic connection stays highlighted');
+    await page.locator('#innerClose').click();
+    await page.locator('#mapOptions summary').click();
+    await page.locator('#atlasRegion').selectOption('garden');
+    assert.equal(await page.evaluate(async () => (await import('/js/state.js')).state.clusterFocus), 'garden');
+    assert.match(await page.locator('#atlasLocation').innerText(), /Gardening/);
+    assert.ok(await page.locator('#mapOptions').evaluate((el) => !el.open));
+    await page.screenshot({ path: '/private/tmp/aficion-atlas-region-desktop.png' });
+    const mobile = await browser.newPage({ viewport: { width: 320, height: 740 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
+    mobile.on('pageerror', (error) => errors.push(error.message));
+    await mobile.goto(origin + '/?lang=es#node=maker.arduino');
+    await mobile.locator('#nodeCompass button').first().waitFor({ state: 'visible' });
+    assert.match(await mobile.locator('#stageCard [data-act="inner"]').innerText(), /6 subtemas/);
+    await mobile.locator('#nodeCompass [data-walk-group]').first().tap();
+    assert.ok(await mobile.locator('#atlasChoices').isVisible());
+    assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await mobile.locator('[data-walk-close]').tap();
+    await mobile.screenshot({ path: '/private/tmp/aficion-atlas-arduino-mobile.png' });
+    await mobile.locator('#stageCard [data-act="inner"]').tap();
+    await mobile.locator('#innerOverlay').waitFor({ state: 'visible' });
+    await mobile.locator('#innerList [data-depth-node]').nth(2).tap();
+    assert.equal(await mobile.evaluate(async () => (await import('/js/state.js')).state.profile.n.length), 0);
+    await mobile.screenshot({ path: '/private/tmp/aficion-atlas-depth-mobile.png' });
+    await mobile.locator('#innerFocus a').tap();
+    await mobile.locator('#exploreHeading').waitFor({ state: 'visible' });
+    assert.equal(await mobile.evaluate(async () => (await import('/js/state.js')).state.inner), null, 'Leaving depth for its guide closes the subtree');
+    assert.deepEqual(errors, []);
+    console.log('PASS: every Arduino branch, counted ports, true bearings, path overview, interactive depth, explicit saving, regions, mobile and Spanish.');
+  } finally { await browser.close(); }
+})().catch((error) => { console.error(error); process.exitCode = 1; });

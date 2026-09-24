@@ -1,0 +1,117 @@
+{
+  "of": "garden.houseplants",
+  "label": "Houseplants, learn to notice",
+  "blurb": "Light, growth, containers, and a routine that fits the plant as well as the room.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "garden.houseplants.light",
+      "garden.houseplants.watering",
+      "garden.houseplants.propagation",
+      "garden.houseplants.potting",
+      "garden.houseplants.plant-journal",
+      "garden.houseplants.plant-sharing"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.houseplants.light",
+      "label": "Reading the light",
+      "class": "notable",
+      "tags": [
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Track where the light reaches during the day and across seasons. The bright-looking corner and the useful growing spot are not always the same."
+    },
+    {
+      "id": "garden.houseplants.watering",
+      "label": "Watering observations",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "Notice the plant, pot, and moisture in the growing medium together. A routine starts with checking, rather than watering by a fixed calendar."
+    },
+    {
+      "id": "garden.houseplants.propagation",
+      "label": "Propagation experiments",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Learn how a particular species makes new plants and document one attempt. Labels and dates help you notice slow changes."
+    },
+    {
+      "id": "garden.houseplants.potting",
+      "label": "Pots and growing media",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "Roots, drainage, and the material around them. Container choices make more sense when you know how the particular plant grows."
+    },
+    {
+      "id": "garden.houseplants.plant-journal",
+      "label": "A plant journal",
+      "class": "node",
+      "tags": [
+        "content",
+        "cheap-start",
+        "patience"
+      ],
+      "blurb": "Photographs, dates, and small observations collected over time. The new leaf is easier to appreciate when you remember where it started."
+    },
+    {
+      "id": "garden.houseplants.plant-sharing",
+      "label": "Plant swaps",
+      "class": "node",
+      "tags": [
+        "social",
+        "hands-on"
+      ],
+      "blurb": "Share plants, cuttings, and the care notes that go with them. A conversation often tells you more than the label on the pot."
+    }
+  ],
+  "edges": [
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.watering",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.propagation",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.potting",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.plant-journal",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.plant-sharing",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.watering",
+      "to": "garden.houseplants.plant-journal",
+      "kind": "kin"
+    }
+  ]
+}

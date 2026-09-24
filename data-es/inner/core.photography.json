@@ -1,0 +1,117 @@
+{
+  "of": "core.photography",
+  "label": "Fotografía, más allá del obturador",
+  "blurb": "Distintas formas de observar la luz, las personas y los pequeños detalles. Un teléfono basta para explorar varias.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "core.photography.composition",
+      "core.photography.natural-light",
+      "core.photography.street",
+      "core.photography.macro",
+      "core.photography.portraits",
+      "core.photography.photo-essays"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "core.photography.composition",
+      "label": "Composición",
+      "class": "notable",
+      "tags": [
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Posición, encuadre y la decisión de dejar algo fuera. Un mismo tema puede contar historias distintas con un paso a la izquierda."
+    },
+    {
+      "id": "core.photography.natural-light",
+      "label": "Luz natural",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Luz de ventana, sombra y esos ratos en que un lugar cotidiano cambia. Aprende a observar la luz antes de elegir los ajustes."
+    },
+    {
+      "id": "core.photography.street",
+      "label": "Fotografía callejera",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "patience"
+      ],
+      "blurb": "Gestos, capas y escenas fugaces en lugares compartidos. Observar y respetar a quienes te rodean forma parte de la práctica."
+    },
+    {
+      "id": "core.photography.macro",
+      "label": "Fotografía de cerca",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience",
+        "gear"
+      ],
+      "blurb": "Los temas pequeños se vuelven paisajes. La distancia de trabajo, el encuadre estable y la luz importan tanto como el aumento."
+    },
+    {
+      "id": "core.photography.portraits",
+      "label": "Retratos",
+      "class": "node",
+      "tags": [
+        "social",
+        "hands-on"
+      ],
+      "blurb": "Una fotografía hecha con alguien. La expresión, la comodidad y la dirección de la luz dan forma al resultado."
+    },
+    {
+      "id": "core.photography.photo-essays",
+      "label": "Ensayos fotográficos",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "Un conjunto de fotos que dice más que una imagen sola. El orden, la repetición y la foto que decides quitar se vuelven el trabajo."
+    }
+  ],
+  "edges": [
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.natural-light",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.street",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.macro",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.portraits",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.photo-essays",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.natural-light",
+      "to": "core.photography.portraits",
+      "kind": "kin"
+    }
+  ]
+}

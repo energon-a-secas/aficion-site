@@ -205,7 +205,7 @@
     { "from": "coffee.maintenance", "to": "core.hand-tools",  "kind": "draws-on" },
     { "from": "coffee.cupping",     "to": "core.writing",     "kind": "draws-on" },
 
-    { "from": "model.gunpla",       "to": "anime.mecha",        "kind": "shares-gear", "note": "The kit is merchandise for a series, and the series is why you wanted the kit." },
+    { "from": "model.gunpla",       "to": "anime.mecha",        "kind": "kin", "note": "The kit is merchandise for a series, and the series is why you wanted the kit." },
     { "from": "model.airbrush-rig", "to": "tabletop.warhammer", "kind": "shares-gear", "note": "Same compressor, same booth, same thinner, different shelf." },
     { "from": "starwars.model-kits","to": "model.gunpla",       "kind": "shares-gear", "note": "Bandai tools both lines the same way, so the nippers, the cement and the habits transfer whole." },
     { "from": "starwars.model-kits","to": "model.decals",       "kind": "kin" },

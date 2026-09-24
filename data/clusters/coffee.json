@@ -17,7 +17,7 @@
   },
   "nodes": [
     {
-      "id": "coffee.espresso",
+      "id": "coffee.espresso", "inner": true,
       "label": "Espresso",
       "class": "notable",
       "tags": ["gear", "patience", "hands-on", "research"],

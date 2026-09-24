@@ -37,6 +37,9 @@ function overlaps(boxes, box) {
 function priorityOf(env, id, node) {
   const { view } = env;
   if (view.selected === id || view.hover === id) return 0;
+  if (view.navigation?.preview?.to === id) return 1;
+  if (view.navigation?.journey?.path.includes(id)) return 1;
+  if (view.navigation?.neighbours.has(id)) return 2;
   if (view.allocated.has(id)) return 1;
   if (view.focus.has(id) || view.hoverAdj.has(id)) return 2;
   if (view.suggested.has(id)) return 3;
@@ -59,6 +62,9 @@ function named(view, id) {
 
 function wanted(env, id, node) {
   const { view, camera } = env;
+  if (view.tracePath?.length) return view.focus.has(id) || view.selected === id;
+  if (view.clusterFocus) return view.clusterFocus.has(id) || view.navigation?.path.includes(id);
+  if (view.navigation && !view.build && !view.compare) return id === view.navigation.anchor || view.navigation.neighbours.has(id) || view.navigation.path.includes(id) || view.navigation.journey?.path.includes(id);
   if (view.labelMode === 'none') return false;
   if (named(view, id)) return true;
   // In cluster focus, the family is the page: name all of it, nothing else.
@@ -92,20 +98,30 @@ export function drawLabels(env) {
   }
   candidates.sort((a, b) => a.pri - b.pri);
 
-  const boxes = [];
+  const origin = view.navigation && env.layout.pos.get(view.navigation.anchor);
+  const centre = origin && camera.toScreen(origin.x, origin.y);
+  const boxes = centre ? view.navigation.ports.map((port) => ({ x: centre.x + port.x - 16, y: centre.y + port.y - 16, w: 32, h: 32 })) : [];
   for (const c of candidates) {
     const strong = c.pri <= 3 || c.node.class === 'hub' || c.node.class === 'notable';
     ctx.font = `${strong ? '600 13px ' : '11.5px '}${theme.font}`;
     const text = c.node.label;
     const w = ctx.measureText(text).width;
     const gap = (NODE_RADIUS[c.node.class] || NODE_RADIUS.node) * camera.zoom;
-    const box = {
+    let box = {
       x: c.s.x - w / 2 - 6,
       y: c.s.y + Math.min(30, gap + 8),
       w: w + 12,
       h: LINE_H + 2,
     };
-    if (overlaps(boxes, box)) continue;
+    const planned = view.navigation?.journey?.path.includes(c.id);
+    if (planned) {
+      box.x = Math.max(8, Math.min(camera.w - box.w - 8, box.x));
+      if (overlaps(boxes, box)) {
+        const above = { ...box, y: c.s.y - gap - LINE_H - 10 };
+        if (!overlaps(boxes, above)) box = above;
+      }
+    }
+    if (c.id !== view.navigation?.anchor && overlaps(boxes, box)) continue;
     boxes.push(box);
 
     plate(ctx, box.x, box.y - 1, box.w, box.h + 1, withAlpha(theme.labelShadow, 0.78));
@@ -113,7 +129,7 @@ export function drawLabels(env) {
     else if (view.suggested.has(c.id)) ctx.fillStyle = theme.suggest;
     else if (c.pri === 0) ctx.fillStyle = theme.label;
     else ctx.fillStyle = strong ? theme.label : theme.labelDim;
-    ctx.fillText(text, c.s.x, box.y + 1);
+    ctx.fillText(text, planned ? box.x + box.w / 2 : c.s.x, box.y + 1);
   }
 
   drawClusterTitles(env, boxes);

@@ -55,6 +55,7 @@ function arcPath(ctx, a, b) {
 /** Pass 3: long dim lines from a hobby to the craft underneath it. */
 export function drawDrawsOn(env) {
   const { ctx, view, theme } = env;
+  if (view.tracePath?.length || (view.navigation && !view.clusterFocus)) return;
   if (!view.showDrawsOn) return;
   const lit = (edge) =>
     view.allocated.has(edge.from) ||
@@ -82,6 +83,7 @@ export function drawDrawsOn(env) {
 /** Pass 4: the fabric. kin, leads-to and shares-gear. */
 export function drawBaseEdges(env) {
   const { ctx, view, theme } = env;
+  if (view.tracePath?.length || (view.navigation && !view.clusterFocus)) return;
   const dim = view.dimOthers || view.compare || view.build || view.clusterFocus;
   const mainMode = view.layers === 'main';
   for (const edge of env.atlas.edges) {
@@ -216,4 +218,19 @@ export function drawCompareEdges(env) {
     stroke(ctx, seg.a, seg.b, shared ? theme.compareBoth : theme.compareTheirs, 1.6 * env.px);
   }
   ctx.setLineDash([]);
+}
+
+/** A requested connection is its own channel, separate from saved hobbies. */
+export function drawTrace(env) {
+  const path = env.view.tracePath || [];
+  if (path.length < 2) return;
+  const { ctx, theme, px } = env;
+  ctx.save();
+  for (let i = 1; i < path.length; i++) {
+    const seg = segment(env, { from: path[i - 1], to: path[i] });
+    if (!seg) continue;
+    stroke(ctx, seg.a, seg.b, withAlpha(theme.nodeCore, 0.16), 9 * px);
+    stroke(ctx, seg.a, seg.b, theme.nodeCore, 2.6 * px);
+  }
+  ctx.restore();
 }

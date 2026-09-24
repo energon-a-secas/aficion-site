@@ -1,0 +1,121 @@
+{
+  "of": "maker.arduino",
+  "label": "Arduino, de un destello a una idea",
+  "blurb": "Explora código y circuitos de baja tensión con cambios pequeños y comprensibles. Cada parte responde una pregunta distinta.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "maker.arduino.simulation",
+      "maker.arduino.inputs",
+      "maker.arduino.sensors",
+      "maker.arduino.feedback",
+      "maker.arduino.debugging",
+      "maker.arduino.enclosures"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "maker.arduino.simulation",
+      "label": "Simulación de circuitos",
+      "class": "notable",
+      "tags": [
+        "code",
+        "electronics",
+        "cheap-start"
+      ],
+      "blurb": "Prueba un circuito sencillo de forma virtual y observa qué aporta cada componente. Un simulador permite ensayar ideas sin gastar piezas."
+    },
+    {
+      "id": "maker.arduino.inputs",
+      "label": "Botones y entradas",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "code",
+        "hands-on"
+      ],
+      "blurb": "Añade un botón y decide qué significa pulsarlo. Una interacción pequeña introduce estado, tiempos y respuesta."
+    },
+    {
+      "id": "maker.arduino.sensors",
+      "label": "Leer sensores",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "research",
+        "code"
+      ],
+      "blurb": "Convierte una medición en un valor que puedas observar. Compara lecturas antes de hacer que el proyecto responda a ellas."
+    },
+    {
+      "id": "maker.arduino.feedback",
+      "label": "Respuesta con luz y sonido",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "audio",
+        "code"
+      ],
+      "blurb": "Usa una luz pequeña o un sonido para comunicar qué hace un proyecto. Una respuesta clara puede explicar un dispositivo sin pantalla."
+    },
+    {
+      "id": "maker.arduino.debugging",
+      "label": "Depuración por puerto serie",
+      "class": "node",
+      "tags": [
+        "code",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Muestra lo que el código cree que ocurre y compáralo con el circuito. Las observaciones pequeñas convierten una falla confusa en una pregunta comprobable."
+    },
+    {
+      "id": "maker.arduino.enclosures",
+      "label": "Una caja para el proyecto",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "kits"
+      ],
+      "blurb": "Decide dónde irán la placa, los cables y los controles. Una maqueta de cartón revela botones incómodos antes de hacer algo permanente."
+    }
+  ],
+  "edges": [
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.inputs",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.sensors",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.feedback",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.debugging",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.enclosures",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.inputs",
+      "to": "maker.arduino.debugging",
+      "kind": "kin"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "of": "tabletop.boardgames",
+  "label": "Board games, different ways to play",
+  "blurb": "Choose by the experience you want to share. These forms overlap, and many games belong to more than one.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "tabletop.boardgames.cooperative",
+      "tabletop.boardgames.deckbuilding",
+      "tabletop.boardgames.worker-placement",
+      "tabletop.boardgames.abstract",
+      "tabletop.boardgames.party",
+      "tabletop.boardgames.solo"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "tabletop.boardgames.cooperative",
+      "label": "Cooperative play",
+      "class": "notable",
+      "tags": [
+        "social",
+        "research"
+      ],
+      "blurb": "Work together against the game and talk through a shared problem. The challenge includes making room for everyone at the table to decide."
+    },
+    {
+      "id": "tabletop.boardgames.deckbuilding",
+      "label": "Deck building",
+      "class": "node",
+      "tags": [
+        "social",
+        "research",
+        "patience"
+      ],
+      "blurb": "Your available actions change as you assemble a deck during play. Each new card asks what you want the next few turns to become."
+    },
+    {
+      "id": "tabletop.boardgames.worker-placement",
+      "label": "Worker placement",
+      "class": "node",
+      "tags": [
+        "social",
+        "research"
+      ],
+      "blurb": "A limited number of actions and places that other players can occupy first. Timing and opportunity cost give an ordinary-looking choice its weight."
+    },
+    {
+      "id": "tabletop.boardgames.abstract",
+      "label": "Abstract strategy",
+      "class": "node",
+      "tags": [
+        "research",
+        "social",
+        "cheap-start"
+      ],
+      "blurb": "A small set of rules and a position you can read together. Depth comes from how simple moves change the possibilities for both players."
+    },
+    {
+      "id": "tabletop.boardgames.party",
+      "label": "Party and word games",
+      "class": "node",
+      "tags": [
+        "social",
+        "cheap-start"
+      ],
+      "blurb": "Clues, associations, and the different ways people understand the same prompt. The conversation can be as memorable as the result."
+    },
+    {
+      "id": "tabletop.boardgames.solo",
+      "label": "Solo puzzles and scenarios",
+      "class": "node",
+      "tags": [
+        "research",
+        "patience"
+      ],
+      "blurb": "A puzzle or unfolding scenario at your own pace. Replaying can reveal a different decision rather than simply a better result."
+    }
+  ],
+  "edges": [
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.deckbuilding",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.worker-placement",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.abstract",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.party",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.solo",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.deckbuilding",
+      "to": "tabletop.boardgames.party",
+      "kind": "kin"
+    }
+  ]
+}

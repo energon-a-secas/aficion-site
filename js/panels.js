@@ -8,7 +8,7 @@ import { bucketLabel } from './render.js';
 import { buildShareUrl } from './profile.js';
 import { compareHeadline } from './compare.js';
 import { buildProgress, buildSpan, listBuilds } from './builds.js';
-import { normalise, innerProgress } from './inner.js';
+import { renderDepth } from './atlas-depth.js';
 
 export async function renderShare(s) {
   const field = $('shareUrl');
@@ -172,60 +172,5 @@ export function renderBuildPanel(s) {
  * real focus order, and because it keeps drill-in state out of the renderer.
  */
 export function renderInner(s) {
-  const overlay = $('innerOverlay');
-  const svg = $('innerSvg');
-  const list = $('innerList');
-  if (!overlay || !svg || !list) return;
-  if (!s.inner) {
-    overlay.hidden = true;
-    svg.innerHTML = '';
-    list.innerHTML = '';
-    return;
-  }
-  const { tree } = s.inner;
-  const allocated = new Set(s.profile.n);
-  const pos = normalise(s.inner, 100);
-  $('innerTitle').textContent = tree.label;
-  const prog = innerProgress(s.inner, allocated);
-  $('innerBlurb').textContent = `${tree.blurb} ${prog.done} of ${prog.total} marked.`;
-
-  const lines = tree.edges
-    .map((e) => {
-      const a = pos.get(e.from);
-      const b = pos.get(e.to);
-      if (!a || !b) return '';
-      const lit = allocated.has(e.from) && allocated.has(e.to);
-      return `<line x1="${a.x.toFixed(2)}" y1="${a.y.toFixed(2)}" x2="${b.x.toFixed(2)}" y2="${b.y.toFixed(2)}" class="inner__edge${lit ? ' is-lit' : ''}"/>`;
-    })
-    .join('');
-  const dots = tree.nodeIds
-    .map((id) => {
-      const p = pos.get(id);
-      if (!p) return '';
-      const on = allocated.has(id) ? ' is-mine' : '';
-      return `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="3.2" class="inner__dot${on}"/>`;
-    })
-    .join('');
-  svg.innerHTML = lines + dots;
-
-  // Marking a node re-renders this list, which destroys the button that was
-  // just pressed and leaves focus on <body>: a keyboard route in with no route
-  // on, and Escape no longer reaches the overlay that listens for it. Put focus
-  // back on the same row after the rebuild.
-  const held = document.activeElement;
-  const keep = held && list.contains(held) ? held.dataset.node : null;
-
-  list.innerHTML = tree.nodes
-    .map((node) => {
-      const on = allocated.has(node.id);
-      return `<li class="inner__row${on ? ' is-mine' : ''}">
-        <button type="button" class="inner__pick" data-act="toggle" data-node="${escHtml(node.id)}" aria-pressed="${on}">
-          <span class="inner__pick-name">${escHtml(node.label)}</span>
-          <span class="inner__pick-blurb">${escHtml(node.blurb)}</span>
-        </button>
-      </li>`;
-    })
-    .join('');
-  overlay.hidden = false;
-  if (keep) list.querySelector(`[data-node="${keep}"]`)?.focus();
+  renderDepth(s);
 }

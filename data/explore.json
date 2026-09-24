@@ -1,0 +1,148 @@
+{
+  "families": [
+    {
+      "id": "make",
+      "label": "Make & tinker",
+      "blurb": "Small parts, hands-on projects, and the satisfaction of making something work.",
+      "clusters": [
+        "maker",
+        "model",
+        "rail",
+        "brick",
+        "figure",
+        "cosplay"
+      ]
+    },
+    {
+      "id": "outside",
+      "label": "Nature & outdoors",
+      "blurb": "From a windowsill to a mountain path, notice more of the world around you.",
+      "clusters": [
+        "outdoor",
+        "garden",
+        "astro"
+      ]
+    },
+    {
+      "id": "stories",
+      "label": "Stories & imagination",
+      "blurb": "Read, watch, collect, and bring fictional worlds into your own.",
+      "clusters": [
+        "book",
+        "anime",
+        "film",
+        "starwars"
+      ]
+    },
+    {
+      "id": "play",
+      "label": "Play & collect",
+      "blurb": "Games to share, systems to understand, and old favourites worth keeping.",
+      "clusters": [
+        "tabletop",
+        "game",
+        "retro"
+      ]
+    },
+    {
+      "id": "everyday",
+      "label": "Food & everyday rituals",
+      "blurb": "Make a meal, refine a recipe, or turn your morning cup into an experiment.",
+      "clusters": [
+        "kitchen",
+        "coffee"
+      ]
+    },
+    {
+      "id": "signals",
+      "label": "Sound, images & signals",
+      "blurb": "Make music, tell a story on screen, or discover what travels through the air.",
+      "clusters": [
+        "music",
+        "video",
+        "radio",
+        "drone"
+      ]
+    }
+  ],
+  "featuredCategories": [
+    "outdoor",
+    "kitchen",
+    "book",
+    "music",
+    "garden",
+    "maker",
+    "tabletop",
+    "coffee",
+    "model",
+    "video",
+    "game",
+    "astro"
+  ],
+  "feature": {
+    "examples": [
+      {
+        "id": "coffee-to-sabers",
+        "label": "Coffee",
+        "title": "From espresso to lightsabers.",
+        "blurb": "An espresso-machine project opens into electronics and custom lightsabers. Follow the shared craft, or take a side path into sound.",
+        "path": ["coffee.espresso", "coffee.machine-mods", "core.electronics", "starwars.pixel-saber"],
+        "notes": ["Espresso connects to the hobby of modifying the machine that brews it.", "Machine modding draws on electronics.", "Custom pixel sabers draw on the same electronics craft."],
+        "branch": { "from": "core.electronics", "to": "music.modular", "note": "Electronics also opens into modular synthesizers." },
+        "depth": { "parent": "coffee.espresso", "node": "coffee.espresso.dialling" }
+      },
+      {
+        "id": "miniatures-to-living-worlds",
+        "label": "Miniatures",
+        "title": "Build a world. Then let it grow.",
+        "blurb": "The eye for a miniature landscape carries into terrariums, houseplants and propagation. Another branch takes the scenery underwater.",
+        "path": ["model.dioramas", "garden.terrariums", "garden.houseplants", "garden.propagation"],
+        "notes": ["Dioramas and terrariums both compose a landscape at a small scale.", "Terrariums connect to the wider world of keeping houseplants.", "Growing houseplants can lead into propagating and sharing them."],
+        "branch": { "from": "garden.terrariums", "to": "garden.aquascaping", "note": "Terrariums connect to aquascaping: landscapes under water." },
+        "depth": { "parent": "garden.houseplants", "node": "garden.houseplants.light" }
+      },
+      {
+        "id": "birds-to-galaxies",
+        "label": "Birdwatching",
+        "title": "From garden birds to distant galaxies.",
+        "blurb": "An interest in birds can lead through photography to the night sky. The same camera craft can turn toward something as close as dinner.",
+        "path": ["outdoor.birdwatching", "core.photography", "astro.astrophoto", "astro.deep-sky"],
+        "notes": ["Birdwatching connects to the craft of photographing what you observe.", "Photography also underpins astrophotography.", "Astrophotography branches into deep-sky imaging."],
+        "branch": { "from": "core.photography", "to": "kitchen.food-photo", "note": "Food photography draws on the same camera craft." },
+        "depth": { "parent": "core.photography", "node": "core.photography.composition" }
+      }
+    ]
+  },
+  "starters": {
+    "core.photography": "Photograph one everyday object from five angles using a phone and window light. Choose the frame that tells the clearest story.",
+    "core.writing": "Describe a familiar place in 150 words without naming it. Ask a friend what they pictured, then revise one detail.",
+    "core.painting": "Mix three shades of one colour and paint them on scrap card. Notice how the same colour changes beside a lighter or darker patch.",
+    "core.programming": "Make a tiny script that picks a random item from a list of your interests. Change the list and explain each line in your own words.",
+    "music.guitar": "Choose two chords you already know or want to learn. Change between them slowly for five minutes, listening for each string to ring clearly.",
+    "coffee.espresso": "Keep the beans and dose fixed for a few cups. Record the output weight and how each tastes before changing just one variable.",
+    "coffee.pourover": "Use a brewer you already have. Weigh the coffee and water for one cup and write down what you would change next time.",
+    "garden.houseplants": "Observe one plant for a week. Note where the light falls and how the potting mix changes between waterings before adjusting its care.",
+    "garden.bonsai": "Sketch the trunk and main branches of a tree you can see. Look for its strongest line before thinking about how you might shape a bonsai.",
+    "garden.herbs": "Pick a herb you already use in cooking and learn its light and watering needs. Start with one pot and a place you will see every day.",
+    "maker.arduino": "Open the built-in Blink example on a board you already have or in a simulator. Change the timing, then explain what each delay does.",
+    "maker.cad": "Model a simple box with dimensions taken from an object on your desk. Change one measurement and see which parts of the design follow it.",
+    "model.gunpla": "Choose one small section of a kit, such as an arm. Read the whole section first, build it unpainted, and notice how the pieces locate each other.",
+    "figure.mini-painting": "Try a three-colour scheme on one spare figure or a sketch of it. Keep the shapes readable before adding tiny details.",
+    "rail.layout": "Draw a small layout on paper and trace the movement of one train. Check that each track has a purpose before adding another.",
+    "brick.moc": "Build something recognisable from just 20 pieces you already own. The limit is a useful way to notice new uses for familiar parts.",
+    "cosplay.armour": "Sketch one small costume piece and make a paper mock-up. Check how it moves with you before choosing a final material.",
+    "tabletop.boardgames": "Play a familiar game and name the one decision that makes it interesting. Teach that decision first the next time you explain the rules.",
+    "tabletop.ttrpg": "Invent a place, someone who wants something there, and a problem in their way. That is enough material for a short scene with a friend.",
+    "book.fiction": "Read the opening pages of a book you already own. Note the moment you first wanted to know what happens next, and what caused it.",
+    "film.horror": "Revisit a scene from a film you know. List what the sound tells you before anything frightening appears in the frame.",
+    "anime.mecha": "Compare two robot designs from a series you enjoy. Sketch the silhouettes and ask how each design suggests a different role.",
+    "outdoor.hiking": "Choose a familiar short walk and look at its route on a map first. Afterwards, compare the map with the landmarks you noticed.",
+    "outdoor.birdwatching": "Watch one bird from a respectful distance for five minutes. Record its shape, movement, sound, and surroundings before trying to name it.",
+    "kitchen.baking": "Repeat a recipe you already know, weighing the ingredients this time. Write down one observation about the dough or batter before it goes into the oven.",
+    "kitchen.cooking": "Cook a familiar dish and write down the order of its steps. Next time, prepare the ingredients in that order and notice what becomes easier.",
+    "video.editing": "Cut five short clips into a 30-second sequence with a beginning and an ending. Watch it without sound to check whether the order still makes sense.",
+    "astro.visual": "From a familiar observing spot, sketch the positions of three bright stars. Return another evening and compare where they appear.",
+    "game.gamedev": "Sketch a game with one action and one goal. Build a paper version of its rules before deciding what needs to be on a screen.",
+    "retro.consoles": "Pick a game you remember and document its controls, sound, and one detail you had forgotten. Start a small record of why it is worth preserving."
+  }
+}

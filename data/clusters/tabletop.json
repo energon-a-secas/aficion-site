@@ -46,7 +46,7 @@
     { "id": "tabletop.print-play", "label": "Print and Play",  "class": "node", "tags": ["cheap-start", "hands-on"],      "blurb": "A PDF, a printer and an evening with a craft knife. How most designs get tested before anyone spends money." },
     { "id": "tabletop.dice",       "label": "Dice and Accessories","class":"node","tags": ["collecting", "cheap-start"],  "blurb": "Sets, trays, towers and the sharp-edged resin ones. A small collecting hobby attached to every game in this cluster." },
     { "id": "tabletop.card-games", "label": "Card Games",      "class": "node", "tags": ["collecting", "social", "gear"], "blurb": "Constructed decks, draft nights and a secondary market that behaves like a small stock exchange." },
-    { "id": "tabletop.boardgames", "label": "Board Games",     "class": "node", "tags": ["social", "cheap-start", "screen"],"blurb": "Everything from forty minutes to a full Saturday. The gateway most of this cluster arrives through." },
+    { "id": "tabletop.boardgames", "inner": true, "label": "Board Games",     "class": "node", "tags": ["social", "cheap-start", "screen"],"blurb": "Everything from forty minutes to a full Saturday. The gateway most of this cluster arrives through." },
     { "id": "tabletop.solo",       "label": "Solo Play",       "class": "node", "tags": ["patience", "cheap-start"],      "blurb": "Games designed for one, and campaigns played against a deck instead of an opponent. What the hobby does when nobody is free." }
   ],
   "edges": [

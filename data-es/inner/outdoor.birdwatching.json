@@ -1,0 +1,122 @@
+{
+  "of": "outdoor.birdwatching",
+  "label": "Observación de aves, más allá del nombre",
+  "blurb": "La identificación es una entrada. El comportamiento, el sonido y volver a un lugar conocido dan profundidad a la práctica.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "outdoor.birdwatching.field-notes",
+      "outdoor.birdwatching.birdsong",
+      "outdoor.birdwatching.local-patch",
+      "outdoor.birdwatching.behaviour",
+      "outdoor.birdwatching.sketching",
+      "outdoor.birdwatching.seasonal-log"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "outdoor.birdwatching.field-notes",
+      "label": "Notas de campo",
+      "class": "notable",
+      "tags": [
+        "outdoors",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Anota forma, postura, movimiento y hábitat antes de buscar un nombre. Una observación incierta sigue siendo útil si sus detalles son claros."
+    },
+    {
+      "id": "outdoor.birdwatching.birdsong",
+      "label": "Escuchar aves",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "audio",
+        "patience"
+      ],
+      "blurb": "Distingue los sonidos a tu alrededor y describe un ritmo o frase repetida. Escuchar añade otra capa a un lugar que ya conoces."
+    },
+    {
+      "id": "outdoor.birdwatching.local-patch",
+      "label": "Un lugar habitual de observación",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "patience",
+        "cheap-start"
+      ],
+      "blurb": "Vuelve a un lugar accesible en distintos días y estaciones. Conocerlo bien permite ver los cambios pequeños."
+    },
+    {
+      "id": "outdoor.birdwatching.behaviour",
+      "label": "Observar el comportamiento",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "research",
+        "patience"
+      ],
+      "blurb": "Alimentación, descanso e interacciones cuentan historias más allá del nombre. Mantén la distancia necesaria para no cambiar lo que observas."
+    },
+    {
+      "id": "outdoor.birdwatching.sketching",
+      "label": "Dibujar aves",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Formas rápidas y notas registran lo que llamó tu atención. Dibujar es una forma de observar mejor, más que una competencia de ilustración."
+    },
+    {
+      "id": "outdoor.birdwatching.seasonal-log",
+      "label": "Observaciones estacionales",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "content",
+        "patience"
+      ],
+      "blurb": "Guarda fechas y lugares de los cambios que observas. Con el tiempo, un lugar conocido adquiere su propio calendario."
+    }
+  ],
+  "edges": [
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.birdsong",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.local-patch",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.behaviour",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.sketching",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.field-notes",
+      "to": "outdoor.birdwatching.seasonal-log",
+      "kind": "kin"
+    },
+    {
+      "from": "outdoor.birdwatching.birdsong",
+      "to": "outdoor.birdwatching.sketching",
+      "kind": "kin"
+    }
+  ]
+}

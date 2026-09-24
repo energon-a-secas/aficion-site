@@ -8,14 +8,21 @@
 // reachable here, as a real button, with its cluster, tags and neighbours
 // readable as text.
 
+import { quietSave, connectionList, detailLinks } from './atlas-detail.js';
+import { icon } from './explore-copy.js';
+import { renderAtlasNavigation } from './atlas-navigation.js';
+import { renderJourney } from './trail-view.js';
+import { depthEntry } from './atlas-orientation.js';
+import { connectedNodes, radialTargets } from './atlas/traversal.js';
+import { renderExplorer } from './explorer.js';
+import { searchHobbies } from './explore-model.js';
 import { $, escHtml, joinList, plural } from './utils.js';
 import { levelOf } from './state.js';
 import { suggest, startingPoints } from './discover.js';
 import { buckets } from './alloc.js';
-import { hasInner } from './atlas/load.js';
-import { renderNotice, renderFocusChip, renderLinkChip, renderMeta, updateCanvasLabel, renderHint } from './stage.js';
+import { hasInner, ensureNodes } from './atlas/load.js';
+import { renderNotice, renderFocusChip, renderLinkChip, renderTraceChip, renderMeta, updateCanvasLabel, renderHint } from './stage.js';
 
-const KIND_ORDER = ['kin', 'leads-to', 'shares-gear', 'draws-on'];
 
 /**
  * The whole interface between the UI and the canvas. Every set is non-null.
@@ -35,7 +42,14 @@ export function buildViewModel(s) {
     for (const link of s.atlas.adj.get(s.hover) || []) hoverAdj.add(link.to);
     hoverAdj.delete(s.atlas.hubId);
   }
+  const anchor = s.walk.hover || (s.layout.pos.has(s.selected) ? s.selected : null);
+  const navigation = anchor && !s.inner && !s.linking && !s.pathing && !s.build && !s.comparison ? {
+    anchor, neighbours: new Set(connectedNodes(s.atlas, s.layout, anchor).map((link) => link.to)),
+    links: connectedNodes(s.atlas, s.layout, anchor), ports: radialTargets(s.atlas, s.layout, anchor),
+    path: s.walk.path, journey: s.walk.journey, preview: s.walk.preview, motion: s.walk.motion,
+  } : null;
   return {
+    navigation,
     allocated: new Set(s.profile.n),
     levels: s.profile.l,
     route: s.routes.edges,
@@ -44,6 +58,7 @@ export function buildViewModel(s) {
     selected: s.selected,
     suggested: new Set(s.suggestions.map((x) => x.id)),
     focus: s.focusRing,
+    tracePath: s.tracePath.every((id) => s.focusRing.has(id)) ? s.tracePath : [],
     clusterFocus: s.clusterFocusIds,
     layers: s.prefs.layers,
     personal: (s.profile.e || []).filter((p) => s.layout.pos.has(p[0]) && s.layout.pos.has(p[1])),
@@ -68,6 +83,10 @@ export function buildViewModel(s) {
 
 export function paint(s) {
   if (!s.renderer) return;
+  renderTraceChip(s);
+  renderHint(s);
+  renderAtlasNavigation(s);
+  renderJourney(s);
   s.renderer.setView(buildViewModel(s));
   s.renderer.requestFrame();
 }
@@ -126,54 +145,44 @@ function levelPicker(s, node) {
     <div class="depths">${buttons}</div>${note}</div>`;
 }
 
-function neighbourList(s, node) {
-  const links = (s.atlas.adj.get(node.id) || []).slice();
-  if (!links.length) return '';
-  links.sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
-  const rows = links
-    .map((link) => {
-      const kind = s.atlas.edgeKinds.get(link.kind);
-      const verb = link.dir === 'in' && kind ? `${kind.label} this` : kind ? kind.label : link.kind;
-      const note = link.note ? `<span class="link__note">${escHtml(link.note)}</span>` : '';
-      return `<li>${nodeButton(s, link.to)}<span class="rel">${escHtml(verb)}</span>${note}</li>`;
-    })
-    .join('');
-  return `<div class="field-block"><p class="field-label">Connects to</p><ul class="linklist">${rows}</ul></div>`;
-}
-
 export function renderDetail(s) {
   const title = $('detailTitle');
   const body = $('detailBody');
   if (!title || !body) return;
   const node = s.selected ? s.atlas.nodes.get(s.selected) : null;
+  const sameNode = body.dataset.node === node?.id;
+  const openDetails = sameNode ? [...body.querySelectorAll('details[open]')].map((el) => el.className) : [];
+  const savedFocus = sameNode && body.querySelector('.atlas-save') === document.activeElement;
+  body.dataset.node = node?.id || '';
   renderStageCard(s, node);
   if (!node) {
-    title.textContent = 'Nothing selected';
-    body.innerHTML =
-      '<p class="panel__lead">Click a node on the map, or search for one. Arrow keys walk between nodes once the map has focus.</p>';
+    title.textContent = s.prefs.lang === 'es' ? 'Sigue tu curiosidad' : 'Follow your curiosity';
+    body.innerHTML = s.prefs.lang === 'es'
+      ? '<p class="panel__lead">Elige un punto y sigue sus flechas. Cada conexión abre otro interés, una habilidad compartida o algo que probar.</p><a class="ex-text-button" href="#explore">Explorar las aficiones →</a>'
+      : '<p class="panel__lead">Choose a dot, then follow its arrows. Each connection opens another interest, a shared skill, or something to try.</p><a class="ex-text-button" href="#explore">Browse the hobby list →</a>';
     return;
   }
-  const mine = s.profile.n.includes(node.id);
   const markable = node.class !== 'hub';
-  const drill = hasInner(s.atlas, node.id)
-    ? `<button type="button" class="btn btn--secondary btn--sm" data-act="inner" data-node="${escHtml(node.id)}">Drill in</button>`
-    : '';
+  const spanish = s.prefs.lang === 'es';
   title.textContent = node.label;
   body.innerHTML = `
-    <p class="panel__where">${whereOf(s, node)}</p>
+    <div class="atlas-detail-top"><p class="panel__where">${whereOf(s, node)}</p>${quietSave(s, node)}</div>
     <p class="panel__blurb">${escHtml(node.blurb)}</p>
-    ${tagChips(s, node)}
-    <div class="toolbar">
-      ${markable ? `<button type="button" class="btn ${mine ? 'btn--secondary' : 'btn--primary'} btn--sm"
-              data-act="toggle" data-node="${escHtml(node.id)}">${mine ? 'Remove from my map' : 'Mark as mine'}</button>` : ''}
-      ${markable ? `<button type="button" class="btn btn--ghost btn--sm" data-act="link-start" data-node="${escHtml(node.id)}">Link from here</button>` : ''}
-      ${drill}
-      ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">Focus cluster</button>` : ''}
-      <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">Centre</button>
-    </div>
-    ${levelPicker(s, node)}
-    ${personalLinks(s, node)}
-    ${neighbourList(s, node)}`;
+    ${depthEntry(s, node)}
+    ${connectionList(s, node)}
+    ${detailLinks(s, node, hasInner(s.atlas, node.id))}
+    <details class="ex-advanced atlas-detail-more"><summary>${spanish ? 'Personalizar y herramientas del mapa' : 'Personalise & map tools'}</summary>
+      ${tagChips(s, node)}
+      ${levelPicker(s, node)}
+      <div class="toolbar">
+        ${markable ? `<button type="button" class="btn btn--ghost btn--sm" data-act="link-start" data-node="${escHtml(node.id)}">${spanish ? 'Crear mi propia conexión' : 'Make my own connection'}</button>` : ''}
+        ${node.cluster ? `<button type="button" class="btn btn--ghost btn--sm" data-act="focus-cluster" data-cluster="${escHtml(node.cluster)}">${spanish ? 'Ver esta familia' : 'Focus this family'}</button>` : ''}
+        <button type="button" class="btn btn--ghost btn--sm" data-act="centre" data-node="${escHtml(node.id)}">${spanish ? 'Centrar' : 'Centre on map'}</button>
+      </div>
+      ${personalLinks(s, node)}
+    </details>`;
+  for (const el of body.querySelectorAll('details')) el.open = openDetails.includes(el.className);
+  if (savedFocus) body.querySelector('.atlas-save')?.focus({ preventScroll: true });
 }
 
 /** The visitor's own ties through this node: the note, its editor, the undo. */
@@ -217,18 +226,14 @@ function renderStageCard(s, node) {
     card.innerHTML = '';
     return;
   }
-  const mine = s.profile.n.includes(node.id);
-  const markable = node.class !== 'hub';
   card.hidden = false;
+  const savedFocus = card.querySelector('.atlas-save')?.dataset.node === node.id && card.querySelector('.atlas-save') === document.activeElement;
+  const spanish = s.prefs.lang === 'es';
   card.innerHTML = `
-    <p class="panel__where">${whereOf(s, node)}</p>
-    <p class="panel__title">${escHtml(node.label)}</p>
-    <div class="toolbar">
-      ${markable ? `<button type="button" class="btn ${mine ? 'btn--secondary' : 'btn--primary'} btn--sm"
-              data-act="toggle" data-node="${escHtml(node.id)}">${mine ? 'Remove' : 'Mark as mine'}</button>` : ''}
-      ${hasInner(s.atlas, node.id) ? `<button type="button" class="btn btn--secondary btn--sm" data-act="inner" data-node="${escHtml(node.id)}">Drill in</button>` : ''}
-      <button type="button" class="btn btn--ghost btn--sm" data-act="open-panel">Details</button>
-    </div>`;
+    <div class="atlas-mobile-head"><p class="panel__title">${escHtml(node.label)}</p>${quietSave(s, node)}</div>
+    <p class="atlas-mobile-region">${escHtml(s.atlas.clusters.get(node.cluster)?.label || (spanish ? 'Habilidad compartida' : 'Shared craft'))}</p>
+    <div class="atlas-mobile-actions"><button type="button" class="atlas-inline-link" data-act="open-panel">${spanish ? 'Ver conexiones' : 'See connections'} ${icon('arrow', 15)}</button>${depthEntry(s, node, true)}</div>`;
+  if (savedFocus) card.querySelector('.atlas-save')?.focus({ preventScroll: true });
 }
 
 function bridgeLines(s) {
@@ -374,7 +379,9 @@ export function renderSuggest(s) {
   body.innerHTML = `${affinityChips(s, allocated)}${intro}<ul class="suglist">${rows}</ul>`;
 }
 
-export function renderSearch(s) {
+let searchRequest = 0;
+export async function renderSearch(s) {
+  const request = ++searchRequest;
   const list = $('searchResults');
   if (!list) return;
   const q = s.search.trim().toLowerCase();
@@ -389,13 +396,10 @@ export function renderSearch(s) {
     }
     return;
   }
-  const hits = [];
-  for (const [id, node] of s.atlas.nodes) {
-    const hay = `${node.label} ${node.aka.join(' ')}`.toLowerCase();
-    if (hay.includes(q)) hits.push({ id, node, rank: node.label.toLowerCase().startsWith(q) ? 0 : 1 });
-    if (hits.length > 60) break;
-  }
-  hits.sort((a, b) => a.rank - b.rank || a.node.label.localeCompare(b.node.label));
+  const records = s.explore?.records || [...s.atlas.nodes.values()];
+  const hits = searchHobbies(records, q).slice(0, 10).map((node) => ({ id: node.id, node }));
+  await ensureNodes(s.atlas, hits.map((hit) => hit.id));
+  if (request !== searchRequest) return;
   // The map answers with the panel: the same capped list the results print
   // gets the focus ring, so a match off-screen is still visibly somewhere.
   s.focusRing = new Set(hits.slice(0, 10).map((h) => h.id));
@@ -408,11 +412,12 @@ export function renderSearch(s) {
   list.hidden = false;
   list.innerHTML = hits
     .slice(0, 10)
-    .map((h) => `<li>${nodeButton(s, h.id)}<span class="rel">${whereOf(s, h.node)}</span></li>`)
+    .map((h) => `<li><button type="button" class="chipnode" data-act="select" data-node="${escHtml(h.id)}">${escHtml(h.node.label)}</button><span class="rel">${whereOf(s, h.node)}</span></li>`)
     .join('');
 }
 
 export function render(s) {
+  renderExplorer(s);
   renderHint(s);
   renderNotice(s);
   renderFocusChip(s);

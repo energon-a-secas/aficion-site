@@ -5,6 +5,8 @@
 // is re-rendered never leaves a dead listener or a stale node reference behind.
 // Nothing is exposed on window.
 
+import { bindAtlasNavigation } from './atlas-navigation.js';
+import { bindExplorer, setPanelTab, showAtlas } from './explore-events.js';
 import { $, showToast, copyText, debounce } from './utils.js';
 import { savePrefs, persistProfile } from './state.js';
 import { PROFILE_VERSION } from './profile.js';
@@ -51,7 +53,7 @@ export { applyHash };
 
 // ── One delegated handler for every rendered control ─────────
 const ACTIONS = {
-  select: (s, el) => select(s, el.dataset.node, { centre: true }),
+  select: (s, el) => { setPanelTab('detail'); return openNode(s, el.dataset.node); },
   centre: (s, el) => select(s, el.dataset.node, { centre: true }),
   toggle: (s, el) => toggleNode(s, el.dataset.node),
   level: (s, el) => applyLevel(s, el.dataset.node, Number(el.dataset.level)),
@@ -60,7 +62,7 @@ const ACTIONS = {
   'fit-mine': (s) => fitMine(s),
   'clear-mine': (s) => clearMine(s),
   'compare-clear': (s) => stopCompare(s),
-  'build-open': (s, el) => openBuild(s, el.dataset.build),
+  'build-open': async (s, el) => { await showAtlas(s); openBuild(s, el.dataset.build); },
   'build-close': (s) => closeBuild(s),
   'build-apply': (s) => stackBuild(s),
   'build-step': (s, el) => {
@@ -71,6 +73,7 @@ const ACTIONS = {
   'open-panel': () => {
     document.body.classList.add('side-open');
     $('panelToggle')?.setAttribute('aria-expanded', 'true');
+    setPanelTab('detail');
     $('side')?.focus();
   },
   'shared-compare': (s) => compareShared(s),
@@ -78,16 +81,17 @@ const ACTIONS = {
   'shared-dismiss': (s) => dismissShared(s),
   'sheet-open': (s) => openSheet(s),
   'example-open': (s) => openExample(s),
-  'sheet-goto': (s, el) => {
+  'sheet-goto': async (s, el) => {
     closeSheet();
-    select(s, el.dataset.node, { centre: true });
+    await showAtlas(s, { node: el.dataset.node });
   },
-  'sheet-trace': (s, el) => {
+  'sheet-trace': async (s, el) => {
     closeSheet();
-    trace(s, el.dataset.path.split(','));
+    await showAtlas(s, { path: el.dataset.path.split(',') });
   },
-  'sheet-quest': (s, el) => {
+  'sheet-quest': async (s, el) => {
     closeSheet();
+    await showAtlas(s);
     openBuild(s, el.dataset.build);
   },
   'focus-cluster': (s, el) => focusCluster(s, el.dataset.cluster),
@@ -111,9 +115,10 @@ const ACTIONS = {
     showToast(ok ? 'Link to this node copied.' : 'Copy was blocked, so the link is in the address bar instead.');
   },
   affinity: (s, el) => lightAffinity(s, el.dataset.tag),
-  'tour-open': () => {
+  'trace-clear': (s) => { s.tracePath = []; s.focusRing = new Set(); paint(s); },
+  'tour-open': (s) => {
     closeModal('helpModal');
-    openTour();
+    showAtlas(s).then(() => openTour());
   },
   'tour-next': (s) => tourNext(s),
   'tour-back': () => tourBack(),
@@ -226,7 +231,7 @@ function bindDialogs(s) {
     showToast(ok ? 'Postcard saved.' : 'Nothing marked yet, so there is no postcard to make.');
   });
 
-  $('btnCompare')?.addEventListener('click', () => openModal('compareModal'));
+  $('btnCompare')?.addEventListener('click', async () => { await showAtlas(s); openModal('compareModal'); });
   $('compareGo')?.addEventListener('click', () => runCompare(s));
   $('compareClear')?.addEventListener('click', () => {
     $('compareInput').value = '';
@@ -243,7 +248,9 @@ function bindDialogs(s) {
     langBtn.addEventListener('click', () => {
       s.prefs.lang = s.prefs.lang === 'es' ? 'en' : 'es';
       savePrefs();
-      location.reload();
+      const url = new URL(location.href);
+      url.searchParams.set('lang', s.prefs.lang);
+      location.assign(url.href);
     });
   }
 
@@ -326,7 +333,7 @@ function bindSearch(s) {
     const tag = document.activeElement ? document.activeElement.tagName : '';
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
     e.preventDefault();
-    search.focus();
+    (s.explore?.route.view === 'atlas' ? search : $('exploreSearch'))?.focus();
   });
 }
 
@@ -335,6 +342,8 @@ export function bindEvents(s) {
   document.addEventListener('click', (e) => onDelegatedClick(s, e));
 
   bindCanvas(s);
+  bindAtlasNavigation(s);
+  bindExplorer(s);
 
   s.camera.onChange(() => s.renderer.requestFrame());
   window.addEventListener(

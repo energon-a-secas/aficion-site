@@ -1,0 +1,118 @@
+{
+  "of": "music.guitar",
+  "label": "Guitar, find your own sound",
+  "blurb": "Rhythm, melody, arranging, and playing with others are separate paths you can keep crossing.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "music.guitar.rhythm",
+      "music.guitar.fingerstyle",
+      "music.guitar.ear-training",
+      "music.guitar.songwriting",
+      "music.guitar.improvisation",
+      "music.guitar.ensemble"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "music.guitar.rhythm",
+      "label": "Rhythm and strumming",
+      "class": "notable",
+      "tags": [
+        "audio",
+        "cheap-start"
+      ],
+      "blurb": "A steady pulse and accents that give a song its shape. Muted strings are enough to practise a rhythm before adding chords."
+    },
+    {
+      "id": "music.guitar.fingerstyle",
+      "label": "Fingerstyle",
+      "class": "node",
+      "tags": [
+        "audio",
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Bass, melody, and accompaniment shared between the fingers. Slow, separate patterns eventually become one moving part."
+    },
+    {
+      "id": "music.guitar.ear-training",
+      "label": "Learning by ear",
+      "class": "node",
+      "tags": [
+        "audio",
+        "cheap-start",
+        "patience"
+      ],
+      "blurb": "Finding a melody or chord change by listening and trying it. Short phrases and repetition turn a recording into a conversation."
+    },
+    {
+      "id": "music.guitar.songwriting",
+      "label": "Writing songs",
+      "class": "node",
+      "tags": [
+        "audio",
+        "content"
+      ],
+      "blurb": "A chord loop, a phrase, or a rhythm that keeps coming back. Record small ideas so they have somewhere to meet later."
+    },
+    {
+      "id": "music.guitar.improvisation",
+      "label": "Improvisation",
+      "class": "node",
+      "tags": [
+        "audio",
+        "hands-on"
+      ],
+      "blurb": "Making a phrase and answering it in real time. A few notes used deliberately can carry more than an uninterrupted run of scales."
+    },
+    {
+      "id": "music.guitar.ensemble",
+      "label": "Playing together",
+      "class": "node",
+      "tags": [
+        "audio",
+        "social"
+      ],
+      "blurb": "Listening while you play, leaving room, and recovering together when the timing slips. The arrangement changes with the people in the room."
+    }
+  ],
+  "edges": [
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.fingerstyle",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.ear-training",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.songwriting",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.improvisation",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.ensemble",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.fingerstyle",
+      "to": "music.guitar.improvisation",
+      "kind": "kin"
+    }
+  ]
+}

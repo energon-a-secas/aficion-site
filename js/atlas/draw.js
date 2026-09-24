@@ -11,8 +11,9 @@
 // nothing at all on every iPhone.
 
 import { resolveTheme, onThemeChange, withAlpha } from './theme.js';
-import { drawDrawsOn, drawBaseEdges, drawRoute, drawPersonalEdges, drawCompareEdges } from './draw-edges.js';
+import { drawDrawsOn, drawBaseEdges, drawRoute, drawPersonalEdges, drawCompareEdges, drawTrace } from './draw-edges.js';
 import { drawCoreNodes, drawPlainNodes, drawNotables, drawHub, drawHalos, drawRings } from './draw-nodes.js';
+import { drawNavigation } from './draw-navigation.js';
 import { drawLabels } from './draw-labels.js';
 
 // ── Starfield ────────────────────────────────────────────────
@@ -138,6 +139,8 @@ export function createRenderer(canvas, atlas, layout) {
     drawRoute(env);
     drawPersonalEdges(env);
     drawCompareEdges(env);
+    drawTrace(env);
+    const travelling = drawNavigation(env);
     drawCoreNodes(env);
     drawPlainNodes(env);
     drawNotables(env);
@@ -145,6 +148,7 @@ export function createRenderer(canvas, atlas, layout) {
     drawHalos(env);
     drawRings(env);
     drawLabels(env);
+    if (travelling) api.requestFrame();
   }
 
   const api = {

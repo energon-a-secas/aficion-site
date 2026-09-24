@@ -1,0 +1,117 @@
+{
+  "of": "garden.houseplants",
+  "label": "Plantas de interior, aprende a observar",
+  "blurb": "Luz, crecimiento, macetas y una rutina que se adapte a la planta y a la habitación.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "garden.houseplants.light",
+      "garden.houseplants.watering",
+      "garden.houseplants.propagation",
+      "garden.houseplants.potting",
+      "garden.houseplants.plant-journal",
+      "garden.houseplants.plant-sharing"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "garden.houseplants.light",
+      "label": "Observar la luz",
+      "class": "notable",
+      "tags": [
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Observa dónde llega la luz durante el día y entre estaciones. Un rincón que parece luminoso no siempre es el mejor lugar para crecer."
+    },
+    {
+      "id": "garden.houseplants.watering",
+      "label": "Observar el riego",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "Observa juntos la planta, la maceta y la humedad del sustrato. La rutina empieza por comprobar, más que por regar según un calendario fijo."
+    },
+    {
+      "id": "garden.houseplants.propagation",
+      "label": "Experimentos de propagación",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Aprende cómo se reproduce una especie y documenta un intento. Las etiquetas y fechas ayudan a notar cambios lentos."
+    },
+    {
+      "id": "garden.houseplants.potting",
+      "label": "Macetas y sustratos",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "Raíces, drenaje y el material que las rodea. Elegir una maceta tiene más sentido cuando sabes cómo crece esa planta."
+    },
+    {
+      "id": "garden.houseplants.plant-journal",
+      "label": "Diario de plantas",
+      "class": "node",
+      "tags": [
+        "content",
+        "cheap-start",
+        "patience"
+      ],
+      "blurb": "Fotos, fechas y pequeñas observaciones a lo largo del tiempo. Una hoja nueva se aprecia más cuando recuerdas cómo empezó."
+    },
+    {
+      "id": "garden.houseplants.plant-sharing",
+      "label": "Intercambio de plantas",
+      "class": "node",
+      "tags": [
+        "social",
+        "hands-on"
+      ],
+      "blurb": "Comparte plantas, esquejes y sus notas de cuidado. Una conversación suele contar más que la etiqueta de la maceta."
+    }
+  ],
+  "edges": [
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.watering",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.propagation",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.potting",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.plant-journal",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.light",
+      "to": "garden.houseplants.plant-sharing",
+      "kind": "kin"
+    },
+    {
+      "from": "garden.houseplants.watering",
+      "to": "garden.houseplants.plant-journal",
+      "kind": "kin"
+    }
+  ]
+}

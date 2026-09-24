@@ -64,11 +64,13 @@ function innerMark(env, node, p, r) {
 /** Dim everything that is not part of the current story. */
 function fade(env, id) {
   const { view } = env;
+  if (view.tracePath?.length) return view.focus.has(id) ? 1 : 0.16;
   if (view.build) return view.build.steps.includes(id) ? 1 : 0.28;
   if (view.compare) {
     const c = view.compare;
     return c.both.has(id) || c.mineOnly.has(id) || c.theirsOnly.has(id) || c.nearMiss.has(id) ? 1 : 0.3;
   }
+  if (view.navigation && !view.clusterFocus) return view.navigation.anchor === id || view.navigation.neighbours.has(id) || view.navigation.path.includes(id) || view.navigation.journey?.path.includes(id) ? 1 : .22;
   // Cluster focus: one family and the crafts under it stay bright; the rest
   // steps far back but never vanishes, so the map is still a map.
   if (view.clusterFocus) return view.clusterFocus.has(id) || view.allocated.has(id) ? 1 : 0.14;
@@ -114,6 +116,7 @@ export function drawPlainNodes(env) {
     // Layers "main": plain nodes step back to faint markers so the anchors
     // carry the view. Anything with a story keeps its full face.
     const story =
+      view.navigation?.neighbours.has(node.id) || view.navigation?.path.includes(node.id) || view.navigation?.journey?.path.includes(node.id) || view.focus.has(node.id) ||
       lit ||
       view.suggested.has(node.id) ||
       view.hover === node.id ||
@@ -301,6 +304,8 @@ export function drawRings(env) {
 
   for (const id of view.suggested) markSuggested(env, id);
   for (const id of view.focus) mark(id, theme.focus, 1.6, 7);
+  for (const id of view.navigation?.path || []) mark(id, theme.route, 1.8, 7);
+  for (const id of view.navigation?.journey?.path.slice(view.navigation.journey.step + 1) || []) mark(id, withAlpha(theme.route, .4), 1, 7);
   if (view.compare) {
     for (const id of view.compare.theirsOnly) mark(id, theme.compareTheirs, 1.8, 6);
     for (const id of view.compare.both) mark(id, theme.compareBoth, 2, 6);

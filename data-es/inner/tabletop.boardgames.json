@@ -1,0 +1,118 @@
+{
+  "of": "tabletop.boardgames",
+  "label": "Juegos de mesa, caminos para jugar",
+  "blurb": "Elige según la experiencia que quieras compartir. Estas formas se cruzan y muchos juegos pertenecen a varias.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "tabletop.boardgames.cooperative",
+      "tabletop.boardgames.deckbuilding",
+      "tabletop.boardgames.worker-placement",
+      "tabletop.boardgames.abstract",
+      "tabletop.boardgames.party",
+      "tabletop.boardgames.solo"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "tabletop.boardgames.cooperative",
+      "label": "Juego cooperativo",
+      "class": "notable",
+      "tags": [
+        "social",
+        "research"
+      ],
+      "blurb": "Colabora contra el juego y conversa sobre un problema común. El reto incluye dejar espacio para que todos en la mesa decidan."
+    },
+    {
+      "id": "tabletop.boardgames.deckbuilding",
+      "label": "Construcción de mazos",
+      "class": "node",
+      "tags": [
+        "social",
+        "research",
+        "patience"
+      ],
+      "blurb": "Tus acciones cambian al construir un mazo durante la partida. Cada carta nueva plantea cómo quieres que sean los próximos turnos."
+    },
+    {
+      "id": "tabletop.boardgames.worker-placement",
+      "label": "Colocación de trabajadores",
+      "class": "node",
+      "tags": [
+        "social",
+        "research"
+      ],
+      "blurb": "Acciones limitadas y espacios que otros pueden ocupar primero. El momento y el costo de oportunidad dan peso a una decisión aparentemente sencilla."
+    },
+    {
+      "id": "tabletop.boardgames.abstract",
+      "label": "Estrategia abstracta",
+      "class": "node",
+      "tags": [
+        "research",
+        "social",
+        "cheap-start"
+      ],
+      "blurb": "Pocas reglas y una posición que ambos pueden leer. La profundidad nace de cómo los movimientos simples cambian las posibilidades de cada jugador."
+    },
+    {
+      "id": "tabletop.boardgames.party",
+      "label": "Juegos de grupo y palabras",
+      "class": "node",
+      "tags": [
+        "social",
+        "cheap-start"
+      ],
+      "blurb": "Pistas, asociaciones y distintas formas de entender una misma consigna. La conversación puede ser tan memorable como el resultado."
+    },
+    {
+      "id": "tabletop.boardgames.solo",
+      "label": "Retos y escenarios en solitario",
+      "class": "node",
+      "tags": [
+        "research",
+        "patience"
+      ],
+      "blurb": "Un reto o escenario a tu ritmo. Volver a jugar puede revelar una decisión distinta, más allá de mejorar el resultado."
+    }
+  ],
+  "edges": [
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.deckbuilding",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.worker-placement",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.abstract",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.party",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.cooperative",
+      "to": "tabletop.boardgames.solo",
+      "kind": "kin"
+    },
+    {
+      "from": "tabletop.boardgames.deckbuilding",
+      "to": "tabletop.boardgames.party",
+      "kind": "kin"
+    }
+  ]
+}

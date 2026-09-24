@@ -1,0 +1,117 @@
+{
+  "of": "coffee.espresso",
+  "label": "Espresso, one variable at a time",
+  "blurb": "Taste and repeatability make the numbers useful. These paths explore the cup, rather than a shopping list of machines.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "coffee.espresso.dialling",
+      "coffee.espresso.puck-prep",
+      "coffee.espresso.tasting",
+      "coffee.espresso.milk-drinks",
+      "coffee.espresso.brew-journal",
+      "coffee.espresso.bean-comparison"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "coffee.espresso.dialling",
+      "label": "Dialling in by taste",
+      "class": "notable",
+      "tags": [
+        "research",
+        "hands-on"
+      ],
+      "blurb": "Change one brewing variable and compare the result. Notes connect what you did with what you actually enjoyed in the cup."
+    },
+    {
+      "id": "coffee.espresso.puck-prep",
+      "label": "Puck preparation",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Distribution and a repeatable routine before brewing. The useful goal is consistency between cups, not an elaborate ritual for its own sake."
+    },
+    {
+      "id": "coffee.espresso.tasting",
+      "label": "Comparative tasting",
+      "class": "node",
+      "tags": [
+        "research",
+        "social"
+      ],
+      "blurb": "Compare two cups and describe the difference in your own words. Sweetness, texture, and finish are more useful than guessing a flavour correctly."
+    },
+    {
+      "id": "coffee.espresso.milk-drinks",
+      "label": "Milk drinks",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "research"
+      ],
+      "blurb": "The balance between coffee, milk, and texture. A familiar drink becomes a way to notice how the ingredients change one another."
+    },
+    {
+      "id": "coffee.espresso.brew-journal",
+      "label": "A brew journal",
+      "class": "node",
+      "tags": [
+        "content",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Dose, output, beans, and a short tasting note. Keep only the details that help you repeat a cup you liked."
+    },
+    {
+      "id": "coffee.espresso.bean-comparison",
+      "label": "Exploring coffee origins",
+      "class": "node",
+      "tags": [
+        "research",
+        "patience"
+      ],
+      "blurb": "Compare coffees while keeping your routine familiar. Origin, processing, and roast become questions you can investigate through taste."
+    }
+  ],
+  "edges": [
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.puck-prep",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.tasting",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.milk-drinks",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.brew-journal",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.dialling",
+      "to": "coffee.espresso.bean-comparison",
+      "kind": "kin"
+    },
+    {
+      "from": "coffee.espresso.puck-prep",
+      "to": "coffee.espresso.brew-journal",
+      "kind": "kin"
+    }
+  ]
+}

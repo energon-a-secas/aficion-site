@@ -48,13 +48,16 @@ the map rings the node that sentence names.
 
 ## Features
 
-- **One connected fabric** -- 268 hobbies across 18 clusters plus the transversal crafts, all reaching a single hub, on a pannable and zoomable canvas
-- **Your own path, lit** -- marking adjacent nodes draws the gold line between them; marking distant ones reports how many steps apart they are and through what, with a Trace button that flies to the bridge
-- **A reason, not a ranking** -- every suggestion carries the sentence that justifies it and is ringed in ember on the map, so the panel and the canvas say the same thing. No score, no percentage, no compatibility number
-- **Inner trees** -- ten hobbies open into their own subgraph of subgenres and techniques, 77 nodes deep, markable like any other
-- **Curated builds** -- six ordered stacks showing what a flagship pursuit actually needs, each step with a level and a reason, applied to your map in one click
-- **Share and compare** -- your whole profile is a gzipped URL fragment, which browsers never send to a server. Paste a friend's link to see what sits on both maps, what is one step away, and a per-cluster tally
-- **Keyboard and screen reader routes** -- arrow keys walk the graph, every reachable node is also a real button, and each move announces the node and its blurb
+- **Explore first**: six broad directions lead to 22 hobby families. Search also finds techniques and subtopics, with filters for easy starts and deeper branches.
+- **Try a connected example**: the homepage previews coffee → lightsabers, miniatures → living worlds, and birdwatching → galaxies. Every example includes clickable stops, a side branch, a deeper subtopic and a guided Atlas entrance. Mobile search comes first.
+- **Four connection views**: related hobbies, shared skills, shared equipment, and shared interests. Every result explains the link; inferred tag affinities are distinguished from authored edges.
+- **Depth when you want it**: 24 inner trees contain 178 subtopics. Thirty small starting experiments help turn browsing into a first attempt. New content and navigation are available in English and Spanish.
+- **Your hobbies**: save individual hobbies or techniques, revisit your collection, and follow its connections. A first visit starts empty; examples are opened explicitly.
+- **A spatial atlas**: 331 top-level nodes and 662 links, with pan, zoom, category focus, and highlighted connection paths. Map controls and sidebar panels reveal detail progressively.
+- **Follow your curiosity**: every connection appears through small arrows at their true bearings, with numbered groups for crowded paths. Explore local branches, shared crafts, and other regions; follow the gold trail or fit the whole route. A separate depth entrance opens an interactive subtopic tree. Saving is always an explicit bookmark action.
+- **Trails to revisit**: name and save a connected route, or try one of six suggested trails through niche interests. Guided stops distinguish the dashed planned route from the solid gold path already explored. Saved routes stay in this browser, separate from your hobby collection; they support rename, remove and undo.
+- **Projects, sharing, and comparison**: nine curated builds, a personal summary, and shareable profiles in URL fragments. Existing saved profiles and `#node=` links remain supported.
+- **Keyboard and readable routes**: hobby pages have real links, buttons, breadcrumbs, visible focus, and browser Back support. The canvas retains its keyboard controls.
 
 ---
 
@@ -63,10 +66,12 @@ the map rings the node that sentence names.
 | Key | Does |
 |---|---|
 | Drag, wheel or pinch | Pan and zoom the canvas |
-| Arrows | Walk to a neighbouring node |
+| Arrows | Follow a connection in that direction |
+| Backspace | Return along your exploration trail |
 | Shift + arrows | Pan the camera |
 | Enter | Mark or unmark the focused node |
 | `I` | Drill into an inner tree |
+| Double-click a dot | Open its subtopics |
 | `F` | Fit the whole atlas |
 | `M` | Fit your own marks |
 | `/` | Focus the search box |
@@ -88,10 +93,28 @@ The taxonomy under `data/` is validated by a dependency-free Node script. It
 exits 0, or it names the file, the record and the field that is wrong:
 
 ```bash
-make validate    # or: make corpus, the same target under both names
+make search-index # regenerate after corpus edits
+make validate     # both languages, browse structure, connected trails, search-index freshness
+make test         # search, graph navigation, route persistence and concurrent-loading regressions
+make pages        # refresh crawler pages after corpus edits
 ```
 
 ---
+
+Optional browser acceptance checks use Playwright from your development environment (the app has no runtime dependency):
+
+```bash
+node tools/check-explorer.cjs
+node tools/check-explorer.cjs --webkit
+node tools/check-atlas.cjs
+node tools/check-atlas.cjs --webkit
+node tools/check-atlas-branches.cjs
+node tools/check-atlas-branches.cjs --webkit
+node tools/check-trails.cjs
+node tools/check-trails.cjs --webkit
+```
+
+With the preview server running, these check saved collections, subtopic search, browser history, sharing, map navigation, mobile layout, language switching and loading failures. Screenshots are written under `/private/tmp/aficion-*.png`. Set `AFICION_PREVIEW_URL` to test a different local port.
 
 ## Architecture
 
@@ -108,6 +131,11 @@ aficion-site/
 │   └── style.css           # All site styles. Identity is --accent only; the rest is CDN base.css
 ├── js/
 │   ├── app.js              # Entry point, under 50 lines
+│   ├── navigation.js       # Explore, category, hobby, collection and atlas routes
+│   ├── explorer.js         # Browse lists, search, breadcrumbs and collection
+│   ├── explore-detail.js   # Hobby pages, subtopics, starting exercises and lenses
+│   ├── explore-model.js    # Search and explained connection queries
+│   ├── explore-events.js   # Browser navigation and transitions into the atlas
 │   ├── state.js            # Shared mutable state, localStorage
 │   ├── render.js           # Builds the ViewModel for the canvas, renders the panel
 │   ├── events.js           # All wiring. No inline onclick anywhere
@@ -133,10 +161,13 @@ aficion-site/
 │       └── draw-labels.js  # Label placement with collision rejection
 ├── data/                   # The corpus. Content is data, never inside a .js file
 │   ├── atlas.json          # Clusters, tags, retired ids
-│   ├── edges.json          # 563 top-layer edges, typed
-│   ├── builds.json         # 6 curated builds
-│   ├── clusters/*.json     # 18 cluster files, 268 top nodes
-│   └── inner/*.json        # 10 inner trees, 77 nodes
+│   ├── edges.json          # 662 top-layer edges, typed
+│   ├── explore.json        # Browse directions, example diagram and 30 first experiments
+│   ├── search-index.json   # Generated index, including every inner subtopic
+│   ├── builds.json         # 9 curated builds
+│   ├── trails.json         # 6 guided discovery routes, all following authored edges
+│   ├── clusters/*.json     # 22 cluster files, 321 hobby nodes
+│   └── inner/*.json        # 24 inner trees, 178 nodes
 ├── tools/
 │   └── validate-corpus.mjs # 33 structural checks over data/. Plain node, no install
 ├── docs/

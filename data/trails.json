@@ -1,0 +1,47 @@
+{
+  "v": 1,
+  "trails": [
+    {
+      "id": "coffee-meets-code",
+      "title": "Coffee meets code",
+      "blurb": "Follow a microcontroller interest into the unexpected world of espresso-machine tinkering.",
+      "path": ["maker.arduino", "core.electronics", "coffee.machine-mods", "coffee.espresso"],
+      "notes": ["Arduino projects draw on electronics.", "The same electronics craft appears in espresso-machine tinkering.", "Machine modifications connect back to the craft of brewing espresso."]
+    },
+    {
+      "id": "tiny-living-worlds",
+      "title": "Tiny worlds, living systems",
+      "blurb": "From miniature landscapes to terrariums and underwater gardens, then the water they share.",
+      "path": ["model.dioramas", "garden.terrariums", "garden.aquascaping", "coffee.water"],
+      "notes": ["Dioramas and terrariums both compose a landscape in a small space.", "Terrariums connect to aquascaping, where the miniature landscape moves underwater.", "Aquascaping and coffee water share an interest in measuring and adjusting water."]
+    },
+    {
+      "id": "circuits-into-sound",
+      "title": "Circuits into sound",
+      "blurb": "A circuit-board project opens into modular synthesizers and the world of sound-shaping pedals.",
+      "path": ["maker.pcb-design", "music.modular", "music.pedals"],
+      "notes": ["PCB design and modular synthesizers share tools and materials for building circuits.", "Modular synthesizers connect to effects pedals through a shared interest in shaping sound."]
+    },
+    {
+      "id": "birds-to-galaxies",
+      "title": "From birds to galaxies",
+      "blurb": "Let an interest in watching wildlife lead through photography to the night sky.",
+      "path": ["outdoor.birdwatching", "core.photography", "astro.astrophoto", "astro.deep-sky"],
+      "notes": ["Birdwatching connects to photography through observing and recording wildlife.", "Photography also underpins astrophotography, with a very different subject overhead.", "Deep-sky imaging is one branch of astrophotography to explore."]
+    },
+    {
+      "id": "tabletop-to-zines",
+      "title": "From the table to the page",
+      "blurb": "Follow the writing behind a tabletop game into small, personal publications.",
+      "path": ["tabletop.gm", "core.writing", "book.zines"],
+      "notes": ["Running a tabletop game draws on writing and storytelling.", "Zines are another outlet for that writing: small publications with room for niche interests."]
+    },
+    {
+      "id": "signals-to-sabers",
+      "title": "Signals, sabers & sound",
+      "blurb": "Explore the electronics connecting radio listening to illuminated props and custom sound.",
+      "path": ["radio.sdr", "core.electronics", "starwars.pixel-saber", "starwars.soundfonts"],
+      "notes": ["Software-defined radio listening draws on electronics.", "Pixel sabers use that same craft in an illuminated prop.", "Custom soundfonts are a connected branch of the pixel-saber hobby."]
+    }
+  ]
+}

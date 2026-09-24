@@ -1,0 +1,118 @@
+{
+  "of": "music.guitar",
+  "label": "Guitarra, encuentra tu sonido",
+  "blurb": "Ritmo, melodía, arreglos y tocar con otras personas son caminos distintos que puedes ir cruzando.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "music.guitar.rhythm",
+      "music.guitar.fingerstyle",
+      "music.guitar.ear-training",
+      "music.guitar.songwriting",
+      "music.guitar.improvisation",
+      "music.guitar.ensemble"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "music.guitar.rhythm",
+      "label": "Ritmo y rasgueo",
+      "class": "notable",
+      "tags": [
+        "audio",
+        "cheap-start"
+      ],
+      "blurb": "Un pulso constante y acentos que dan forma a una canción. Puedes practicar el ritmo con las cuerdas apagadas antes de añadir acordes."
+    },
+    {
+      "id": "music.guitar.fingerstyle",
+      "label": "Fingerstyle",
+      "class": "node",
+      "tags": [
+        "audio",
+        "hands-on",
+        "patience"
+      ],
+      "blurb": "Bajo, melodía y acompañamiento repartidos entre los dedos. Los patrones lentos y separados terminan moviéndose juntos."
+    },
+    {
+      "id": "music.guitar.ear-training",
+      "label": "Aprender de oído",
+      "class": "node",
+      "tags": [
+        "audio",
+        "cheap-start",
+        "patience"
+      ],
+      "blurb": "Encontrar una melodía o cambio de acorde escuchando y probando. Las frases cortas y la repetición convierten la grabación en una conversación."
+    },
+    {
+      "id": "music.guitar.songwriting",
+      "label": "Escribir canciones",
+      "class": "node",
+      "tags": [
+        "audio",
+        "content"
+      ],
+      "blurb": "Un ciclo de acordes, una frase o un ritmo que vuelve. Graba las ideas pequeñas para que después tengan dónde encontrarse."
+    },
+    {
+      "id": "music.guitar.improvisation",
+      "label": "Improvisación",
+      "class": "node",
+      "tags": [
+        "audio",
+        "hands-on"
+      ],
+      "blurb": "Crear una frase y responderla en el momento. Unas pocas notas usadas con intención pueden decir más que una sucesión de escalas."
+    },
+    {
+      "id": "music.guitar.ensemble",
+      "label": "Tocar en conjunto",
+      "class": "node",
+      "tags": [
+        "audio",
+        "social"
+      ],
+      "blurb": "Escuchar mientras tocas, dejar espacio y recuperarse juntos cuando falla el ritmo. El arreglo cambia con las personas presentes."
+    }
+  ],
+  "edges": [
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.fingerstyle",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.ear-training",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.songwriting",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.improvisation",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.rhythm",
+      "to": "music.guitar.ensemble",
+      "kind": "kin"
+    },
+    {
+      "from": "music.guitar.fingerstyle",
+      "to": "music.guitar.improvisation",
+      "kind": "kin"
+    }
+  ]
+}

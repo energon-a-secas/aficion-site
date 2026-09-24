@@ -22,6 +22,16 @@ either copied the link or added one node they had not considered adjacent.
 
 ---
 
+## Start simple, keep the depth
+
+Explore is the entry point for someone with one new interest as well as the
+person with four shelves. Six directions organise readable lists of hobbies.
+A breadcrumb leads from family to hobby to technique. The atlas remains one
+click away, and four relationship lenses explain connections without asking
+the visitor to read the whole graph first. Their collection starts empty and
+contains only choices they made. Starting exercises are invitations, never
+progress requirements.
+
 ## The four promises
 
 1. **One connected fabric.** Every cluster reaches the hub, and the crafts

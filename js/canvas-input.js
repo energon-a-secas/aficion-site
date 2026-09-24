@@ -8,7 +8,9 @@ import { $ } from './utils.js';
 import { savePrefs, rememberCamera } from './state.js';
 import { nodeAt, nodeToward } from './atlas/pick.js';
 import { openContextMenu, closeContextMenu } from './context-menu.js';
-import { paint } from './render.js';
+import { hoverCompass, followConnection } from './atlas-navigation.js';
+import { compassTargets } from './atlas/traversal.js';
+import { paint, announce } from './render.js';
 import { renderHint } from './stage.js';
 import {
   select,
@@ -36,6 +38,7 @@ export function bindCanvas(s) {
   let lpFired = false;
   let suppressClick = false;
   let linkedAt = 0;
+  let doubleTarget = null;
 
   const local = (e) => {
     const r = canvas.getBoundingClientRect();
@@ -44,6 +47,7 @@ export function bindCanvas(s) {
 
   canvas.addEventListener('pointerdown', (e) => {
     closeContextMenu();
+    s.camera.stop();
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, local(e));
     if (!s.prefs.seenIntro) {
@@ -92,7 +96,11 @@ export function bindCanvas(s) {
     }
     if (dragging) {
       moved += Math.abs(p.x - lastX) + Math.abs(p.y - lastY);
-      if (moved > 6) clearTimeout(lpTimer);
+      if (moved > 6) {
+        clearTimeout(lpTimer);
+        s.walk.dragging = true;
+        s.walk.hover = null;
+      }
       s.camera.panBy(p.x - lastX, p.y - lastY);
       lastX = p.x;
       lastY = p.y;
@@ -100,6 +108,7 @@ export function bindCanvas(s) {
       return;
     }
     const hit = nodeAt(s.index, s.camera, p.x, p.y);
+    hoverCompass(s, hit);
     canvas.style.cursor = s.linking || s.pathing ? 'crosshair' : hit ? 'pointer' : '';
     if (hit !== s.hover) {
       s.hover = hit;
@@ -107,10 +116,14 @@ export function bindCanvas(s) {
     }
   });
 
+  canvas.addEventListener('pointerleave', () => { s.hover = null; hoverCompass(s, null); });
+
   // A drag that moved more than a few pixels is a pan, not a click.
   canvas.addEventListener('pointerup', (e) => {
     clearTimeout(lpTimer);
+    s.walk.dragging = false;
     pointers.delete(e.pointerId);
+    paint(s);
     if (pointers.size < 2) pinch = 0;
     if (pinched) {
       // A pinch is never a click: neither finger lifting may select, tie or
@@ -151,12 +164,18 @@ export function bindCanvas(s) {
       return;
     }
     if (hit && e.shiftKey) toggleNode(s, hit);
-    else select(s, hit);
+    else if (hit && s.selected && connectedTo(s, s.selected, hit)) followConnection(s, s.selected, hit);
+    else select(s, hit, { centre: !!hit });
   });
 
   // One-shot swallow of the click a long-press leaves behind.
   canvas.addEventListener('click', (e) => {
-    if (!suppressClick) return;
+    if (!suppressClick) {
+      // Keep the first destination if its camera flight moves the dot before
+      // the second click arrives.
+      if (e.detail === 1) doubleTarget = s.selected;
+      return;
+    }
     suppressClick = false;
     e.preventDefault();
     e.stopPropagation();
@@ -164,18 +183,19 @@ export function bindCanvas(s) {
 
   canvas.addEventListener('pointercancel', (e) => {
     clearTimeout(lpTimer);
+    s.walk.dragging = false;
     pointers.delete(e.pointerId);
+    paint(s);
     if (pointers.size === 0) pinched = false;
     dragging = false;
   });
 
   canvas.addEventListener('dblclick', (e) => {
-    // The second click of a tie-completing double must not unmark the tie it
-    // just made.
-    if (performance.now() - linkedAt < 500) return;
+    // A double-click opens depth; saving remains an explicit, quiet action.
+    if (linkedAt && performance.now() - linkedAt < 500) return;
     const p = local(e);
-    const hit = nodeAt(s.index, s.camera, p.x, p.y);
-    if (hit) toggleNode(s, hit);
+    const hit = doubleTarget || nodeAt(s.index, s.camera, p.x, p.y);
+    if (hit) drillInto(s, hit);
   });
 
   // Right-click: the quick menu. Selecting first keeps the panel and the menu
@@ -209,7 +229,7 @@ export function bindCanvas(s) {
 }
 
 // ── Keyboard ─────────────────────────────────────────────────
-// A canvas has no tab order, so arrow keys walk the graph geometrically and
+// A canvas has no tab order, so arrow keys follow actual connections and
 // render.js announces the landing node through the live region. This is the
 // route across the map for anyone not using a pointer.
 const ARROWS = {
@@ -228,8 +248,15 @@ function onCanvasKey(s, e) {
       s.camera.clampTo(s.atlas.meta.world);
       return;
     }
-    const next = s.selected ? nodeToward(s.index, s.selected, dir[0], dir[1]) : s.atlas.hubId;
-    if (next) select(s, next, { centre: true });
+    if (!s.selected) { select(s, s.atlas.hubId, { centre: true }); return; }
+    if (s.linking || s.pathing) {
+      const next = nodeToward(s.index, s.selected, ...dir);
+      if (next) select(s, next, { centre: true });
+      return;
+    }
+    const next = compassTargets(s.atlas, s.layout, s.selected).find((target) => target.dx === dir[0] && target.dy === dir[1]);
+    if (next) followConnection(s, s.selected, next.link.to);
+    else announce(s.prefs.lang === 'es' ? 'No hay una conexión en esa dirección.' : 'No connection in that direction.');
     return;
   }
   if ((e.key === 'Enter' || e.key === ' ') && s.selected) {
@@ -245,11 +272,17 @@ function onCanvasKey(s, e) {
     if (s.linking) cancelLink(s);
     else if (s.pathing) cancelPath(s);
     else if (s.inner) leaveInner(s);
+    else if (s.walk.path.length > 1) { s.walk.path = []; s.walk.motion = null; paint(s); }
     else if (s.focusRing.size) {
       s.focusRing = new Set();
       paint(s);
     } else if (s.clusterFocus) leaveFocus(s);
     else select(s, null);
+    return;
+  }
+  if (e.key === 'Backspace' && s.walk.path.length > 1) {
+    e.preventDefault();
+    followConnection(s, s.walk.path.at(-1), s.walk.path.at(-2));
     return;
   }
   const key = e.key.toLowerCase();
@@ -260,4 +293,8 @@ function onCanvasKey(s, e) {
   else if (key === 'p' && s.selected) startPath(s, s.selected);
   else if (key === '+' || key === '=') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 1.4);
   else if (key === '-') s.camera.zoomAt(s.camera.w / 2, s.camera.h / 2, 0.714);
+}
+
+function connectedTo(s, from, to) {
+  return from !== to && to !== s.atlas.hubId && (s.atlas.adj.get(from) || []).some((link) => link.to === to);
 }

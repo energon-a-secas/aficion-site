@@ -38,6 +38,10 @@
   <!-- Fleet design tokens: canonical, do not redeclare locally (PROJECTS.md section 5) -->
   <link rel="stylesheet" href="https://cdn.neorgon.org/v1.0.0/styles/base.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/explorer.css">
+  <link rel="stylesheet" href="css/explore-feature.css">
+  <link rel="stylesheet" href="css/atlas-navigation.css">
+  <link rel="stylesheet" href="css/trails.css">
   <!-- Neorgon Header Kit (vendored; ?header=live swaps CSS to CDN). Keep after style.css, the kit owns the header. -->
   <script>(function(){var m=location.search.match(/[?&]theme=([\w-]+)/)||document.cookie.match(/(?:^|;\s*)neo_theme=([\w-]+)/);if(m&&m[1]!=='default')document.documentElement.dataset.theme=decodeURIComponent(m[1]);})();</script>
   <link rel="stylesheet" href="css/neorgon-header.css">
@@ -73,7 +77,7 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#side">Skip to the atlas controls</a>
+  <a class="skip-link" href="#workspaceNav">Skip to hobby navigation</a>
 
   <!-- Header Kit, app mode: slim 56px, right for a tool-dense page. Auto-hide
        is part of app mode and cannot be switched off; this page does not
@@ -90,21 +94,19 @@
     </div>
 
     <div class="header-right">
-      <!-- Weight over dropdowns: four actions hide more than they organise in
-           a menu. Builds and Compare are the two ways into the map, Share is
-           the payoff and carries the primary style, and help is icon-only so
-           the kit renders it square like .header-home. The panel toggle is
-           not here: it is the handle on the sidebar's own border, where a
-           drawer control belongs. -->
+      <!-- Frequent actions stay visible; secondary tools live in More. -->
       <div class="header-actions">
-        <button type="button" class="btn btn--ghost btn--sm" id="btnBuilds">Builds</button>
-        <button type="button" class="btn btn--ghost btn--sm" id="btnCompare">Compare</button>
-        <button type="button" class="btn btn--ghost btn--sm" id="btnSheet">Sheet</button>
-        <button type="button" class="btn btn--ghost btn--sm" id="langBtn" title="English / Español">ES</button>
-        <button type="button" class="btn btn--primary btn--sm" id="btnShare" data-keep-mobile>Share</button>
-        <button type="button" class="btn btn--ghost btn--sm" id="btnHelp" aria-label="Moving around: keyboard and mouse help" title="Moving around">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7"/><circle cx="12" cy="17" r=".5"/></svg>
-        </button>
+        <details class="app-more" id="appMore">
+          <summary class="btn btn--ghost btn--sm"><span data-view-label="moreMenu">More</span> <span aria-hidden="true">⌄</span></summary>
+          <div class="app-more__menu">
+            <button type="button" id="btnBuilds">Project ideas</button>
+            <button type="button" id="btnCompare">Compare with a friend</button>
+            <button type="button" id="btnSheet">Your hobby summary</button>
+            <button type="button" id="btnHelp">Atlas help &amp; keyboard shortcuts</button>
+          </div>
+        </details>
+        <button type="button" class="btn btn--ghost btn--sm" id="langBtn" title="English / Español" data-keep-mobile>ES</button>
+        <button type="button" class="btn btn--primary btn--sm" id="btnShare" data-keep-mobile><span data-view-label="shareAction">Share</span></button>
       </div>
 
       <a class="header-home" href="https://neorgon.com/" title="neorgon.com" aria-label="Neorgon home">
@@ -121,8 +123,15 @@
     </div>
   </header>
 
+  <nav class="workspace-nav" id="workspaceNav" aria-label="Hobby explorer">
+    <a href="#explore" data-view="explore" aria-current="page"><span data-view-label="explore">Explore</span></a>
+    <a href="#atlas" data-view="atlas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="5" cy="17" r="3"/><circle cx="12" cy="5" r="3"/><circle cx="20" cy="16" r="3"/><path d="m6.5 14.5 4-7m3 0 5 6M8 17h9"/></svg><span data-view-label="atlas">Atlas</span></a>
+    <a href="#mine" data-view="mine"><span data-view-label="mine">Your hobbies</span><span class="workspace-count" id="collectionCount" hidden>0</span></a>
+    <span class="workspace-nav__note" data-view-label="tagline">A world of interests. Yours to connect.</span>
+  </nav>
   <main id="main">
-    <div class="atlas">
+    <section class="explorer" id="explorer" aria-label="Browse hobbies"><div class="ex-loading" role="status">Opening the hobby atlas…</div></section>
+    <div class="atlas" id="atlasWorkspace">
       <div class="stage" id="stage">
         <!-- A canvas is one element with no accessible content, so the
              interactive truth lives in the sidebar beside it: search, the
@@ -131,9 +140,14 @@
         <canvas id="atlasCanvas" tabindex="0" role="img"
                 aria-label="Atlas of hobbies. Use the controls beside the map to search and select."></canvas>
 
-        <!-- Three segments by kind: zoom, navigation, paint options. The
-             Panel toggle is app chrome, not a map control; it lives in the
-             header, which the sheet can never cover. -->
+        <div class="node-compass" id="nodeCompass" role="group" aria-label="Follow connections" hidden></div>
+        <div class="atlas-choices" id="atlasChoices" role="group" aria-label="Connection choices" hidden></div>
+        <nav class="atlas-location" id="atlasLocation" aria-label="Map location"></nav>
+        <nav class="atlas-trail" id="atlasTrail" aria-label="Exploration trail" hidden></nav>
+        <button type="button" class="trail-library-btn" id="trailLibraryBtn" aria-haspopup="dialog">Trails</button>
+        <section class="journey journey--dock" id="journeyDock" hidden></section>
+
+        <!-- Zoom and framing stay visible; display preferences expand on demand. -->
         <div class="stage__tools" role="group" aria-label="Map controls">
           <div class="tools__seg" role="group" aria-label="Zoom">
             <button type="button" class="tool" id="zoomIn" aria-label="Zoom in">+</button>
@@ -143,11 +157,12 @@
             <button type="button" class="tool" id="fitBtn">Fit</button>
             <button type="button" class="tool" id="fitMineBtn">Fit mine</button>
           </div>
-          <div class="tools__seg" role="group" aria-label="Show on the map">
+          <details class="tools__options" id="mapOptions"><summary>Map options</summary><div class="tools__seg" role="group" aria-label="Show on the map">
+            <label class="atlas-region-picker"><span id="atlasRegionPrompt">Jump to section</span><select id="atlasRegion" aria-labelledby="atlasRegionPrompt"></select></label>
             <button type="button" class="tool" id="drawsOnBtn" aria-pressed="true" title="Show the links from hobbies to the crafts under them">Craft links</button>
             <button type="button" class="tool" id="labelBtn">Labels <span class="tool__val">auto</span></button>
-            <button type="button" class="tool" id="layersBtn" title="Step back to the main hobbies, or show the full network">Layers <span class="tool__val">full</span></button>
-          </div>
+            <button type="button" class="tool" id="layersBtn" title="Step back to the main hobbies, or show the full network">Layers <span class="tool__val">main</span></button>
+          </div></details>
         </div>
 
         <!-- Search floats over the map: finding a node is a map gesture, and
@@ -171,6 +186,7 @@
           <div class="stage__focus" id="focusChip" hidden></div>
           <div class="stage__focus" id="linkChip" hidden></div>
           <div class="stage__focus" id="pathChip" hidden></div>
+          <div class="stage__focus" id="traceChip" hidden></div>
         </div>
 
         <!-- Right-click quick menu; js/context-menu.js renders the content,
@@ -202,7 +218,7 @@
               <button type="button" class="btn btn--ghost btn--sm" id="innerClose">Back to the map</button>
             </header>
             <div class="inner__body">
-              <svg class="inner__svg" id="innerSvg" viewBox="0 0 100 100" role="presentation" aria-hidden="true"></svg>
+              <div class="inner__map"><svg class="inner__svg" id="innerSvg" viewBox="0 0 100 100" role="group" aria-label="Subtopic connections"></svg><div class="depth-focus" id="innerFocus"></div></div>
               <ul class="inner__list" id="innerList"></ul>
             </div>
           </div>
@@ -219,6 +235,11 @@
 
       <aside class="side" id="side" tabindex="-1" aria-label="Atlas controls">
         <p class="side__notice" id="notice" hidden></p>
+        <div class="side-tabs" role="group" aria-label="Atlas sidebar">
+          <button type="button" data-panel-tab="detail" aria-pressed="true">Details</button>
+          <button type="button" data-panel-tab="mine" aria-pressed="false">Your hobbies</button>
+          <button type="button" data-panel-tab="suggest" aria-pressed="false">Discover</button>
+        </div>
 
         <!-- A shared link never overwrites the visitor's own saved map; this
              card offers the honest outcomes instead. -->
@@ -256,6 +277,7 @@
           <div id="compareBody"></div>
         </section>
 
+        <section class="journey journey--panel" id="journeyPanel" hidden></section>
         <section class="panel" id="detailPanel" aria-labelledby="detailTitle">
           <h2 class="panel__title" id="detailTitle">Nothing selected</h2>
           <div id="detailBody">
@@ -263,12 +285,12 @@
           </div>
         </section>
 
-        <section class="panel" aria-labelledby="mineTitle">
+        <section class="panel" id="minePanel" aria-labelledby="mineTitle" hidden>
           <h2 class="panel__title" id="mineTitle">Your map <span class="pill" id="mineCount">0</span></h2>
           <div id="mineBody"></div>
         </section>
 
-        <section class="panel" aria-labelledby="suggestTitle">
+        <section class="panel" id="suggestPanel" aria-labelledby="suggestTitle" hidden>
           <h2 class="panel__title" id="suggestTitle">One step away</h2>
           <div id="suggestBody"></div>
         </section>
@@ -301,6 +323,17 @@
       <div class="sheet__body" id="sheetBody"></div>
     </div>
   </section>
+
+  <div class="modal" id="trailModal" hidden>
+    <div class="modal__backdrop" data-modal-close tabindex="-1" aria-hidden="true"></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="trailModalTitle" tabindex="-1">
+      <header class="modal__header">
+        <h2 id="trailModalTitle">A trail for your curiosity</h2>
+        <button type="button" class="btn btn--ghost btn--icon" data-modal-close aria-label="Close trails">×</button>
+      </header>
+      <div class="modal__body" id="trailLibrary"></div>
+    </div>
+  </div>
 
   <div class="modal" id="shareModal" hidden>
     <div class="modal__backdrop" data-modal-close tabindex="-1" aria-hidden="true"></div>

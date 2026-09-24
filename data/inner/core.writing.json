@@ -1,0 +1,119 @@
+{
+  "of": "core.writing",
+  "label": "Writing, find the form that fits",
+  "blurb": "Stories, observations, instructions, and revision. Different forms give the same curiosity somewhere new to go.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "core.writing.journaling",
+      "core.writing.short-fiction",
+      "core.writing.poetry",
+      "core.writing.worldbuilding",
+      "core.writing.revision",
+      "core.writing.documentation"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "core.writing.journaling",
+      "label": "Journaling",
+      "class": "notable",
+      "tags": [
+        "content",
+        "cheap-start"
+      ],
+      "blurb": "Write down a small detail from the day and why it stayed with you. A record becomes a source of ideas without needing an audience."
+    },
+    {
+      "id": "core.writing.short-fiction",
+      "label": "Short fiction",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "A character wants something, and something resists. A short form lets you explore one turn in a life without inventing the whole world first."
+    },
+    {
+      "id": "core.writing.poetry",
+      "label": "Poetry experiments",
+      "class": "node",
+      "tags": [
+        "content",
+        "audio",
+        "cheap-start"
+      ],
+      "blurb": "Sound, rhythm, and the work a line break can do. Try a constraint and see which unexpected phrase it helps you find."
+    },
+    {
+      "id": "core.writing.worldbuilding",
+      "label": "Worldbuilding",
+      "class": "node",
+      "tags": [
+        "content",
+        "fandom",
+        "research"
+      ],
+      "blurb": "Imagine how a place works through its customs, materials, and ordinary routines. Details matter when they change what someone can do there."
+    },
+    {
+      "id": "core.writing.revision",
+      "label": "Revision and editing",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "Read for one question at a time: meaning, structure, then the sentence. A finished draft is material to work with, rather than a verdict."
+    },
+    {
+      "id": "core.writing.documentation",
+      "label": "Writing useful instructions",
+      "class": "node",
+      "tags": [
+        "content",
+        "social",
+        "research"
+      ],
+      "blurb": "Explain a small task to someone who has not done it. Their questions reveal the steps that felt too obvious to mention."
+    }
+  ],
+  "edges": [
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.short-fiction",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.poetry",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.worldbuilding",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.revision",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.journaling",
+      "to": "core.writing.documentation",
+      "kind": "kin"
+    },
+    {
+      "from": "core.writing.short-fiction",
+      "to": "core.writing.revision",
+      "kind": "kin"
+    }
+  ]
+}

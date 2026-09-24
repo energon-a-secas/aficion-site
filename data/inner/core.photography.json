@@ -1,0 +1,117 @@
+{
+  "of": "core.photography",
+  "label": "Photography, beyond the shutter",
+  "blurb": "Different ways to pay attention to light, people, and small details. A phone is enough to explore several of them.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "core.photography.composition",
+      "core.photography.natural-light",
+      "core.photography.street",
+      "core.photography.macro",
+      "core.photography.portraits",
+      "core.photography.photo-essays"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "core.photography.composition",
+      "label": "Composition",
+      "class": "notable",
+      "tags": [
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Position, framing, and the choice to leave something out. The same subject can tell very different stories from a step to the left."
+    },
+    {
+      "id": "core.photography.natural-light",
+      "label": "Natural light",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "cheap-start"
+      ],
+      "blurb": "Window light, shade, and the short intervals when ordinary places look different. Learn to notice the light before choosing the settings."
+    },
+    {
+      "id": "core.photography.street",
+      "label": "Street photography",
+      "class": "node",
+      "tags": [
+        "outdoors",
+        "patience"
+      ],
+      "blurb": "Gestures, layers, and fleeting arrangements in shared places. Observation and respect for the people around you are part of the practice."
+    },
+    {
+      "id": "core.photography.macro",
+      "label": "Close-up photography",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "patience",
+        "gear"
+      ],
+      "blurb": "Small subjects become landscapes. Working distance, steady framing, and light matter as much as magnification."
+    },
+    {
+      "id": "core.photography.portraits",
+      "label": "Portraits",
+      "class": "node",
+      "tags": [
+        "social",
+        "hands-on"
+      ],
+      "blurb": "A photograph made with someone, rather than simply of them. Expression, comfort, and where the light falls all shape the result."
+    },
+    {
+      "id": "core.photography.photo-essays",
+      "label": "Photo essays",
+      "class": "node",
+      "tags": [
+        "content",
+        "patience"
+      ],
+      "blurb": "A set of pictures that says more than a single frame. Sequence, repetition, and the image you decide to remove become the work."
+    }
+  ],
+  "edges": [
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.natural-light",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.street",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.macro",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.portraits",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.composition",
+      "to": "core.photography.photo-essays",
+      "kind": "kin"
+    },
+    {
+      "from": "core.photography.natural-light",
+      "to": "core.photography.portraits",
+      "kind": "kin"
+    }
+  ]
+}

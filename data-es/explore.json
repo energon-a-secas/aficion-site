@@ -1,0 +1,148 @@
+{
+  "families": [
+    {
+      "id": "make",
+      "label": "Crear y construir",
+      "blurb": "Piezas pequeñas, proyectos prácticos y la satisfacción de hacer que algo funcione.",
+      "clusters": [
+        "maker",
+        "model",
+        "rail",
+        "brick",
+        "figure",
+        "cosplay"
+      ]
+    },
+    {
+      "id": "outside",
+      "label": "Naturaleza y aire libre",
+      "blurb": "Desde una ventana hasta un sendero, observa más del mundo que te rodea.",
+      "clusters": [
+        "outdoor",
+        "garden",
+        "astro"
+      ]
+    },
+    {
+      "id": "stories",
+      "label": "Historias e imaginación",
+      "blurb": "Lee, mira, colecciona y trae los mundos de ficción al tuyo.",
+      "clusters": [
+        "book",
+        "anime",
+        "film",
+        "starwars"
+      ]
+    },
+    {
+      "id": "play",
+      "label": "Jugar y coleccionar",
+      "blurb": "Juegos para compartir, sistemas por descubrir y favoritos que vale la pena conservar.",
+      "clusters": [
+        "tabletop",
+        "game",
+        "retro"
+      ]
+    },
+    {
+      "id": "everyday",
+      "label": "Cocina y rituales cotidianos",
+      "blurb": "Prepara una comida, ajusta una receta o convierte tu taza de la mañana en un experimento.",
+      "clusters": [
+        "kitchen",
+        "coffee"
+      ]
+    },
+    {
+      "id": "signals",
+      "label": "Sonido, imagen y señales",
+      "blurb": "Haz música, cuenta una historia en pantalla o descubre qué viaja por el aire.",
+      "clusters": [
+        "music",
+        "video",
+        "radio",
+        "drone"
+      ]
+    }
+  ],
+  "featuredCategories": [
+    "outdoor",
+    "kitchen",
+    "book",
+    "music",
+    "garden",
+    "maker",
+    "tabletop",
+    "coffee",
+    "model",
+    "video",
+    "game",
+    "astro"
+  ],
+  "feature": {
+    "examples": [
+      {
+        "id": "coffee-to-sabers",
+        "label": "Café",
+        "title": "Del espresso a los sables de luz.",
+        "blurb": "Un proyecto con una cafetera lleva a la electrónica y los sables de luz personalizados. Sigue esa habilidad o toma un desvío hacia el sonido.",
+        "path": ["coffee.espresso", "coffee.machine-mods", "core.electronics", "starwars.pixel-saber"],
+        "notes": ["El espresso conecta con la afición de modificar la máquina que lo prepara.", "Modificar una cafetera se apoya en la electrónica.", "Los sables de píxeles personalizados usan esa misma habilidad electrónica."],
+        "branch": { "from": "core.electronics", "to": "music.modular", "note": "La electrónica también abre una puerta a los sintetizadores modulares." },
+        "depth": { "parent": "coffee.espresso", "node": "coffee.espresso.dialling" }
+      },
+      {
+        "id": "miniatures-to-living-worlds",
+        "label": "Miniaturas",
+        "title": "Crea un mundo. Luego hazlo crecer.",
+        "blurb": "El ojo para un paisaje en miniatura sirve en terrarios, plantas de interior y propagación. Otra rama lleva el paisaje bajo el agua.",
+        "path": ["model.dioramas", "garden.terrariums", "garden.houseplants", "garden.propagation"],
+        "notes": ["Los dioramas y los terrarios componen paisajes a pequeña escala.", "Los terrarios conectan con el mundo de las plantas de interior.", "Cultivar plantas de interior puede llevar a propagarlas y compartirlas."],
+        "branch": { "from": "garden.terrariums", "to": "garden.aquascaping", "note": "Los terrarios conectan con el paisajismo acuático: paisajes bajo el agua." },
+        "depth": { "parent": "garden.houseplants", "node": "garden.houseplants.light" }
+      },
+      {
+        "id": "birds-to-galaxies",
+        "label": "Aves",
+        "title": "De las aves del jardín a galaxias lejanas.",
+        "blurb": "El interés por las aves puede llevarte de la fotografía al cielo nocturno. Esa misma habilidad con la cámara también sirve para algo tan cercano como la cena.",
+        "path": ["outdoor.birdwatching", "core.photography", "astro.astrophoto", "astro.deep-sky"],
+        "notes": ["La observación de aves conecta con la fotografía de lo que descubres.", "La fotografía también es la base de la astrofotografía.", "La astrofotografía se ramifica hacia las imágenes de cielo profundo."],
+        "branch": { "from": "core.photography", "to": "kitchen.food-photo", "note": "La fotografía gastronómica se apoya en esa misma habilidad con la cámara." },
+        "depth": { "parent": "core.photography", "node": "core.photography.composition" }
+      }
+    ]
+  },
+  "starters": {
+    "core.photography": "Fotografía un objeto cotidiano desde cinco ángulos con un teléfono y la luz de una ventana. Elige el encuadre que mejor cuente su historia.",
+    "core.writing": "Describe un lugar conocido en 150 palabras sin nombrarlo. Pregunta a alguien qué imaginó y luego revisa un detalle.",
+    "core.painting": "Mezcla tres tonos de un color y píntalos en un cartón de descarte. Observa cómo cambia cada tono junto a uno más claro u oscuro.",
+    "core.programming": "Crea un pequeño programa que elija al azar un elemento de una lista de intereses. Cambia la lista y explica cada línea con tus palabras.",
+    "music.guitar": "Elige dos acordes que conozcas o quieras aprender. Alterna entre ellos lentamente durante cinco minutos, escuchando cada cuerda.",
+    "coffee.espresso": "Mantén los mismos granos y la misma dosis durante unas tazas. Anota el peso de la bebida y su sabor antes de cambiar una sola variable.",
+    "coffee.pourover": "Usa un método de preparación que ya tengas. Pesa el café y el agua para una taza y anota qué cambiarías la próxima vez.",
+    "garden.houseplants": "Observa una planta durante una semana. Anota dónde recibe luz y cómo cambia el sustrato entre riegos antes de ajustar sus cuidados.",
+    "garden.bonsai": "Dibuja el tronco y las ramas principales de un árbol cercano. Busca su línea más marcada antes de pensar en dar forma a un bonsái.",
+    "garden.herbs": "Elige una hierba que ya uses al cocinar y conoce sus necesidades de luz y riego. Empieza con una maceta en un lugar que veas a diario.",
+    "maker.arduino": "Abre el ejemplo Blink en una placa que ya tengas o en un simulador. Cambia los tiempos y explica qué hace cada espera.",
+    "maker.cad": "Modela una caja sencilla con medidas de un objeto de tu escritorio. Cambia una medida y observa qué partes del diseño se adaptan.",
+    "model.gunpla": "Elige una sección pequeña de un kit, como un brazo. Lee toda esa parte del manual, móntala sin pintar y observa cómo encajan las piezas.",
+    "figure.mini-painting": "Prueba una combinación de tres colores en una figura de prueba o un dibujo. Mantén legibles las formas antes de añadir detalles pequeños.",
+    "rail.layout": "Dibuja una maqueta pequeña en papel y sigue el recorrido de un tren. Comprueba que cada vía tenga un propósito antes de añadir otra.",
+    "brick.moc": "Construye algo reconocible con solo 20 piezas que ya tengas. El límite ayuda a encontrar nuevos usos para piezas conocidas.",
+    "cosplay.armour": "Dibuja una pieza pequeña de un disfraz y haz una maqueta de papel. Comprueba cómo se mueve contigo antes de elegir el material final.",
+    "tabletop.boardgames": "Juega algo conocido e identifica la decisión que lo hace interesante. Explica esa decisión primero la próxima vez que enseñes las reglas.",
+    "tabletop.ttrpg": "Inventa un lugar, alguien que quiera algo allí y un problema que se lo impida. Basta para crear una escena breve con otra persona.",
+    "book.fiction": "Lee las primeras páginas de un libro que ya tengas. Anota cuándo quisiste saber qué pasaba después y qué provocó esa curiosidad.",
+    "film.horror": "Vuelve a una escena de una película conocida. Anota qué te cuenta el sonido antes de que aparezca algo inquietante en la imagen.",
+    "anime.mecha": "Compara dos diseños de robots de una serie que te guste. Dibuja sus siluetas y piensa cómo sugiere cada diseño una función distinta.",
+    "outdoor.hiking": "Elige un paseo corto y conocido y mira su ruta en un mapa. Después compara el mapa con los puntos de referencia que observaste.",
+    "outdoor.birdwatching": "Observa un ave a una distancia respetuosa durante cinco minutos. Anota su forma, movimientos, sonido y entorno antes de intentar identificarla.",
+    "kitchen.baking": "Repite una receta conocida, pesando los ingredientes esta vez. Anota una observación sobre la masa antes de meterla al horno.",
+    "kitchen.cooking": "Cocina un plato conocido y anota el orden de sus pasos. La próxima vez prepara los ingredientes en ese orden y observa qué resulta más fácil.",
+    "video.editing": "Monta cinco clips en una secuencia de 30 segundos con un inicio y un final. Mírala sin sonido para comprobar si el orden sigue teniendo sentido.",
+    "astro.visual": "Desde un lugar de observación conocido, dibuja la posición de tres estrellas brillantes. Vuelve otra noche y compara dónde aparecen.",
+    "game.gamedev": "Esboza un juego con una acción y una meta. Prueba sus reglas en papel antes de decidir qué necesita una pantalla.",
+    "retro.consoles": "Elige un juego que recuerdes y documenta sus controles, sonido y un detalle que habías olvidado. Registra por qué vale la pena conservarlo."
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "of": "maker.arduino",
+  "label": "Arduino, from blink to a small idea",
+  "blurb": "Explore code and low-voltage circuits through small, understandable changes. Each part answers a different question.",
+  "layout": {
+    "recipe": "ring",
+    "anchor": [
+      0,
+      0
+    ],
+    "radius": 150,
+    "startAngle": -90,
+    "order": [
+      "maker.arduino.simulation",
+      "maker.arduino.inputs",
+      "maker.arduino.sensors",
+      "maker.arduino.feedback",
+      "maker.arduino.debugging",
+      "maker.arduino.enclosures"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "maker.arduino.simulation",
+      "label": "Circuit simulation",
+      "class": "notable",
+      "tags": [
+        "code",
+        "electronics",
+        "cheap-start"
+      ],
+      "blurb": "Try a simple circuit virtually and inspect what each component contributes. A simulator gives ideas somewhere to fail without consuming parts."
+    },
+    {
+      "id": "maker.arduino.inputs",
+      "label": "Buttons and input",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "code",
+        "hands-on"
+      ],
+      "blurb": "Give a project a button, then decide what a press means. A tiny interaction introduces state, timing, and feedback."
+    },
+    {
+      "id": "maker.arduino.sensors",
+      "label": "Reading sensors",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "research",
+        "code"
+      ],
+      "blurb": "Turn a measurement into a value you can inspect. Compare readings before making the project react to them."
+    },
+    {
+      "id": "maker.arduino.feedback",
+      "label": "Light and sound feedback",
+      "class": "node",
+      "tags": [
+        "electronics",
+        "audio",
+        "code"
+      ],
+      "blurb": "Use a small light or sound to communicate what a project is doing. Clear feedback can explain a device without a screen."
+    },
+    {
+      "id": "maker.arduino.debugging",
+      "label": "Serial debugging",
+      "class": "node",
+      "tags": [
+        "code",
+        "research",
+        "cheap-start"
+      ],
+      "blurb": "Print what the code believes is happening, then compare it with the circuit. Small observations narrow a confusing fault to a question you can test."
+    },
+    {
+      "id": "maker.arduino.enclosures",
+      "label": "A home for the project",
+      "class": "node",
+      "tags": [
+        "hands-on",
+        "kits"
+      ],
+      "blurb": "Plan where the board, wires, and controls will sit. A cardboard mock-up reveals awkward button positions before you make anything permanent."
+    }
+  ],
+  "edges": [
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.inputs",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.sensors",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.feedback",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.debugging",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.simulation",
+      "to": "maker.arduino.enclosures",
+      "kind": "kin"
+    },
+    {
+      "from": "maker.arduino.inputs",
+      "to": "maker.arduino.debugging",
+      "kind": "kin"
+    }
+  ]
+}

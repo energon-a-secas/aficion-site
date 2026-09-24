@@ -60,7 +60,7 @@
       "aka": ["road cycling", "gravel", "mountain biking"]
     },
     {
-      "id": "outdoor.birdwatching",
+      "id": "outdoor.birdwatching", "inner": true,
       "label": "Observación de aves",
       "class": "node",
       "tags": ["outdoors", "patience", "research", "collecting"],

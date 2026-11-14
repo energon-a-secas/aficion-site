@@ -26,7 +26,7 @@ function preview(s) {
 
 export function featureMarkup(s) {
   if (!selectedExample(s)) return '';
-  return `<section class="ex-feature" id="exploreFeature" aria-labelledby="featureTitle"><p class="ex-eyebrow">${say(s, 'See how far one interest goes', 'Descubre hasta dónde lleva un interés')}</p><div id="featurePreview">${preview(s)}</div></section>`;
+  return `<section class="ex-feature" id="exploreFeature" aria-labelledby="featureTitle"><p class="ex-eyebrow">${say(s, 'Example paths', 'Rutas de ejemplo')}</p><div id="featurePreview">${preview(s)}</div></section>`;
 }
 
 export function changeExample(s, id) {

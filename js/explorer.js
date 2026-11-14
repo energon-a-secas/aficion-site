@@ -32,9 +32,12 @@ function familyNavigation(s) {
   </aside>`;
 }
 
+// The header names the atlas, so the home view opens on its example and its controls. The
+// heading stays for screen readers and as the focus target a route change moves to, and the
+// element stays as the anchor positionFeature() places the example after on wide screens.
 function hero(s) {
   const c = copy(s);
-  return `<header class="ex-hero"><div><p class="ex-eyebrow">${c.eyebrow}</p><h2 id="exploreHeading" tabindex="-1">${c.headline}</h2><p class="ex-intro">${c.intro}</p><p class="ex-hero__note">${icon('bookmark', 15)} ${c.local}</p></div></header>`;
+  return `<div class="ex-hero"><h2 class="sr-only" id="exploreHeading" tabindex="-1">${c.explore}</h2></div>`;
 }
 
 function searchBox(s) {
@@ -83,9 +86,9 @@ function listing(s) {
   const family = ex.content.families.find((f) => f.id === ex.route.family);
   const cluster = s.atlas.clusters.get(ex.route.cluster);
   if ((ex.route.family && !family) || (ex.route.cluster && !cluster)) return unavailable(s);
-  const intro = mine ? `<header class="ex-list-intro"><p class="ex-eyebrow">${c.mine} · ${s.profile.n.length}</p><h2 id="exploreHeading" tabindex="-1">${c.collectionTitle}</h2><p class="ex-intro">${c.collectionIntro}</p>${s.profile.n.length ? `<div class="toolbar"><button type="button" class="btn btn--secondary" data-ex="my-atlas">${c.openMap}</button><button type="button" class="btn btn--ghost" data-act="sheet-open">${c.viewSummary}</button><button type="button" class="btn btn--ghost" data-ex="share">${c.share}</button></div>` : ''}</header>`
+  const intro = mine ? `<header class="ex-list-intro"><h2 id="exploreHeading" tabindex="-1">${c.mine}</h2>${s.profile.n.length ? `<div class="toolbar"><button type="button" class="btn btn--secondary" data-ex="my-atlas">${c.openMap}</button><button type="button" class="btn btn--ghost" data-act="sheet-open">${c.viewSummary}</button><button type="button" class="btn btn--ghost" data-ex="share">${c.share}</button></div>` : ''}</header>`
     : cluster || family ? `<header class="ex-list-intro"><p class="ex-eyebrow">${cluster ? c.hobbies : c.directions}</p><h2 id="exploreHeading" tabindex="-1">${esc((cluster || family).label)}</h2><p class="ex-intro">${esc((cluster || family).blurb)}</p>${cluster ? `<button type="button" class="ex-text-button" data-ex="map-cluster" data-cluster="${esc(cluster.id)}">${c.openMap} ${icon('arrow', 16)}</button>` : ''}</header>` : '';
-  if (mine && !s.profile.n.length) return `${intro}<div class="ex-empty ex-empty--collection">${icon('bookmark', 36)}<h3>${c.emptyTitle}</h3><p>${c.emptyHint}</p><a href="#explore" class="btn btn--primary">${c.start} ${icon('arrow', 17)}</a><p class="ex-caption">${c.local}</p></div>`;
+  if (mine && !s.profile.n.length) return `${intro}<div class="ex-empty ex-empty--collection">${icon('bookmark', 36)}<h3>${c.emptyTitle}</h3><p>${c.emptyHint}</p><a href="#explore" class="btn btn--primary">${c.start} ${icon('arrow', 17)}</a></div>`;
   return `${intro}${searchBox(s)}<div id="exploreResults">${resultsMarkup(s)}</div>`;
 }
 

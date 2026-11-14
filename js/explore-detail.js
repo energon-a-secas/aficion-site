@@ -55,7 +55,6 @@ export function detailPage(s, node) {
       <h2 id="exploreHeading" tabindex="-1">${esc(node.label)}</h2>
       <p class="ex-intro">${esc(node.blurb)}</p>
       <div class="ex-detail__actions">${saveButton(s, node)}<button type="button" class="btn btn--ghost" data-ex="map-node" data-node="${esc(node.id)}">${icon('network', 17)} ${c.openMap}</button></div>
-      <p class="ex-caption">${c.local}</p>
       <nav class="ex-jump" aria-label="${c.advanced}">${children.length ? `<button type="button" data-ex="jump" data-target="subtopicsHeading">${c.subtopics} <span>${children.length}</span></button>` : ''}<button type="button" data-ex="jump" data-target="connectionsHeading">${c.connections} ${icon('arrow', 14)}</button></nav>
     </header>
     ${guide && !parent ? `<section class="ex-first"><span class="ex-first__number" aria-hidden="true">01</span><div><h3>${c.first}</h3><p>${esc(guide)}</p></div></section>` : ''}

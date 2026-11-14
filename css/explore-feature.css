@@ -1,8 +1,16 @@
 /* The homepage example is a usable slice of the atlas. */
 .ex-wrap--home { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 38px 48px; align-items: center; }
-.ex-wrap--home > .ex-hero { display: block; margin: 0; }
-.ex-wrap--home > .ex-layout, .ex-wrap--home > .ex-load-note { grid-column: 1 / -1; }
-.ex-feature { min-width: 0; padding: 0 0 0 30px; border-left: 1px solid var(--ex-line); }
+/* The home view has no hero: .ex-hero holds only the visually hidden heading, so it takes no
+   cell, and the example spans the first row with its story beside its map. */
+.ex-wrap--home > .ex-hero { display: contents; }
+.ex-wrap--home > .ex-layout, .ex-wrap--home > .ex-load-note, .ex-wrap--home > .ex-feature { grid-column: 1 / -1; }
+.ex-feature { min-width: 0; padding: 0 0 30px; border-bottom: 1px solid var(--ex-line); }
+.ex-wrap--home #featurePreview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); grid-template-areas: "picker map" "story map" "branches map" "open map"; column-gap: 48px; align-items: start; }
+.ex-feature__picker { grid-area: picker; }
+.ex-feature__story { grid-area: story; }
+.ex-feature__map { grid-area: map; align-self: center; }
+.ex-feature__branches { grid-area: branches; margin-top: 18px; }
+.ex-feature__open { grid-area: open; }
 .ex-feature > .ex-eyebrow { margin-bottom: 10px; letter-spacing: .07em; }
 .ex-feature__picker { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; border-bottom: 1px solid var(--ex-line); }
 .explorer .ex-feature__picker button { padding: 7px 0 10px; min-height: 42px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--ex-quiet); font-size: 12px; }
@@ -37,18 +45,18 @@
 .ex-feature__open svg { flex-shrink: 0; }
 @media (max-width: 1100px) {
   .ex-wrap--home { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 32px; }
-  .ex-feature { padding-left: 24px; }
   .ex-feature__branches { grid-template-columns: 1fr; gap: 12px; }
   .ex-feature__branch > svg { display: block; }
 }
 @media (max-width: 780px) {
   .ex-wrap--home { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
-  .ex-wrap--home > .ex-hero { order: 0; margin-bottom: 24px; }
+  .ex-wrap--home #featurePreview { display: block; }
   .ex-wrap--home > .ex-load-note { order: 1; }
   .ex-wrap--home .ex-layout, .ex-wrap--home .ex-content { display: contents; }
   .ex-wrap--home .ex-sidebar { order: 2; margin: 0 0 16px; }
   .ex-wrap--home .ex-search-area { order: 3; margin-bottom: 28px; }
-  .ex-feature { order: 4; border-left: 0; border-top: 1px solid var(--ex-line); padding: 24px 0 26px; margin-bottom: 24px; border-bottom: 1px solid var(--ex-line); }
+  .ex-feature { order: 4; border-top: 1px solid var(--ex-line); padding: 24px 0 26px; margin-bottom: 24px; border-bottom: 1px solid var(--ex-line); }
+  .ex-feature__branches { margin-top: 0; }
   .ex-wrap--home #exploreResults { order: 5; }
   .ex-wrap--home.is-searching .ex-feature { display: none; }
   .ex-feature__branches { grid-template-columns: 1fr 1fr; }

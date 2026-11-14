@@ -1,5 +1,5 @@
 const en = {
-  moreMenu: 'More', shareAction: 'Share',
+  moreMenu: 'More', shareAction: 'Share', footerNote: 'Runs in your browser. Nothing you mark is sent anywhere.',
   copyHobby: 'Copy link to this hobby', copied: 'Hobby link copied.',
   explore: 'Explore', atlas: 'Atlas', mine: 'Your hobbies', directions: 'Choose a direction', all: 'All directions',
   search: 'Search hobbies, skills, or subtopics', searchHint: 'Try photography, baking, or worldbuilding',
@@ -30,7 +30,7 @@ const en = {
   saveFeedback: 'Saved to your hobbies.', removeFeedback: 'Removed from your hobbies.',
 };
 const es = {
-  moreMenu: 'Más', shareAction: 'Compartir',
+  moreMenu: 'Más', shareAction: 'Compartir', footerNote: 'Funciona en tu navegador. Nada de lo que marcas se envía a ninguna parte.',
   copyHobby: 'Copiar enlace a esta afición', copied: 'Enlace copiado.',
   explore: 'Explorar', atlas: 'Atlas', mine: 'Tus aficiones', directions: 'Elige una dirección', all: 'Todas las direcciones',
   search: 'Buscar aficiones, habilidades o subtemas', searchHint: 'Prueba fotografía, repostería o mundos de ficción',

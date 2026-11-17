@@ -51,7 +51,7 @@ function categoryRows(s, categories) {
   const c = copy(s);
   return `<ul class="ex-categories">${categories.map((cluster) => {
     const samples = cluster.nodeIds.slice(0, 3).map((id) => s.atlas.nodes.get(id).label).join(' · ');
-    return `<li><a href="#category=${esc(cluster.id)}"><span class="ex-category__text"><span class="ex-category__name">${esc(cluster.label)}</span><span class="ex-category__samples">${esc(samples)}</span></span><span class="ex-category__count">${cluster.nodeIds.length}</span>${icon('arrow', 18)}</a></li>`;
+    return `<li><a href="#category=${esc(cluster.id)}"><span class="ex-category__text"><span class="ex-category__name">${esc(cluster.label)}</span><span class="ex-category__samples">${esc(samples)}</span></span><span class="ex-category__count">${cluster.nodeIds.length} ${cluster.nodeIds.length === 1 ? c.hobby : c.hobbies}</span>${icon('arrow', 18)}</a></li>`;
   }).join('')}</ul><p class="ex-caption ex-list-note">${c.hobbies} / ${c.subtopics}</p>`;
 }
 
@@ -66,7 +66,7 @@ export function resultsMarkup(s) {
     const rank = (cluster) => order.includes(cluster.id) ? order.indexOf(cluster.id) : order.length;
     const clusters = [...s.atlas.clusters.values()].sort((a, b) => rank(a) - rank(b)).filter((cluster) => !family || family.clusters.includes(cluster.id));
     const visible = clusters.slice(0, ex.limit);
-    return `<div class="ex-section-head"><div><h3>${c.categories}</h3><p>${c.categoryHint}</p></div><span class="ex-total">${clusters.length}</span></div>${categoryRows(s, visible)}
+    return `<div class="ex-section-head"><h3>${c.categories}</h3></div>${categoryRows(s, visible)}
       ${visible.length < clusters.length ? `<button type="button" class="ex-more" data-ex="more">${c.allCategories} (${clusters.length}) ${icon('arrow', 16)}</button>` : ''}`;
   }
   let records = ex.records;
@@ -74,7 +74,7 @@ export function resultsMarkup(s) {
   if (!ex.query.trim()) records = records.filter((n) => !parentId(n.id) || route.view === 'mine');
   const hits = searchHobbies(records, ex.query, { cluster: route.cluster, filter: ex.filter, saved: route.view === 'mine' ? new Set(s.profile.n) : null });
   const visible = hits.slice(0, ex.limit);
-  return `<div class="ex-results-heading"><h3>${route.cluster && !searching ? c.hobbies : c.results}</h3><span role="status">${hits.length} ${c.results}</span></div>
+  return `<div class="ex-results-heading"><h3>${route.cluster && !searching ? c.hobbies : c.results}</h3><span role="status">${hits.length} ${hits.length === 1 ? c.result : c.results}</span></div>
     ${hits.length ? `<ul class="ex-hobbies">${visible.map((node) => hobbyRow(s, node)).join('')}</ul>` : `<div class="ex-empty"><h3>${c.noResults}</h3><p>${c.noResultsHint}</p><button type="button" class="ex-text-button" data-ex="reset">${c.reset}</button></div>`}
     ${hits.length > visible.length ? `<button type="button" class="ex-more" data-ex="more">${c.more} (${hits.length - visible.length}) ${icon('arrow', 16)}</button>` : ''}`;
 }
